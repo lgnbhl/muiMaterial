@@ -45,7 +45,7 @@ You can run the showcase Shiny app with:
 shinyMaterialUI::runShowcase()
 ```
 
-A dashboard example is also available [here](https://github.com/lgnbhl/shinyMaterialUI/inst/dashboard).
+A dashboard example is also available [here](https://github.com/lgnbhl/shinyMaterialUI/tree/main/inst/dashboard).
 
 ### Shiny inputs wrappers
 
