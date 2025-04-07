@@ -14,7 +14,6 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 `r badger::badge_custom(names(dependencies)[5], dependencies[5], "blue", "https://mui.com/material-ui/getting-started/")`
 [![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
-[![R-CMD-check](https://github.com/lgnbhl/mui.material/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/mui.material/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 # shinyMaterialUI
