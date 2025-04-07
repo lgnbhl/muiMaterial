@@ -8,9 +8,10 @@ status](https://www.r-pkg.org/badges/version/shinyMaterialUI)](https://CRAN.R-pr
 [![](https://img.shields.io/badge/@mui/material-%5E7.0.1-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![Lifecycle:
 experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![R-CMD-check](https://github.com/lgnbhl/mui.material/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/mui.material/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-# shinyMaterialUI <img src="man/figures/logo.png" align="right" height="138" />
+# shinyMaterialUI
 
 The goal of **shinyMaterialUI** is to provide a wrapper around [Material
 UI](https://mui.com/material-ui/getting-started/), known as the most

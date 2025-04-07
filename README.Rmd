@@ -17,7 +17,7 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 [![R-CMD-check](https://github.com/lgnbhl/mui.material/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/mui.material/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
-# shinyMaterialUI <img src="man/figures/logo.png" align="right" height="138" />
+# shinyMaterialUI
 
 The goal of **shinyMaterialUI** is to provide a wrapper around [Material UI](https://mui.com/material-ui/getting-started/), known as the most popular React framework.
 
