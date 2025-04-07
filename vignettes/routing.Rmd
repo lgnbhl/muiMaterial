@@ -1,0 +1,180 @@
+---
+title: "Using a router"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{with-router}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+### with shiny.router
+
+Below an example using Mui material with the [shiny.router](https://appsilon.github.io/shiny.router/) R package.
+
+Note that using `CssBaseline()` at top level doesn't work with shiny.router. `CssBaseline()` should be used only at the lower level, as showed below. 
+
+```{r eval=FALSE, message=FALSE, warning=FALSE}
+library(shiny)
+library(shinyMaterialUI)
+library(shiny.router)
+
+Header <- CssBaseline(
+  Box(
+    sx = list(flexGrow = 1),
+    AppBar(
+      position = "static",
+      Toolbar(
+        IconButton(
+          shiny::icon("home"),
+          href = route_link("#!/"),
+          size = "large",
+          edge = "start",
+          color = "inherit",
+          'aria-label' = "home",
+          sx = list(mr = 2)
+        ),
+        Link(
+          "Other",
+          href = route_link("#!/other"),
+          underline = "none",
+          edge = "start",
+          color = "inherit",
+          'aria-label' = "other",
+          sx = list(mr = 2)
+        )
+      )
+    )
+  )
+)
+
+Main <- CssBaseline(
+  Box(
+    sx = list(display = "flex", alignItems = "center", p = 2),
+    Typography("Main content.")
+  )
+)
+
+otherPage <- CssBaseline(
+  Box(
+    sx = list(display = "flex", alignItems = "center", p = 2),
+    Typography("Other content.")
+  )
+)
+
+ui <- shinyMaterialUIPage( # using CssBaseline() here doesn't work with shiny.router
+  Header,
+  router_ui(
+    route("/", Main),
+    route("other", otherPage)
+  )
+)
+
+server <- function(input, output, session) {
+  router_server()
+}
+
+shinyApp(ui, server)
+```
+
+### with shinyReactRouter
+
+More info about shinyReactRouter [here](https://github.com/lgnbhl/shinyReactRouter).
+
+```{r}
+# remotes::install_github("lgnbhl/shinyReactRouter")
+library(shinyMaterialUI)
+library(shinyReactRouter)
+library(shiny)
+
+ui <- shinyMaterialUIPage(
+  shinyReactRouter::HashRouter(
+    CssBaseline(
+    Typography("shinyReactRouter with shinyMaterialUI", variant = "h5", m = 2),
+    Stack(
+      direction = "row", spacing = 2, p = 2,
+      Paper(
+        MenuList(
+          shinyReactRouter::NavLink.shinyInput(
+            inputId = "page_home",
+            to = "/",
+            style = JS('({isActive}) => { return isActive ? {color: "red", textDecoration:"none"} : { textDecoration: "none" }; }'),
+            MenuItem(
+              "home"
+            )
+          ),
+          br(),
+          shinyReactRouter::NavLink.shinyInput(
+            inputId = "page_analysis",
+            to = "/analysis",
+            style = JS('({isActive}) => { return isActive ? {color: "red", textDecoration: "none"} : { textDecoration: "none" }; }'),
+            MenuItem(
+              "Analysis"
+            )
+          ),
+          br(),
+          shinyReactRouter::NavLink.shinyInput(
+            inputId = "page_about",
+            to = "/about",
+            style = JS('({ isActive }) => { return isActive ? { color: "red", textDecoration: "none" } : { textDecoration: "none" }; }'),
+            MenuItem(
+              "About"
+            )
+          )
+        )
+      ),
+      Box(
+        shinyReactRouter::Routes(
+          shinyReactRouter::Route(
+            path = "/",
+            element = div(
+              tags$h1("Home page"),
+              tags$h4("A basic example of shinyReactRouter with shinyMaterialUI."),
+              uiOutput(outputId = "contentHome")
+            )
+          ),
+          shinyReactRouter::Route(
+            path = "/analysis",
+            element = div(
+              tags$h1("Analysis"),
+              uiOutput(outputId = "contentAnalysis")
+              )
+          ),
+          shinyReactRouter::Route(
+            path = "/about",
+            element = uiOutput(outputId = "contentAbout")
+          ),
+          shinyReactRouter::Route(path = "*", element = div(tags$p("Error 404")))
+        )
+      )
+    )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  
+  # Content for Home page
+  output$contentHome <- renderUI({
+    p("Content home")
+  }) |> 
+    shiny::bindEvent("page_home")
+  
+  # Content for Analysis page
+  output$contentAnalysis <- renderUI({
+    p("Content analysis")
+  }) |> 
+    shiny::bindEvent("page_analysis")
+  
+  # Content for About page
+  output$contentAbout <- renderUI({
+    div(
+      tags$h1("About"),
+      p("Content about")
+    )
+  }) |> 
+    shiny::bindEvent("page_about")
+
+}
+
+shinyApp(ui, server)
+```

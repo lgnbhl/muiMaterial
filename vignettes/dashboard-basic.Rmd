@@ -1,0 +1,104 @@
+---
+title: "Basic Dashboarding"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{basic-dashboard}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+### Horizontal dashboard
+
+```{r}
+library(shiny)
+library(shinyMaterialUI)
+
+Header <- TabContext.shinyInput(
+  inputId = "context",
+  value = "1",
+  Box(sx = list(borderBottom = 1, borderColor = 'divider'),
+      TabList.shinyInput(
+        inputId = "tabList",
+        value = "1",
+        Tab(label="Item One", value = "1"),
+        Tab(label="Item Two", value = "2"),
+        Tab(label="Item Three", value = "3")
+      )
+  ),
+  TabPanel.shinyInput(inputId = "tab1", value = "1", "Content 1"),
+  TabPanel.shinyInput(inputId = "tab2", value = "2", "Content 2"),
+  TabPanel.shinyInput(inputId = "tab3", value = "3", "Content 3")
+)
+
+ui <- shinyMaterialUIPage(
+  suppressBootstrap = FALSE,
+  Header
+)
+
+server <- function(input, output) {
+  observeEvent(input$tabList, {
+    updateTabContext.shinyInput(inputId = "context", value = input$tabList)
+  })
+}
+
+if (interactive()) {
+  shinyApp(ui = ui, server = server)
+}
+```
+
+### Vertical dashboard
+
+```{r}
+library(shiny)
+library(shinyMaterialUI)
+
+Sidebar <- TabContext.shinyInput(
+  inputId = "context",
+  value = "1",
+  Stack(
+    direction="row", 
+    spacing = 2, 
+    TabList.shinyInput(
+      inputId = "tabList",
+      orientation = "vertical",
+      value = "1",
+      #Typography("Inputs", m = 1),
+      Tab(label="Item One", value = "1"),
+      Tab(label="Item Two", value = "2"),
+      Tab(label="Item Three", value = "3")
+    ),
+    TabPanel.shinyInput(inputId = "tab1", value = "1", "Content 1"),
+    TabPanel.shinyInput(inputId = "tab2", value = "2", "Content 2"),
+    TabPanel.shinyInput(inputId = "tab3", value = "3", "Content 3")
+  )
+)
+
+Header <- AppBar(
+  position = "static",
+  Toolbar(
+    Typography("Dashboard", variant = "h5", component = "div", sx = list(flexGrow = 1))
+  )
+)
+
+ui <- shinyMaterialUIPage(
+  suppressBootstrap = FALSE,
+  CssBaseline(
+    Header,
+    Sidebar
+  )
+)
+
+server <- function(input, output) {
+  observeEvent(input$tabList, {
+    updateTabContext.shinyInput(inputId = "context", value = input$tabList)
+  })
+}
+
+if (interactive()) {
+  shinyApp(ui = ui, server = server)
+}
+```
+
+### Advanced dashboard
+
+Reproduction of the official MUI's dashboard template: https://github.com/lgnbhl/shinyMaterialUI/inst/dashboard
