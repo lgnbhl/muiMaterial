@@ -28,7 +28,7 @@ CardAlert <- function(){
         size = "small",
         fullWidth = TRUE,
         "Read the docs",
-        href = "https://felixluginbuhl.com/shinyMaterialUI.",
+        href = "https://felixluginbuhl.com/shinyMaterialUI",
         target = "_blank"
       )
     )
