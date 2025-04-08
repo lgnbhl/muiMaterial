@@ -30,7 +30,7 @@ Suggests:
 Remotes: 
     github::lgnbhl/shinyReactRouter
 RoxygenNote: 7.3.2
-URL: https://github.com/lgnbhl/shinyMaterialUI
+URL: https://felixluginbuhl.com/shinyMaterialUI
 BugReports: https://github.com/lgnbhl/shinyMaterialUI/issues
 Config/testthat/edition: 3
 VignetteBuilder: knitr
