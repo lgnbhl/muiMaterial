@@ -22,6 +22,8 @@ navbar:
       href: articles/dashboard-basic.html
     - text: Using a router
       href: articles/routing.html
+  - text: News
+    href: news/index.html
 
   right:
    - icon: fa-linkedin
