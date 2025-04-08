@@ -9,7 +9,7 @@ vignette: >
 
 ### Horizontal dashboard
 
-```{r}
+```r
 library(shiny)
 library(shinyMaterialUI)
 
@@ -48,7 +48,7 @@ if (interactive()) {
 
 ### Vertical dashboard
 
-```{r}
+```r
 library(shiny)
 library(shinyMaterialUI)
 

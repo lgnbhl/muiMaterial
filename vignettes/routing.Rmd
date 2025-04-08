@@ -13,7 +13,7 @@ Below an example using Mui material with the [shiny.router](https://appsilon.git
 
 Note that using `CssBaseline()` at top level doesn't work with shiny.router. `CssBaseline()` should be used only at the lower level, as showed below. 
 
-```{r eval=FALSE, message=FALSE, warning=FALSE}
+```r
 library(shiny)
 library(shinyMaterialUI)
 library(shiny.router)
@@ -80,7 +80,7 @@ shinyApp(ui, server)
 
 More info about shinyReactRouter [here](https://github.com/lgnbhl/shinyReactRouter).
 
-```{r}
+```r
 # remotes::install_github("lgnbhl/shinyReactRouter")
 library(shinyMaterialUI)
 library(shinyReactRouter)
