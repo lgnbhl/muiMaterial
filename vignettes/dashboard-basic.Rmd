@@ -101,4 +101,4 @@ if (interactive()) {
 
 ### Advanced dashboard
 
-Reproduction of the official MUI's dashboard template: https://github.com/lgnbhl/shinyMaterialUI/tree/main/inst/dashboard
+Reproduction of the official MUI's dashboard template: https://github.com/lgnbhl/shinyMaterialUI/tree/main/inst/examples/dashboard
