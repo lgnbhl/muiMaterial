@@ -1,8 +1,8 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/SideMenu.tsx
-source(system.file("dashboard/component/MenuContent.R", package = "shinyMaterialUI"))
-source(system.file("dashboard/component/CardAlert.R", package = "shinyMaterialUI"))
-source(system.file("dashboard/component/SelectContent.R", package = "shinyMaterialUI"))
-source(system.file("dashboard/component/OptionsMenu.R", package = "shinyMaterialUI"))
+source(system.file("examples/dashboard/component/MenuContent.R", package = "shinyMaterialUI"))
+source(system.file("examples/dashboard/component/CardAlert.R", package = "shinyMaterialUI"))
+source(system.file("examples/dashboard/component/SelectContent.R", package = "shinyMaterialUI"))
+source(system.file("examples/dashboard/component/OptionsMenu.R", package = "shinyMaterialUI"))
 
 SideMenu <- function(){
   Drawer(

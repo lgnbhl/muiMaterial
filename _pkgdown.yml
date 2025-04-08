@@ -4,8 +4,31 @@ template:
   bootswatch: litera
   ganalytics: UA-158089797-1
   bslib:
-    primary: "#f72517"
+    primary: "#3399ff"
 
 authors:
   Felix Luginbuhl:
     href: "https://felixluginbuhl.com"
+
+navbar:
+  left:
+  - text: Home
+    href: index.html
+  - text: Reference
+    href: reference/index.html
+  - text: Articles
+    menu:
+    - text: Basic dashboarding
+      href: articles/dashboard-basic.html
+    - text: Using a router
+      href: articles/routing.html
+
+  right:
+   - icon: fa-linkedin
+     href: https://www.linkedin.com/in/felixluginbuhl
+   - icon: fa-twitter
+     href: https://twitter.com/FelixLuginbuhl
+   - icon: fa-github
+     href: https://github.com/lgnbhl/BFS
+   - icon: fa-home
+     href: http://felixluginbuhl.com

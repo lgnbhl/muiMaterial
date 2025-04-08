@@ -1,13 +1,13 @@
 
 <!-- badges: start -->
 
+[![Lifecycle:
+experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/shinyMaterialUI)](https://CRAN.R-project.org/package=shinyMaterialUI)
 [![R-CMD-check](https://github.com/lgnbhl/shinyMaterialUI/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/shinyMaterialUI/actions/workflows/R-CMD-check.yaml)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 [![](https://img.shields.io/badge/@mui/material-%5E7.0.1-blue.svg)](https://mui.com/material-ui/getting-started/)
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
 # shinyMaterialUI
@@ -28,20 +28,16 @@ To quickly get started with any example:
 
 ``` r
 library(shinyMaterialUI)
-# Get all examples
-getExamples()
-# Run the app for an example
-runExample("Autocomplete")
+
+# all examples available: shinyMaterialUI::runExample()
+shinyMaterialUI::runExample("showcase")
 ```
 
-You can run the showcase Shiny app with:
+You can also run the dashboard Shiny app example:
 
 ``` r
-shinyMaterialUI::runShowcase()
+shinyMaterialUI::runExample("dashboard")
 ```
-
-A dashboard example is also available
-[here](https://github.com/lgnbhl/shinyMaterialUI/tree/main/inst/dashboard).
 
 ### Shiny inputs wrappers
 

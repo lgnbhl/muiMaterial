@@ -4,7 +4,7 @@ library(shiny)
 
 sapply(
   list.files(
-    system.file("dashboard/component", package = "shinyMaterialUI"),
+    system.file("examples/dashboard/component", package = "shinyMaterialUI"),
     full.names = TRUE
   ),
   function(i) {

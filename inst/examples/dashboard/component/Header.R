@@ -1,7 +1,7 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/Header.js
-source(system.file("dashboard/component/NavbarBreadcrumbs.R", package = "shinyMaterialUI"))
-source(system.file("dashboard/component/Search.R", package = "shinyMaterialUI"))
-source(system.file("dashboard/component/MenuButton.R", package = "shinyMaterialUI"))
+source(system.file("examples/dashboard/component/NavbarBreadcrumbs.R", package = "shinyMaterialUI"))
+source(system.file("examples/dashboard/component/Search.R", package = "shinyMaterialUI"))
+source(system.file("examples/dashboard/component/MenuButton.R", package = "shinyMaterialUI"))
 
 Header <- function(){
   Stack(
