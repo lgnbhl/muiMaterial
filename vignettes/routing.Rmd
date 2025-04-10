@@ -76,25 +76,25 @@ server <- function(input, output, session) {
 shinyApp(ui, server)
 ```
 
-### with shinyReactRouter
+### with reactRouter
 
-More info about shinyReactRouter [here](https://github.com/lgnbhl/shinyReactRouter).
+More info about reactRouter [here](https://github.com/lgnbhl/reactRouter).
 
 ```r
-# remotes::install_github("lgnbhl/shinyReactRouter")
+# remotes::install_github("lgnbhl/reactRouter")
 library(shinyMaterialUI)
-library(shinyReactRouter)
+library(reactRouter)
 library(shiny)
 
 ui <- shinyMaterialUIPage(
-  shinyReactRouter::HashRouter(
+  reactRouter::HashRouter(
     CssBaseline(
-    Typography("shinyReactRouter with shinyMaterialUI", variant = "h5", m = 2),
+    Typography("reactRouter with shinyMaterialUI", variant = "h5", m = 2),
     Stack(
       direction = "row", spacing = 2, p = 2,
       Paper(
         MenuList(
-          shinyReactRouter::NavLink.shinyInput(
+          reactRouter::NavLink.shinyInput(
             inputId = "page_home",
             to = "/",
             style = JS('({isActive}) => { return isActive ? {color: "red", textDecoration:"none"} : { textDecoration: "none" }; }'),
@@ -103,7 +103,7 @@ ui <- shinyMaterialUIPage(
             )
           ),
           br(),
-          shinyReactRouter::NavLink.shinyInput(
+          reactRouter::NavLink.shinyInput(
             inputId = "page_analysis",
             to = "/analysis",
             style = JS('({isActive}) => { return isActive ? {color: "red", textDecoration: "none"} : { textDecoration: "none" }; }'),
@@ -112,7 +112,7 @@ ui <- shinyMaterialUIPage(
             )
           ),
           br(),
-          shinyReactRouter::NavLink.shinyInput(
+          reactRouter::NavLink.shinyInput(
             inputId = "page_about",
             to = "/about",
             style = JS('({ isActive }) => { return isActive ? { color: "red", textDecoration: "none" } : { textDecoration: "none" }; }'),
@@ -123,27 +123,27 @@ ui <- shinyMaterialUIPage(
         )
       ),
       Box(
-        shinyReactRouter::Routes(
-          shinyReactRouter::Route(
+        reactRouter::Routes(
+          reactRouter::Route(
             path = "/",
             element = div(
               tags$h1("Home page"),
-              tags$h4("A basic example of shinyReactRouter with shinyMaterialUI."),
+              tags$h4("A basic example of reactRouter with shinyMaterialUI."),
               uiOutput(outputId = "contentHome")
             )
           ),
-          shinyReactRouter::Route(
+          reactRouter::Route(
             path = "/analysis",
             element = div(
               tags$h1("Analysis"),
               uiOutput(outputId = "contentAnalysis")
               )
           ),
-          shinyReactRouter::Route(
+          reactRouter::Route(
             path = "/about",
             element = uiOutput(outputId = "contentAbout")
           ),
-          shinyReactRouter::Route(path = "*", element = div(tags$p("Error 404")))
+          reactRouter::Route(path = "*", element = div(tags$p("Error 404")))
         )
       )
     )
