@@ -1,6 +1,6 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/MainGrid.tsx
 
-MainGrid <- function(){
+MainGrid <- function(...){
   Box(
     sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
     Typography(
@@ -13,7 +13,8 @@ MainGrid <- function(){
       container = TRUE,
       spacing = 2,
       columns = 12,
-      sx = list(mb = "(theme) => theme.spacing(2)")
+      sx = list(mb = "(theme) => theme.spacing(2)"),
+      ...
     )
   )
 }
