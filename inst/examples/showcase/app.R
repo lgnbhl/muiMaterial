@@ -117,6 +117,10 @@ server <- function(input, output) {
   output$AutocompleteValue3 <- renderTable({
     as.data.frame(input$Autocomplete3)
   })
+  # CheckBox
+  output$CheckboxesValue1 <- renderText({
+    paste(input$Checkboxes1)
+  })
   # Drawer
   toggleDrawer <- reactiveVal(FALSE)
   observeEvent(input$showDrawer, toggleDrawer(TRUE))

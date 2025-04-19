@@ -1,5 +1,5 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/OptionsMenu.tsx
-source(system.file("examples/dashboard/component/MenuButton.R", package = "shinyMaterialUI"))
+source(system.file("examples/mui-template-dashboard/component/MenuButton.R", package = "shinyMaterialUI"))
 
 OptionsMenu <- function(){
   htmltools::div(

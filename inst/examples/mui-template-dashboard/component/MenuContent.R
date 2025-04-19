@@ -9,7 +9,7 @@ MenuContent <- function(){
       dense = TRUE,
       reactRouter::NavLink.shinyInput(
         inputId = "reactRouterHome",
-        style = list(textDecoration = "none", color = "white"),
+        style = JS('({isActive}) => { return isActive ? {color: "white", textDecoration: "none"} : {color: "white", textDecoration: "none" }; }'),
         to = "/",
         'aria-label' = "Home",
         ListItem(
@@ -17,7 +17,7 @@ MenuContent <- function(){
           disablePadding = TRUE,
           sx = list(display = 'block'),
           ListItemButton(
-            #selected = JS("0 === 0"),
+            selected = FALSE,
             ListItemIcon(
               shiny::icon("house")
             ),
@@ -37,7 +37,7 @@ MenuContent <- function(){
           disablePadding = TRUE,
           sx = list(display = 'block'),
           ListItemButton(
-            #selected = JS("1 === 0"),
+            selected = FALSE,
             ListItemIcon(
               shiny::icon("chart-bar")
             ),
@@ -57,7 +57,7 @@ MenuContent <- function(){
           disablePadding = TRUE,
           sx = list(display = 'block'),
           ListItemButton(
-            #selected = JS("2 === 0"),
+            selected = FALSE,
             ListItemIcon(
               shiny::icon("people-group")
             ),
@@ -77,7 +77,7 @@ MenuContent <- function(){
           disablePadding = TRUE,
           sx = list(display = 'block'),
           ListItemButton(
-            #selected = JS("3 === 0"),
+            selected = FALSE,
             ListItemIcon(
               shiny::icon("list")
             ),

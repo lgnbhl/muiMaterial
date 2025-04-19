@@ -13,6 +13,7 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 [![CRAN status](https://www.r-pkg.org/badges/version/shinyMaterialUI)](https://CRAN.R-project.org/package=shinyMaterialUI)
 [![R-CMD-check](https://github.com/lgnbhl/shinyMaterialUI/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/shinyMaterialUI/actions/workflows/R-CMD-check.yaml)
 `r badger::badge_custom(names(dependencies)[5], dependencies[5], "blue", "https://mui.com/material-ui/getting-started/")`
+`r badger::badge_custom(names(dependencies)[6], dependencies[6], "blue", "https://mui.com/material-ui/getting-started/")`
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
@@ -33,14 +34,14 @@ To quickly get started with any example:
 ```r
 library(shinyMaterialUI)
 
-# all examples available: shinyMaterialUI::runExample()
-shinyMaterialUI::runExample("showcase")
+# all examples available: shinyMaterialUIExample()
+shinyMaterialUIExample("showcase")
 ```
 
-You can also run the dashboard Shiny app example: 
+MUI, the company behind Material UI, made template examples. Using the R package **reactRouter**, it is possible to reproduce them in R:
 
 ```r
-shinyMaterialUI::runExample("dashboard")
+shinyMaterialUIExample("mui-template-dashboard")
 ```
 
 ### Shiny inputs wrappers

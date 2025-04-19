@@ -7,7 +7,12 @@ Checkboxes <- div(
   Checkbox.shinyInput(inputId = "Checkboxes1", value = TRUE),
   Checkbox.shinyInput(inputId = "Checkboxes2", value = FALSE),
   Checkbox.shinyInput(inputId = "Checkboxes3", disabled = TRUE),
-  Checkbox.shinyInput(inputId = "Checkboxes4",disabled = TRUE, checked = TRUE)
+  Checkbox.shinyInput(inputId = "Checkboxes4",disabled = TRUE, checked = TRUE),
+  Stack(
+    spacing = 2,
+    direction = "row",
+    verbatimTextOutput("CheckboxesValue1")
+  )
 )
 # https://mui.com/material-ui/react-checkbox/#label
 CheckboxLabels <- div(
@@ -114,7 +119,11 @@ ui_Checkbox <- shinyMaterialUIPage(
   )
 )
 
-server_Checkbox <- function(input, output, session) {}
+server_Checkbox <- function(input, output, session) {
+  output$CheckboxesValue1 <- renderText({
+    paste(input$Checkboxes1)
+  })
+}
 
 if (interactive()) {
   shinyApp(ui = ui_Checkbox, server = server_Checkbox)

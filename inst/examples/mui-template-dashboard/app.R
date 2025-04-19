@@ -1,19 +1,20 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/Dashboard.tsx
 library(shinyMaterialUI)
 library(shiny)
+library(reactRouter)
 
 component_files <- list.files(
-  path = system.file("examples/dashboard/component", package = "shinyMaterialUI"),
-  #path = "inst/examples/dashboard/component/", 
+  path = system.file("examples/mui-template-dashboard/component", package = "shinyMaterialUI"),
   full.names = TRUE
 )
 sapply(component_files, source)
 
 
 # routing with 'reactRouter' R package
-# NavLinks.shinyInput() functions also added in 'MenuContent.R'
+# NavLinks.shinyInput() functions also added in 'MenuContent.R' and 'NavbarBreadcrumbs.R'
 ui_dashboard <- function() {
   AppTheme(
+    theme_dark = TRUE, # FALSE to use "light" theme, if so change all reactRouter::NavLink() text color
     reactRouter::HashRouter(
       CssBaseline(
         enableColorScheme = TRUE,
@@ -30,26 +31,36 @@ ui_dashboard <- function() {
               : alpha(theme.palette.background.default, 1)",
               overflow = 'auto'
             ),
-            Stack(
-              spacing = 2,
-              sx = list(
-                alignItems = "center",
-                mx = 3,
-                pb = 5,
-                mt = list(xs = 8, md = 0)
-              ),
-              Header(),
-              # add React Router routes here
-              reactRouter::Routes(
-                reactRouter::Route(
-                  path = "/",
-                  element = MainGrid(
+            # add React Router routes here
+            reactRouter::Routes(
+              reactRouter::Route(
+                path = "/",
+                element = Stack(
+                  spacing = 2,
+                  sx = list(
+                    alignItems = "center",
+                    mx = 3,
+                    pb = 5,
+                    mt = list(xs = 8, md = 0)
+                  ),
+                  Header(page_name = "Home"),
+                  MainGrid(
                     p("Content home")
                   )
-                ),
-                reactRouter::Route(
-                  path = "/analytics",
-                  element = Box(
+                )
+              ),
+              reactRouter::Route(
+                path = "/analytics",
+                element = Stack(
+                  spacing = 2,
+                  sx = list(
+                    alignItems = "center",
+                    mx = 3,
+                    pb = 5,
+                    mt = list(xs = 8, md = 0)
+                  ),
+                  Header(page_name = "Analytics", page_to = "/analytics"),
+                  Box(
                     sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
                     Typography(
                       component = "h2",
@@ -65,10 +76,20 @@ ui_dashboard <- function() {
                       uiOutput(outputId = "contentAnalytics")
                     )
                   )
-                ),
-                reactRouter::Route(
-                  path = "/clients",
-                  element = Box(
+                )
+              ),
+              reactRouter::Route(
+                path = "/clients",
+                element = Stack(
+                  spacing = 2,
+                  sx = list(
+                    alignItems = "center",
+                    mx = 3,
+                    pb = 5,
+                    mt = list(xs = 8, md = 0)
+                  ),
+                  Header(page_name = "Clients", page_to = "/clients"),
+                  Box(
                     sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
                     Typography(
                       component = "h2",
@@ -81,13 +102,23 @@ ui_dashboard <- function() {
                       spacing = 2,
                       columns = 12,
                       sx = list(mb = "(theme) => theme.spacing(2)"),
-                      uiOutput(outputId = "contentClients")
+                      p("Content clients")
                     )
                   )
-                ),
-                reactRouter::Route(
-                  path = "/tasks",
-                  element = Box(
+                )
+              ),
+              reactRouter::Route(
+                path = "/tasks",
+                element = Stack(
+                  spacing = 2,
+                  sx = list(
+                    alignItems = "center",
+                    mx = 3,
+                    pb = 5,
+                    mt = list(xs = 8, md = 0)
+                  ),
+                  Header(page_name = "Tasks", page_to = "/tasks"),
+                  Box(
                     sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
                     Typography(
                       component = "h2",
@@ -100,7 +131,7 @@ ui_dashboard <- function() {
                       spacing = 2,
                       columns = 12,
                       sx = list(mb = "(theme) => theme.spacing(2)"),
-                      uiOutput(outputId = "contentTasks")
+                      p("Content tasks")
                     )
                   )
                 )
@@ -129,21 +160,13 @@ server_dashboard <- function(input, output, session) {
     updateMenu.shinyInput(inputId = "menu", open = toggleOptionsMenu())
   })
   
-  # NOTE: please contact me if you know a way to refresh output content without reloading the session :)
-  # shiny propagation issue discussed here: https://github.com/lgnbhl/reactRouter#propagation-issue
-  # reload session when user clicks on new page to refresh output content
-  observeEvent(c(input$reactRouterAnalytics, input$reactRouterClients, input$reactRouterTasks), {
-    session$reload()
-  })
-
+  # See shiny server rending issue discussed here: https://github.com/lgnbhl/reactRouter
+  # Reload session when user clicks on new page to refresh server output content
+  # observeEvent(c(input$reactRouterAnalytics, input$reactRouterClients, input$reactRouterTasks), {
+  #   session$reload()
+  # })
   output$contentAnalytics <- renderUI({
     p("Content analysis")
-  })
-  output$contentClients <- renderUI({
-    p("Content clients")
-  })
-  output$contentTasks <- renderUI({
-    p("Content tasks")
   })
 }
 

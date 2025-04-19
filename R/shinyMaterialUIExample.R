@@ -1,4 +1,4 @@
-#' Run example
+#' Run shinyMaterialUI example
 #'
 #' Launch a Shiny example app or list the available examples.
 #' Use `shinyMaterialUI::runExample("showcase")` to run a showcase app with all the components.
@@ -8,8 +8,10 @@
 #' @return This function normally does not return;
 #' interrupt R to stop the application (usually by pressing Ctrl+C or Esc).
 #'
+#' @seealso [shiny.blueprint::runExample()] which this function is an adaptation.
+#'
 #' @export
-runExample <- function(example = NULL, ...) {
+shinyMaterialUIExample <- function(example = NULL, ...) {
   examples <- system.file("examples", package = utils::packageName(), mustWork = TRUE)
   if (is.null(example)) {
     sub("\\.R$", "", list.files(examples))

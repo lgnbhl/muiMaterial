@@ -1,5 +1,5 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/AppNavbar.tsx
-source(system.file("examples/dashboard/component/SideMenuMobile.R", package = "shinyMaterialUI"))
+source(system.file("examples/mui-template-dashboard/component/SideMenuMobile.R", package = "shinyMaterialUI"))
 
 AppNavbar <- function(){
   AppBar(

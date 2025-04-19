@@ -1,9 +1,9 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/Header.js
-source(system.file("examples/dashboard/component/NavbarBreadcrumbs.R", package = "shinyMaterialUI"))
-source(system.file("examples/dashboard/component/Search.R", package = "shinyMaterialUI"))
-source(system.file("examples/dashboard/component/MenuButton.R", package = "shinyMaterialUI"))
+source(system.file("examples/mui-template-dashboard/component/NavbarBreadcrumbs.R", package = "shinyMaterialUI"))
+source(system.file("examples/mui-template-dashboard/component/Search.R", package = "shinyMaterialUI"))
+source(system.file("examples/mui-template-dashboard/component/MenuButton.R", package = "shinyMaterialUI"))
 
-Header <- function(){
+Header <- function(page_name = "Home", page_to = "/"){
   Stack(
     direction = "row",
     sx = list(
@@ -15,7 +15,7 @@ Header <- function(){
       pt = 1.5
     ),
     spacing = 2,
-    NavbarBreadcrumbs(),
+    NavbarBreadcrumbs(page_name, page_to),
     Stack(
       direction = "row",
       sx = list(gap = 1),

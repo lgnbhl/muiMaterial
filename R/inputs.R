@@ -114,6 +114,15 @@ Input.shinyInput <- input("Input")
 #' @export
 updateInput.shinyInput <- shiny.react::updateReactInput
 
+#' @rdname FormControlLabel
+#' @inherit shinyInput params return
+#' @export
+FormControlLabel.shinyInput <- input("FormControlLabel")
+
+#' @rdname FormControlLabel
+#' @inherit shinyInput params return
+#' @export
+updateFormControlLabel.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Radio
 #' @inherit shinyInput params return
@@ -124,6 +133,16 @@ Radio.shinyInput <- input("Radio")
 #' @inherit shinyInput params return
 #' @export
 updateRadio.shinyInput <- shiny.react::updateReactInput
+
+#' @rdname RadioGroup
+#' @inherit shinyInput params return
+#' @export
+RadioGroup.shinyInput <- input("RadioGroup")
+
+#' @rdname RadioGroup
+#' @inherit shinyInput params return
+#' @export
+updateRadioGroup.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Rating
 #' @inherit shinyInput params return

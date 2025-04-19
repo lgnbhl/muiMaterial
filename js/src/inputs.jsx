@@ -22,14 +22,26 @@ export const Autocomplete = InputAdapter(AutocompleteWrapper, (value, setValue) 
   onChange: (e, v) => setValue(v),
 }));
 
+/* e.stopPropagation() fix propagation issue when used with TabContext */
+/* https://github.com/mui/material-ui/issues/4403 */
 export const Checkbox = InputAdapter(Material.Checkbox, (value, setValue) => ({
   checked: value,
+  onChange: e => { setValue(e.target.checked); e.stopPropagation() },
+}));
+
+export const FormControlLabel = InputAdapter(Material.FormControlLabel, (value, setValue) => ({
+  value: value,
   onChange: (e) => setValue(e.target.checked),
 }));
 
 export const Input = InputAdapter(Material.Input, (value, setValue) => ({
   value: value,
   onChange: (e) => setValue(e.target.value),
+}));
+
+export const Radio = InputAdapter(Material.Radio, (value, setValue) => ({
+  checked: value,
+  onChange: (e) => setValue(e.target.checked),
 }));
 
 export const RadioGroup = InputAdapter(Material.RadioGroup, (value, setValue) => ({
@@ -62,9 +74,11 @@ export const Tabs = InputAdapter(Material.Tabs, (value, setValue) => ({
   onChange: (e, v) => setValue(v),
 }));
 
+/* e.stopPropagation() fix propagation issue when used with TabContext */
+/* https://github.com/mui/material-ui/issues/4403 */
 export const TextField = InputAdapter(Material.TextField, (value, setValue) => ({
   value: value,
-  onChange: (e, v) => setValue(e.target.value),
+  onChange: (e, v) => { setValue(e.target.value) ; e.stopPropagation() },
 }), { policy: debounce, delay: 250 });
 
 export const TabContext = InputAdapter(MaterialLab.TabContext, (value, setValue) => ({
