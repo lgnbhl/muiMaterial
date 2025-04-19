@@ -7,9 +7,10 @@ MenuContent <- function(){
     sx = list(flexGrow = 1, p = 1, justifyContent = 'space-between'),
     List(
       dense = TRUE,
+      # https://github.com/mui/material-ui/issues/32400
       reactRouter::NavLink.shinyInput(
         inputId = "reactRouterHome",
-        style = JS('({isActive}) => { return isActive ? {color: "white", textDecoration: "none"} : {color: "white", textDecoration: "none" }; }'),
+        style = JS('({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'),
         to = "/",
         'aria-label' = "Home",
         ListItem(
@@ -17,7 +18,7 @@ MenuContent <- function(){
           disablePadding = TRUE,
           sx = list(display = 'block'),
           ListItemButton(
-            selected = FALSE,
+            selected = FALSE, # TODO: update based on "isActive"
             ListItemIcon(
               shiny::icon("house")
             ),
@@ -29,7 +30,7 @@ MenuContent <- function(){
       ),
       reactRouter::NavLink.shinyInput(
         inputId = "reactRouterAnalytics",
-        style = list(textDecoration = "none", color = "white"),
+        style = JS('({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'),
         to = "/analytics",
         'aria-label' = "Home",
         ListItem(
@@ -49,7 +50,7 @@ MenuContent <- function(){
       ),
       reactRouter::NavLink.shinyInput(
         inputId = "reactRouterClients",
-        style = list(textDecoration = "none", color = "white"),
+        style = JS('({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'),
         to = "/clients",
         'aria-label' = "Home",
         ListItem(
@@ -69,7 +70,7 @@ MenuContent <- function(){
       ),
       reactRouter::NavLink.shinyInput(
         inputId = "reactRouterTasks",
-        style = list(textDecoration = "none", color = "white"),
+        style = JS('({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'),
         to = "/tasks",
         'aria-label' = "Tasks",
         ListItem(
