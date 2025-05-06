@@ -1,8 +1,9 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/SelectContent.tsx
 
-SelectContent <- function(company = ""){
+mod_SelectContent_ui <- function(id, company = ""){
+  ns <- NS(id)
   Select.shinyInput(
-    inputId = "companySelect",
+    inputId = ns("companySelect"),
     id = "company-simple-select",
     value = company,
     displayEmpty = TRUE,
@@ -82,4 +83,10 @@ SelectContent <- function(company = ""){
       )
     )
   )
+}
+
+mod_SelectContent_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
+  })
 }

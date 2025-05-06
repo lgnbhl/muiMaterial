@@ -3,25 +3,37 @@ library(shinyMaterialUI)
 library(shiny)
 library(reactRouter)
 
-component_files <- list.files(
-  path = system.file("examples/mui-template-dashboard/component", package = "shinyMaterialUI"),
-  full.names = TRUE
+sapply(
+  list.files(
+    "./modules",
+    #path = system.file("examples/mui-template-dashboard/modules", package = "shinyMaterialUI"),
+    full.names = TRUE
+  ),
+  function(i) {
+    source(i)
+  }
 )
-sapply(component_files, source)
+
+# component_files <- list.files(
+#   "./modules",
+#   #path = system.file("examples/mui-template-dashboard/modules", package = "shinyMaterialUI"),
+#   full.names = TRUE
+# )
+# sapply(component_files, source)
 
 
 # routing with 'reactRouter' R package
 # NavLinks.shinyInput() functions also added in 'MenuContent.R' and 'NavbarBreadcrumbs.R'
-ui_dashboard <- function() {
-  AppTheme(
+ui <- function() {
+  fct_AppTheme(
     theme_dark = TRUE, # FALSE to use "light" theme, if so change all reactRouter::NavLink() text color
     reactRouter::HashRouter(
       CssBaseline(
         enableColorScheme = TRUE,
         Box(
           sx = list(display = "flex"),
-          SideMenu(),
-          AppNavbar(),
+          mod_SideMenu_ui(id = "SideMenu_1"),
+          mod_AppNavbar_ui(id = "AppNavbar_1"),
           Box(
             component = "main",
             sx = list(
@@ -43,8 +55,8 @@ ui_dashboard <- function() {
                     pb = 5,
                     mt = list(xs = 8, md = 0)
                   ),
-                  Header(page_name = "Home"),
-                  MainGrid(
+                  mod_Header_ui(id = "Header_1", page_name = "Home"),
+                  fct_MainGrid(
                     p("Content home")
                   )
                 )
@@ -59,7 +71,7 @@ ui_dashboard <- function() {
                     pb = 5,
                     mt = list(xs = 8, md = 0)
                   ),
-                  Header(page_name = "Analytics", page_to = "/analytics"),
+                  mod_Header_ui(id = "Header_2", page_name = "Analytics", page_to = "/analytics"),
                   Box(
                     sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
                     Typography(
@@ -88,7 +100,7 @@ ui_dashboard <- function() {
                     pb = 5,
                     mt = list(xs = 8, md = 0)
                   ),
-                  Header(page_name = "Clients", page_to = "/clients"),
+                  mod_Header_ui(id = "Header_3", page_name = "Clients", page_to = "/clients"),
                   Box(
                     sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
                     Typography(
@@ -117,7 +129,7 @@ ui_dashboard <- function() {
                     pb = 5,
                     mt = list(xs = 8, md = 0)
                   ),
-                  Header(page_name = "Tasks", page_to = "/tasks"),
+                  mod_Header_ui(id = "Header_4", page_name = "Tasks", page_to = "/tasks"),
                   Box(
                     sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
                     Typography(
@@ -144,22 +156,10 @@ ui_dashboard <- function() {
   )
 }
 
-server_dashboard <- function(input, output, session) {
-  # for drawer in SideMenuMobile.R and AppNavbar.R
-  toggleDrawer <- reactiveVal(FALSE)
-  observeEvent(input$showDrawer, toggleDrawer(TRUE))
-  observeEvent(input$hideDrawer, toggleDrawer(FALSE))
-  observeEvent(c(input$showDrawer, input$hideDrawer), {
-    updateDrawer.shinyInput(inputId = "drawer", open = toggleDrawer())
-  })
-  # for MenuButton in SideMenu.R, OptionsMenu.R and MenuButton.R
-  toggleOptionsMenu <- reactiveVal(FALSE)
-  observeEvent(input$showMenuButton, toggleOptionsMenu(TRUE))
-  observeEvent(input$hideMenuButton, toggleOptionsMenu(FALSE))
-  observeEvent(c(input$showMenuButton, input$hideMenuButton), {
-    updateMenu.shinyInput(inputId = "menu", open = toggleOptionsMenu())
-  })
-  
+server <- function(input, output, session) {
+  mod_AppNavbar_server("AppNavbar_1")
+  mod_SideMenu_server("SideMenu_1")
+
   # See shiny server rending issue discussed here: https://github.com/lgnbhl/reactRouter
   # Reload session when user clicks on new page to refresh server output content
   # observeEvent(c(input$reactRouterAnalytics, input$reactRouterClients, input$reactRouterTasks), {
@@ -171,5 +171,5 @@ server_dashboard <- function(input, output, session) {
 }
 
 if (interactive()) {
-  shinyApp(ui = ui_dashboard, server = server_dashboard)
+  shinyApp(ui = ui, server = server)
 }

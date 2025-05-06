@@ -1,15 +1,15 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/MenuContent.tsx
-library(reactRouter)
 
 # routing links with 'reactRouter' added below
-MenuContent <- function(){
+mod_MenuContent_ui <- function(id){
+  ns <- NS(id)
   Stack(
     sx = list(flexGrow = 1, p = 1, justifyContent = 'space-between'),
     List(
       dense = TRUE,
       # https://github.com/mui/material-ui/issues/32400
       reactRouter::NavLink.shinyInput(
-        inputId = "reactRouterHome",
+        inputId = ns("reactRouterHome"),
         style = JS('({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'),
         to = "/",
         'aria-label' = "Home",
@@ -29,7 +29,7 @@ MenuContent <- function(){
         )
       ),
       reactRouter::NavLink.shinyInput(
-        inputId = "reactRouterAnalytics",
+        inputId = ns("reactRouterAnalytics"),
         style = JS('({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'),
         to = "/analytics",
         'aria-label' = "Home",
@@ -49,7 +49,7 @@ MenuContent <- function(){
         )
       ),
       reactRouter::NavLink.shinyInput(
-        inputId = "reactRouterClients",
+        inputId = ns("reactRouterClients"),
         style = JS('({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'),
         to = "/clients",
         'aria-label' = "Home",
@@ -69,7 +69,7 @@ MenuContent <- function(){
         )
       ),
       reactRouter::NavLink.shinyInput(
-        inputId = "reactRouterTasks",
+        inputId = ns("reactRouterTasks"),
         style = JS('({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'),
         to = "/tasks",
         'aria-label' = "Tasks",
@@ -91,3 +91,10 @@ MenuContent <- function(){
     )
   )
 }
+
+mod_MenuContent_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
+  })
+}
+

@@ -1,9 +1,7 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/Header.js
-source(system.file("examples/mui-template-dashboard/component/NavbarBreadcrumbs.R", package = "shinyMaterialUI"))
-source(system.file("examples/mui-template-dashboard/component/Search.R", package = "shinyMaterialUI"))
-source(system.file("examples/mui-template-dashboard/component/MenuButton.R", package = "shinyMaterialUI"))
 
-Header <- function(page_name = "Home", page_to = "/"){
+mod_Header_ui <- function(id, page_name = "Home", page_to = "/"){
+  ns <- NS(id)
   Stack(
     direction = "row",
     sx = list(
@@ -15,13 +13,14 @@ Header <- function(page_name = "Home", page_to = "/"){
       pt = 1.5
     ),
     spacing = 2,
-    NavbarBreadcrumbs(page_name, page_to),
+    mod_NavbarBreadcrumbs_ui(id = "NavbarBreadcrumbs_1", page_name, page_to),
     Stack(
       direction = "row",
       sx = list(gap = 1),
-      Search() #,
+      fct_Search() #,
       # CustomDatePicker()
-      # MenuButton(
+      # mod_MenuButton_ui(
+      #   id = "MenuButton_1",
       #   showBadge = TRUE,
       #   'aria-label' = "Open notifications"
       # )
@@ -29,3 +28,9 @@ Header <- function(page_name = "Home", page_to = "/"){
   )
 }
 
+mod_Header_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
+    # mod_MenuButton_server("MenuButton_1")
+  })
+}

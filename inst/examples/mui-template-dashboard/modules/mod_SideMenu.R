@@ -1,10 +1,7 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/SideMenu.tsx
-source(system.file("examples/mui-template-dashboard/component/MenuContent.R", package = "shinyMaterialUI"))
-source(system.file("examples/mui-template-dashboard/component/CardAlert.R", package = "shinyMaterialUI"))
-source(system.file("examples/mui-template-dashboard/component/SelectContent.R", package = "shinyMaterialUI"))
-source(system.file("examples/mui-template-dashboard/component/OptionsMenu.R", package = "shinyMaterialUI"))
 
-SideMenu <- function(){
+mod_SideMenu_ui <- function(id){
+  ns <- NS(id)
   Drawer(
     variant = "permanent",
     sx = list(
@@ -20,11 +17,11 @@ SideMenu <- function(){
         mt = 'calc(var(--template-frame-height, 0px) + 4px)',
         p = 1.5
       ),
-      SelectContent()
+      mod_SelectContent_ui(id = ns("SelectContent"))
     ),
     Divider(),
-    MenuContent(),
-    CardAlert(),
+    mod_MenuContent_ui(id = ns("MenuContent_1")),
+    fct_CardAlert(),
     Stack(
       direction = "row",
       sx = list(
@@ -53,7 +50,23 @@ SideMenu <- function(){
           "felixluginbuhl.com"
         )
       ),
-      OptionsMenu()
+      mod_OptionsMenu_ui(ns("OptionsMenu_1"))
     )
   )
+}
+
+mod_SideMenu_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
+    
+    mod_MenuContent_server("MenuContent_1")
+    mod_OptionsMenu_server("OptionsMenu_1")
+    
+    toggleOptionsMenu <- reactiveVal(FALSE)
+    observeEvent(input$showMenuButton, toggleOptionsMenu(TRUE))
+    observeEvent(input$hideMenuButton, toggleOptionsMenu(FALSE))
+    observeEvent(c(input$showMenuButton, input$hideMenuButton), {
+      updateMenu.shinyInput(inputId = "menu", open = toggleOptionsMenu())
+    })
+  })
 }

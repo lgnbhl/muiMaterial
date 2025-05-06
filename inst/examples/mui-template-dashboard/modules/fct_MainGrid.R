@@ -1,6 +1,6 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/MainGrid.tsx
 
-MainGrid <- function(...){
+fct_MainGrid <- function(...){
   Box(
     sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
     Typography(

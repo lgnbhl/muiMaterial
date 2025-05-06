@@ -1,6 +1,6 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/shared-theme/AppTheme.js
 
-AppTheme <- function(..., theme_dark = TRUE){
+fct_AppTheme <- function(..., theme_dark = TRUE){
   ThemeProvider(
     theme = list(
       colorSchemes = list(

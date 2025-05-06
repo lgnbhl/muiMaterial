@@ -1,6 +1,7 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/NavbarBreadcrumbs.tsx
 
-NavbarBreadcrumbs <- function(page_name = "Home", page_to = "/"){
+mod_NavbarBreadcrumbs_ui <- function(id, page_name = "Home", page_to = "/"){
+  ns <- NS(id)
   Breadcrumbs(
     'aria-label' = "breadcrumb",
     separator = shiny::icon("chevron-right"),
@@ -9,7 +10,7 @@ NavbarBreadcrumbs <- function(page_name = "Home", page_to = "/"){
       "Dashboard"
     ),
     reactRouter::NavLink.shinyInput(
-      inputId = "reactRouterHome",
+      inputId = ns("reactRouterHome"),
       style = list(textDecoration = "none", color = "white"),
       to = page_to,
       'aria-label' = "Home",
@@ -20,4 +21,10 @@ NavbarBreadcrumbs <- function(page_name = "Home", page_to = "/"){
       )
     )
   )
+}
+
+mod_NavbarBreadcrumbs_server <- function(id) {
+  moduleServer(id, function(input, output, session) {
+    ns <- session$ns
+  })
 }
