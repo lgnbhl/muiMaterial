@@ -13,9 +13,9 @@ status](https://www.r-pkg.org/badges/version/shinyMaterialUI)](https://CRAN.R-pr
 
 # shinyMaterialUI
 
-The goal of **shinyMaterialUI** is to provide a wrapper around [Material
-UI](https://mui.com/material-ui/getting-started/), known as the most
-popular React framework.
+**shinyMaterialUI** provides a wrapper around [Material
+UI](https://mui.com/material-ui/getting-started/), the popular React
+framework.
 
 ### Install
 
@@ -30,25 +30,26 @@ To quickly get started with any example:
 ``` r
 library(shinyMaterialUI)
 
-# all examples available: shinyMaterialUI::runExample()
-shinyMaterialUI::runExample("showcase")
+# all examples available: shinyMaterialUIExample()
+shinyMaterialUIExample("showcase")
 ```
 
-You can also run the dashboard Shiny app example:
+MUI, the company behind Material UI, made template examples. Using the R
+package **reactRouter**, it is possible to reproduce it in R:
 
 ``` r
-shinyMaterialUI::runExample("dashboard")
+shinyMaterialUIExample("mui-template-dashboard")
 ```
 
 ### Shiny inputs wrappers
 
-To use Mui Material components as Shiny inputs, the package provides
+To use Material UI components as Shiny inputs, the package provides
 `*.shinyInput` wrappers functions (for more info read [this
 article](https://appsilon.github.io/shiny.react/articles/shiny-react.html#creating-input-wrappers)
 from the **shiny.react** documentation).
 
-For example, to use the `Button` MUI Material component with Shiny, you
-should use `Button.shinyInput()` instead.
+For example, to use the `Button` component with Shiny, you should use
+`Button.shinyInput()` instead.
 
 ### Bootstrap conflict
 
@@ -56,11 +57,11 @@ should use `Button.shinyInput()` instead.
 framework, used by default in Shiny functions such as
 `shiny::fluidPage()` and friends.
 
-To normalize the CSS page and be sure the MUI Material UI components
-render correctly, please wrap them in the function `CssBaseline()`.
+To normalize the CSS page and be sure the components render correctly,
+please wrap them in the function `CssBaseline()`.
 
-Given MUI Material UI high customization, you can easily fix styling
-issues using the CSS proprieties using the `sx` argument.
+Given Material UI high customization, you can easily fix styling issues
+using the CSS proprieties using the `sx` argument.
 
 To create a Shiny app without Bootstrap, you can use
 `shinyMaterialUI::shinyMaterialUIPage()`.
