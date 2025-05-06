@@ -4,11 +4,12 @@ import { ButtonAdapter, InputAdapter, debounce } from '@/shiny.react';
 
 export const Button = ButtonAdapter(Material.Button);
 export const Drawer = ButtonAdapter(Material.Drawer);
-export const IconButton = ButtonAdapter(Material.IconButton);
 export const Fab = ButtonAdapter(Material.Fab);
-export const Menu = ButtonAdapter(Material.Menu);
-export const ToggleButton = ButtonAdapter(Material.ToggleButton);
+export const IconButton = ButtonAdapter(Material.IconButton);
 export const ListItemButton = ButtonAdapter(Material.ListItemButton);
+export const Menu = ButtonAdapter(Material.Menu);
+export const StepButton = ButtonAdapter(Material.StepButton);
+export const ToggleButton = ButtonAdapter(Material.ToggleButton);
 
 const AutocompleteWrapper = ({ inputProps, ...props }) => (
   <Material.Autocomplete

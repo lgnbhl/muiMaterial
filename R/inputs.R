@@ -62,6 +62,16 @@ Menu.shinyInput <- button("Menu")
 #' @export
 updateMenu.shinyInput <- shiny.react::updateReactInput
 
+#' @rdname StepButton
+#' @inherit shinyInput params return
+#' @export
+StepButton.shinyInput <- button("StepButton")
+
+#' @rdname StepButton
+#' @inherit shinyInput params return
+#' @export
+updateStepButton.shinyInput <- shiny.react::updateReactInput
+
 #' @rdname ToggleButton
 #' @inherit shinyInput params return
 #' @export
