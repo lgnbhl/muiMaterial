@@ -22,16 +22,12 @@ cran_downloads_last_month <- cranlogs::cran_downloads(when = "last-month")
 cran_downloads_last_month_count <- sum(cran_downloads_last_month$count, na.rm = TRUE)
 
 # Monthly cran downloads of top 100 most downloaded R package
-cran_downloads_last_day_top100 <- cranlogs::cran_top_downloads(count = 100, when = "last-day")
-cran_downloads_last_week_top100 <- cranlogs::cran_top_downloads(count = 100, when = "last-week")
-cran_downloads_last_month_top100 <- cranlogs::cran_top_downloads(count = 100, when = "last-month")
-
-scales::number(cran_downloads_last_day$count, 
-               accuracy = 0.1, 
-               scale_cut = scales::cut_long_scale())
+#cran_downloads_last_day_top100 <- cranlogs::cran_top_downloads(count = 100, when = "last-day")
+#cran_downloads_last_week_top100 <- cranlogs::cran_top_downloads(count = 100, when = "last-week")
+#cran_downloads_last_month_top100 <- cranlogs::cran_top_downloads(count = 100, when = "last-month")
 
 # Current package in CRAN information
-cran_package_data_all <- tools::CRAN_package_db()
+#cran_package_data_all <- tools::CRAN_package_db()
 ```
 
 ```{r}
