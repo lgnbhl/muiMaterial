@@ -16,7 +16,17 @@ navbar:
     href: index.html
   - text: Reference
     href: reference/index.html
-  - text: Articles
+  - text: Input components
+    menu:
+    - text: Button
+      href: articles/button.html
+    - text: Checkbox
+      href: articles/checkbox.html
+    - text: Rating
+      href: articles/rating.html
+    - text: Slider
+      href: articles/slider.html
+  - text: Dashboarding
     menu:
     - text: Basic dashboarding
       href: articles/dashboard-basic.html

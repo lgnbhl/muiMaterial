@@ -2,7 +2,7 @@
 title: "Basic Dashboarding"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{basic-dashboard}
+  %\VignetteIndexEntry{Basic Dashboarding}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

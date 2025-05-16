@@ -1,0 +1,1110 @@
+---
+title: "Button"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Button}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-button/).</div>
+
+```{r setup}
+library(shinyMaterialUI)
+library(shiny)
+```
+
+# Button
+
+Buttons allow users to take actions, and make choices, with a single tap.themesPremium Themes. Kickstart your application development with a ready-made theme.ad by MUI
+
+Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like:
+
+- Modal windows
+- Forms
+- Cards
+- Toolbars
+
+## Basic button
+
+The Button comes with three variants: text (default), contained, and outlined.
+
+```{r}
+CssBaseline(
+  Stack(
+    spacing = 2, 
+    direction = "row",
+    Button(variant = "text", "Text"),
+    Button(variant = "contained", "Contained"),
+    Button(variant = "outlined", "Outlined")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
+export default function BasicButtons() {
+  return (
+    <Stack spacing={2} direction="row">
+      <Button variant="text">Text</Button>
+      <Button variant="contained">Contained</Button>
+      <Button variant="outlined">Outlined</Button>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Text button
+
+Text buttons are typically used for less-pronounced actions, including those located: in dialogs, in cards. In cards, text buttons help maintain an emphasis on card content.
+
+```{r}
+CssBaseline(
+  Stack(
+    direction = "row", 
+    spacing = 2,
+    Button("Primary"),
+    Button(disabled = TRUE, "Disabled"),
+    Button(href = "#text-buttons", "Link")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
+export default function TextButtons() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button>Primary</Button>
+      <Button disabled>Disabled</Button>
+      <Button href="#text-buttons">Link</Button>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Contained button
+
+Contained buttons are high-emphasis, distinguished by their use of elevation and fill. They contain actions that are primary to your app.
+
+```{r}
+CssBaseline(
+  Stack(
+    direction = "row", 
+    spacing = 2,
+    Button(variant = "contained", "Contained"),
+    Button(variant = "contained", disabled = TRUE, "Disabled"),
+    Button(variant = "contained", href = "#contained-buttons", "Link")
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
+export default function ContainedButtons() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button variant="contained">Contained</Button>
+      <Button variant="contained" disabled>
+        Disabled
+      </Button>
+      <Button variant="contained" href="#contained-buttons">
+        Link
+      </Button>
+    </Stack>
+  );
+}
+```
+</details>
+
+You can remove the elevation with the disableElevation prop.
+
+```{r}
+CssBaseline(
+  Button(variant = "contained", disableElevation = TRUE, "Disable elevation")
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+
+export default function DisableElevation() {
+  return (
+    <Button variant="contained" disableElevation>
+      Disable elevation
+    </Button>
+  );
+}
+```
+</details>
+
+## Outlined button
+
+Outlined buttons are medium-emphasis buttons. They contain actions that are important but aren't the primary action in an app.
+
+Outlined buttons are also a lower emphasis alternative to contained buttons, or a higher emphasis alternative to text buttons.
+
+```{r}
+CssBaseline(
+  Stack(
+    direction = "row", 
+    spacing = 2,
+    Button(variant = "outlined", "Primary"),
+    Button(variant = "outlined", disabled = TRUE, "Disabled"),
+    Button(variant = "outlined", href = "#outlined-buttons", "Link")
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
+export default function OutlinedButtons() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button variant="outlined">Primary</Button>
+      <Button variant="outlined" disabled>
+        Disabled
+      </Button>
+      <Button variant="outlined" href="#outlined-buttons">
+        Link
+      </Button>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Handling clicks
+
+All components accept an onClick handler that is applied to the root DOM element.
+
+```{r eval=FALSE}
+ui <- shinyMaterialUIPage(
+  Button.shinyInput(
+    inputId = "clickButton",
+    "Click me"
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$clickButton, {
+    showModal(modalDialog(
+      title = "Clicked",
+      "Button was clicked"
+    ))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+<Button
+  onClick={() => {
+    alert('clicked');
+  }}
+>
+  Click me
+</Button>
+```
+</details>
+
+Note that the documentation avoids mentioning native props (there are a lot) in the API section of the components.
+
+## Color
+
+```{r}
+CssBaseline(
+  Stack(
+    direction = "row", 
+    spacing = 2,
+    Button(color = "secondary", "Secondary"),
+    Button(variant = "contained", color = "success", "Success"),
+    Button(variant = "outlined", color = "error", "Error")
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+
+export default function ColorButtons() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button color="secondary">Secondary</Button>
+      <Button variant="contained" color="success">
+        Success
+      </Button>
+      <Button variant="outlined" color="error">
+        Error
+      </Button>
+    </Stack>
+  );
+}
+```
+</details>
+
+In addition to using the default button colors, you can add custom ones, or disable any you don't need. See the Adding new colors examples for more info.
+
+## Sizes
+
+For larger or smaller buttons, use the size prop.
+
+```{r}
+CssBaseline(
+  Box(
+    sx = list('& button' = list(m = 1)),
+    div(
+      Button(size = "small", "Small"),
+      Button(size = "medium", "Medium"),
+      Button(size = "large", "Large")
+    ),
+    div(
+      Button(variant = "outlined", size = "small", "Small"),
+      Button(variant = "outlined", size = "medium", "Medium"),
+      Button(variant = "outlined", size = "large", "Large")
+    ),
+    div(
+      Button(variant = "contained", size = "small", "Small"),
+      Button(variant = "contained", size = "medium", "Medium"),
+      Button(variant = "contained", size = "large", "Large")
+    )
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+
+export default function ButtonSizes() {
+  return (
+    <Box sx={{ '& button': { m: 1 } }}>
+      <div>
+        <Button size="small">Small</Button>
+        <Button size="medium">Medium</Button>
+        <Button size="large">Large</Button>
+      </div>
+      <div>
+        <Button variant="outlined" size="small">
+          Small
+        </Button>
+        <Button variant="outlined" size="medium">
+          Medium
+        </Button>
+        <Button variant="outlined" size="large">
+          Large
+        </Button>
+      </div>
+      <div>
+        <Button variant="contained" size="small">
+          Small
+        </Button>
+        <Button variant="contained" size="medium">
+          Medium
+        </Button>
+        <Button variant="contained" size="large">
+          Large
+        </Button>
+      </div>
+    </Box>
+  );
+}
+```
+</details>
+
+## Buttons with icons and label
+
+Sometimes you might want to have icons for certain buttons to enhance the UX of the application as we recognize logos more easily than plain text. For example, if you have a delete button you can label it with a dustbin icon.
+
+```{r}
+CssBaseline(
+  Stack(
+    direction = "row", 
+    spacing = 2,
+    Button(
+      variant = "outlined", 
+      startIcon = shiny::icon("trash"),
+      "Delete"
+    ),
+    Button(
+      variant = "contained", 
+      endIcon = shiny::icon("paper-plane"),
+      "Send"
+    )
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import DeleteIcon from '@mui/icons-material/Delete';
+import SendIcon from '@mui/icons-material/Send';
+import Stack from '@mui/material/Stack';
+
+export default function IconLabelButtons() {
+  return (
+    <Stack direction="row" spacing={2}>
+      <Button variant="outlined" startIcon={<DeleteIcon />}>
+        Delete
+      </Button>
+      <Button variant="contained" endIcon={<SendIcon />}>
+        Send
+      </Button>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Icon button
+
+Icon buttons are commonly found in app bars and toolbars.
+
+Icons are also appropriate for toggle buttons that allow a single choice to be selected or deselected, such as adding or removing a star to an item.
+
+```{r}
+CssBaseline(
+  Stack(
+    direction = "row", 
+    spacing = 1,
+    IconButton(
+      `aria-label` = "delete",
+      shiny::icon("trash")
+    ),
+    IconButton(
+      `aria-label` = "delete", 
+      disabled = TRUE, 
+      color = "primary",
+      shiny::icon("trash")
+    ),
+    IconButton(
+      color = "secondary", 
+      `aria-label` = "add an alarm",
+      shiny::icon("clock")
+    ),
+    IconButton(
+      color = "primary", 
+      `aria-label` = "add to shopping cart",
+      shiny::icon("shopping-cart")
+    )
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import IconButton from '@mui/material/IconButton';
+import Stack from '@mui/material/Stack';
+import DeleteIcon from '@mui/icons-material/Delete';
+import AlarmIcon from '@mui/icons-material/Alarm';
+import AddShoppingCartIcon from '@mui/icons-material/AddShoppingCart';
+
+export default function IconButtons() {
+  return (
+    <Stack direction="row" spacing={1}>
+      <IconButton aria-label="delete">
+        <DeleteIcon />
+      </IconButton>
+      <IconButton aria-label="delete" disabled color="primary">
+        <DeleteIcon />
+      </IconButton>
+      <IconButton color="secondary" aria-label="add an alarm">
+        <AlarmIcon />
+      </IconButton>
+      <IconButton color="primary" aria-label="add to shopping cart">
+        <AddShoppingCartIcon />
+      </IconButton>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Sizes
+
+For larger or smaller icon buttons, use the size prop.
+
+```{r}
+CssBaseline(
+  Stack(
+    direction = "row", 
+    spacing = 1, 
+    sx = list(alignItems = "center"),
+    IconButton(
+      `aria-label` = "delete", 
+      size = "small",
+      shiny::icon("trash")
+    ),
+    IconButton(
+      `aria-label` = "delete", 
+      size = "small",
+      shiny::icon("trash", class = "fa-sm")
+    ),
+    IconButton(
+      `aria-label` = "delete", 
+      size = "large",
+      shiny::icon("trash")
+    ),
+    IconButton(
+      `aria-label` = "delete", 
+      size = "large",
+      shiny::icon("trash", class = "fa-lg")
+    )
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import DeleteIcon from '@mui/icons-material/Delete';
+
+export default function IconButtonSizes() {
+  return (
+    <Stack direction="row" spacing={1} sx={{ alignItems: 'center' }}>
+      <IconButton aria-label="delete" size="small">
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
+      <IconButton aria-label="delete" size="small">
+        <DeleteIcon fontSize="small" />
+      </IconButton>
+      <IconButton aria-label="delete" size="large">
+        <DeleteIcon />
+      </IconButton>
+      <IconButton aria-label="delete" size="large">
+        <DeleteIcon fontSize="inherit" />
+      </IconButton>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Colors
+
+Use color prop to apply theme color palette to component.
+
+```{r}
+CssBaseline(
+  Stack(
+    direction = "row", 
+    spacing = 1,
+    IconButton(
+      `aria-label` = "fingerprint", 
+      color = "secondary",
+      shiny::icon("fingerprint")
+    ),
+    IconButton(
+      `aria-label` = "fingerprint", 
+      color = "success",
+      shiny::icon("fingerprint")
+    )
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import IconButton from '@mui/material/IconButton';
+import Fingerprint from '@mui/icons-material/Fingerprint';
+
+export default function IconButtonColors() {
+  return (
+    <Stack direction="row" spacing={1}>
+      <IconButton aria-label="fingerprint" color="secondary">
+        <Fingerprint />
+      </IconButton>
+      <IconButton aria-label="fingerprint" color="success">
+        <Fingerprint />
+      </IconButton>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Loading
+
+Starting from v6.4.0, use loading prop to set icon buttons in a loading state and disable interactions.
+
+```{r eval=FALSE}
+ui <- shinyMaterialUIPage(
+  Tooltip(
+    title = "Click to see loading",
+    IconButton.shinyInput(
+      inputId = "loadingButton",
+      shiny::icon("shopping-cart")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$loadingButton, {
+    updateIconButton.shinyInput(
+      inputId = "loadingButton",
+      loading = TRUE
+    )
+    
+    # Reset after 2 seconds
+    Sys.sleep(2)
+    updateIconButton.shinyInput(
+      inputId = "loadingButton",
+      loading = FALSE
+    )
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Tooltip from '@mui/material/Tooltip';
+import IconButton from '@mui/material/IconButton';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+
+export default function LoadingIconButton() {
+  const [loading, setLoading] = React.useState(false);
+  React.useEffect(() => {
+    const timeout = setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+    return () => clearTimeout(timeout);
+  });
+  return (
+    <Tooltip title="Click to see loading">
+      <IconButton onClick={() => setLoading(true)} loading={loading}>
+        <ShoppingCartIcon />
+      </IconButton>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+## Badge
+
+You can use the Badge component to add a badge to an IconButton.
+
+```{r}
+CssBaseline(
+  IconButton(
+    shiny::icon("shopping-cart", class = "fa-sm"),
+    Badge(
+      badgeContent = 2, 
+      color = "primary", 
+      overlap = "circular",
+      sx = list(
+        "& .MuiBadge-badge" = list(
+          top = "-12px",
+          right = "-6px"
+        )
+      )
+    )
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import IconButton from '@mui/material/IconButton';
+import Badge, { badgeClasses } from '@mui/material/Badge';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCartOutlined';
+
+const CartBadge = styled(Badge)`
+  & .${badgeClasses.badge} {
+    top: -12px;
+    right: -6px;
+  }
+`;
+
+export default function IconButtonWithBadge() {
+  return (
+    <IconButton>
+      <ShoppingCartIcon fontSize="small" />
+      <CartBadge badgeContent={2} color="primary" overlap="circular" />
+    </IconButton>
+  );
+}
+```
+</details>
+
+## File upload
+
+To create a file upload button, turn the button into a label using component="label" and then create a visually-hidden input with type file.
+
+```{r eval=FALSE}
+ui <- shinyMaterialUIPage(
+  Button(
+    component = "label",
+    role = NULL,
+    variant = "contained",
+    tabIndex = -1,
+    startIcon = shiny::icon("cloud-upload-alt"),
+    "Upload files",
+    tags$input(
+      type = "file",
+      id = "fileUpload",
+      style = "clip: rect(0 0 0 0); clipPath: inset(50%); height: 1px; overflow: hidden; position: absolute; bottom: 0; left: 0; whiteSpace: nowrap; width: 1px;",
+      multiple = TRUE
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$fileUpload, {
+    # Handle file upload
+    req(input$fileUpload)
+    print(input$fileUpload$name)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import CloudUploadIcon from '@mui/icons-material/CloudUpload';
+
+const VisuallyHiddenInput = styled('input')({
+  clip: 'rect(0 0 0 0)',
+  clipPath: 'inset(50%)',
+  height: 1,
+  overflow: 'hidden',
+  position: 'absolute',
+  bottom: 0,
+  left: 0,
+  whiteSpace: 'nowrap',
+  width: 1,
+});
+
+export default function InputFileUpload() {
+  return (
+    <Button
+      component="label"
+      role={undefined}
+      variant="contained"
+      tabIndex={-1}
+      startIcon={<CloudUploadIcon />}
+    >
+      Upload files
+      <VisuallyHiddenInput
+        type="file"
+        onChange={(event) => console.log(event.target.files)}
+        multiple
+      />
+    </Button>
+  );
+}
+```
+</details>
+
+## Loading
+
+Starting from v6.4.0, use the loading prop to set buttons in a loading state and disable interactions.
+
+```{r}
+CssBaseline(
+  Stack(
+    spacing = 2,
+    Stack(
+      direction = "row", 
+      spacing = 2,
+      Button(loading = TRUE, variant = "outlined", "Submit"),
+      Button(loading = TRUE, loadingIndicator = "Loading…", variant = "outlined", "Fetch data"),
+      Button(
+        loading = TRUE,
+        loadingPosition = "start",
+        startIcon = shiny::icon("save"),
+        variant = "outlined",
+        "Save"
+      )
+    ),
+    Button(
+      fullWidth = TRUE,
+      loading = TRUE,
+      loadingPosition = "start",
+      startIcon = shiny::icon("save"),
+      variant = "outlined",
+      "Full width"
+    ),
+    Button(
+      fullWidth = TRUE,
+      loading = TRUE,
+      loadingPosition = "end",
+      endIcon = shiny::icon("save"),
+      variant = "outlined",
+      "Full width"
+    ),
+    Stack(
+      direction = "row", 
+      spacing = 2,
+      Button(loading = TRUE, variant = "outlined", loadingPosition = "start", "Submit"),
+      Button(loading = TRUE, variant = "outlined", loadingPosition = "end", "Submit"),
+      Button(
+        loading = TRUE,
+        variant = "outlined",
+        loadingPosition = "end",
+        startIcon = shiny::icon("save"),
+        "Save"
+      )
+    )
+  )
+)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import SaveIcon from '@mui/icons-material/Save';
+import Stack from '@mui/material/Stack';
+
+export default function LoadingButtons() {
+  return (
+    <Stack spacing={2}>
+      <Stack direction="row" spacing={2}>
+        <Button loading variant="outlined">
+          Submit
+        </Button>
+        <Button loading loadingIndicator="Loading…" variant="outlined">
+          Fetch data
+        </Button>
+        <Button
+          loading
+          loadingPosition="start"
+          startIcon={<SaveIcon />}
+          variant="outlined"
+        >
+          Save
+        </Button>
+      </Stack>
+      <Button
+        fullWidth
+        loading
+        loadingPosition="start"
+        startIcon={<SaveIcon />}
+        variant="outlined"
+      >
+        Full width
+      </Button>
+      <Button
+        fullWidth
+        loading
+        loadingPosition="end"
+        endIcon={<SaveIcon />}
+        variant="outlined"
+      >
+        Full width
+      </Button>
+      <Stack direction="row" spacing={2}>
+        <Button loading variant="outlined" loadingPosition="start">
+          Submit
+        </Button>
+        <Button loading variant="outlined" loadingPosition="end">
+          Submit
+        </Button>
+        <Button
+          loading
+          variant="outlined"
+          loadingPosition="end"
+          startIcon={<SaveIcon />}
+        >
+          Save
+        </Button>
+      </Stack>
+    </Stack>
+  );
+}
+```
+</details>
+
+Toggle the loading switch to see the transition between the different states.
+
+## Loading
+
+```{r eval=FALSE}
+ui <- shinyMaterialUIPage(
+  div(
+    FormControlLabel(
+      sx = list(display = "block"),
+      control = Switch.shinyInput(
+        inputId = "loadingSwitch",
+        value = TRUE,
+        name = "loading",
+        color = "primary"
+      ),
+      label = "Loading"
+    ),
+    Box(
+      sx = list("& > button" = list(m = 1)),
+      Button.shinyInput(
+        inputId = "basicButton",
+        size = "small",
+        loading = TRUE,
+        variant = "outlined",
+        disabled = TRUE,
+        "Disabled"
+      ),
+      Button.shinyInput(
+        inputId = "fetchButton",
+        size = "small",
+        loading = TRUE,
+        loadingIndicator = "Loading…",
+        variant = "outlined",
+        "Fetch data"
+      ),
+      Button.shinyInput(
+        inputId = "sendButton",
+        size = "small",
+        endIcon = shiny::icon("paper-plane"),
+        loading = TRUE,
+        loadingPosition = "end",
+        variant = "contained",
+        "Send"
+      ),
+      Button.shinyInput(
+        inputId = "saveButton",
+        size = "small",
+        color = "secondary",
+        loading = TRUE,
+        loadingPosition = "start",
+        startIcon = shiny::icon("save"),
+        variant = "contained",
+        "Save"
+      )
+    ),
+    Box(
+      sx = list("& > button" = list(m = 1)),
+      Button.shinyInput(
+        inputId = "basicButton2",
+        loading = TRUE, 
+        variant = "outlined", 
+        disabled = TRUE,
+        "Disabled"
+      ),
+      Button.shinyInput(
+        inputId = "fetchButtonLarge",
+        loading = TRUE,
+        loadingIndicator = "Loading…",
+        variant = "outlined",
+        "Fetch data"
+      ),
+      Button.shinyInput(
+        inputId = "sendButtonLarge",
+        endIcon = shiny::icon("paper-plane"),
+        loading = TRUE,
+        loadingPosition = "end",
+        variant = "contained",
+        "Send"
+      ),
+      Button.shinyInput(
+        inputId = "saveButtonLarge",
+        color = "secondary",
+        loading = TRUE,
+        loadingPosition = "start",
+        startIcon = shiny::icon("save"),
+        variant = "contained",
+        "Save"
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observe({
+    loading <- input$loadingSwitch
+    
+    updateButton.shinyInput(inputId = "basicButton", loading = loading)
+    updateButton.shinyInput(inputId = "fetchButton", loading = loading)
+    updateButton.shinyInput(inputId = "sendButton", loading = loading)
+    updateButton.shinyInput(inputId = "saveButton", loading = loading)
+    updateButton.shinyInput(inputId = "basicButton2", loading = loading)
+    updateButton.shinyInput(inputId = "fetchButtonLarge", loading = loading)
+    updateButton.shinyInput(inputId = "sendButtonLarge", loading = loading)
+    updateButton.shinyInput(inputId = "saveButtonLarge", loading = loading)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Switch from '@mui/material/Switch';
+import SaveIcon from '@mui/icons-material/Save';
+import SendIcon from '@mui/icons-material/Send';
+
+export default function LoadingButtonsTransition() {
+  const [loading, setLoading] = React.useState(true);
+  function handleClick() {
+    setLoading(true);
+  }
+
+  return (
+    <div>
+      <FormControlLabel
+        sx={{ display: 'block' }}
+        control={
+          <Switch
+            checked={loading}
+            onChange={() => setLoading(!loading)}
+            name="loading"
+            color="primary"
+          />
+        }
+        label="Loading"
+      />
+      <Box sx={{ '& > button': { m: 1 } }}>
+        <Button
+          size="small"
+          onClick={handleClick}
+          loading={loading}
+          variant="outlined"
+          disabled
+        >
+          Disabled
+        </Button>
+        <Button
+          size="small"
+          onClick={handleClick}
+          loading={loading}
+          loadingIndicator="Loading…"
+          variant="outlined"
+        >
+          Fetch data
+        </Button>
+        <Button
+          size="small"
+          onClick={handleClick}
+          endIcon={<SendIcon />}
+          loading={loading}
+          loadingPosition="end"
+          variant="contained"
+        >
+          Send
+        </Button>
+        <Button
+          size="small"
+          color="secondary"
+          onClick={handleClick}
+          loading={loading}
+          loadingPosition="start"
+          startIcon={<SaveIcon />}
+          variant="contained"
+        >
+          Save
+        </Button>
+      </Box>
+      <Box sx={{ '& > button': { m: 1 } }}>
+        <Button onClick={handleClick} loading={loading} variant="outlined" disabled>
+          Disabled
+        </Button>
+        <Button
+          onClick={handleClick}
+          loading={loading}
+          loadingIndicator="Loading…"
+          variant="outlined"
+        >
+          Fetch data
+        </Button>
+        <Button
+          onClick={handleClick}
+          endIcon={<SendIcon />}
+          loading={loading}
+          loadingPosition="end"
+          variant="contained"
+        >
+          Send
+        </Button>
+        <Button
+          color="secondary"
+          onClick={handleClick}
+          loading={loading}
+          loadingPosition="start"
+          startIcon={<SaveIcon />}
+          variant="contained"
+        >
+          Save
+        </Button>
+      </Box>
+    </div>
+  );
+}
+```
+</details>
+
+When the loading prop is set to boolean, the loading wrapper is always present in the DOM to prevent a Google Translation Crash.
+
+The loading value should always be null or boolean. The pattern below is not recommended as it can cause the Google Translation crash:
+
+```jsx
+<Button {...(isFetching && { loading: true })}> // ❌ Don't do this
+```
+
+## Customization
+
+Here are some examples of customizing the component. You can learn more about this in the overrides documentation page.
+
+```{r}
+# TODO
+```

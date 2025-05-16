@@ -2,7 +2,7 @@
 title: "Using a router"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{with-router}
+  %\VignetteIndexEntry{Using a router}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

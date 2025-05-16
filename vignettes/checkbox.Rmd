@@ -1,0 +1,842 @@
+---
+title: "Checkbox"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Checkbox}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-checkbox/).</div>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(shinyMaterialUI)
+library(shiny)
+```
+
+# Checkbox
+
+Checkboxes allow the user to select one or more items from a set.
+
+Checkboxes can be used to turn an option on or off.
+
+If you have multiple options appearing in a list, you can preserve space by using checkboxes instead of on/off switches. If you have a single option, avoid using a checkbox and use an on/off switch instead.
+
+## Basic checkboxes
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Checkbox from '@mui/material/Checkbox';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+export default function Checkboxes() {
+  return (
+    <div>
+      <Checkbox {...label} defaultChecked />
+      <Checkbox {...label} />
+      <Checkbox {...label} disabled />
+      <Checkbox {...label} disabled checked />
+    </div>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- CssBaseline(
+  div(
+    Checkbox.shinyInput(inputId = "checkbox1", value = TRUE, 
+                        inputProps = list("aria-label" = "Checkbox demo")),
+    Checkbox.shinyInput(inputId = "checkbox2", 
+                        inputProps = list("aria-label" = "Checkbox demo")),
+    Checkbox.shinyInput(inputId = "checkbox3", 
+                        inputProps = list("aria-label" = "Checkbox demo"), 
+                        disabled = TRUE),
+    Checkbox.shinyInput(inputId = "checkbox4", value = TRUE, 
+                        inputProps = list("aria-label" = "Checkbox demo"), 
+                        disabled = TRUE)
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Label
+
+You can provide a label to the Checkbox thanks to the FormControlLabel component.
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Checkbox from '@mui/material/Checkbox';
+
+export default function CheckboxLabels() {
+  return (
+    <FormGroup>
+      <FormControlLabel control={<Checkbox defaultChecked />} label="Label" />
+      <FormControlLabel required control={<Checkbox />} label="Required" />
+      <FormControlLabel disabled control={<Checkbox />} label="Disabled" />
+    </FormGroup>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- CssBaseline(
+  FormGroup(
+    FormControlLabel(
+      control = Checkbox.shinyInput(inputId = "labeledCheckbox1", value = TRUE),
+      label = "Label"
+    ),
+    FormControlLabel(
+      required = TRUE,
+      control = Checkbox.shinyInput(inputId = "labeledCheckbox2"),
+      label = "Required"
+    ),
+    FormControlLabel(
+      disabled = TRUE,
+      control = Checkbox.shinyInput(inputId = "labeledCheckbox3"),
+      label = "Disabled"
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Size
+
+Use the size prop or customize the font size of the svg icons to change the size of the checkboxes.
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Checkbox from '@mui/material/Checkbox';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+export default function SizeCheckboxes() {
+  return (
+    <div>
+      <Checkbox {...label} defaultChecked size="small" />
+      <Checkbox {...label} defaultChecked />
+      <Checkbox
+        {...label}
+        defaultChecked
+        sx={{ '& .MuiSvgIcon-root': { fontSize: 28 } }}
+      />
+    </div>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- CssBaseline(
+  div(
+    Checkbox.shinyInput(
+      inputId = "sizeCheckbox1", 
+      value = TRUE,
+      size = "small",
+      inputProps = list("aria-label" = "Checkbox demo")
+    ),
+    Checkbox.shinyInput(
+      inputId = "sizeCheckbox2", 
+      value = TRUE,
+      inputProps = list("aria-label" = "Checkbox demo")
+    ),
+    Checkbox.shinyInput(
+      inputId = "sizeCheckbox3", 
+      value = TRUE,
+      inputProps = list("aria-label" = "Checkbox demo"),
+      sx = list("& .MuiSvgIcon-root" = list(fontSize = 28))
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Color
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { pink } from '@mui/material/colors';
+import Checkbox from '@mui/material/Checkbox';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+export default function ColorCheckboxes() {
+  return (
+    <div>
+      <Checkbox {...label} defaultChecked />
+      <Checkbox {...label} defaultChecked color="secondary" />
+      <Checkbox {...label} defaultChecked color="success" />
+      <Checkbox {...label} defaultChecked color="default" />
+      <Checkbox
+        {...label}
+        defaultChecked
+        sx={{
+          color: pink[800],
+          '&.Mui-checked': {
+            color: pink[600],
+          },
+        }}
+      />
+    </div>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- CssBaseline(
+  div(
+    Checkbox.shinyInput(
+      inputId = "colorCheckbox1", 
+      value = TRUE,
+      inputProps = list("aria-label" = "Checkbox demo")
+    ),
+    Checkbox.shinyInput(
+      inputId = "colorCheckbox2", 
+      value = TRUE,
+      color = "secondary",
+      inputProps = list("aria-label" = "Checkbox demo")
+    ),
+    Checkbox.shinyInput(
+      inputId = "colorCheckbox3", 
+      value = TRUE,
+      color = "success",
+      inputProps = list("aria-label" = "Checkbox demo")
+    ),
+    Checkbox.shinyInput(
+      inputId = "colorCheckbox4", 
+      value = TRUE,
+      color = "default",
+      inputProps = list("aria-label" = "Checkbox demo")
+    ),
+    Checkbox.shinyInput(
+      inputId = "colorCheckbox5", 
+      value = TRUE,
+      inputProps = list("aria-label" = "Checkbox demo"),
+      sx = list(
+        color = "#ad1457", # pink[800] equivalent
+        "&.Mui-checked" = list(
+          color = "#ec407a" # pink[600] equivalent
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Icon
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Checkbox from '@mui/material/Checkbox';
+import FavoriteBorder from '@mui/icons-material/FavoriteBorder';
+import Favorite from '@mui/icons-material/Favorite';
+import BookmarkBorderIcon from '@mui/icons-material/BookmarkBorder';
+import BookmarkIcon from '@mui/icons-material/Bookmark';
+
+const label = { inputProps: { 'aria-label': 'Checkbox demo' } };
+
+export default function IconCheckboxes() {
+  return (
+    <div>
+      <Checkbox {...label} icon={<FavoriteBorder />} checkedIcon={<Favorite />} />
+      <Checkbox
+        {...label}
+        icon={<BookmarkBorderIcon />}
+        checkedIcon={<BookmarkIcon />}
+      />
+    </div>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- CssBaseline(
+  div(
+    Checkbox.shinyInput(
+      inputId = "iconCheckbox1",
+      inputProps = list("aria-label" = "Checkbox demo"),
+      icon = shiny::icon("heart"),
+      checkedIcon = shiny::icon("heart", class = "fa-solid")
+    ),
+    Checkbox.shinyInput(
+      inputId = "iconCheckbox2",
+      inputProps = list("aria-label" = "Checkbox demo"),
+      icon = shiny::icon("bookmark"),
+      checkedIcon = shiny::icon("bookmark", class = "fa-solid")
+    )
+  )
+)
+
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Controlled
+
+You can control the checkbox with the checked and onChange props:
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Checkbox from '@mui/material/Checkbox';
+
+export default function ControlledCheckbox() {
+  const [checked, setChecked] = React.useState(true);
+
+  const handleChange = (event) => {
+    setChecked(event.target.checked);
+  };
+
+  return (
+    <Checkbox
+      checked={checked}
+      onChange={handleChange}
+      inputProps={{ 'aria-label': 'controlled' }}
+    />
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- shinyMaterialUIPage(
+  Checkbox.shinyInput(
+    inputId = "controlledCheckbox",
+    value = TRUE,
+    inputProps = list("aria-label" = "controlled")
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$controlledCheckbox, {
+    # Handle the checkbox value change
+    print(paste("Checkbox value:", input$controlledCheckbox))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Indeterminate
+
+A checkbox input can only have two states in a form: checked or unchecked. It either submits its value or doesn't. Visually, there are three states a checkbox can be in: checked, unchecked, or indeterminate.
+
+You can change the indeterminate icon using the indeterminateIcon prop.
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Checkbox from '@mui/material/Checkbox';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+export default function IndeterminateCheckbox() {
+  const [checked, setChecked] = React.useState([true, false]);
+
+  const handleChange1 = (event) => {
+    setChecked([event.target.checked, event.target.checked]);
+  };
+
+  const handleChange2 = (event) => {
+    setChecked([event.target.checked, checked[1]]);
+  };
+
+  const handleChange3 = (event) => {
+    setChecked([checked[0], event.target.checked]);
+  };
+
+  const children = (
+    <Box sx={{ display: 'flex', flexDirection: 'column', ml: 3 }}>
+      <FormControlLabel
+        label="Child 1"
+        control={<Checkbox checked={checked[0]} onChange={handleChange2} />}
+      />
+      <FormControlLabel
+        label="Child 2"
+        control={<Checkbox checked={checked[1]} onChange={handleChange3} />}
+      />
+    </Box>
+  );
+
+  return (
+    <div>
+      <FormControlLabel
+        label="Parent"
+        control={
+          <Checkbox
+            checked={checked[0] && checked[1]}
+            indeterminate={checked[0] !== checked[1]}
+            onChange={handleChange1}
+          />
+        }
+      />
+      {children}
+    </div>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- shinyMaterialUIPage(
+  div(
+    FormControlLabel(
+      label = "Parent",
+      control = Checkbox.shinyInput(
+        inputId = "parentCheckbox",
+        indeterminate = TRUE # Will be controlled by server logic
+      )
+    ),
+    Box(
+      sx = list(display = "flex", flexDirection = "column", ml = 3),
+      FormControlLabel(
+        label = "Child 1",
+        control = Checkbox.shinyInput(inputId = "childCheckbox1", value = TRUE)
+      ),
+      FormControlLabel(
+        label = "Child 2",
+        control = Checkbox.shinyInput(inputId = "childCheckbox2", value = FALSE)
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  # Initialize state
+  checkState <- reactiveVal(c(TRUE, FALSE))
+  
+  # Watch parent checkbox
+  observeEvent(input$parentCheckbox, {
+    newState <- c(input$parentCheckbox, input$parentCheckbox)
+    checkState(newState)
+    
+    # Update children
+    updateCheckbox.shinyInput(session, "childCheckbox1", value = newState[1])
+    updateCheckbox.shinyInput(session, "childCheckbox2", value = newState[2])
+  })
+  
+  # Watch child 1 checkbox
+  observeEvent(input$childCheckbox1, {
+    newState <- c(input$childCheckbox1, checkState()[2])
+    checkState(newState)
+    
+    # Update parent indeterminate state
+    parentChecked <- all(newState)
+    parentIndeterminate <- newState[1] != newState[2]
+    
+    updateCheckbox.shinyInput(
+      session, "parentCheckbox", 
+      value = parentChecked,
+      indeterminate = parentIndeterminate
+    )
+  })
+  
+  # Watch child 2 checkbox
+  observeEvent(input$childCheckbox2, {
+    newState <- c(checkState()[1], input$childCheckbox2)
+    checkState(newState)
+    
+    # Update parent indeterminate state
+    parentChecked <- all(newState)
+    parentIndeterminate <- newState[1] != newState[2]
+    
+    updateCheckbox.shinyInput(
+      session, "parentCheckbox", 
+      value = parentChecked,
+      indeterminate = parentIndeterminate
+    )
+  })
+}
+
+shinyApp(ui, server)
+```
+
+When indeterminate is set, the value of the checked prop only impacts the form submitted values. It has no accessibility or UX implications.
+
+## FormGroup
+
+FormGroup is a helpful wrapper used to group selection control components.
+
+You can display an error
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormHelperText from '@mui/material/FormHelperText';
+import Checkbox from '@mui/material/Checkbox';
+
+export default function CheckboxesGroup() {
+  const [state, setState] = React.useState({
+    gilad: true,
+    jason: false,
+    antoine: false,
+  });
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const { gilad, jason, antoine } = state;
+  const error = [gilad, jason, antoine].filter((v) => v).length !== 2;
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <FormControl sx={{ m: 3 }} component="fieldset" variant="standard">
+        <FormLabel component="legend">Assign responsibility</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox checked={gilad} onChange={handleChange} name="gilad" />
+            }
+            label="Gilad Gray"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={jason} onChange={handleChange} name="jason" />
+            }
+            label="Jason Killian"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={antoine} onChange={handleChange} name="antoine" />
+            }
+            label="Antoine Llorca"
+          />
+        </FormGroup>
+        <FormHelperText>Be careful</FormHelperText>
+      </FormControl>
+      <FormControl
+        required
+        error={error}
+        component="fieldset"
+        sx={{ m: 3 }}
+        variant="standard"
+      >
+        <FormLabel component="legend">Pick two</FormLabel>
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Checkbox checked={gilad} onChange={handleChange} name="gilad" />
+            }
+            label="Gilad Gray"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={jason} onChange={handleChange} name="jason" />
+            }
+            label="Jason Killian"
+          />
+          <FormControlLabel
+            control={
+              <Checkbox checked={antoine} onChange={handleChange} name="antoine" />
+            }
+            label="Antoine Llorca"
+          />
+        </FormGroup>
+        <FormHelperText>You can display an error</FormHelperText>
+      </FormControl>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- shinyMaterialUIPage(
+  Box(
+    sx = list(display = "flex"),
+    FormControl(
+      sx = list(m = 3),
+      component = "fieldset",
+      variant = "standard",
+      FormLabel(component = "legend", "Assign responsibility"),
+      FormGroup(
+        FormControlLabel(
+          control = Checkbox.shinyInput(inputId = "gilad1", value = TRUE),
+          label = "Gilad Gray"
+        ),
+        FormControlLabel(
+          control = Checkbox.shinyInput(inputId = "jason1", value = FALSE),
+          label = "Jason Killian"
+        ),
+        FormControlLabel(
+          control = Checkbox.shinyInput(inputId = "antoine1", value = FALSE),
+          label = "Antoine Llorca"
+        )
+      ),
+      FormHelperText("Be careful")
+    ),
+    reactOutput("uiForm")
+  )
+)
+
+server <- function(input, output, session) {
+  # Reactive to track the state
+  state <- reactiveValues(
+    gilad = TRUE,
+    jason = FALSE,
+    antoine = FALSE
+  )
+  
+  # Update FormControl error state
+  observe({
+    # Count selected checkboxes
+    selectedCount <- sum(c(state$gilad, state$jason, state$antoine))
+    hasError <- selectedCount != 2
+    
+    output$uiForm <- renderReact({
+      FormControl(
+        required = TRUE,
+        error = hasError, # This will be dynamically updated in the server
+        component = "fieldset",
+        sx = list(m = 3),
+        variant = "standard",
+        FormLabel(component = "legend", "Pick two"),
+        FormGroup(
+          FormControlLabel(
+            control = Checkbox.shinyInput(inputId = "gilad2", value = TRUE),
+            label = "Gilad Gray"
+          ),
+          FormControlLabel(
+            control = Checkbox.shinyInput(inputId = "jason2", value = FALSE),
+            label = "Jason Killian"
+          ),
+          FormControlLabel(
+            control = Checkbox.shinyInput(inputId = "antoine2", value = FALSE),
+            label = "Antoine Llorca"
+          )
+        ),
+        FormHelperText("You can display an error")
+      )
+    })
+  })
+  
+  # Watch gilad checkboxes
+  observeEvent(input$gilad1, {
+    state$gilad <- input$gilad1
+    updateCheckbox.shinyInput(session, "gilad2", value = input$gilad1)
+  })
+  
+  observeEvent(input$gilad2, {
+    state$gilad <- input$gilad2
+    updateCheckbox.shinyInput(session, "gilad1", value = input$gilad2)
+  })
+  
+  # Watch jason checkboxes
+  observeEvent(input$jason1, {
+    state$jason <- input$jason1
+    updateCheckbox.shinyInput(session, "jason2", value = input$jason1)
+  })
+  
+  observeEvent(input$jason2, {
+    state$jason <- input$jason2
+    updateCheckbox.shinyInput(session, "jason1", value = input$jason2)
+  })
+  
+  # Watch antoine checkboxes
+  observeEvent(input$antoine1, {
+    state$antoine <- input$antoine1
+    updateCheckbox.shinyInput(session, "antoine2", value = input$antoine1)
+  })
+  
+  observeEvent(input$antoine2, {
+    state$antoine <- input$antoine2
+    updateCheckbox.shinyInput(session, "antoine1", value = input$antoine2)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Label placement
+
+You can change the placement of the label:
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Checkbox from '@mui/material/Checkbox';
+import FormGroup from '@mui/material/FormGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+export default function FormControlLabelPosition() {
+  return (
+    <FormControl component="fieldset">
+      <FormLabel component="legend">Label placement</FormLabel>
+      <FormGroup aria-label="position" row>
+        <FormControlLabel
+          value="bottom"
+          control={<Checkbox />}
+          label="Bottom"
+          labelPlacement="bottom"
+        />
+        <FormControlLabel
+          value="end"
+          control={<Checkbox />}
+          label="End"
+          labelPlacement="end"
+        />
+      </FormGroup>
+    </FormControl>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+ui <- CssBaseline(
+  FormControl(
+    component = "fieldset",
+    FormLabel(component = "legend", "Label placement"),
+    FormGroup(
+      `aria-label` = "position", 
+      row = TRUE,
+      FormControlLabel(
+        value = "bottom",
+        control = Checkbox.shinyInput(inputId = "bottomPlacement"),
+        label = "Bottom",
+        labelPlacement = "bottom"
+      ),
+      FormControlLabel(
+        value = "end",
+        control = Checkbox.shinyInput(inputId = "endPlacement"),
+        label = "End",
+        labelPlacement = "end"
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Customization
+
+Here is an example of customizing the component. You can learn more about this in the overrides documentation page.
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Checkbox from '@mui/material/Checkbox';
+
+const BpIcon = styled('span')(({ theme }) => ({
+  borderRadius: 3,
+  width: 16,
+  height: 16,
+  boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
+  backgroundColor: '#f5f8fa',
+  backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
+  '.Mui-focusVisible &': {
+    outline: '2px auto rgba(19,124,189,.6)',
+    outlineOffset: 2,
+  },
+  'input:hover ~ &': {
+    backgroundColor: '#ebf1f5',
+    ...theme.applyStyles('dark', {
+      backgroundColor: '#30404d',
+    }),
+  },
+  'input:disabled ~ &': {
+    boxShadow: 'none',
+    background: 'rgba(206,217,224,.5)',
+    ...theme.applyStyles('dark', {
+      background: 'rgba(57,75,89,.5)',
+    }),
+  },
+  ...theme.applyStyles('dark', {
+    boxShadow: '0 0 0 1px rgb(16 22 26 / 40%)',
+    backgroundColor: '#394b59',
+    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0))',
+  }),
+}));
+
+const BpCheckedIcon = styled(BpIcon)({
+  backgroundColor: '#137cbd',
+  backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
+  '&::before': {
+    display: 'block',
+    width: 16,
+    height: 16,
+    backgroundImage:
+      "url(\"data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Cpath" +
+      " fill-rule='evenodd' clip-rule='evenodd' d='M12 5c-.28 0-.53.11-.71.29L7 9.59l-2.29-2.3a1.003 " +
+      "1.003 0 00-1.42 1.42l3 3c.18.18.43.29.71.29s.53-.11.71-.29l5-5A1.003 1.003 0 0012 5z' fill='%23fff'/%3E%3C/svg%3E\")",
+    content: '""',
+  },
+  'input:hover ~ &': {
+    backgroundColor: '#106ba3',
+  },
+});
+
+// Inspired by blueprintjs
+function BpCheckbox(props) {
+  return (
+    <Checkbox
+      sx={{ '&:hover': { bgcolor: 'transparent' } }}
+      disableRipple
+      color="default"
+      checkedIcon={<BpCheckedIcon />}
+      icon={<BpIcon />}
+      inputProps={{ 'aria-label': 'Checkbox demo' }}
+      {...props}
+    />
+  );
+}
+
+export default function CustomizedCheckbox() {
+  return (
+    <div>
+      <BpCheckbox />
+      <BpCheckbox defaultChecked />
+      <BpCheckbox disabled />
+    </div>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+# For the customized checkbox, we'll use ThemeProvider to create a custom theme
+# TODO
+```
