@@ -1,6 +1,6 @@
 # Button
 
-Buttons allow users to take actions, and make choices, with a single tap.themesPremium Themes. Kickstart your application development with a ready-made theme.ad by MUI
+Buttons allow users to take actions, and make choices, with a single tap.
 
 Buttons communicate actions that users can take. They are typically placed throughout your UI, in places like:
 
