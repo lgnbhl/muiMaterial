@@ -5,6 +5,7 @@
 .httr-oauth
 .DS_Store
 .quarto
+.Renviron
 js/node_modules
 js/README.md
 docs

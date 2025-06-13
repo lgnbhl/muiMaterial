@@ -5,7 +5,8 @@ button <- function(name, module = "@/shinyMaterialUI") {
   function(inputId, ...) {
     checkmate::assert_string(inputId)
     shiny.react::reactElement(
-      module = module, name = name,
+      module = module,
+      name = name,
       props = shiny.react::asProps(inputId = inputId, ...),
       deps = muiMaterialDependency()
     )
@@ -87,7 +88,8 @@ input <- function(name, defaultValue = NULL, module = "@/shinyMaterialUI") {
   function(inputId, ..., value = defaultValue) {
     checkmate::assert_string(inputId)
     shiny.react::reactElement(
-      module = module, name = name,
+      module = module,
+      name = name,
       props = shiny.react::asProps(inputId = inputId, ..., value = value),
       deps = muiMaterialDependency()
     )
@@ -133,6 +135,16 @@ FormControlLabel.shinyInput <- input("FormControlLabel")
 #' @inherit shinyInput params return
 #' @export
 updateFormControlLabel.shinyInput <- shiny.react::updateReactInput
+
+#' @rdname OutlinedInput
+#' @inherit shinyInput params return
+#' @export
+OutlinedInput.shinyInput <- input("OutlinedInput")
+
+#' @rdname OutlinedInput
+#' @inherit shinyInput params return
+#' @export
+updateOutlinedInput.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Radio
 #' @inherit shinyInput params return
@@ -263,4 +275,3 @@ ToggleButtonGroup.shinyInput <- input("ToggleButtonGroup")
 #' @inherit shinyInput params return
 #' @export
 updateToggleButtonGroup.shinyInput <- shiny.react::updateReactInput
-

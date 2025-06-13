@@ -40,6 +40,11 @@ export const Input = InputAdapter(Material.Input, (value, setValue) => ({
   onChange: (e) => setValue(e.target.value),
 }));
 
+export const OutlinedInput = InputAdapter(Material.OutlinedInput, (value, setValue) => ({
+  value: value,
+  onChange: (e) => setValue(e.target.value),
+}));
+
 export const Radio = InputAdapter(Material.Radio, (value, setValue) => ({
   checked: value,
   onChange: (e) => setValue(e.target.checked),
