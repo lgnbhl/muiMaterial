@@ -2,7 +2,7 @@
 title: "Switch"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Checkbox}
+  %\VignetteIndexEntry{Switch}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---

@@ -2,7 +2,7 @@
 title: "TextField"
 output: rmarkdown::html_vignette
 vignette: >
-  %\VignetteIndexEntry{Checkbox}
+  %\VignetteIndexEntry{TextField}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
