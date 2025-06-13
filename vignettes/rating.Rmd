@@ -333,39 +333,35 @@ export default function CustomizedRating() {
 </details>
 
 ```{r}
-heart_label_text <- function(value) {
-  heart_text <- ifelse(value != 1, "Hearts", "Heart")
-  return(paste(value, heart_text))
-}
-
 shinyMaterialUIPage(
-  ThemeProvider(
-    theme = list(
-      components = list(
-        MuiRating = list(
-          styleOverrides = list(
-            iconFilled = list(
-              color = "#ff6d75"
-            ),
-            iconHover = list(
-              color = "#ff3d47"
+  CssBaseline(
+    ThemeProvider(
+      theme = list(
+        components = list(
+          MuiRating = list(
+            styleOverrides = list(
+              iconFilled = list(
+                color = "#ff6d75"
+              ),
+              iconHover = list(
+                color = "#ff3d47"
+              )
             )
           )
         )
-      )
-    ),
-    CssBaseline(
-      Typography(component = "legend", "Custom icon and color"),
-      Rating(
-        defaultValue = 2,
-        precision = 0.5,
-        icon = shiny::icon("heart", class = "fa-solid"),
-        emptyIcon = shiny::icon("heart", class = "fa-solid")
       ),
-      Typography(component = "legend", "10 stars"),
-      Rating(
-        defaultValue = 2,
-        max = 10
+      Box(
+        sx = list('& > legend' = list(mt = 2)),
+        Typography("Custom icon and color", component = "legend"),
+        Rating(
+          name = "customized_color",
+          defaultValue = 2,
+          precision = 0.5,
+          icon = shiny::icon("heart"),
+          emptyIcon = shiny::icon("heart", class = "far")
+        ),
+        Typography("10 stars", component = "legend"),
+        Rating(name = "customized_10", defaultValue = 2, max = 10)
       )
     )
   )
@@ -441,5 +437,40 @@ export default function RadioGroupRating() {
 </details>
 
 ```{r eval=FALSE}
-# TODO
+ui <- shinyMaterialUIPage(
+  CssBaseline(
+    ThemeProvider(
+      theme = list(
+        components = list(
+          MuiRating = list(
+            styleOverrides = list(
+              iconEmpty = list(
+                '& .MuiSvgIcon-root' = list(
+                  color = "rgba(0, 0, 0, 0.26)"
+                )
+              )
+            )
+          )
+        )
+      ),
+      Rating(
+        name = "highlight_selected_only",
+        defaultValue = 2,
+        highlightSelectedOnly = TRUE,
+        # Custom icons would need to be implemented with custom IconContainerComponent
+        # For simplicity, using standard emoticon icons
+        icon = shiny::icon("smile"),
+        emptyIcon = shiny::icon("meh")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$radio_group_rating, {
+    # Handle rating change
+  })
+}
+
+shinyApp(ui, server)
 ```

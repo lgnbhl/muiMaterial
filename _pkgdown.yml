@@ -26,6 +26,10 @@ navbar:
       href: articles/rating.html
     - text: Slider
       href: articles/slider.html
+    - text: TextField
+      href: articles/textfield.html
+    - text: Switch
+      href: articles/switch.html
   - text: Dashboarding
     menu:
     - text: Basic dashboarding

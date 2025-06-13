@@ -1,0 +1,1504 @@
+---
+title: "TextField"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Checkbox}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-text-field/).</div>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(shinyMaterialUI)
+```
+
+# Text Field
+
+Text Fields let users enter and edit text.
+
+Text fields allow users to enter text into a UI. They typically appear in forms and dialogs.
+
+## Basic TextField
+
+The TextField wrapper component is a complete form control including a label, input, and help text.
+It comes with three variants: outlined (default), filled, and standard.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function BasicTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField id="outlined-basic" label="Outlined" variant="outlined" />
+      <TextField id="filled-basic" label="Filled" variant="filled" />
+      <TextField id="standard-basic" label="Standard" variant="standard" />
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- shinyMaterialUIPage(
+  Box(
+    component = "form",
+    sx = list('& > :not(style)' = list(m = 1, width = '25ch')),
+    noValidate = TRUE,
+    autoComplete = "off",
+    TextField.shinyInput(
+      inputId = "outlined-basic",
+      value = "",
+      label = "Outlined",
+      variant = "outlined"
+    ),
+    TextField.shinyInput(
+      inputId = "filled-basic",
+      value = "",
+      label = "Filled",
+      variant = "filled"
+    ),
+    TextField.shinyInput(
+      inputId = "standard-basic",
+      value = "",
+      label = "Standard",
+      variant = "standard"
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  # Access input values with input$`outlined-basic`, input$`filled-basic`, etc.
+}
+
+shinyApp(ui, server)
+```
+
+## Form props
+
+Standard form attributes are supported, for example required, disabled, type, etc. as well as a helperText which is used to give context about a field's input, such as how the input will be used.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function FormPropsTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          required
+          id="outlined-required"
+          label="Required"
+          defaultValue="Hello World"
+        />
+        <TextField
+          disabled
+          id="outlined-disabled"
+          label="Disabled"
+          defaultValue="Hello World"
+        />
+        <TextField
+          id="outlined-password-input"
+          label="Password"
+          type="password"
+          autoComplete="current-password"
+        />
+        <TextField
+          id="outlined-read-only-input"
+          label="Read Only"
+          defaultValue="Hello World"
+          slotProps={{
+            input: {
+              readOnly: true,
+            },
+          }}
+        />
+        <TextField
+          id="outlined-number"
+          label="Number"
+          type="number"
+          slotProps={{
+            input: {
+              step: 300,
+            },
+          }}
+        />
+        <TextField id="outlined-search" label="Search field" type="search" />
+        <TextField
+          id="outlined-helperText"
+          label="Helper text"
+          defaultValue="Default Value"
+          helperText="Some important text"
+        />
+      </div>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- shinyMaterialUIPage(
+  Box(
+    component = "form",
+    sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
+    noValidate = TRUE,
+    autoComplete = "off",
+    div(
+      TextField.shinyInput(
+        inputId = "outlined-required",
+        value = "Hello World",
+        label = "Required",
+        required = TRUE
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-disabled",
+        value = "Hello World",
+        label = "Disabled",
+        disabled = TRUE
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-password-input",
+        value = "",
+        label = "Password",
+        type = "password",
+        autoComplete = "current-password"
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-read-only-input",
+        value = "Hello World",
+        label = "Read Only",
+        slotProps = list(
+          input = list(
+            readOnly = TRUE
+          )
+        )
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-number",
+        value = "",
+        label = "Number",
+        type = "number",
+        slotProps = list(
+          input = list(
+            step = 300
+          )
+        )
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-search",
+        value = "",
+        label = "Search field",
+        type = "search"
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-helperText",
+        value = "Default Value",
+        label = "Helper text",
+        helperText = "Some important text"
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  # Handle input values
+}
+
+shinyApp(ui, server)
+```
+
+## Controlling the HTML input
+
+Use slotProps.htmlInput to pass attributes to the underlying `<input>` element.
+
+<details>
+<summary>JS code</summary>
+```jsx
+<TextField slotProps={{ htmlInput: { 'data-testid': '…' } }} />
+```
+</details>
+
+```{r}
+library(shiny)
+
+ControlledInput <- function() {
+  CssBaseline(
+    TextField.shinyInput(
+      inputId = "controlled-input",
+      value = "",
+      slotProps = list(
+        htmlInput = list(
+          'data-testid' = 'test-input'
+        )
+      )
+    )
+  )
+}
+```
+
+The rendered HTML input will look like this:
+```html
+<input
+  aria-invalid="false"
+  class="MuiInputBase-input MuiOutlinedInput-input"
+  type="text"
+  data-testid="test-input"
+/>
+```
+
+## Validation
+
+The error prop toggles the error state.
+The helperText prop can then be used to provide feedback to the user about the error.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function ValidationTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          error
+          id="outlined-error"
+          label="Error"
+          defaultValue="Hello World"
+        />
+        <TextField
+          error
+          id="outlined-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+        />
+      </div>
+      <div>
+        <TextField
+          error
+          id="filled-error"
+          label="Error"
+          defaultValue="Hello World"
+          variant="filled"
+        />
+        <TextField
+          error
+          id="filled-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+          variant="filled"
+        />
+      </div>
+      <div>
+        <TextField
+          error
+          id="standard-error"
+          label="Error"
+          defaultValue="Hello World"
+          variant="standard"
+        />
+        <TextField
+          error
+          id="standard-error-helper-text"
+          label="Error"
+          defaultValue="Hello World"
+          helperText="Incorrect entry."
+          variant="standard"
+        />
+      </div>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- shinyMaterialUIPage(
+  Box(
+    component = "form",
+    sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
+    noValidate = TRUE,
+    autoComplete = "off",
+    div(
+      TextField.shinyInput(
+        inputId = "outlined-error",
+        value = "Hello World",
+        label = "Error",
+        error = TRUE
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-error-helper-text",
+        value = "Hello World",
+        label = "Error",
+        error = TRUE,
+        helperText = "Incorrect entry."
+      )
+    ),
+    div(
+      TextField.shinyInput(
+        inputId = "filled-error",
+        value = "Hello World",
+        label = "Error",
+        error = TRUE,
+        variant = "filled"
+      ),
+      TextField.shinyInput(
+        inputId = "filled-error-helper-text",
+        value = "Hello World",
+        label = "Error",
+        error = TRUE,
+        helperText = "Incorrect entry.",
+        variant = "filled"
+      )
+    ),
+    div(
+      TextField.shinyInput(
+        inputId = "standard-error",
+        value = "Hello World",
+        label = "Error",
+        error = TRUE,
+        variant = "standard"
+      ),
+      TextField.shinyInput(
+        inputId = "standard-error-helper-text",
+        value = "Hello World",
+        label = "Error",
+        error = TRUE,
+        helperText = "Incorrect entry.",
+        variant = "standard"
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  # Handle validation logic
+}
+
+shinyApp(ui, server)
+```
+
+## Multiline
+
+The multiline prop transforms the Text Field into a MUI Base Textarea Autosize element.
+Unless the rows prop is set, the height of the text field dynamically matches its content.
+You can use the minRows and maxRows props to bound it.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function MultilineTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          id="outlined-multiline-flexible"
+          label="Multiline"
+          multiline
+          maxRows={4}
+        />
+        <TextField
+          id="outlined-textarea"
+          label="Multiline Placeholder"
+          placeholder="Placeholder"
+          multiline
+        />
+        <TextField
+          id="outlined-multiline-static"
+          label="Multiline"
+          multiline
+          rows={4}
+          defaultValue="Default Value"
+        />
+      </div>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- shinyMaterialUIPage(
+  Box(
+    component = "form",
+    sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
+    noValidate = TRUE,
+    autoComplete = "off",
+    div(
+      TextField.shinyInput(
+        inputId = "outlined-multiline-flexible",
+        value = "",
+        label = "Multiline",
+        multiline = TRUE,
+        maxRows = 4
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-textarea",
+        value = "",
+        label = "Multiline Placeholder",
+        placeholder = "Placeholder",
+        multiline = TRUE
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-multiline-static",
+        value = "Default Value",
+        label = "Multiline",
+        multiline = TRUE,
+        rows = 4
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  # Handle multiline input
+}
+
+shinyApp(ui, server)
+```
+
+## Icons
+
+There are multiple ways to display an icon with a text field.
+
+### Input Adornments
+
+The main way is with an InputAdornment.
+This can be used to add a prefix, a suffix, or an action to an input.
+For instance, you can use an icon button to hide or reveal the password.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import IconButton from '@mui/material/IconButton';
+import Input from '@mui/material/Input';
+import FilledInput from '@mui/material/FilledInput';
+import OutlinedInput from '@mui/material/OutlinedInput';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormControl from '@mui/material/FormControl';
+import TextField from '@mui/material/TextField';
+import Visibility from '@mui/icons-material/Visibility';
+import VisibilityOff from '@mui/icons-material/VisibilityOff';
+
+export default function InputAdornments() {
+  const [showPassword, setShowPassword] = React.useState(false);
+
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap' }}>
+      <div>
+        <TextField
+          label="With normal TextField"
+          id="outlined-start-adornment"
+          sx={{ m: 1, width: '25ch' }}
+          slotProps={{
+            input: {
+              startAdornment: <InputAdornment position="start">kg</InputAdornment>,
+            },
+          }}
+        />
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <OutlinedInput
+            id="outlined-adornment-weight"
+            endAdornment={<InputAdornment position="end">kg</InputAdornment>}
+            aria-describedby="outlined-weight-helper-text"
+          />
+          <FormHelperText id="outlined-weight-helper-text">Weight</FormHelperText>
+        </FormControl>
+        <FormControl sx={{ m: 1, width: '25ch' }} variant="outlined">
+          <InputLabel htmlFor="outlined-adornment-password">Password</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-password"
+            type={showPassword ? 'text' : 'password'}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle password visibility"
+                  onClick={handleClickShowPassword}
+                  onMouseDown={handleMouseDownPassword}
+                  edge="end"
+                >
+                  {showPassword ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+            label="Password"
+          />
+        </FormControl>
+        <FormControl fullWidth sx={{ m: 1 }}>
+          <InputLabel htmlFor="outlined-adornment-amount">Amount</InputLabel>
+          <OutlinedInput
+            id="outlined-adornment-amount"
+            startAdornment={<InputAdornment position="start">$</InputAdornment>}
+            label="Amount"
+          />
+        </FormControl>
+      </div>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- shinyMaterialUIPage(
+  Box(
+    sx = list(display = 'flex', flexWrap = 'wrap'),
+    div(
+      TextField.shinyInput(
+        inputId = "outlined-start-adornment",
+        value = "",
+        label = "With normal TextField",
+        sx = list(m = 1, width = '25ch'),
+        slotProps = list(
+          input = list(
+            startAdornment = InputAdornment(position = "start", "kg")
+          )
+        )
+      ),
+      FormControl(
+        sx = list(m = 1, width = '25ch'),
+        variant = "outlined",
+        OutlinedInput.shinyInput(
+          inputId = "outlined-adornment-weight",
+          endAdornment = InputAdornment(position = "end", "kg"),
+          "aria-describedby" = "outlined-weight-helper-text"
+        ),
+        FormHelperText(id = "outlined-weight-helper-text", "Weight")
+      ),
+      FormControl(
+        sx = list(m = 1, width = '25ch'),
+        variant = "outlined",
+        InputLabel(htmlFor = "outlined-adornment-password", "Password"),
+        OutlinedInput.shinyInput(
+          inputId = "outlined-adornment-password-input",
+          type = "password",
+          endAdornment = InputAdornment(
+            position = "end",
+            IconButton(
+              "aria-label" = "toggle password visibility",
+              id = "toggle-password",
+              edge = "end",
+              shiny::icon("eye")
+            )
+          ),
+          label = "Password"
+        )
+      ),
+      FormControl(
+        fullWidth = TRUE,
+        sx = list(m = 1),
+        InputLabel(htmlFor = "outlined-adornment-amount", "Amount"),
+        OutlinedInput.shinyInput(
+          inputId = "outlined-adornment-amount",
+          startAdornment = InputAdornment(position = "start", "$"),
+          label = "Amount"
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  showPassword <- reactiveVal(FALSE)
+  
+  observeEvent(input$`toggle-password`, {
+    showPassword(!showPassword())
+    updateOutlinedInput.shinyInput(
+      session,
+      inputId = "outlined-adornment-password-input",
+      type = if(showPassword()) "text" else "password",
+      endAdornment = InputAdornment(
+            position = "end",
+            IconButton(
+              "aria-label" = "toggle password visibility",
+              id = "toggle-password",
+              edge = "end",
+              shiny::icon("eye-slash")
+            )
+          )
+    )
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Sizes
+
+Fancy smaller inputs? Use the size prop.
+
+The filled variant input height can be further reduced by rendering the label outside of it.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import TextField from '@mui/material/TextField';
+
+export default function TextFieldSizes() {
+  return (
+    <div>
+      <TextField
+        label="Size"
+        id="outlined-size-small"
+        defaultValue="Small"
+        size="small"
+      />
+      <TextField
+        label="Size"
+        id="outlined-size-normal"
+        defaultValue="Normal"
+      />
+    </div>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- function() {
+  CssBaseline(
+    Box(
+      p = 3,
+      TextField.shinyInput(
+        inputId = "outlined-size-small",
+        value = "Small",
+        label = "Size",
+        size = "small"
+      ),
+      TextField.shinyInput(
+        inputId = "outlined-size-normal",
+        value = "Normal",
+        label = "Size"
+      )
+    )
+  )
+}
+
+server <- function(input, output, session) { }
+
+shinyApp(ui, server)
+
+```
+
+## Margin
+
+The margin prop can be used to alter the vertical spacing of the text field.
+Using none (default) doesn't apply margins to the FormControl whereas dense and normal do.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function LayoutTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{ '& .MuiTextField-root': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <div>
+        <TextField
+          label={'margin="none"'}
+          id="margin-none"
+        />
+        <TextField
+          label={'margin="dense"'}
+          id="margin-dense"
+          margin="dense"
+        />
+        <TextField
+          label={'margin="normal"'}
+          id="margin-normal"
+          margin="normal"
+        />
+      </div>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- function() {
+  CssBaseline(
+    Box(
+      component = "form",
+      sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
+      noValidate = TRUE,
+      autoComplete = "off",
+      div(
+        TextField.shinyInput(
+          inputId = "margin-none",
+          value = "",
+          label = 'margin="none"'
+        ),
+        TextField.shinyInput(
+          inputId = "margin-dense",
+          value = "",
+          label = 'margin="dense"',
+          margin = "dense"
+        ),
+        TextField.shinyInput(
+          inputId = "margin-normal",
+          value = "",
+          label = 'margin="normal"',
+          margin = "normal"
+        )
+      )
+    )
+  )
+}
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+## Full width
+
+fullWidth can be used to make the input take up the full width of its container.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function FullWidthTextField() {
+  return (
+    <Box
+      sx={{ width: 500, maxWidth: '100%' }}
+    >
+      <TextField fullWidth label="fullWidth" id="fullWidth" />
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- function() {
+  CssBaseline(
+    Box(
+      sx = list(width = 500, maxWidth = '100%', p = 3),
+      TextField.shinyInput(
+        inputId = "fullWidth",
+        value = "",
+        fullWidth = TRUE,
+        label = "fullWidth"
+      )
+    )
+  )
+}
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+## Uncontrolled vs. Controlled
+
+The component can be controlled or uncontrolled.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function StateTextFields() {
+  const [name, setName] = React.useState('Cat in the Hat');
+
+  return (
+    <Box
+      component="form"
+      sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        id="outlined-controlled"
+        label="Controlled"
+        value={name}
+        onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+          setName(event.target.value);
+        }}
+      />
+      <TextField
+        id="outlined-uncontrolled"
+        label="Uncontrolled"
+        defaultValue="foo"
+      />
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- shinyMaterialUIPage(
+  Box(
+    component = "form",
+    sx = list('& > :not(style)' = list(m = 1, width = '25ch')),
+    noValidate = TRUE,
+    autoComplete = "off",
+    TextField.shinyInput(
+      inputId = "outlined-controlled",
+      value = "Cat in the Hat",
+      label = "Controlled"
+    ),
+    TextField.shinyInput(
+      inputId = "outlined-uncontrolled",
+      value = "foo",
+      label = "Uncontrolled"
+    ),
+    br(),
+    textOutput("controlled_value")
+  )
+)
+
+server <- function(input, output, session) {
+  output$controlled_value <- renderText({
+    paste("Controlled value:", input$`outlined-controlled`)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Components
+
+TextField is composed of smaller components (
+FormControl,
+Input,
+FilledInput,
+InputLabel,
+OutlinedInput,
+and FormHelperText
+) that you can leverage directly to significantly customize your form inputs.
+
+You might also have noticed that some native HTML input properties are missing from the TextField component.
+This is on purpose.
+The component takes care of the most used properties.
+Then, it's up to the user to use the underlying component shown in the following demo. Still, you can use slotProps.htmlInput (and slotProps.input, slotProps.inputLabel properties) if you want to avoid some boilerplate.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import InputAdornment from '@mui/material/InputAdornment';
+import FormControl from '@mui/material/FormControl';
+import AccountCircle from '@mui/icons-material/AccountCircle';
+
+export default function InputWithIcon() {
+  return (
+    <Box sx={{ '& > :not(style)': { m: 1 } }}>
+      <FormControl variant="standard">
+        <InputLabel htmlFor="input-with-icon-adornment">
+          With a start adornment
+        </InputLabel>
+        <Input
+          id="input-with-icon-adornment"
+          startAdornment={
+            <InputAdornment position="start">
+              <AccountCircle />
+            </InputAdornment>
+          }
+        />
+      </FormControl>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r}
+library(shiny)
+
+InputWithIcon <- function() {
+  CssBaseline(
+    Box(
+      sx = list('& > :not(style)' = list(m = 1)),
+      FormControl(
+        variant = "standard",
+        InputLabel(
+          htmlFor = "input-with-icon-adornment",
+          "With a start adornment"
+        ),
+        Input(
+          id = "input-with-icon-adornment",
+          startAdornment = InputAdornment(
+            position = "start",
+            shiny::icon("user-circle")
+          )
+        )
+      )
+    )
+  )
+}
+InputWithIcon()
+```
+
+## Color
+
+The color prop changes the highlight color of the text field when focused.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
+
+export default function ColorTextFields() {
+  return (
+    <Box
+      component="form"
+      sx={{ '& > :not(style)': { m: 1, width: '25ch' } }}
+      noValidate
+      autoComplete="off"
+    >
+      <TextField
+        label="Outlined secondary"
+        color="secondary"
+        focused
+      />
+      <TextField
+        label="Filled success"
+        variant="filled"
+        color="success"
+        focused
+      />
+      <TextField
+        label="Standard warning"
+        variant="standard"
+        color="warning"
+        focused
+      />
+    </Box>
+  );
+}
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- function() {
+  CssBaseline(
+    Box(
+      component = "form",
+      sx = list('& > :not(style)' = list(m = 1, width = '25ch')),
+      noValidate = TRUE,
+      autoComplete = "off",
+      TextField.shinyInput(
+        inputId = "outlined-secondary",
+        value = "",
+        label = "Outlined secondary",
+        color = "secondary",
+        focused = TRUE
+      ),
+      TextField.shinyInput(
+        inputId = "filled-success",
+        value = "",
+        label = "Filled success",
+        variant = "filled",
+        color = "success",
+        focused = TRUE
+      ),
+      TextField.shinyInput(
+        inputId = "standard-warning",
+        value = "",
+        label = "Standard warning",
+        variant = "standard",
+        color = "warning",
+        focused = TRUE
+      )
+    )
+  )
+}
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+## Customization
+
+Here are some examples of customizing the component.
+You can learn more about this in the overrides documentation page.
+
+### Using the styled API
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { alpha, styled } from '@mui/material/styles';
+import InputBase from '@mui/material/InputBase';
+import Box from '@mui/material/Box';
+import InputLabel from '@mui/material/InputLabel';
+import TextField from '@mui/material/TextField';
+import FormControl from '@mui/material/FormControl';
+
+const BootstrapInput = styled(InputBase)(({ theme }) => ({
+  'label + &': {
+    marginTop: theme.spacing(3),
+  },
+  '& .MuiInputBase-input': {
+    borderRadius: 4,
+    position: 'relative',
+    backgroundColor: '#F3F6F9',
+    border: '1px solid',
+    borderColor: '#E0E3E7',
+    fontSize: 16,
+    width: 'auto',
+    padding: '10px 12px',
+    transition: theme.transitions.create([
+      'border-color',
+      'background-color',
+      'box-shadow',
+    ]),
+    // Use the system font instead of the default Roboto font.
+    fontFamily: [
+      '-apple-system',
+      'BlinkMacSystemFont',
+      '"Segoe UI"',
+      'Roboto',
+      '"Helvetica Neue"',
+      'Arial',
+      'sans-serif',
+      '"Apple Color Emoji"',
+      '"Segoe UI Emoji"',
+      '"Segoe UI Symbol"',
+    ].join(','),
+    '&:focus': {
+      boxShadow: `${alpha(theme.palette.primary.main, 0.25)} 0 0 0 0.2rem`,
+      borderColor: theme.palette.primary.main,
+    },
+  },
+}));
+
+export default function CustomizedInputsStyled() {
+  return (
+    <Box
+      component="form"
+      noValidate
+      sx={{ display: 'flex', flexWrap: 'wrap' }}
+    >
+      <FormControl variant="standard">
+        <InputLabel shrink htmlFor="bootstrap-input">
+          Bootstrap
+        </InputLabel>
+        <BootstrapInput defaultValue="react-bootstrap" id="bootstrap-input" />
+      </FormControl>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r}
+library(shiny)
+
+CustomizedInputsStyled <- function() {
+  CssBaseline(
+    ThemeProvider(
+      theme = list(
+        components = list(
+          MuiInputBase = list(
+            styleOverrides = list(
+              root = list(
+                "&.bootstrap-input" = list(
+                  'label + &' = list(
+                    marginTop = "24px"
+                  ),
+                  '& .MuiInputBase-input' = list(
+                    borderRadius = 4,
+                    position = 'relative',
+                    backgroundColor = '#F3F6F9',
+                    border = '1px solid',
+                    borderColor = '#E0E3E7',
+                    fontSize = 16,
+                    width = 'auto',
+                    padding = '10px 12px',
+                    transition = 'border-color 0.15s ease-in-out, background-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out',
+                    fontFamily = paste(
+                      "-apple-system",
+                      "BlinkMacSystemFont",
+                      '"Segoe UI"',
+                      "Roboto",
+                      '"Helvetica Neue"',
+                      "Arial",
+                      "sans-serif",
+                      '"Apple Color Emoji"',
+                      '"Segoe UI Emoji"',
+                      '"Segoe UI Symbol"',
+                      sep = ","
+                    ),
+                    '&:focus' = list(
+                      boxShadow = 'rgba(25, 118, 210, 0.25) 0 0 0 0.2rem',
+                      borderColor = '#1976d2'
+                    )
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+      Box(
+        component = "form",
+        noValidate = TRUE,
+        sx = list(display = 'flex', flexWrap = 'wrap'),
+        FormControl(
+          variant = "standard",
+          InputLabel(
+            shrink = TRUE,
+            htmlFor = "bootstrap-input",
+            "Bootstrap"
+          ),
+          InputBase(
+            className = "bootstrap-input",
+            defaultValue = "react-bootstrap",
+            id = "bootstrap-input"
+          )
+        )
+      )
+    )
+  )
+}
+```
+
+### Using the theme style overrides API
+
+Use the styleOverrides key to change any style injected by Material UI into the DOM.
+See the theme style overrides documentation for further details.
+
+Customization does not stop at CSS.
+You can use composition to build custom components and give your app a unique feel.
+Below is an example using the InputBase component, inspired by Google Maps.
+
+🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/?path=/docs/textField-introduction--docs).
+
+## Limitations
+
+### Shrink
+
+The input label "shrink" state isn't always correct. The input label is supposed to shrink as soon as the input is displaying something. In some circumstances, we can't determine the "shrink" state (number input, datetime input, Stripe input). You might notice an overlap.
+
+To workaround the issue, you can force the "shrink" state of the label.
+
+<details>
+<summary>JS code</summary>
+```jsx
+<TextField slotProps={{ inputLabel: { shrink: true } }} />
+```
+</details>
+
+or
+
+<details>
+<summary>JS code</summary>
+```jsx
+<InputLabel shrink>Count</InputLabel>
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- function() {
+  CssBaseline(
+    Box(
+      p = 3,
+      TextField.shinyInput(
+        inputId = "shrink-example",
+        value = "",
+        slotProps = list(
+          inputLabel = list(shrink = TRUE)
+        )
+      ),
+      br(),
+      FormControl(
+        InputLabel(shrink = TRUE, "Count"),
+        Input()
+      )
+    )
+  )
+}
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+### Floating label
+
+The floating label is absolutely positioned. It won't impact the layout of the page. Make sure that the input is larger than the label to display correctly.
+
+### type="number"
+
+If you need a text field with number validation, you can use MUI Base's Number Input instead.
+You can follow this GitHub issue to track the progress of introducing the Number Input component to Material UI.
+
+### Helper text
+
+The helper text prop affects the height of the text field. If two text fields are placed side by side, one with a helper text and one without, they will have different heights. For example:
+
+<details>
+<summary>JS code</summary>
+```jsx
+<TextField
+  helperText="Please enter your name"
+  id="demo-helper-text-misaligned"
+  label="Name"
+/>
+<TextField
+  id="demo-helper-text-misaligned-no-helper"
+  label="Name"
+/>
+```
+</details>
+
+This can be fixed by passing a space character to the helperText prop:
+
+<details>
+<summary>JS code</summary>
+```jsx
+<TextField
+  helperText="Please enter your name"
+  id="demo-helper-text-aligned"
+  label="Name"
+/>
+<TextField
+  helperText=" "
+  id="demo-helper-text-aligned-no-helper"
+  label="Name"
+/>
+```
+</details>
+
+```{r eval=FALSE}
+library(shiny)
+
+ui <- function() {
+  CssBaseline(
+    div(
+      h4("Misaligned:"),
+      TextField.shinyInput(
+        inputId = "demo-helper-text-misaligned",
+        value = "",
+        helperText = "Please enter your name",
+        label = "Name"
+      ),
+      TextField.shinyInput(
+        inputId = "demo-helper-text-misaligned-no-helper",
+        value = "",
+        label = "Name"
+      ),
+      h4("Aligned:"),
+      TextField.shinyInput(
+        inputId = "demo-helper-text-aligned",
+        value = "",
+        helperText = "Please enter your name",
+        label = "Name"
+      ),
+      TextField.shinyInput(
+        inputId = "demo-helper-text-aligned-no-helper",
+        value = "",
+        helperText = " ",
+        label = "Name"
+      )
+    )
+  )
+}
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```
+
+## Integration with 3rd party input libraries
+
+You can use third-party libraries to format an input.
+You have to provide a custom implementation of the `<input>` element with the inputComponent property.
+
+The following demo uses the react-imask and react-number-format libraries. The same concept could be applied to, for example react-stripe-element.
+
+The provided input component should expose a ref with a value that implements the following interface:
+
+```jsx
+interface InputElement {
+  focus(): void;
+  value?: string;
+}
+```
+
+<details>
+<summary>JS code</summary>
+```jsx
+const MyInputComponent = React.forwardRef((props, ref) => {
+  const { component: Component, ...other } = props;
+
+  // implement `InputElement` interface
+  React.useImperativeHandle(ref, () => ({
+    focus: () => {
+      // logic to focus the rendered component from 3rd party belongs here
+    },
+    // hiding the value e.g. react-stripe-elements
+  }));
+
+  // `Component` will be your `SomeThirdPartyComponent` from below
+  return <Component {...other} />;
+});
+
+// usage
+<TextField
+  slotProps={{
+    input: {
+      inputComponent: MyInputComponent,
+      inputProps: {
+        component: SomeThirdPartyComponent,
+      },
+    },
+  }}
+/>;
+```
+</details>
+
+## Accessibility
+
+In order for the text field to be accessible, the input should be linked to the label and the helper text. The underlying DOM nodes should have this structure:
+
+```html
+<div class="form-control">
+  <label for="my-input">Email address</label>
+  <input id="my-input" aria-describedby="my-helper-text" />
+  <span id="my-helper-text">We'll never share your email.</span>
+</div>
+```
+
+- If you are using the TextField component, you just have to provide a unique id unless you're using the TextField only client-side. Until the UI is hydrated TextField without an explicit id will not have associated labels.
+- If you are composing the component:
+
+<details>
+<summary>JS code</summary>
+```jsx
+<FormControl>
+  <InputLabel htmlFor="my-input">Email address</InputLabel>
+  <Input id="my-input" aria-describedby="my-helper-text" />
+  <FormHelperText id="my-helper-text">We'll never share your email.</FormHelperText>
+</FormControl>
+```
+</details>
+
+```{r eval=FALSE}
+ui <- function() {
+  CssBaseline(
+    FormControl(
+      InputLabel(htmlFor = "my-input", "Email address"),
+      Input(
+        id = "my-input",
+        "aria-describedby" = "my-helper-text"
+      ),
+      FormHelperText(
+        id = "my-helper-text",
+        "We'll never share your email."
+      )
+    )
+  )
+}
+
+server <- function(input, output, session) {
+  
+}
+
+shinyApp(ui, server)
+```

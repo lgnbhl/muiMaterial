@@ -1103,8 +1103,400 @@ The loading value should always be null or boolean. The pattern below is not rec
 
 ## Customization
 
-Here are some examples of customizing the component. You can learn more about this in the overrides documentation page.
+Here are some examples of customizing the component.
+You can learn more about this in the overrides documentation page.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import { purple } from '@mui/material/colors';
+
+const BootstrapButton = styled(Button)({
+  boxShadow: 'none',
+  textTransform: 'none',
+  fontSize: 16,
+  padding: '6px 12px',
+  border: '1px solid',
+  lineHeight: 1.5,
+  backgroundColor: '#0063cc',
+  borderColor: '#0063cc',
+  fontFamily: [
+    '-apple-system',
+    'BlinkMacSystemFont',
+    '"Segoe UI"',
+    'Roboto',
+    '"Helvetica Neue"',
+    'Arial',
+    'sans-serif',
+    '"Apple Color Emoji"',
+    '"Segoe UI Emoji"',
+    '"Segoe UI Symbol"',
+  ].join(','),
+  '&:hover': {
+    backgroundColor: '#0069d9',
+    borderColor: '#0062cc',
+    boxShadow: 'none',
+  },
+  '&:active': {
+    boxShadow: 'none',
+    backgroundColor: '#0062cc',
+    borderColor: '#005cbf',
+  },
+  '&:focus': {
+    boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
+  },
+});
+
+const ColorButton = styled(Button)(({ theme }) => ({
+  color: theme.palette.getContrastText(purple[500]),
+  backgroundColor: purple[500],
+  '&:hover': {
+    backgroundColor: purple[700],
+  },
+}));
+
+export default function CustomizedButtons() {
+  return (
+    <Stack spacing={2} direction="row">
+      <ColorButton variant="contained">Custom CSS</ColorButton>
+      <BootstrapButton variant="contained" disableRipple>
+        Bootstrap
+      </BootstrapButton>
+    </Stack>
+  );
+}
+```
+</details>
 
 ```{r}
-# TODO
+library(shiny)
+
+CustomizedButtons <- function() {
+  CssBaseline(
+    ThemeProvider(
+      theme = list(
+        components = list(
+          MuiButton = list(
+            styleOverrides = list(
+              root = list(
+                "&.bootstrap-button" = list(
+                  boxShadow = "none",
+                  textTransform = "none",
+                  fontSize = 16,
+                  padding = "6px 12px",
+                  border = "1px solid",
+                  lineHeight = 1.5,
+                  backgroundColor = "#0063cc",
+                  borderColor = "#0063cc",
+                  fontFamily = paste(
+                    "-apple-system",
+                    "BlinkMacSystemFont",
+                    '"Segoe UI"',
+                    "Roboto",
+                    '"Helvetica Neue"',
+                    "Arial",
+                    "sans-serif",
+                    '"Apple Color Emoji"',
+                    '"Segoe UI Emoji"',
+                    '"Segoe UI Symbol"',
+                    sep = ","
+                  ),
+                  "&:hover" = list(
+                    backgroundColor = "#0069d9",
+                    borderColor = "#0062cc",
+                    boxShadow = "none"
+                  ),
+                  "&:active" = list(
+                    boxShadow = "none",
+                    backgroundColor = "#0062cc",
+                    borderColor = "#005cbf"
+                  ),
+                  "&:focus" = list(
+                    boxShadow = "0 0 0 0.2rem rgba(0,123,255,.5)"
+                  )
+                ),
+                "&.color-button" = list(
+                  color = "#fff",
+                  backgroundColor = "#9c27b0",
+                  "&:hover" = list(
+                    backgroundColor = "#7b1fa2"
+                  )
+                )
+              )
+            )
+          )
+        )
+      ),
+      Stack(
+        spacing = 2,
+        direction = "row",
+        Button(
+          variant = "contained",
+          className = "color-button",
+          "Custom CSS"
+        ),
+        Button(
+          variant = "contained",
+          className = "bootstrap-button",
+          disableRipple = TRUE,
+          "Bootstrap"
+        )
+      )
+    )
+  )
+}
+CustomizedButtons()
+```
+
+## Complex button
+
+The Text Buttons, Contained Buttons, Floating Action Buttons and Icon Buttons are built on top of the same component: the ButtonBase.
+You can take advantage of this lower-level component to build custom interactions.
+
+<details>
+<summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import ButtonBase from '@mui/material/ButtonBase';
+import Typography from '@mui/material/Typography';
+
+const images = [
+  {
+    url: '/static/images/buttons/breakfast.jpg',
+    title: 'Breakfast',
+    width: '40%',
+  },
+  {
+    url: '/static/images/buttons/burgers.jpg',
+    title: 'Burgers',
+    width: '30%',
+  },
+  {
+    url: '/static/images/buttons/camera.jpg',
+    title: 'Camera',
+    width: '30%',
+  },
+];
+
+export default function ButtonBaseDemo() {
+  return (
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', minWidth: 300, width: '100%' }}>
+      {images.map((image) => (
+        <ButtonBase
+          focusRipple
+          key={image.title}
+          sx={{
+            position: 'relative',
+            width: image.width,
+            height: 200,
+            '&:hover, &.Mui-focusVisible': {
+              zIndex: 1,
+              '& .MuiImageBackdrop-root': {
+                opacity: 0.15,
+              },
+              '& .MuiImageMarked-root': {
+                opacity: 0,
+              },
+              '& .MuiTypography-root': {
+                border: '4px solid currentColor',
+              },
+            },
+          }}
+        >
+          <Box
+            sx={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center 40%',
+              backgroundImage: `url(${image.url})`,
+            }}
+          />
+          <Box
+            className="MuiImageBackdrop-root"
+            sx={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              backgroundColor: 'common.black',
+              opacity: 0.4,
+              transition: 'opacity 0.3s',
+            }}
+          />
+          <Box
+            sx={{
+              position: 'absolute',
+              left: 0,
+              right: 0,
+              top: 0,
+              bottom: 0,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              color: 'common.white',
+            }}
+          >
+            <Typography
+              component="span"
+              variant="subtitle1"
+              color="inherit"
+              sx={{
+                position: 'relative',
+                p: 4,
+                pt: 2,
+                pb: (theme) => `calc(${theme.spacing(1)} + 6px)`,
+              }}
+            >
+              {image.title}
+              <Box
+                className="MuiImageMarked-root"
+                sx={{
+                  height: 3,
+                  width: 18,
+                  backgroundColor: 'common.white',
+                  position: 'absolute',
+                  bottom: -2,
+                  left: 'calc(50% - 9px)',
+                  transition: 'opacity 0.3s',
+                }}
+              />
+            </Typography>
+          </Box>
+        </ButtonBase>
+      ))}
+    </Box>
+  );
+}
+```
+</details>
+
+```{r}
+library(shiny)
+
+ButtonBaseDemo <- function() {
+  images <- list(
+    list(
+      url = "https://mui.com/static/images/buttons/breakfast.jpg",
+      title = "Breakfast",
+      width = "40%"
+    ),
+    list(
+      url = "https://mui.com/static/images/buttons/burgers.jpg",
+      title = "Burgers",
+      width = "30%"
+    ),
+    list(
+      url = "https://mui.com/static/images/buttons/camera.jpg",
+      title = "Camera",
+      width = "30%"
+    )
+  )
+  
+  CssBaseline(
+    Box(
+      sx = list(
+        display = "flex",
+        flexWrap = "wrap",
+        minWidth = 300,
+        width = "100%"
+      ),
+      lapply(images, function(image) {
+        ButtonBase(
+          focusRipple = TRUE,
+          key = image$title,
+          sx = list(
+            position = "relative",
+            width = image$width,
+            height = 200,
+            "&:hover, &.Mui-focusVisible" = list(
+              zIndex = 1,
+              "& .MuiImageBackdrop-root" = list(
+                opacity = 0.15
+              ),
+              "& .MuiImageMarked-root" = list(
+                opacity = 0
+              ),
+              "& .MuiTypography-root" = list(
+                border = "4px solid currentColor"
+              )
+            )
+          ),
+          Box(
+            sx = list(
+              position = "absolute",
+              left = 0,
+              right = 0,
+              top = 0,
+              bottom = 0,
+              backgroundSize = "cover",
+              backgroundPosition = "center 40%",
+              backgroundImage = paste0("url(", image$url, ")")
+            )
+          ),
+          Box(
+            className = "MuiImageBackdrop-root",
+            sx = list(
+              position = "absolute",
+              left = 0,
+              right = 0,
+              top = 0,
+              bottom = 0,
+              backgroundColor = "common.black",
+              opacity = 0.4,
+              transition = "opacity 0.3s"
+            )
+          ),
+          Box(
+            sx = list(
+              position = "absolute",
+              left = 0,
+              right = 0,
+              top = 0,
+              bottom = 0,
+              display = "flex",
+              alignItems = "center",
+              justifyContent = "center",
+              color = "common.white"
+            ),
+            Typography(
+              component = "span",
+              variant = "subtitle1",
+              color = "inherit",
+              sx = list(
+                position = "relative",
+                p = 4,
+                pt = 2,
+                pb = "calc(8px + 6px)"
+              ),
+              image$title,
+              Box(
+                className = "MuiImageMarked-root",
+                sx = list(
+                  height = 3,
+                  width = 18,
+                  backgroundColor = "common.white",
+                  position = "absolute",
+                  bottom = -2,
+                  left = "calc(50% - 9px)",
+                  transition = "opacity 0.3s"
+                )
+              )
+            )
+          )
+        )
+      })
+    )
+  )
+}
+ButtonBaseDemo()
 ```
