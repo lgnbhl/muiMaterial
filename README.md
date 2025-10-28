@@ -6,7 +6,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/shinyMaterialUI)](https://CRAN.R-project.org/package=shinyMaterialUI)
 [![R-CMD-check](https://github.com/lgnbhl/shinyMaterialUI/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/shinyMaterialUI/actions/workflows/R-CMD-check.yaml)
-[![](https://img.shields.io/badge/@mui/material-%5E7.0.1-blue.svg)](https://mui.com/material-ui/getting-started/)
+[![](https://img.shields.io/badge/@mui/material-%5E7.3.4-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->

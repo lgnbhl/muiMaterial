@@ -1,7 +1,7 @@
 Package: shinyMaterialUI
 Type: Package
 Title: 'Material UI' for 'shiny' Apps and 'Quarto'
-Version: 0.1.0
+Version: 0.1.1
 Authors@R: 
     c(
       person(given = "Felix", family = "Luginbuhl", role = c("aut", "cre"), email = "felix.luginbuhl@protonmail.ch"),

@@ -1,9 +1,9 @@
 muiMaterialDependency <- function() {
   htmltools::htmlDependency(
     name = "shinyMaterialUI",
-    version = "0.0.1",
+    version = "7.3.1",
     package = "shinyMaterialUI",
-    src = c(file = "shinyMaterialUI-7.0.1"),
+    src = c(file = "shinyMaterialUI"),
     script = "mui-material.js"
   )
 }
