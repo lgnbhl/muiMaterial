@@ -1,5 +1,5 @@
 library(shiny)
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny.react)
 
 df <- data.frame(

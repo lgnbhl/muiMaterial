@@ -1,4 +1,4 @@
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 ui_Tabs <- TabContext.shinyInput(

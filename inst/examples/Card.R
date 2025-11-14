@@ -1,4 +1,4 @@
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 # original React code here: https://mui.com/material-ui/react-card/#media

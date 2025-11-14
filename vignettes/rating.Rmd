@@ -12,7 +12,7 @@ vignette: >
 Ratings provide insight regarding others' opinions and experiences, and can allow the user to submit a rating of their own.
 
 ```{r setup, include=FALSE}
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 ```
 
@@ -59,10 +59,10 @@ export default function BasicRating() {
 </details>
 
 ```{r eval=FALSE}
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(
     sx = list('& > legend' = list(mt = 2)),
     
@@ -134,7 +134,7 @@ export default function HalfRating() {
 </details>
 
 ```{r}
-library(shinyMaterialUI)
+library(muiMaterial)
 
 CssBaseline(
   Stack(
@@ -224,7 +224,7 @@ labels <- list(
   "5" = "Excellent+"
 )
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   div(
     Rating.shinyInput(
       inputId = "hover_feedback",
@@ -269,7 +269,7 @@ export default function RatingSize() {
 </details>
 
 ```{r}
-library(shinyMaterialUI)
+library(muiMaterial)
 
 CssBaseline(
   Stack(
@@ -333,7 +333,7 @@ export default function CustomizedRating() {
 </details>
 
 ```{r}
-shinyMaterialUIPage(
+muiMaterialPage(
   CssBaseline(
     ThemeProvider(
       theme = list(
@@ -437,7 +437,7 @@ export default function RadioGroupRating() {
 </details>
 
 ```{r eval=FALSE}
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   CssBaseline(
     ThemeProvider(
       theme = list(

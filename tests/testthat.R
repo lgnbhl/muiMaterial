@@ -7,6 +7,6 @@
 # * https://testthat.r-lib.org/articles/special-files.html
 
 library(testthat)
-library(shinyMaterialUI)
+library(muiMaterial)
 
-test_check("shinyMaterialUI")
+test_check("muiMaterial")

@@ -13,7 +13,7 @@ fct_CardAlert <- function(){
       Typography(
         gutterBottom = TRUE,
         sx = list(fontWeight = 600),
-        "Made with shinyMaterialUI"
+        "Made with muiMaterial"
       ),
       Typography(
         variant = "body2",
@@ -28,7 +28,7 @@ fct_CardAlert <- function(){
         size = "small",
         fullWidth = TRUE,
         "Read the docs",
-        href = "https://felixluginbuhl.com/shinyMaterialUI",
+        href = "https://felixluginbuhl.com/muiMaterial",
         target = "_blank"
       )
     )

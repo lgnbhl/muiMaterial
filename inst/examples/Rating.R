@@ -1,4 +1,4 @@
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 # https://mui.com/material-ui/react-rating/#rating-precision
@@ -23,7 +23,7 @@ HalfRating <- Stack(
   verbatimTextOutput("HalfRatingValue2")
 )
 
-ui_Rating <- shinyMaterialUIPage(
+ui_Rating <- muiMaterialPage(
   CssBaseline(
     HalfRating
   )

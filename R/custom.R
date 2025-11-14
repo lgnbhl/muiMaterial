@@ -16,7 +16,7 @@
 #' @return html object with 'margin:0' which can be passed as the UI of a Shiny app.
 #'
 #' @export
-shinyMaterialUIPage <- function(..., suppressBootstrap = TRUE, debug_react = FALSE) {
+muiMaterialPage <- function(..., suppressBootstrap = TRUE, debug_react = FALSE) {
   htmltools::tags$html(
     htmltools::tags$head(
       htmltools::tags$meta(
@@ -53,4 +53,4 @@ component <- function(name, module = "@mui/material") {
 #' @param ... args to pass to element
 #' @description
 #' Visit the documentation at https://mui.com/api/Theme-Provider/ for more information.
-ThemeProvider <- component("ThemeProvider", module = "@/shinyMaterialUI")
+ThemeProvider <- component("ThemeProvider", module = "@/muiMaterial")

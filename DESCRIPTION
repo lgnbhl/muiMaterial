@@ -1,4 +1,4 @@
-Package: shinyMaterialUI
+Package: muiMaterial
 Type: Package
 Title: 'Material UI' for 'shiny' Apps and 'Quarto'
 Version: 0.1.1
@@ -11,8 +11,8 @@ Maintainer: Felix Luginbuhl <felix.luginbuhl@protonmail.ch>
 Description:
   A set of user interface components for building 'shiny' applications and 
   'quarto' documents, including inputs, layouts, navigations, surfaces, and various
-  utilities. All components from 'MUI' 'Material UI' are available and all inputs 
-  have usage examples in R.
+  utilities. All components 'Material UI' from the company 'MUI' are available and 
+  all inputs have usage examples in R.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
@@ -30,7 +30,7 @@ Suggests:
 Remotes: 
     github::lgnbhl/reactRouter
 RoxygenNote: 7.3.2
-URL: https://felixluginbuhl.com/shinyMaterialUI
-BugReports: https://github.com/lgnbhl/shinyMaterialUI/issues
+URL: https://felixluginbuhl.com/muiMaterial
+BugReports: https://github.com/lgnbhl/muiMaterial/issues
 Config/testthat/edition: 3
 VignetteBuilder: knitr

@@ -1,4 +1,4 @@
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 # https://mui.com/material-ui/react-checkbox/#basic-checkboxes
@@ -105,7 +105,7 @@ FormControlLabelPosition <- div(
 # https://mui.com/material-ui/react-checkbox/#customization
 # TODO
 
-ui_Checkbox <- shinyMaterialUIPage(
+ui_Checkbox <- muiMaterialPage(
   CssBaseline(
     Box(
       sx = list(flexDirection = 'row', p = 1),

@@ -1,5 +1,5 @@
 # https://mui.com/material-ui/react-drawer/#temporary-drawer
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 ui_Drawer <- div(

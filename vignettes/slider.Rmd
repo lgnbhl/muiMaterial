@@ -10,7 +10,7 @@ vignette: >
 <div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-slider/).</div>
 
 ```{r setup, include=FALSE}
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 ```
 

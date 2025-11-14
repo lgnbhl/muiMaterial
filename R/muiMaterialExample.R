@@ -1,7 +1,7 @@
-#' Run shinyMaterialUI example
+#' Run muiMaterial example
 #'
 #' Launch a Shiny example app or list the available examples.
-#' Use `shinyMaterialUI::runExample("showcase")` to run a showcase app with all the components.
+#' Use `muiMaterial::runExample("showcase")` to run a showcase app with all the components.
 #'
 #' @param example The name of the example to run, or `NULL` to retrieve the list of examples.
 #' @param ... Additional arguments to pass to `shiny::runApp()`.
@@ -11,7 +11,7 @@
 #' @seealso [shiny.blueprint::runExample()] which this function is an adaptation.
 #'
 #' @export
-shinyMaterialUIExample <- function(example = NULL, ...) {
+muiMaterialExample <- function(example = NULL, ...) {
   examples <- system.file("examples", package = utils::packageName(), mustWork = TRUE)
   if (is.null(example)) {
     sub("\\.R$", "", list.files(examples))

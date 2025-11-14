@@ -11,7 +11,7 @@ vignette: >
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 ```
 
@@ -327,7 +327,7 @@ export default function ControlledCheckbox() {
 </details>
 
 ```{r eval=FALSE}
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Checkbox.shinyInput(
     inputId = "controlledCheckbox",
     value = TRUE,
@@ -406,7 +406,7 @@ export default function IndeterminateCheckbox() {
 </details>
 
 ```{r eval=FALSE}
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   div(
     FormControlLabel(
       label = "Parent",
@@ -578,7 +578,7 @@ export default function CheckboxesGroup() {
 </details>
 
 ```{r eval=FALSE}
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(
     sx = list(display = "flex"),
     FormControl(

@@ -1,7 +1,7 @@
 library(shiny)
-library(shinyMaterialUI)
+library(muiMaterial)
 
-ui_TextField <- shinyMaterialUIPage(
+ui_TextField <- muiMaterialPage(
   CssBaseline(
     # https://mui.com/material-ui/react-text-field/#basic-textfield
     Box(

@@ -1,12 +1,12 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/Dashboard.tsx
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 library(reactRouter)
 
 sapply(
   list.files(
     "./modules",
-    #path = system.file("examples/mui-template-dashboard/modules", package = "shinyMaterialUI"),
+    #path = system.file("examples/mui-template-dashboard/modules", package = "muiMaterial"),
     full.names = TRUE
   ),
   function(i) {
@@ -16,7 +16,7 @@ sapply(
 
 # component_files <- list.files(
 #   "./modules",
-#   #path = system.file("examples/mui-template-dashboard/modules", package = "shinyMaterialUI"),
+#   #path = system.file("examples/mui-template-dashboard/modules", package = "muiMaterial"),
 #   full.names = TRUE
 # )
 # sapply(component_files, source)

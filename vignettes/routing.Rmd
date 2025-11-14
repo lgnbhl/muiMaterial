@@ -9,7 +9,7 @@ vignette: >
 
 ### Introduction
 
-To use pages with **shinyMaterialUI**, you might need to use a router service. This document shows examples using the [reactRouter](https://github.com/lgnbhl/reactRouter) and [shiny.router](https://appsilon.github.io/shiny.router/) R packages.
+To use pages with **muiMaterial**, you might need to use a router service. This document shows examples using the [reactRouter](https://github.com/lgnbhl/reactRouter) and [shiny.router](https://appsilon.github.io/shiny.router/) R packages.
 
 ### Examples using {reactRouter}
 
@@ -18,7 +18,7 @@ An example using [reactRouter](https://github.com/lgnbhl/reactRouter) client rou
 ```{r message=FALSE, warning=FALSE}
 # install.packages("reactRouter")
 library(reactRouter)
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 reactRouter::HashRouter(
@@ -28,7 +28,7 @@ reactRouter::HashRouter(
       Typography(
         variant = "h6",
         component = "div",
-        "shinyMaterialUI"
+        "muiMaterial"
       ),
       reactRouter::NavLink(
         to = "/",
@@ -55,7 +55,7 @@ reactRouter::HashRouter(
         path = "/",
         element = div(
           tags$h3("Home page"),
-          p("A basic example of reactRouter with shinyMaterialUI."),
+          p("A basic example of reactRouter with muiMaterial."),
           p("Content home")
         )
       ),
@@ -77,13 +77,13 @@ An example with [reactRouter](https://github.com/lgnbhl/reactRouter) in an R Shi
 ```r
 # install.packages("reactRouter")
 library(reactRouter)
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   reactRouter::HashRouter(
     CssBaseline(
-    Typography("reactRouter with shinyMaterialUI", variant = "h5", m = 2),
+    Typography("reactRouter with muiMaterial", variant = "h5", m = 2),
     Stack(
       direction = "row", spacing = 2, p = 2,
       Paper(
@@ -122,7 +122,7 @@ ui <- shinyMaterialUIPage(
             path = "/",
             element = div(
               tags$h1("Home page"),
-              tags$h4("A basic example of reactRouter with shinyMaterialUI."),
+              tags$h4("A basic example of reactRouter with muiMaterial."),
               uiOutput(outputId = "contentHome")
             )
           ),
@@ -181,7 +181,7 @@ Note that using `CssBaseline()` at top level doesn't work with shiny.router. `Cs
 
 ```r
 library(shiny)
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny.router)
 
 Header <- CssBaseline(
@@ -227,7 +227,7 @@ otherPage <- CssBaseline(
   )
 )
 
-ui <- shinyMaterialUIPage( # using CssBaseline() here doesn't work with shiny.router
+ui <- muiMaterialPage( # using CssBaseline() here doesn't work with shiny.router
   Header,
   router_ui(
     route("/", Main),

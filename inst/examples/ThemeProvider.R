@@ -1,5 +1,5 @@
 # https://mui.com/material-ui/customization/dark-mode/
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 ui_ThemeProvider <- ThemeProvider(

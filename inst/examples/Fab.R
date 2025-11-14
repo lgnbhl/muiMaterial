@@ -1,4 +1,4 @@
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 # https://mui.com/material-ui/react-floating-action-button/
@@ -29,7 +29,7 @@ FloatingActionButtons <- Box(
   )
 )
 
-ui_Fab <- shinyMaterialUIPage(
+ui_Fab <- muiMaterialPage(
   CssBaseline(
     FloatingActionButtons
   )

@@ -1,3 +1,3 @@
-# shinyMaterialUI 0.1.0
+# muiMaterial 0.1.0
 
 * initial commit

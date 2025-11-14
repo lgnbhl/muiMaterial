@@ -1,4 +1,4 @@
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 # https://mui.com/material-ui/react-radio-button/#radio-group

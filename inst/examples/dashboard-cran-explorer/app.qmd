@@ -36,7 +36,7 @@ cran_downloads_last_month_count <- sum(cran_downloads_last_month$count, na.rm = 
 #| warning: false
 #| include: false
 
-library(shinyMaterialUI)
+library(muiMaterial)
 library(scales) # for number() function
 
 # StatCard() adapted from MUI example:
@@ -92,7 +92,7 @@ StatCard <- function(title, value) {
 #| message: false
 #| warning: false
 
-library(shinyMaterialUI)
+library(muiMaterial)
 library(reactRouter)
 
 reactRouter::HashRouter(
@@ -177,7 +177,7 @@ reactRouter::HashRouter(
                       variant = "subtitle2",
                       gutterBottom = TRUE,
                       sx = list(fontWeight = '600'),
-                      shiny::icon("circle-info"), " Learn more about shinyMaterialUI"
+                      shiny::icon("circle-info"), " Learn more about muiMaterial"
                     ),
                     Button(
                       variant = "contained",

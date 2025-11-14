@@ -9,7 +9,7 @@ format:
 #| message: false
 #| warning: false
 
-library(shinyMaterialUI)
+library(muiMaterial)
 library(reactRouter)
 
 # https://mui.com/material-ui/react-drawer/#clipped-under-the-app-bar

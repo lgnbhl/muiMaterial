@@ -1,4 +1,4 @@
-library(shinyMaterialUI)
+library(muiMaterial)
 library(shiny)
 
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/OptionsMenu.tsx
@@ -57,7 +57,7 @@ OptionsMenu <- Box(m = 2,
   )
 )
 
-ui_Menu <- shinyMaterialUIPage(
+ui_Menu <- muiMaterialPage(
   CssBaseline(
     OptionsMenu
   )

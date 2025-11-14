@@ -1,8 +1,8 @@
 library(shiny)
-library(shinyMaterialUI)
+library(muiMaterial)
 
 # run R code from examples to get ui objects
-example_files <- list.files(system.file("examples", package = "shinyMaterialUI"), full.names = TRUE, pattern = ".R$")
+example_files <- list.files(system.file("examples", package = "muiMaterial"), full.names = TRUE, pattern = ".R$")
 sapply(X = example_files, FUN = source)
 
 # Get R code of examples
@@ -13,7 +13,7 @@ addFileName <- function(code, filename, commentChar) {
 }
 
 get_code_example <- function(component_name) {
-  rPath <- system.file(file.path("examples", paste0(component_name, ".R")), package = "shinyMaterialUI")
+  rPath <- system.file(file.path("examples", paste0(component_name, ".R")), package = "muiMaterial")
   if (!file.exists(rPath)) {
     return()
   }
@@ -97,7 +97,7 @@ Header <- AppBar(
   )
 )
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   CssBaseline(
     Header,
     Sidebar

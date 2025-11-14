@@ -1,7 +1,7 @@
 # Script manually produced to create Shiny inputs
 # see: https://appsilon.github.io/shiny.react/articles/shiny-react.html#creating-input-wrappers
 
-button <- function(name, module = "@/shinyMaterialUI") {
+button <- function(name, module = "@/muiMaterial") {
   function(inputId, ...) {
     checkmate::assert_string(inputId)
     shiny.react::reactElement(
@@ -84,7 +84,7 @@ ToggleButton.shinyInput <- button("ToggleButton")
 updateToggleButton.shinyInput <- shiny.react::updateReactInput
 
 
-input <- function(name, defaultValue = NULL, module = "@/shinyMaterialUI") {
+input <- function(name, defaultValue = NULL, module = "@/muiMaterial") {
   function(inputId, ..., value = defaultValue) {
     checkmate::assert_string(inputId)
     shiny.react::reactElement(

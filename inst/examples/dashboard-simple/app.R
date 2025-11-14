@@ -1,5 +1,5 @@
 # https://mui.com/material-ui/react-drawer/#clipped-under-the-app-bar
-library(shinyMaterialUI)
+library(muiMaterial)
 library(reactRouter)
 
 ui <- reactRouter::HashRouter(

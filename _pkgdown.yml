@@ -1,4 +1,4 @@
-url: https://felixluginbuhl.com/shinyMaterialUI
+url: https://felixluginbuhl.com/muiMaterial
 template:
   bootstrap: 5
   bootswatch: litera
@@ -45,6 +45,6 @@ navbar:
    - icon: fa-twitter
      href: https://twitter.com/FelixLuginbuhl
    - icon: fa-github
-     href: https://github.com/lgnbhl/shinyMaterialUI
+     href: https://github.com/lgnbhl/muiMaterial
    - icon: fa-home
      href: http://felixluginbuhl.com

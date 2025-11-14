@@ -9,7 +9,7 @@ component <- function(name, module = '@mui/material') {
   )
 }
 
-input <- function(name, defaultValue = "", module = "@/shinyMaterialUI") {
+input <- function(name, defaultValue = "", module = "@/muiMaterial") {
   function(inputId, ..., value = defaultValue) shiny.react::reactElement(
     module = module, name = name,
     props = shiny.react::asProps(inputId = inputId, ..., value = value),

@@ -1,9 +1,9 @@
 muiMaterialDependency <- function() {
   htmltools::htmlDependency(
-    name = "shinyMaterialUI",
-    version = "7.3.1",
-    package = "shinyMaterialUI",
-    src = c(file = "shinyMaterialUI"),
+    name = "muiMaterial",
+    version = "7.3.5",
+    package = "muiMaterial",
+    src = c(file = "muiMaterial"),
     script = "mui-material.js"
   )
 }
@@ -24,7 +24,7 @@ build_dep <- function(name, version = 18, mode = c("prod", "dev")) {
   )
   htmltools::htmlDependency(
     name = sprintf("%s-v%s", name, version),
-    version = utils::packageVersion("shinyMaterialUI"),
+    version = utils::packageVersion("muiMaterial"),
     src = c(href = cdn),
     script = sprintf("%s.%s.js", name, mode)
   )
