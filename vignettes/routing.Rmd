@@ -1,6 +1,8 @@
 ---
 title: "Using a router"
-output: rmarkdown::html_vignette
+format:
+  html:
+    minimal: true
 vignette: >
   %\VignetteIndexEntry{Using a router}
   %\VignetteEngine{knitr::rmarkdown}

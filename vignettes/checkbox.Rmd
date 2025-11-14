@@ -1,6 +1,8 @@
 ---
 title: "Checkbox"
-output: rmarkdown::html_vignette
+format:
+  html:
+    minimal: true
 vignette: >
   %\VignetteIndexEntry{Checkbox}
   %\VignetteEngine{knitr::rmarkdown}

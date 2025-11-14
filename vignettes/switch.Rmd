@@ -1,6 +1,8 @@
 ---
 title: "Switch"
-output: rmarkdown::html_vignette
+format:
+  html:
+    minimal: true
 vignette: >
   %\VignetteIndexEntry{Switch}
   %\VignetteEngine{knitr::rmarkdown}
@@ -46,7 +48,7 @@ export default function BasicSwitches() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   div(
     Switch.shinyInput(
       inputId = "switch1",
@@ -107,7 +109,7 @@ export default function SwitchLabels() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   FormGroup(
     FormControlLabel(
       control = Switch.shinyInput(
@@ -319,7 +321,7 @@ export default function ControlledSwitches() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Switch.shinyInput(
     inputId = "controlled-switch",
     value = TRUE,
@@ -401,7 +403,7 @@ export default function SwitchesGroup() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   FormControl(
     component = "fieldset",
     variant = "standard",

@@ -1,6 +1,8 @@
 ---
 title: "TextField"
-output: rmarkdown::html_vignette
+format:
+  html:
+    minimal: true
 vignette: >
   %\VignetteIndexEntry{TextField}
   %\VignetteEngine{knitr::rmarkdown}
@@ -52,7 +54,7 @@ export default function BasicTextFields() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(
     component = "form",
     sx = list('& > :not(style)' = list(m = 1, width = '25ch')),
@@ -161,7 +163,7 @@ export default function FormPropsTextFields() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(
     component = "form",
     sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
@@ -348,7 +350,7 @@ export default function ValidationTextFields() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(
     component = "form",
     sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
@@ -464,7 +466,7 @@ export default function MultilineTextFields() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(
     component = "form",
     sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
@@ -598,7 +600,7 @@ export default function InputAdornments() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(
     sx = list(display = 'flex', flexWrap = 'wrap'),
     div(
@@ -913,7 +915,7 @@ export default function StateTextFields() {
 ```{r eval=FALSE}
 library(shiny)
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(
     component = "form",
     sx = list('& > :not(style)' = list(m = 1, width = '25ch')),

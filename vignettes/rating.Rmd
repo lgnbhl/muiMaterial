@@ -1,6 +1,8 @@
 ---
 title: "Rating"
-output: rmarkdown::html_vignette
+format:
+  html:
+    minimal: true
 vignette: >
   %\VignetteIndexEntry{Rating}
   %\VignetteEngine{knitr::rmarkdown}

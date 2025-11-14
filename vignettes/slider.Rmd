@@ -1,6 +1,8 @@
 ---
 title: "Slider"
-output: rmarkdown::html_vignette
+format:
+  html:
+    minimal: true
 vignette: >
   %\VignetteIndexEntry{Slider}
   %\VignetteEngine{knitr::rmarkdown}
@@ -53,7 +55,7 @@ export default function ContinuousSlider() {
 </details>
 
 ```{r eval=FALSE}
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(sx = list(width = 200),
     Stack(spacing = 2, direction = "row", sx = list(alignItems = "center", mb = 1),
       shiny::icon("volume-down"),
@@ -518,7 +520,7 @@ export default function RangeSlider() {
 </details>
 
 ```{r eval=FALSE}
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(
       inputId = "rangeSlider", 
@@ -608,7 +610,7 @@ export default function MinimumDistanceSlider() {
 
 ```{r eval=FALSE}
 minDistance <- 10
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(inputId = "minDistanceSlider1", value = c(20, 37), 
                       getAriaLabel = JS('function() { return "Minimum distance" }'), 
@@ -756,7 +758,7 @@ export default function InputSlider() {
 </details>
 
 ```{r eval=FALSE}
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   Box(sx = list(width = 250, mt = 4),
     Typography(id = "input-slider", gutterBottom = TRUE,
       "Volume"
@@ -1044,7 +1046,7 @@ export default function CustomizedSlider() {
 </details>
 
 ```{r eval=FALSE}
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   CssBaseline(
     Box(
       sx = list(width = 320),
@@ -1465,7 +1467,7 @@ formatDuration <- function(value) {
   paste0(minute, ":", ifelse(secondLeft < 10, paste0("0", secondLeft), secondLeft))
 }
 
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   tags$style("
     .wall-paper {
       position: absolute;
@@ -1844,7 +1846,7 @@ marks <- list(
 )
 
 # Create Shiny app
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   CssBaseline(
     Box(
       sx = list(width = 250, m = 4),
@@ -1965,7 +1967,7 @@ marks <- list(
 )
 
 # Create Shiny app
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   CssBaseline(
     Box(
       sx = list(width = 250),
@@ -2091,7 +2093,7 @@ marks <- list(
 )
 
 # Create Shiny app
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   CssBaseline(
     Box(
       sx = list(width = 250),
@@ -2216,7 +2218,7 @@ calculateValue <- function(value) {
 }
 
 # Create Shiny app
-ui <- shinyMaterialUIPage(
+ui <- muiMaterialPage(
   CssBaseline(
     Box(
       sx = list(width = 250, mt = 4),

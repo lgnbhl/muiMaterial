@@ -6,7 +6,7 @@ experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](h
 [![CRAN
 status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
-[![](https://img.shields.io/badge/@mui/material-%5E7.3.4-blue.svg)](https://mui.com/material-ui/getting-started/)
+[![](https://img.shields.io/badge/@mui/material-%5E7.3.5-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
@@ -53,9 +53,9 @@ For example, to use the `Button` component with Shiny, you should use
 
 ### Bootstrap conflict
 
-**muiMaterial** can enter in conflict with the Bootstrap CSS
-framework, used by default in Shiny functions such as
-`shiny::fluidPage()` and friends.
+**muiMaterial** can enter in conflict with the Bootstrap CSS framework,
+used by default in Shiny functions such as `shiny::fluidPage()` and
+friends.
 
 To normalize the CSS page and be sure the components render correctly,
 please wrap them in the function `CssBaseline()`.

@@ -1,6 +1,8 @@
 ---
 title: "Basic Dashboarding"
-output: rmarkdown::html_vignette
+format:
+  html:
+    minimal: true
 vignette: >
   %\VignetteIndexEntry{Basic Dashboarding}
   %\VignetteEngine{knitr::rmarkdown}
