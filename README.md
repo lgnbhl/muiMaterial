@@ -13,16 +13,15 @@ status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-projec
 
 The `muiMaterial` R package gives access to the popular [Material
 UI](https://mui.com/material-ui/getting-started/) React components for
-Shiny and R Markdown. It facilitates:
+Shiny and Quarto. It facilitates:
 
-- Creation of [fully
+- The development of [fully
   customizable](https://felixluginbuhl.com/muiMaterial/articles/dashboard-basic.html)
   Shiny dashboards.
   - The underlying [UI
     components](https://felixluginbuhl.com/muiMaterial/articles/) (e.g.,
-    cards, buttons, navbars, etc) are also designed to work in other
-    contexts (e.g., in Quarto).
-- Use the `reactRouter` R package to create static dashboards.
+    cards, buttons, navbars, etc) can be used in any Shiny app.
+- The creation of static dashboards using the `reactRouter` R package:
   - [Use a
     router](https://felixluginbuhl.com/muiMaterial/articles/routing.html)
     to create dashboards without a server.
