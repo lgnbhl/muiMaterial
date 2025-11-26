@@ -1,8 +1,6 @@
 
 <!-- badges: start -->
 
-[![Lifecycle:
-experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
 [![CRAN
 status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
@@ -13,11 +11,31 @@ status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-projec
 
 # muiMaterial
 
-**muiMaterial** provides a wrapper around [Material
-UI](https://mui.com/material-ui/getting-started/), the popular React
-framework.
+The `muiMaterial` R package provides the popular [Material
+UI](https://mui.com/material-ui/getting-started/) React components for
+Shiny and R Markdown from the company MUI. It facilitates:
+
+- Creation of [fully
+  customizable](https://felixluginbuhl.com/muiMaterial/articles/dashboard-basic.html)
+  Shiny dashboards.
+  - The underlying [UI
+    components](https://felixluginbuhl.com/muiMaterial/articles/) (e.g.,
+    cards, buttons, navbars, etc) are also designed to work in other
+    contexts (e.g., in Quarto).
+- Use the `reactRouter` R package to create static dashboards.
+  - [Use a
+    router](https://felixluginbuhl.com/muiMaterial/articles/routing.html)
+    to create dashboards without a server.
+- The access of advanced React components from other MUI React
+  libraries:
+  - [`muiCharts`](https://felixluginbuhl.com/muiCharts/) provides access
+    to MUI interactive charts.
+  - [`muiTreeView`](https://felixluginbuhl.com/muiTreeView/) gives
+    access to customizabe MUI TreeView.
 
 ### Install
+
+Install the `muiMaterial` package as follows:
 
 ``` r
 remotes::install_github("lgnbhl/muiMaterial")
@@ -25,20 +43,25 @@ remotes::install_github("lgnbhl/muiMaterial")
 
 ### Example
 
-To quickly get started with any example:
+The quickest way to see what `muiMaterial` can do is to run
+`muiMaterialExample("mui-template-dashboard")`. This launches a demo app
+containing both `muiMaterial` and `reactRouter` as well as the MUI R
+package companions `muiCharts` and `muiTreeView`.
+
+This demo is a replica of the [official
+template](https://mui.com/material-ui/getting-started/templates/dashboard/)
+created by MUI, the company behind Material UI.
 
 ``` r
-library(muiMaterial)
-
-# all examples available: muiMaterialExample()
-muiMaterialExample("showcase")
+muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-MUI, the company behind Material UI, made template examples. Using the R
-package **reactRouter**, it is possible to reproduce it in R:
+You can also have a look at the available Shiny inputs by running the
+“showcase” Shiny app:
 
 ``` r
-muiMaterialExample("mui-template-dashboard")
+# all examples available: muiMaterialExample()
+muiMaterial::muiMaterialExample("showcase")
 ```
 
 ### Shiny inputs wrappers
