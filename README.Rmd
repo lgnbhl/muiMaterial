@@ -18,7 +18,7 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 
 # muiMaterial
 
-The `muiMaterial` R package provides the popular [Material UI](https://mui.com/material-ui/getting-started/) React components for Shiny and R Markdown from the company MUI. It facilitates:
+The `muiMaterial` R package gives access to the popular [Material UI](https://mui.com/material-ui/getting-started/) React components for Shiny and R Markdown. It facilitates:
 
 - Creation of [fully customizable](https://felixluginbuhl.com/muiMaterial/articles/dashboard-basic.html) Shiny dashboards.
   - The underlying [UI components](https://felixluginbuhl.com/muiMaterial/articles/) (e.g., cards, buttons, navbars, etc) are also designed to work in other contexts (e.g., in Quarto).

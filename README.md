@@ -11,9 +11,9 @@ status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-projec
 
 # muiMaterial
 
-The `muiMaterial` R package provides the popular [Material
+The `muiMaterial` R package gives access to the popular [Material
 UI](https://mui.com/material-ui/getting-started/) React components for
-Shiny and R Markdown from the company MUI. It facilitates:
+Shiny and R Markdown. It facilitates:
 
 - Creation of [fully
   customizable](https://felixluginbuhl.com/muiMaterial/articles/dashboard-basic.html)
