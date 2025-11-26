@@ -1,3 +1,8 @@
+#' Mui Charts UI JS dependency
+#'
+#' @return HTML dependency object.
+#'
+#' @export
 muiMaterialDependency <- function() {
   htmltools::htmlDependency(
     name = "muiMaterial",
