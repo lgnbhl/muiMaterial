@@ -7,3 +7,6 @@
 ^_pkgdown.yml
 ^pkgdown
 ^docs$
+^dev$
+^inst/helpers$
+^data-raw$

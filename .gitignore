@@ -1,4 +1,3 @@
-/dev
 .Rproj.user
 .Rhistory
 .Rdata
@@ -9,4 +8,5 @@
 js/node_modules
 js/README.md
 docs
+dev
 data-raw
