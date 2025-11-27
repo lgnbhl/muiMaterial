@@ -9,28 +9,27 @@ status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-projec
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
-# muiMaterial
+# muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
 The `muiMaterial` R package gives access to the popular [Material
 UI](https://mui.com/material-ui/getting-started/) React components for
-Shiny and Quarto. It facilitates:
+Shiny and Quarto. It helps you:
 
-- The development of [fully
+- Develop [fully
   customizable](https://felixluginbuhl.com/muiMaterial/articles/dashboard-basic.html)
   Shiny dashboards.
   - The underlying [UI
     components](https://felixluginbuhl.com/muiMaterial/articles/) (e.g.,
     cards, buttons, navbars, etc) can be used in any Shiny app.
-- The creation of static dashboards using the `reactRouter` R package:
+- Create static dashboards using the `reactRouter` R package.
   - [Use a
     router](https://felixluginbuhl.com/muiMaterial/articles/routing.html)
     to create dashboards without a server.
-- The access of advanced React components from other MUI React
-  libraries:
+- Access advanced React components from other MUI React libraries.
   - [`muiCharts`](https://felixluginbuhl.com/muiCharts/) provides access
     to MUI interactive charts.
   - [`muiTreeView`](https://felixluginbuhl.com/muiTreeView/) gives
-    access to customizabe MUI TreeView.
+    access to customizable MUI TreeView.
 
 ### Install
 
