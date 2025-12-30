@@ -59,7 +59,6 @@ Sidebar <- TabContext.shinyInput(
     TabList.shinyInput(
       inputId = "tabListShowcase",
       value = "Autocomplete",
-      sx = list(minWidth = "15vh"),
       orientation = "vertical",
       Typography("Inputs", variant = "h6", m = 1),
       Tab(label = "Autocomplete", value = "Autocomplete"),
