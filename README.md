@@ -11,25 +11,26 @@ status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-projec
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
-The `muiMaterial` R package gives access to the popular [Material
-UI](https://mui.com/material-ui/getting-started/) React components for
-Shiny and Quarto. It helps you:
+**muiMaterial** gives access to the popular [Material
+UI](https://mui.com/material-ui/getting-started/) React library from R.
+
+It helps you:
 
 - Develop [fully
   customizable](https://felixluginbuhl.com/muiMaterial/articles/dashboard-basic.html)
-  Shiny dashboards.
+  Shiny dashboards:
   - The underlying [UI
     components](https://felixluginbuhl.com/muiMaterial/articles/) (e.g.,
     cards, buttons, navbars, etc) can be used in any Shiny app.
-- Create static dashboards using the `reactRouter` R package.
+- Create static dashboards using the
+  **[reactRouter](https://felixluginbuhl.com/reactRouter)** R package:
   - [Use a
     router](https://felixluginbuhl.com/muiMaterial/articles/routing.html)
     to create dashboards without a server.
-- Access advanced React components from other MUI React libraries.
-  - [`muiCharts`](https://felixluginbuhl.com/muiCharts/) provides access
-    to MUI interactive charts.
-  - [`muiTreeView`](https://felixluginbuhl.com/muiTreeView/) gives
-    access to customizable MUI TreeView.
+- Create advanced apps using MUI’s specialized React libraires:
+  - [**muiDataGrid**](https://felixluginbuhl.com/muiDataGrid/)
+  - [**muiCharts**](https://felixluginbuhl.com/muiCharts/)
+  - [**muiTreeView**](https://felixluginbuhl.com/muiTreeView/)
 
 ### Install
 
@@ -41,7 +42,7 @@ remotes::install_github("lgnbhl/muiMaterial")
 
 ### Example
 
-The quickest way to try `muiMaterial` is to launch the demo app of a
+The quickest way to try **muiMaterial** is to launch the demo app of a
 basic MUI dashboard (code
 [here](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/dashboard-simple)).
 
@@ -83,7 +84,7 @@ used by default in Shiny functions such as `shiny::fluidPage()` and
 friends.
 
 To create a Shiny app without Bootstrap, you can use
-`muiMaterial::muiMaterialPage()`.
+`muiMaterialPage()`.
 
 To normalize the CSS page and ensure components render correctly, please
 wrap them in the `CssBaseline()` function.
