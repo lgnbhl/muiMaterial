@@ -41,25 +41,20 @@ remotes::install_github("lgnbhl/muiMaterial")
 
 ### Example
 
-The quickest way to see what `muiMaterial` can do is to run
-`muiMaterialExample("mui-template-dashboard")`. This launches a demo app
-containing both `muiMaterial` and `reactRouter` as well as the MUI R
-package companions `muiCharts` and `muiTreeView`.
+The quickest way to try `muiMaterial` is to launch the demo app of a
+basic MUI dashboard (code
+[here](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/dashboard-simple)).
 
-This demo is a replica of the [official
+``` r
+muiMaterial::muiMaterialExample("dashboard-simple")
+```
+
+A more advanced demo replicating an [official
 template](https://mui.com/material-ui/getting-started/templates/dashboard/)
-created by MUI, the company behind Material UI.
+created by MUI (the company behind Material UI).
 
 ``` r
 muiMaterial::muiMaterialExample("mui-template-dashboard")
-```
-
-You can also have a look at the available Shiny inputs by running the
-“showcase” Shiny app:
-
-``` r
-# all examples available: muiMaterialExample()
-muiMaterial::muiMaterialExample("showcase")
 ```
 
 ### Shiny inputs wrappers
@@ -72,23 +67,29 @@ from the **shiny.react** documentation).
 For example, to use the `Button` component with Shiny, you should use
 `Button.shinyInput()` instead.
 
+Explore available Shiny inputs by running the “showcase” Shiny app
+(examples code are
+[here](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)):
+
+``` r
+# all examples available: muiMaterialExample()
+muiMaterial::muiMaterialExample("showcase")
+```
+
 ### Bootstrap conflict
 
 **muiMaterial** can enter in conflict with the Bootstrap CSS framework,
 used by default in Shiny functions such as `shiny::fluidPage()` and
 friends.
 
-To normalize the CSS page and be sure the components render correctly,
-please wrap them in the function `CssBaseline()`.
-
-Given Material UI high customization, you can easily fix styling issues
-using the CSS proprieties using the `sx` argument.
-
 To create a Shiny app without Bootstrap, you can use
 `muiMaterial::muiMaterialPage()`.
 
-The Bootstrap conflict could potentially be solved by using [Shadow
-DOM](https://mui.com/material-ui/customization/shadow-dom/).
+To normalize the CSS page and ensure components render correctly, please
+wrap them in the `CssBaseline()` function.
+
+Given Material UI high customization, you can easily fix styling issues
+using the CSS proprieties using the `sx` argument.
 
 ### Contribute
 
