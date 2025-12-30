@@ -103,4 +103,4 @@ if (interactive()) {
 
 ### Advanced dashboard
 
-Reproduction of the official MUI's dashboard template: https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/dashboard
+You can find more examples of MUI dashboards here: https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/
