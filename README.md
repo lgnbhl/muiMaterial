@@ -71,7 +71,7 @@ muiMaterial::muiMaterialExample("showcase")
 Build [fully customizable Shiny
 apps](https://felixluginbuhl.com/muiMaterial/articles/dashboard-basic.html)
 with reactive components. All [UI
-components](https://felixluginbuhl.com/muiMaterial/articles/) work with
+components](https://felixluginbuhl.com/muiMaterial/reference/) work with
 R Shiny and Quarto.
 
 **Multi-Page Applications**
