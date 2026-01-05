@@ -81,7 +81,7 @@ Extend your apps with specialized MUI companion R packages:
 
 **Shiny Input Wrappers**
 
-Material UI components become Shiny inputs through `*.shinyInput()` wrapper functions. For example, use `Button.shinyInput()` instead of `Button()` to capture click events in Shiny. [Read more about input wrappers](https://appsilon.github.io/shiny.react/articles/shiny-react.html#creating-input-wrappers).
+Material UI components become Shiny inputs through `*.shinyInput()` wrapper functions. For example, use `Button.shinyInput()` instead of `Button()` to capture click events in Shiny.
 
 **Bootstrap-Free Pages**
 
