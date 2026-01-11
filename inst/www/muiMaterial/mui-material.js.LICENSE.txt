@@ -19,7 +19,7 @@
  */
 
 /**
- * @mui/material v7.3.5
+ * @mui/material v7.3.7
  *
  * @license MIT
  * This source code is licensed under the MIT license found in the
@@ -27,7 +27,7 @@
  */
 
 /**
- * @mui/private-theming v7.3.5
+ * @mui/private-theming v7.3.7
  *
  * @license MIT
  * This source code is licensed under the MIT license found in the
@@ -35,7 +35,7 @@
  */
 
 /**
- * @mui/styled-engine v7.3.5
+ * @mui/styled-engine v7.3.7
  *
  * @license MIT
  * This source code is licensed under the MIT license found in the
@@ -43,7 +43,7 @@
  */
 
 /**
- * @mui/system v7.3.5
+ * @mui/system v7.3.7
  *
  * @license MIT
  * This source code is licensed under the MIT license found in the

@@ -5,7 +5,7 @@ const config = {
   entry: './src/index.js',
   mode: 'production',
   output: {
-    path: path.join(__dirname, '..', 'inst', 'muiMaterial'),
+    path: path.join(__dirname, '..', 'inst', 'www', 'muiMaterial'),
     filename: 'mui-material.js',
   },
   resolve: { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
