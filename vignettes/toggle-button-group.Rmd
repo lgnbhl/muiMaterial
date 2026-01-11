@@ -1,0 +1,438 @@
+---
+title: "Toggle Button Group"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Toggle Button Group}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-toggle-button/).</div>
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(muiMaterial)
+```
+
+# Toggle Button Group
+
+A Toggle Button can be used to group related options.
+
+To emphasize groups of related Toggle buttons, a group should share a common container. The ToggleButtonGroup controls the selected state of its child buttons when given its own value prop.
+
+## Exclusive selection
+
+With exclusive selection, selecting one option deselects any other.
+
+In this example, text alignment toggle buttons present options for left, center, right, and justified text (disabled), with only one item available for selection at a time.
+
+**Note**: Exclusive selection does not enforce that a button must be active.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Container(
+      sx = list(py = 4),
+      ToggleButtonGroup.shinyInput(
+        inputId = "alignment",
+        value = "left",
+        exclusive = TRUE,
+        ToggleButton.shinyInput(inputId = "align_left", value = "left", "Left"),
+        ToggleButton.shinyInput(inputId = "align_center", value = "center", "Center"),
+        ToggleButton.shinyInput(inputId = "align_right", value = "right", "Right"),
+        ToggleButton.shinyInput(inputId = "align_justify", value = "justify", disabled = TRUE, "Justify")
+      ),
+      Typography(
+        textOutput("alignment_text"),
+        variant = "body2",
+        sx = list(mt = 2)
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  rv <- reactiveValues(alignment = "left")
+  
+  observeEvent(input$align_left, { rv$alignment <- "left" })
+  observeEvent(input$align_center, { rv$alignment <- "center" })
+  observeEvent(input$align_right, { rv$alignment <- "right" })
+  observeEvent(c(input$align_left, input$align_center, input$align_right), {
+    updateToggleButtonGroup.shinyInput(inputId = "alignment", value = rv$alignment)
+  })
+  
+  output$alignment_text <- renderText({
+    paste("Current alignment:", rv$alignment)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Multiple selection
+
+Multiple selection allows for logically-grouped options, like bold, italic, and underline, to have multiple options selected.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Container(
+      sx = list(py = 4),
+      ToggleButtonGroup.shinyInput(
+        inputId = "formatting",
+        value = "bold",
+        ToggleButton.shinyInput(inputId = "fmt_bold", value = "bold", "Bold"),
+        ToggleButton.shinyInput(inputId = "fmt_italic", value = "italic", "Italic"),
+        ToggleButton.shinyInput(inputId = "fmt_underline", value = "underline", "Underline"),
+        ToggleButton.shinyInput(inputId = "fmt_color", value = "color", disabled = TRUE, "Color")
+      ),
+      Typography(
+        textOutput("formatting_text"),
+        variant = "body2",
+        sx = list(mt = 2)
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  rv <- reactiveValues(format = "bold")
+  
+  observeEvent(input$fmt_bold, { rv$format <- "bold" })
+  observeEvent(input$fmt_italic, { rv$format <- "italic" })
+  observeEvent(input$fmt_underline, { rv$format <- "underline" })
+  observeEvent(c(input$fmt_bold, input$fmt_italic, input$fmt_underline), {
+    updateToggleButtonGroup.shinyInput(inputId = "formatting", value = rv$format)
+  })
+  
+  output$formatting_text <- renderText({
+    paste("Active format:", rv$format)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Size
+
+For larger or smaller buttons, use the `size` prop.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Container(
+      sx = list(py = 4),
+      Stack(
+        spacing = 2,
+        Box(
+          Typography("Small", variant = "caption", sx = list(mb = 1)),
+          ToggleButtonGroup.shinyInput(
+            inputId = "size_small",
+            value = "option1",
+            exclusive = TRUE,
+            size = "small",
+            ToggleButton.shinyInput(inputId = "small_1", value = "option1", "Option 1"),
+            ToggleButton.shinyInput(inputId = "small_2", value = "option2", "Option 2"),
+            ToggleButton.shinyInput(inputId = "small_3", value = "option3", "Option 3")
+          )
+        ),
+        Box(
+          Typography("Medium (default)", variant = "caption", sx = list(mb = 1)),
+          ToggleButtonGroup.shinyInput(
+            inputId = "size_medium",
+            value = "option1",
+            exclusive = TRUE,
+            size = "medium",
+            ToggleButton.shinyInput(inputId = "medium_1", value = "option1", "Option 1"),
+            ToggleButton.shinyInput(inputId = "medium_2", value = "option2", "Option 2"),
+            ToggleButton.shinyInput(inputId = "medium_3", value = "option3", "Option 3")
+          )
+        ),
+        Box(
+          Typography("Large", variant = "caption", sx = list(mb = 1)),
+          ToggleButtonGroup.shinyInput(
+            inputId = "size_large",
+            value = "option1",
+            exclusive = TRUE,
+            size = "large",
+            ToggleButton.shinyInput(inputId = "large_1", value = "option1", "Option 1"),
+            ToggleButton.shinyInput(inputId = "large_2", value = "option2", "Option 2"),
+            ToggleButton.shinyInput(inputId = "large_3", value = "option3", "Option 3")
+          )
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  rv <- reactiveValues(
+    small = "option1",
+    medium = "option1",
+    large = "option1"
+  )
+  
+  # Small size handlers
+  observeEvent(input$small_1, { rv$small <- "option1" })
+  observeEvent(input$small_2, { rv$small <- "option2" })
+  observeEvent(input$small_3, { rv$small <- "option3" })
+  observeEvent(c(input$small_1, input$small_2, input$small_3), {
+    updateToggleButtonGroup.shinyInput(inputId = "size_small", value = rv$small)
+  })
+  
+  # Medium size handlers
+  observeEvent(input$medium_1, { rv$medium <- "option1" })
+  observeEvent(input$medium_2, { rv$medium <- "option2" })
+  observeEvent(input$medium_3, { rv$medium <- "option3" })
+  observeEvent(c(input$medium_1, input$medium_2, input$medium_3), {
+    updateToggleButtonGroup.shinyInput(inputId = "size_medium", value = rv$medium)
+  })
+  
+  # Large size handlers
+  observeEvent(input$large_1, { rv$large <- "option1" })
+  observeEvent(input$large_2, { rv$large <- "option2" })
+  observeEvent(input$large_3, { rv$large <- "option3" })
+  observeEvent(c(input$large_1, input$large_2, input$large_3), {
+    updateToggleButtonGroup.shinyInput(inputId = "size_large", value = rv$large)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Color
+
+Use the `color` prop to apply theme color palette to component.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Container(
+      sx = list(py = 4),
+      Stack(
+        spacing = 2,
+        ToggleButtonGroup.shinyInput(
+          inputId = "color_standard",
+          value = "option1",
+          exclusive = TRUE,
+          ToggleButton.shinyInput(inputId = "std_1", value = "option1", "Standard"),
+          ToggleButton.shinyInput(inputId = "std_2", value = "option2", "Standard"),
+          ToggleButton.shinyInput(inputId = "std_3", value = "option3", "Standard")
+        ),
+        ToggleButtonGroup.shinyInput(
+          inputId = "color_primary",
+          value = "option1",
+          exclusive = TRUE,
+          color = "primary",
+          ToggleButton.shinyInput(inputId = "pri_1", value = "option1", "Primary"),
+          ToggleButton.shinyInput(inputId = "pri_2", value = "option2", "Primary"),
+          ToggleButton.shinyInput(inputId = "pri_3", value = "option3", "Primary")
+        ),
+        ToggleButtonGroup.shinyInput(
+          inputId = "color_secondary",
+          value = "option1",
+          exclusive = TRUE,
+          color = "secondary",
+          ToggleButton.shinyInput(inputId = "sec_1", value = "option1", "Secondary"),
+          ToggleButton.shinyInput(inputId = "sec_2", value = "option2", "Secondary"),
+          ToggleButton.shinyInput(inputId = "sec_3", value = "option3", "Secondary")
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  rv <- reactiveValues(
+    standard = "option1",
+    primary = "option1",
+    secondary = "option1"
+  )
+  
+  # Standard color handlers
+  observeEvent(input$std_1, { rv$standard <- "option1" })
+  observeEvent(input$std_2, { rv$standard <- "option2" })
+  observeEvent(input$std_3, { rv$standard <- "option3" })
+  observeEvent(c(input$std_1, input$std_2, input$std_3), {
+    updateToggleButtonGroup.shinyInput(inputId = "color_standard", value = rv$standard)
+  })
+  
+  # Primary color handlers
+  observeEvent(input$pri_1, { rv$primary <- "option1" })
+  observeEvent(input$pri_2, { rv$primary <- "option2" })
+  observeEvent(input$pri_3, { rv$primary <- "option3" })
+  observeEvent(c(input$pri_1, input$pri_2, input$pri_3), {
+    updateToggleButtonGroup.shinyInput(inputId = "color_primary", value = rv$primary)
+  })
+  
+  # Secondary color handlers
+  observeEvent(input$sec_1, { rv$secondary <- "option1" })
+  observeEvent(input$sec_2, { rv$secondary <- "option2" })
+  observeEvent(input$sec_3, { rv$secondary <- "option3" })
+  observeEvent(c(input$sec_1, input$sec_2, input$sec_3), {
+    updateToggleButtonGroup.shinyInput(inputId = "color_secondary", value = rv$secondary)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Vertical buttons
+
+The buttons can be stacked vertically with the `orientation` prop set to "vertical".
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Container(
+      sx = list(py = 4),
+      ToggleButtonGroup.shinyInput(
+        inputId = "vertical",
+        value = "option1",
+        exclusive = TRUE,
+        orientation = "vertical",
+        ToggleButton.shinyInput(inputId = "vert_1", value = "option1", "Option 1"),
+        ToggleButton.shinyInput(inputId = "vert_2", value = "option2", "Option 2"),
+        ToggleButton.shinyInput(inputId = "vert_3", value = "option3", "Option 3")
+      ),
+      Typography(
+        textOutput("vertical_text"),
+        variant = "body2",
+        sx = list(mt = 2)
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  rv <- reactiveValues(vertical = "option1")
+  
+  observeEvent(input$vert_1, { rv$vertical <- "option1" })
+  observeEvent(input$vert_2, { rv$vertical <- "option2" })
+  observeEvent(input$vert_3, { rv$vertical <- "option3" })
+  observeEvent(c(input$vert_1, input$vert_2, input$vert_3), {
+    updateToggleButtonGroup.shinyInput(inputId = "vertical", value = rv$vertical)
+  })
+  
+  output$vertical_text <- renderText({
+    paste("Selected:", rv$vertical)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Standalone toggle button
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Container(
+      sx = list(py = 4),
+      ToggleButton.shinyInput(
+        inputId = "standalone",
+        value = FALSE,
+        shiny::icon("check")
+      ),
+      Typography(
+        textOutput("standalone_text"),
+        variant = "body2",
+        sx = list(mt = 2)
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$standalone_text <- renderText({
+    paste("Toggle state:", input$standalone)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Customization
+
+Here is an example of customizing the component using the `sx` prop and `color` prop.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Container(
+      sx = list(py = 4),
+      ToggleButtonGroup.shinyInput(
+        inputId = "custom",
+        value = "option1",
+        exclusive = TRUE,
+        color = "primary",
+        sx = list(
+          '& .MuiToggleButton-root' = list(
+            borderRadius = '8px',
+            margin = '4px',
+            border = '2px solid',
+            '&.Mui-selected' = list(
+              backgroundColor = 'primary.main',
+              color = 'white',
+              '&:hover' = list(
+                backgroundColor = 'primary.dark'
+              )
+            )
+          )
+        ),
+        ToggleButton.shinyInput(inputId = "cust_1", value = "option1", "Custom 1"),
+        ToggleButton.shinyInput(inputId = "cust_2", value = "option2", "Custom 2"),
+        ToggleButton.shinyInput(inputId = "cust_3", value = "option3", "Custom 3")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  rv <- reactiveValues(custom = "option1")
+  
+  observeEvent(input$cust_1, { rv$custom <- "option1" })
+  observeEvent(input$cust_2, { rv$custom <- "option2" })
+  observeEvent(input$cust_3, { rv$custom <- "option3" })
+  observeEvent(c(input$cust_1, input$cust_2, input$cust_3), {
+    updateToggleButtonGroup.shinyInput(inputId = "custom", value = rv$custom)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Accessibility
+
+### ARIA
+
+- ToggleButtonGroup has `role="group"`. You should provide an accessible label with `aria-label="label"`, `aria-labelledby="id"` or `<label>`.
+- ToggleButton sets `aria-pressed="<bool>"` according to the button state. You should label each button with `aria-label`.
+
+### Keyboard
+
+At present, toggle buttons are in DOM order. Navigate between them with the tab key. The button behavior follows standard keyboard semantics.
+

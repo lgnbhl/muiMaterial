@@ -1,0 +1,245 @@
+---
+title: "Divider"
+description: "Divider component for grouping elements with a thin line"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Divider}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(muiMaterial)
+library(shiny)
+```
+
+The Divider component provides a thin, unobtrusive line for grouping elements to reinforce visual hierarchy. It renders as a dark gray `<hr>` by default and features several useful props for quick style adjustments.
+
+## Basic divider
+
+By default, the Divider renders as a horizontal line:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2, width = "100%", maxWidth = 360),
+      Typography("Content above", variant = "body1"),
+      Divider(),
+      Typography("Content below", variant = "body1")
+    )
+  )
+)
+```
+
+## Divider variants
+
+The Divider component supports three variants: `"fullWidth"` (default), `"inset"`, and `"middle"`:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2, width = "100%", maxWidth = 360),
+      Typography("Full width variant below", variant = "body2"),
+      Divider(variant = "fullWidth"),
+      Typography("Inset variant below", variant = "body2", sx = list(mt = 2)),
+      Divider(variant = "inset"),
+      Typography("Middle variant below", variant = "body2", sx = list(mt = 2)),
+      Divider(variant = "middle")
+    )
+  )
+)
+```
+
+## Vertical divider
+
+Use the `orientation` prop to change the Divider from horizontal to vertical. When using vertical orientation, the Divider renders a `<div>` with the corresponding accessibility attributes instead of `<hr>`:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(
+        p = 2,
+        display = "flex",
+        alignItems = "center",
+        gap = 1
+      ),
+      Typography("Left content"),
+      Divider(orientation = "vertical", flexItem = TRUE),
+      Typography("Right content")
+    )
+  )
+)
+```
+
+## Vertical with flexItem
+
+Use the `flexItem` prop to display the Divider when it's being used in a flex container:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(
+        p = 1,
+        display = "inline-flex",
+        alignItems = "center",
+        border = '1px solid',
+        borderColor = "divider",
+        borderRadius = 2,
+        bgcolor = "background.paper",
+        color = "text.secondary",
+        gap = 1
+      ),
+      shiny::icon("bold"),
+      Divider(
+        orientation = "vertical",
+        flexItem = TRUE
+      ),
+      shiny::icon("italic"),
+      Divider(
+        orientation = "vertical",
+        flexItem = TRUE
+      ),
+      shiny::icon("underline")
+    )
+  )
+)
+```
+
+## Divider with text
+
+Use the Divider with child elements to create dividers with text or other content:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2, width = "100%"),
+      Typography(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        variant = "body2",
+        sx = list(mb = 2)
+      ),
+      Divider("CENTER"),
+      Typography(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        variant = "body2",
+        sx = list(my = 2)
+      )
+    )
+  )
+)
+```
+
+## Divider text alignment
+
+Use the `textAlign` prop to align elements that are wrapped by the Divider:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2, width = "100%"),
+      Typography(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        variant = "body2"
+      ),
+      Divider("CENTER", textAlign = "center", sx = list(my = 2)),
+      Typography(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        variant = "body2"
+      ),
+      Divider("LEFT", textAlign = "left", sx = list(my = 2)),
+      Typography(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        variant = "body2"
+      ),
+      Divider("RIGHT", textAlign = "right", sx = list(my = 2)),
+      Typography(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        variant = "body2"
+      )
+    )
+  )
+)
+```
+
+## Divider with Chip
+
+Combine the Divider with other components like Chip:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2, width = "100%"),
+      Typography(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        variant = "body2"
+      ),
+      Divider(
+        Chip(label = "CHIP", size = "small"),
+        sx = list(my = 2)
+      ),
+      Typography(
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+        variant = "body2"
+      )
+    )
+  )
+)
+```
+
+## Divider in lists
+
+When using the Divider to separate items in a List, use the `component` prop to render it as an `<li>`—otherwise it won't be a valid HTML element:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2, width = "100%", maxWidth = 360),
+      List(
+        ListItem(ListItemText(primary = "Inbox")),
+        Divider(component = "li"),
+        ListItem(ListItemText(primary = "Drafts")),
+        Divider(component = "li"),
+        ListItem(ListItemText(primary = "Trash")),
+        Divider(component = "li"),
+        ListItem(ListItemText(primary = "Spam"))
+      )
+    )
+  )
+)
+```
+
+## Accessibility
+
+Due to its implicit role of `separator`, the Divider (which is an `<hr>` element) will be announced by screen readers as a "Horizontal Splitter" (or vertical if using the `orientation` prop).
+
+If you're using it as a purely stylistic element, set `aria-hidden="true"` to make screen readers bypass it:
+
+```r
+Divider(sx = list(`aria-hidden` = "true"))
+```
+
+When wrapping other elements like text or chips, change the rendered element to a `<div>` using the `component` prop and set `role="presentation"`:
+
+```r
+Divider(
+  component = "div",
+  role = "presentation",
+  Typography("Text element")
+)
+```
+
+See the [Material UI Divider documentation](https://mui.com/material-ui/api/divider/) for complete API details.

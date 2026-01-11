@@ -9,7 +9,13 @@ vignette: >
   %\VignetteEncoding{UTF-8}
 ---
 
+This vignette demonstrates how to build basic dashboards using muiMaterial tabs components. The examples show both horizontal and vertical tab layouts using Material-UI's TabContext system.
+
 ### Horizontal dashboard
+
+A horizontal dashboard places tabs at the top, ideal for navigation between main sections.
+
+The `TabContext` manages the active tab state, while `TabList` contains the tab buttons. Each `TabPanel` holds the content for its corresponding tab.
 
 ```r
 library(shiny)
@@ -33,7 +39,6 @@ Header <- TabContext.shinyInput(
 )
 
 ui <- muiMaterialPage(
-  suppressBootstrap = FALSE,
   Header
 )
 
@@ -49,6 +54,10 @@ if (interactive()) {
 ```
 
 ### Vertical dashboard
+
+A vertical dashboard uses a sidebar layout with tabs on the left and content on the right. This pattern works well for complex applications with many navigation options.
+
+The `Stack` component with `direction = "row"` creates the side-by-side layout, while `orientation = "vertical"` on `TabList` arranges tabs vertically.
 
 ```r
 library(shiny)
@@ -83,7 +92,6 @@ Header <- AppBar(
 )
 
 ui <- muiMaterialPage(
-  suppressBootstrap = FALSE,
   CssBaseline(
     Header,
     Sidebar
@@ -103,4 +111,4 @@ if (interactive()) {
 
 ### Advanced dashboard
 
-You can find more examples of MUI dashboards here: https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/
+For more advanced dashboard examples using the [reactRouter](https://felixluginbuhl.com/reactRouter/) R package, see: https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/

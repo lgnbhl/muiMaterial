@@ -1,0 +1,583 @@
+---
+title: "List"
+description: >
+  Lists are continuous, vertical indexes of text or images.
+  Learn how to use List components to organize and display content.
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{List}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+library(muiMaterial)
+library(shiny)
+```
+
+Lists are continuous, vertical indexes of text or images. They are composed of items containing primary and supplemental actions, which are represented by icons and text.
+
+## Basic list
+
+A simple list with text items:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+      List(
+        ListItem(
+          ListItemButton(
+            ListItemIcon(shiny::icon("inbox")),
+            ListItemText(primary = "Inbox")
+          )
+        ),
+        ListItem(
+          ListItemButton(
+            ListItemIcon(shiny::icon("paper-plane")),
+            ListItemText(primary = "Drafts")
+          )
+        )
+      )
+    )
+  )
+)
+```
+
+## Nested list
+
+A list with nested items and collapsible sections:
+
+```{r}
+library(shiny)
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+      List(
+        component = "nav",
+        ListItemButton(
+          ListItemIcon(shiny::icon("home")),
+          ListItemText(primary = "Home")
+        ),
+        ListItemButton(
+          ListItemIcon(shiny::icon("envelope")),
+          ListItemText(primary = "Inbox"),
+          shiny::icon("chevron-down"),
+          onClick = JS("() => {
+            const el = document.getElementById('inbox-collapse');
+            if (el) {
+              el.style.display = el.style.display === 'none' ? 'block' : 'none';
+            }
+          }")
+        ),
+        Collapse(
+          `in` = TRUE,
+          timeout = "auto",
+          unmountOnExit = TRUE,
+          id = "inbox-collapse",
+          List(
+            component = "div",
+            disablePadding = TRUE,
+            ListItemButton(
+              sx = list(pl = 4),
+              ListItemIcon(shiny::icon("star")),
+              ListItemText(primary = "Starred")
+            ),
+            ListItemButton(
+              sx = list(pl = 4),
+              ListItemIcon(shiny::icon("clock")),
+              ListItemText(primary = "Snoozed")
+            )
+          )
+        ),
+        ListItemButton(
+          ListItemIcon(shiny::icon("paper-plane")),
+          ListItemText(primary = "Drafts")
+        )
+      )
+    )
+  )
+)
+```
+
+## List with dividers
+
+Use `Divider()` to separate list items:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+      List(
+        component = "nav",
+        ListItem(
+          ListItemButton(
+            ListItemIcon(shiny::icon("inbox")),
+            ListItemText(primary = "Inbox")
+          )
+        ),
+        Divider(),
+        ListItem(
+          ListItemButton(
+            ListItemIcon(shiny::icon("paper-plane")),
+            ListItemText(primary = "Drafts")
+          )
+        ),
+        Divider(),
+        ListItem(
+          ListItemButton(
+            ListItemIcon(shiny::icon("trash")),
+            ListItemText(primary = "Trash")
+          )
+        )
+      )
+    )
+  )
+)
+```
+
+## List with avatars
+
+Combine lists with Avatar() components:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+      List(
+        ListItem(
+          ListItemAvatar(
+            Avatar(
+              alt = "Remy Sharp",
+              src = "https://mui.com/static/images/avatar/1.jpg"
+            )
+          ),
+          ListItemText(
+            primary = "Remy Sharp",
+            secondary = "Available for chat"
+          )
+        ),
+        ListItem(
+          ListItemAvatar(
+            Avatar(
+              alt = "Travis Howard",
+              src = "https://mui.com/static/images/avatar/2.jpg"
+            )
+          ),
+          ListItemText(
+            primary = "Travis Howard",
+            secondary = "Busy - Do not disturb"
+          )
+        ),
+        ListItem(
+          ListItemAvatar(
+            Avatar(
+              alt = "Cindy Baker",
+              src = "https://mui.com/static/images/avatar/3.jpg"
+            )
+          ),
+          ListItemText(
+            primary = "Cindy Baker",
+            secondary = "Away"
+          )
+        )
+      )
+    )
+  )
+)
+```
+
+## List with secondary action
+
+Add secondary actions to list items using ListItemSecondaryAction():
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+      List(
+        ListItem(
+          secondaryAction = IconButton(
+            edge = "end",
+            shiny::icon("comment")
+          ),
+          ListItemAvatar(
+            Avatar(
+              alt = "Remy Sharp",
+              src = "https://mui.com/static/images/avatar/1.jpg"
+            )
+          ),
+          ListItemText(
+            primary = "Remy Sharp",
+            secondary = "Jan 9, 2024"
+          )
+        ),
+        ListItem(
+          secondaryAction = IconButton(
+            edge = "end",
+            shiny::icon("comment")
+          ),
+          ListItemAvatar(
+            Avatar(
+              alt = "Travis Howard",
+              src = "https://mui.com/static/images/avatar/2.jpg"
+            )
+          ),
+          ListItemText(
+            primary = "Travis Howard",
+            secondary = "Jan 7, 2024"
+          )
+        )
+      )
+    )
+  )
+)
+```
+
+## Interactive list with reactRouter
+
+Create an interactive navigation list with [reactRouter](https://felixluginbuhl.com/reactRouter/) R package:
+
+```{r}
+library(muiMaterial)
+library(reactRouter)
+
+muiMaterialPage(
+  CssBaseline(
+    HashRouter(
+        Box(
+        sx = list(display = "flex", height = "100vh"),
+        Box(
+            sx = list(width = 240, bgcolor = "background.paper", borderRight = "1px solid #e0e0e0"),
+            List(
+                component = "nav",
+                NavLink(
+                    to = "/",
+                    style = "text-decoration: none; color: black",
+                    ListItemButton(
+                        ListItemIcon(shiny::icon("home")),
+                        ListItemText(primary = "Home")
+                    )
+                ),
+                NavLink(
+                    to = "/inbox",
+                    style = "text-decoration: none; color: black",
+                    ListItemButton(
+                        onClick = Navigate("/inbox"),
+                        ListItemIcon(shiny::icon("inbox")),
+                        ListItemText(primary = "Inbox")
+                    )
+                ),
+                NavLink(
+                    to = "/starred",
+                    style = "text-decoration: none; color: black",
+                    ListItemButton(
+                        onClick = Navigate("/starred"),
+                        ListItemIcon(shiny::icon("star")),
+                        ListItemText(primary = "Starred")
+                    )
+                ),
+                NavLink(
+                    to = "/drafts",
+                    style = "text-decoration: none; color: black",
+                    ListItemButton(
+                        ListItemIcon(shiny::icon("paper-plane")),
+                        ListItemText(primary = "Drafts")
+                    )
+                )
+            )
+        ),
+        Box(
+            sx = list(flex = 1, p = 3),
+            Routes(
+            Route(
+                path = "/",
+                element = Typography("Home Page", variant = "h4")
+            ),
+            Route(
+                path = "/inbox",
+                element = Typography("Inbox", variant = "h4")
+            ),
+            Route(
+                path = "/starred",
+                element = Typography("Starred", variant = "h4")
+            ),
+            Route(
+                path = "/drafts",
+                element = Typography("Drafts", variant = "h4")
+            )
+            )
+        )
+        )
+    )
+  )
+)
+```
+
+## Selectable list
+
+Create a list with selectable items:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
+      Typography("Select items:", variant = "h6", sx = list(mb = 2)),
+      uiOutput("selectable_list"),
+      Typography(
+        uiOutput("selected_message"),
+        variant = "body2",
+        sx = list(mt = 2)
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  items <- c("Photos", "Work", "Vacation")
+  selected <- reactiveVal(character(0))
+  
+  output$selectable_list <- renderUI({
+    List(
+      lapply(items, function(item) {
+        is_selected <- item %in% selected()
+        ListItem(
+          disablePadding = TRUE,
+          ListItemButton(
+            selected = is_selected,
+            onClick = JS(sprintf(
+              "() => Shiny.setInputValue('toggle_item', {item: '%s', time: Math.random()})",
+              item
+            )),
+            ListItemIcon(shiny::icon("folder")),
+            ListItemText(primary = item)
+          )
+        )
+      })
+    )
+  })
+  
+  observeEvent(input$toggle_item, {
+    item <- input$toggle_item$item
+    if (item %in% selected()) {
+      selected(setdiff(selected(), item))
+    } else {
+      selected(c(selected(), item))
+    }
+  })
+  
+  output$selected_message <- renderUI({
+    if (length(selected()) == 0) {
+      "No items selected"
+    } else {
+      paste("Selected:", paste(selected(), collapse = ", "))
+    }
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## List with checkboxes
+
+Add checkboxes to list items for multiple selection:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
+      Typography("To-do list:", variant = "h6", sx = list(mb = 2)),
+      uiOutput("checkbox_list")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  todos <- reactiveVal(list(
+    list(id = "1", text = "Buy groceries", checked = FALSE),
+    list(id = "2", text = "Walk the dog", checked = FALSE),
+    list(id = "3", text = "Finish report", checked = FALSE),
+    list(id = "4", text = "Call mom", checked = FALSE)
+  ))
+  
+  output$checkbox_list <- renderUI({
+    List(
+      lapply(todos(), function(todo) {
+        ListItem(
+          disablePadding = TRUE,
+          ListItemButton(
+            role = "undefined",
+            onClick = JS(sprintf(
+              "() => Shiny.setInputValue('toggle_todo', {id: '%s', time: Math.random()})",
+              todo$id
+            )),
+            dense = TRUE,
+            ListItemIcon(
+              Checkbox(
+                edge = "start",
+                checked = todo$checked,
+                tabIndex = -1,
+                disableRipple = TRUE
+              )
+            ),
+            ListItemText(
+              primary = todo$text,
+              sx = if (todo$checked) list(textDecoration = "line-through") else NULL
+            )
+          )
+        )
+      })
+    )
+  })
+  
+  observeEvent(input$toggle_todo, {
+    todo_id <- input$toggle_todo$id
+    current <- todos()
+    updated <- lapply(current, function(t) {
+      if (t$id == todo_id) {
+        t$checked <- !t$checked
+      }
+      t
+    })
+    todos(updated)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## List with switches
+
+Add switches to list items for settings-style lists:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
+      Typography("Notifications:", variant = "h6", sx = list(mb = 2)),
+      uiOutput("settings_list")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  settings <- reactiveVal(list(
+    list(id = "wifi", label = "Wi-Fi", enabled = TRUE),
+    list(id = "bluetooth", label = "Bluetooth", enabled = FALSE),
+    list(id = "notifications", label = "Notifications", enabled = TRUE)
+  ))
+  
+  output$settings_list <- renderUI({
+    List(
+      lapply(settings(), function(setting) {
+        ListItem(
+          ListItemIcon(
+            if (setting$id == "wifi") shiny::icon("wifi")
+            else if (setting$id == "bluetooth") shiny::icon("bluetooth")
+            else shiny::icon("bell")
+          ),
+          ListItemText(primary = setting$label),
+          Switch(
+            edge = "end",
+            checked = setting$enabled,
+            onChange = JS(sprintf(
+              "() => Shiny.setInputValue('toggle_setting', {id: '%s', time: Math.random()})",
+              setting$id
+            ))
+          )
+        )
+      })
+    )
+  })
+  
+  observeEvent(input$toggle_setting, {
+    setting_id <- input$toggle_setting$id
+    current <- settings()
+    updated <- lapply(current, function(s) {
+      if (s$id == setting_id) {
+        s$enabled <- !s$enabled
+      }
+      s
+    })
+    settings(updated)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Dense list
+
+Use the dense prop for more compact lists:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+      List(
+        dense = TRUE,
+        ListItem(
+          ListItemAvatar(
+            Avatar(
+              alt = "Remy Sharp",
+              src = "https://mui.com/static/images/avatar/1.jpg"
+            )
+          ),
+          ListItemText(
+            primary = "Remy Sharp",
+            secondary = "Software Engineer"
+          )
+        ),
+        ListItem(
+          ListItemAvatar(
+            Avatar(
+              alt = "Travis Howard",
+              src = "https://mui.com/static/images/avatar/2.jpg"
+            )
+          ),
+          ListItemText(
+            primary = "Travis Howard",
+            secondary = "Product Manager"
+          )
+        ),
+        ListItem(
+          ListItemAvatar(
+            Avatar(
+              alt = "Cindy Baker",
+              src = "https://mui.com/static/images/avatar/3.jpg"
+            )
+          ),
+          ListItemText(
+            primary = "Cindy Baker",
+            secondary = "Designer"
+          )
+        )
+      )
+    )
+  )
+)
+```

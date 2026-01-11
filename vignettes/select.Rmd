@@ -1,0 +1,507 @@
+---
+title: "Select"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Select}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The Select component provides a dropdown menu for selecting one or more items from a list of options.
+
+## Select vs Autocomplete
+
+While both `Select()` and `Autocomplete()` provide dropdown functionality, they serve different purposes:
+
+**Use `Select()` when:**
+- You have a short, fixed list of options
+- Users need to see all options at a glance
+- No search/filtering is needed
+- You want a simpler, more compact interface
+
+**Use `Autocomplete()` when:**
+- You have a data.frame with a long list of options
+- Search/filtering functionality is beneficial
+- Users might not know the exact option they want
+- You need grouped options with search
+- Multiple selection with tag display is important
+
+## Basic Usage
+
+Use `Select.shinyInput()` to create a dropdown select with options provided as `MenuItem()` children.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "animal",
+        value = "dog",
+        sx = list(minWidth = 200),
+        MenuItem(value = "dog", "Dog"),
+        MenuItem(value = "cat", "Cat"),
+        MenuItem(value = "fish", "Fish")
+      ),
+      verbatimTextOutput("selected")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$selected <- renderText({
+    paste("Selected:", input$animal)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Variants
+
+Select supports three visual variants: `outlined` (default), `filled`, and `standard`.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Stack(
+        spacing = 2,
+        Select.shinyInput(
+          inputId = "select_outlined",
+          variant = "outlined",
+          value = "dog",
+          sx = list(minWidth = 200),
+          MenuItem(value = "dog", "Dog"),
+          MenuItem(value = "cat", "Cat"),
+          MenuItem(value = "fish", "Fish")
+        ),
+        Select.shinyInput(
+          inputId = "select_filled",
+          variant = "filled",
+          value = "dog",
+          sx = list(minWidth = 200),
+          MenuItem(value = "dog", "Dog"),
+          MenuItem(value = "cat", "Cat"),
+          MenuItem(value = "fish", "Fish")
+        ),
+        Select.shinyInput(
+          inputId = "select_standard",
+          variant = "standard",
+          value = "dog",
+          sx = list(minWidth = 200),
+          MenuItem(value = "dog", "Dog"),
+          MenuItem(value = "cat", "Cat"),
+          MenuItem(value = "fish", "Fish")
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Labels
+
+Use the `inputProps` argument with a `label` property to add a label to the Select.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "pet",
+        value = "dog",
+        inputProps = list(label = "Choose your pet"),
+        sx = list(minWidth = 200),
+        MenuItem(value = "dog", "Dog"),
+        MenuItem(value = "cat", "Cat"),
+        MenuItem(value = "fish", "Fish"),
+        MenuItem(value = "bird", "Bird")
+      ),
+      verbatimTextOutput("pet_output")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$pet_output <- renderText({
+    paste("You selected:", input$pet)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Multiple Selection
+
+Set `multiple = TRUE` to allow selecting multiple values. The selected value will be an array.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "animals",
+        multiple = TRUE,
+        value = list("dog", "cat"),
+        inputProps = list(label = "Select multiple animals"),
+        sx = list(minWidth = 300),
+        MenuItem(value = "dog", "Dog"),
+        MenuItem(value = "cat", "Cat"),
+        MenuItem(value = "fish", "Fish"),
+        MenuItem(value = "bird", "Bird"),
+        MenuItem(value = "rabbit", "Rabbit")
+      ),
+      verbatimTextOutput("animals_output")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$animals_output <- renderText({
+    paste("Selected:", paste(input$animals, collapse = ", "))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Grouped Options
+
+Use `ListSubheader()` and `Divider()` to organize options into groups.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "environment",
+        value = "",
+        displayEmpty = TRUE,
+        inputProps = list('aria-label' = 'Select environment'),
+        sx = list(minWidth = 300),
+        ListSubheader("Production"),
+        MenuItem(value = "prod_web", "Web Application"),
+        MenuItem(value = "prod_mobile", "Mobile App"),
+        MenuItem(value = "prod_api", "API Service"),
+        ListSubheader("Development"),
+        MenuItem(value = "dev_local", "Local Development"),
+        MenuItem(value = "dev_staging", "Staging Environment"),
+        Divider(sx = list(mx = -1)),
+        MenuItem(value = "add_new", "Add New Environment")
+      ),
+      verbatimTextOutput("env_output")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$env_output <- renderText({
+    paste("Selected environment:", input$environment)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Rich Menu Items
+
+Use `ListItemText()` to create menu items with primary and secondary text.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "project",
+        value = "web_app",
+        inputProps = list(label = "Select project"),
+        sx = list(minWidth = 300),
+        MenuItem(
+          value = "web_app",
+          ListItemText(
+            primary = "Web Application",
+            secondary = "React-based frontend"
+          )
+        ),
+        MenuItem(
+          value = "mobile_app",
+          ListItemText(
+            primary = "Mobile Application",
+            secondary = "Cross-platform mobile app"
+          )
+        ),
+        MenuItem(
+          value = "backend_api",
+          ListItemText(
+            primary = "Backend API",
+            secondary = "RESTful API service"
+          )
+        )
+      ),
+      verbatimTextOutput("project_output")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$project_output <- renderText({
+    paste("Selected project:", input$project)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Form Controls
+
+Combine with `FormControl`, `FormLabel`, and `FormHelperText` for enhanced forms.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      FormControl(
+        sx = list(minWidth = 300),
+        FormLabel("Pet Selection"),
+        Select.shinyInput(
+          inputId = "pet_form",
+          value = "dog",
+          MenuItem(value = "dog", "Dog"),
+          MenuItem(value = "cat", "Cat"),
+          MenuItem(value = "fish", "Fish"),
+          MenuItem(value = "bird", "Bird")
+        ),
+        FormHelperText("Choose your favorite pet from the list.")
+      ),
+      verbatimTextOutput("pet_form_output")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$pet_form_output <- renderText({
+    paste("Your favorite pet:", input$pet_form)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Display Empty
+
+Use `displayEmpty = TRUE` to show a placeholder even when no value is selected.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "choice",
+        value = "",
+        displayEmpty = TRUE,
+        inputProps = list(label = "Make a choice"),
+        sx = list(minWidth = 200),
+        MenuItem(value = "", em("None")),
+        MenuItem(value = "option1", "Option 1"),
+        MenuItem(value = "option2", "Option 2"),
+        MenuItem(value = "option3", "Option 3")
+      ),
+      verbatimTextOutput("choice_output")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$choice_output <- renderText({
+    if (input$choice == "") {
+      "No selection made"
+    } else {
+      paste("Selected:", input$choice)
+    }
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Auto Width
+
+Set `autoWidth = TRUE` to automatically size the dropdown menu based on its content.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Stack(
+        spacing = 2,
+        Typography("Without autoWidth:", variant = "body2"),
+        Select.shinyInput(
+          inputId = "select1",
+          value = "short",
+          sx = list(minWidth = 200),
+          MenuItem(value = "short", "Short"),
+          MenuItem(value = "long", "Very Long Option Text Here")
+        ),
+        Typography("With autoWidth:", variant = "body2"),
+        Select.shinyInput(
+          inputId = "select2",
+          value = "short",
+          autoWidth = TRUE,
+          MenuItem(value = "short", "Short"),
+          MenuItem(value = "long", "Very Long Option Text Here")
+        )
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Styling
+
+Use the `sx` argument for custom styling and control the appearance of the Select component.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "styled_select",
+        value = "option1",
+        inputProps = list(label = "Styled Select"),
+        sx = list(
+          minWidth = 250,
+          backgroundColor = "primary.light",
+          borderRadius = 2,
+          "& .MuiOutlinedInput-notchedOutline" = list(
+            borderColor = "primary.main",
+            borderWidth = 2
+          ),
+          "&:hover .MuiOutlinedInput-notchedOutline" = list(
+            borderColor = "primary.dark"
+          )
+        ),
+        MenuItem(value = "option1", "Option 1"),
+        MenuItem(value = "option2", "Option 2"),
+        MenuItem(value = "option3", "Option 3")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Updating Select Values
+
+Use `updateSelect.shinyInput()` to programmatically update the selected value from the server.
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "animal_update",
+        value = "dog",
+        inputProps = list(label = "Select animal"),
+        sx = list(minWidth = 200),
+        MenuItem(value = "dog", "Dog"),
+        MenuItem(value = "cat", "Cat"),
+        MenuItem(value = "fish", "Fish"),
+        MenuItem(value = "bird", "Bird")
+      ),
+      Box(
+        sx = list(mt = 2),
+        Button.shinyInput(
+          inputId = "reset_btn",
+          "Reset to Dog"
+        )
+      ),
+      verbatimTextOutput("animal_update_output")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$animal_update_output <- renderText({
+    paste("Current selection:", input$animal_update)
+  })
+  
+  observeEvent(input$reset_btn, {
+    updateSelect.shinyInput(
+      session = session,
+      inputId = "animal_update",
+      value = "dog"
+    )
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Native Select
+
+Set `native = TRUE` to use the browser's native select element (useful for mobile devices).
+
+```{r eval=FALSE}
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Select.shinyInput(
+        inputId = "native_select",
+        native = TRUE,
+        value = "dog",
+        inputProps = list(label = "Native Select"),
+        sx = list(minWidth = 200),
+        tags$option(value = "dog", "Dog"),
+        tags$option(value = "cat", "Cat"),
+        tags$option(value = "fish", "Fish")
+      ),
+      verbatimTextOutput("native_output")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$native_output <- renderText({
+    paste("Selected:", input$native_select)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+**Note:** When using `native = TRUE`, use HTML `option()` elements instead of `MenuItem()` components.

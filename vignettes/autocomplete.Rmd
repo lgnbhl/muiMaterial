@@ -1,0 +1,288 @@
+---
+title: "Autocomplete"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Autocomplete}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>"
+)
+```
+
+The Autocomplete component provides a text input with suggested options for single or multiple selection.
+
+## Basic Usage
+
+Use `Autocomplete.shinyInput()` to create a searchable dropdown with suggestions.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Autocomplete.shinyInput(
+        inputId = "animal",
+        placeholder = "Select an animal",
+        options = c("dog", "cat", "fish", "bird", "rabbit")
+      ),
+      verbatimTextOutput("selected")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$selected <- renderText({
+    paste("Selected:", input$animal)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Multiple Selection
+
+Set `multiple = TRUE` to allow selecting multiple values.
+
+```{r eval=FALSE}
+ui <- Autocomplete.shinyInput(
+  inputId = "animals",
+  multiple = TRUE,
+  placeholder = "Select multiple animals",
+  options = c("dog", "cat", "fish", "bird", "rabbit")
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+### Limit Tags
+
+Use `limitTags` to control how many selected items are displayed before showing a count.
+
+```{r eval=FALSE}
+ui <- Autocomplete.shinyInput(
+  inputId = "animals",
+  multiple = TRUE,
+  limitTags = 2,
+  placeholder = "Select multiple animals",
+  options = c("dog", "cat", "fish", "bird", "rabbit")
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Styling
+
+Use the `sx` argument for custom styling and `inputProps` for label configuration.
+
+```{r eval=FALSE}
+ui <- Autocomplete.shinyInput(
+  sx = list(m = 1, minWidth = 120, width = 300),
+  inputId = "animal",
+  placeholder = "Select an animal",
+  inputProps = list(label = "Choose your pet"),
+  options = c("dog", "cat", "fish")
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Form Controls
+
+Combine with `FormControl`, `FormLabel`, and `FormHelperText` for enhanced forms.
+
+```{r eval=FALSE}
+ui <- FormControl(
+  sx = list(m = 1, minWidth = 120, width = 300),
+  FormLabel("Pet Selection"),
+  Autocomplete.shinyInput(
+    inputId = "pet",
+    multiple = TRUE,
+    limitTags = 2,
+    inputProps = list(placeholder = "Select multiple pets"),
+    options = c("dog", "cat", "fish", "bird")
+  ),
+  FormHelperText("You can select multiple pets.")
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+## Grouped Options
+
+Use data frames with `groupBy` and `getOptionLabel` for grouped selections.
+
+**Note**: When using `groupBy` and `getOptionLabel`, define these as static JavaScript functions to avoid injection vulnerabilities. Never pass user input directly into `JS()`.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+library(shiny.react)
+
+df <- data.frame(
+  animal = c("dog", "cat", "fish", "parrot", "goldfish"),
+  category = c("mammal", "mammal", "fish", "bird", "fish"),
+  stringsAsFactors = FALSE
+)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Autocomplete.shinyInput(
+        inputId = "grouped",
+        placeholder = "Select by category",
+        options = df,
+        groupBy = JS("function(option) { return option.category; }"),
+        getOptionLabel = JS("function(option) { return option.animal; }")
+      ),
+      tableOutput("result")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$result <- renderTable({
+    as.data.frame(input$grouped)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Disable Clearable
+
+Set `disableClearable = TRUE` to prevent clearing the selection.
+
+```{r eval=FALSE}
+Autocomplete.shinyInput(
+  inputId = "animal",
+  placeholder = "Select an animal",
+  disableClearable = TRUE,
+  options = c("dog", "cat", "fish")
+)
+```
+
+## Default Value
+
+Set an initial value using the `value` argument.
+
+```{r eval=FALSE}
+# Simple value
+Autocomplete.shinyInput(
+  inputId = "animal",
+  value = "dog",
+  options = c("dog", "cat", "fish")
+)
+
+# For grouped options with data frames
+# Use list structure instead of JS() for default values
+df <- data.frame(
+  animal = c("dog", "cat", "fish"),
+  owner = c("person1", "person1", "person2"),
+  stringsAsFactors = FALSE
+)
+
+Autocomplete.shinyInput(
+  inputId = "grouped",
+  value = list(animal = "dog", owner = "person1"),
+  options = df,
+  groupBy = JS("function(option) { return option.owner; }"),
+  getOptionLabel = JS("function(option) { return option.animal; }")
+)
+```
+
+## Complete Example
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+library(shiny.react)
+
+df <- data.frame(
+  animal = c("dog", "cat", "fish"),
+  owner = c("person1", "person1", "person2"),
+  stringsAsFactors = FALSE
+)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      # Single selection
+      Autocomplete.shinyInput(
+        sx = list(m = 1, minWidth = 120, width = 300),
+        inputId = "single",
+        placeholder = "Single select",
+        inputProps = list(label = "Select animal"),
+        options = c("dog", "cat", "fish")
+      ),
+      verbatimTextOutput("singleValue"),
+      
+      # Multiple selection with limitTags
+      FormControl(
+        sx = list(m = 1, minWidth = 120, width = 300),
+        FormLabel("Multiple selection"),
+        Autocomplete.shinyInput(
+          inputId = "multiple",
+          multiple = TRUE,
+          limitTags = 2,
+          inputProps = list(placeholder = "Select multiple animals"),
+          options = df$animal
+        ),
+        FormHelperText("Autocomplete with limitTags of 2.")
+      ),
+      verbatimTextOutput("multipleValue"),
+      
+      # Grouped selection
+      FormControl(
+        sx = list(m = 1, minWidth = 120, width = 300),
+        FormLabel("Group selection"),
+        Autocomplete.shinyInput(
+          inputId = "grouped",
+          placeholder = "Select by group",
+          disableClearable = TRUE,
+          options = df,
+          value = list(animal = "dog", owner = "person1"),
+          groupBy = JS("function(option) { return option.owner; }"),
+          getOptionLabel = JS("function(option) { return option.animal; }")
+        )
+      ),
+      tableOutput("groupedValue")
+    )
+  )
+)
+
+server <- function(input, output) {
+  output$singleValue <- renderText({
+    paste("Selected:", input$single)
+  })
+  
+  output$multipleValue <- renderText({
+    paste("Selected:", paste(input$multiple, collapse = ", "))
+  })
+  
+  output$groupedValue <- renderTable({
+    as.data.frame(input$grouped)
+  })
+}
+
+shinyApp(ui, server)
+```

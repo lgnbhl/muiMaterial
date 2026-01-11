@@ -1,0 +1,431 @@
+---
+title: "Chip"
+description: >
+  Chips are compact elements that represent an input, attribute, or action.
+  Learn how to use the Chip component with various styles and configurations.
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Chip}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+The Chip component allows users to enter information, make selections, filter content, or trigger actions. Chips are compact and often used in forms, filters, and selection interfaces.
+
+## Basic chip
+
+The `Chip` component supports filled (default) and outlined styling.
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(display = "flex", gap = 2, p = 2),
+      Chip(label = "Chip Filled"),
+      Chip(label = "Chip Outlined", variant = "outlined")
+    )
+  )
+)
+```
+
+## Color chip
+
+Use the `color` prop to apply theme colors to chips. Available colors are: "default", "primary", "secondary", "error", "warning", "info", "success".
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
+      # Filled variants
+      Chip(label = "primary", color = "primary"),
+      Chip(label = "secondary", color = "secondary"),
+      Chip(label = "success", color = "success"),
+      Chip(label = "error", color = "error"),
+      Chip(label = "warning", color = "warning"),
+      Chip(label = "info", color = "info")
+    )
+  )
+)
+```
+
+## Colored chips (outlined)
+
+Outlined chips with different colors:
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
+      # Outlined variants
+      Chip(label = "primary", color = "primary", variant = "outlined"),
+      Chip(label = "secondary", color = "secondary", variant = "outlined"),
+      Chip(label = "success", color = "success", variant = "outlined"),
+      Chip(label = "error", color = "error", variant = "outlined"),
+      Chip(label = "warning", color = "warning", variant = "outlined"),
+      Chip(label = "info", color = "info", variant = "outlined")
+    )
+  )
+)
+```
+
+## Size chip
+
+Control the size of chips using the `size` prop. Use "medium" (default) or "small".
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(display = "flex", gap = 2, p = 2, alignItems = "center"),
+      Chip(label = "Medium", size = "medium"),
+      Chip(label = "Small", size = "small"),
+      Chip(label = "Medium", size = "medium", variant = "outlined"),
+      Chip(label = "Small", size = "small", variant = "outlined")
+    )
+  )
+)
+```
+
+## Multiline chip
+
+Enable multiline text in chips using the `sx` prop to set `height: auto` on the chip and `whiteSpace: normal` on the label.
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Chip(
+        label = "This is a chip that has multiple lines.",
+        sx = list(
+          height = "auto",
+          "& .MuiChip-label" = list(
+            display = "block",
+            whiteSpace = "normal"
+          )
+        )
+      )
+    )
+  )
+)
+```
+
+## Avatar chip
+
+Add an avatar to the beginning of a chip using the `avatar` prop.
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(display = "flex", gap = 2, p = 2),
+      Chip(
+        avatar = Avatar(children = "M"),
+        label = "Avatar"
+      ),
+      Chip(
+        avatar = Avatar(
+          alt = "Natacha",
+          src = "https://mui.com/static/images/avatar/1.jpg"
+        ),
+        label = "Avatar",
+        variant = "outlined"
+      )
+    )
+  )
+)
+```
+
+## Icon chip
+
+Add an icon to the beginning of a chip using the `icon` prop.
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(display = "flex", gap = 2, p = 2),
+      Chip(
+        icon = shiny::icon(name = "person"),
+        label = "With Icon"
+      ),
+      Chip(
+        icon = shiny::icon(name = "person"),
+        label = "With Icon",
+        variant = "outlined"
+      )
+    )
+  )
+)
+```
+
+## Clickable chip
+
+Add interactivity to chips using `onClick` with JavaScript callbacks and `renderUI()`.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
+      Chip(
+        label = "Clickable",
+        onClick = JS("() => Shiny.setInputValue('chip1', Math.random())")
+      ),
+      Chip(
+        label = "Clickable",
+        variant = "outlined",
+        onClick = JS("() => Shiny.setInputValue('chip2', Math.random())")
+      ),
+      Typography(
+        uiOutput("click_message"),
+        variant = "body2",
+        sx = list(mt = 2)
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  clicks1 <- reactiveVal(0)
+  clicks2 <- reactiveVal(0)
+  last_clicked <- reactiveVal(NULL)
+  
+  observeEvent(input$chip1, {
+    clicks1(clicks1() + 1)
+    last_clicked("chip1")
+  })
+  
+  observeEvent(input$chip2, {
+    clicks2(clicks2() + 1)
+    last_clicked("chip2")
+  })
+  
+  output$click_message <- renderUI({
+    if (is.null(last_clicked())) {
+      "Click a chip"
+    } else if (last_clicked() == "chip1") {
+      paste("Chip 1 clicked", clicks1(), "times")
+    } else {
+      paste("Chip 2 clicked", clicks2(), "times")
+    }
+  })
+}
+
+
+shinyApp(ui, server)
+```
+
+## Deletable chip
+
+Add a delete icon to chips using `onDelete` callback. Handle deletion by removing the chip from your list and re-rendering.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Typography("Chips (deletable):", variant = "h6", sx = list(mb = 2)),
+      Box(
+        sx = list(display = "flex", gap = 2, flexWrap = "wrap", mb = 2),
+        uiOutput("chips_list")
+      ),
+      Button(
+        "Reset Chips",
+        onClick = JS("() => Shiny.setInputValue('reset_chips', Math.random())")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  chips <- reactiveVal(c("muiMaterial", "muiDataGrid", "muiCharts", "muiTreeView", "reactRouter"))
+  
+  output$chips_list <- renderUI({
+    lapply(chips(), function(label) {
+      Chip(
+        label = label,
+        onDelete = JS(sprintf("() => Shiny.setInputValue('delete_chip', '%s')", label))
+      )
+    })
+  })
+  
+  observeEvent(input$delete_chip, {
+    chips(setdiff(chips(), input$delete_chip))
+  })
+  
+  observeEvent(input$reset_chips, {
+    chips(c("muiMaterial", "muiDataGrid", "muiCharts", "muiTreeView", "reactRouter"))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Clickable and deletable chip
+
+Combine both click and delete functionality with custom JavaScript callbacks.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Typography("Filter Tags:", variant = "h6", sx = list(mb = 2)),
+      Box(
+        sx = list(display = "flex", gap = 2, flexWrap = "wrap", mb = 2),
+        uiOutput("filter_chips")
+      ),
+      Typography(
+        uiOutput("selected_message"),
+        variant = "body2"
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  filters <- reactiveVal(c("muiMaterial", "muiDataGrid", "muiCharts", "muiTreeView", "reactRouter"))
+  selected <- reactiveVal(character(0))
+  
+  output$filter_chips <- renderUI({
+    lapply(filters(), function(label) {
+      is_selected <- label %in% selected()
+      Chip(
+        label = label,
+        color = if (is_selected) "primary" else "default",
+        variant = if (is_selected) "filled" else "outlined",
+        onClick = JS(sprintf(
+          "() => Shiny.setInputValue('select_filter', {label: '%s', time: Math.random()})",
+          label
+        )),
+        onDelete = JS(sprintf("() => Shiny.setInputValue('delete_filter', '%s')", label)),
+        sx = list(cursor = "pointer")
+      )
+    })
+  })
+  
+  observeEvent(input$select_filter, {
+    label <- input$select_filter$label
+    if (label %in% selected()) {
+      selected(setdiff(selected(), label))
+    } else {
+      selected(c(selected(), label))
+    }
+  })
+  
+  observeEvent(input$delete_filter, {
+    filters(setdiff(filters(), input$delete_filter))
+    selected(setdiff(selected(), input$delete_filter))
+  })
+  
+  output$selected_message <- renderUI({
+    if (length(selected()) == 0) {
+      "No filters selected"
+    } else {
+      paste("Selected:", paste(selected(), collapse = ", "))
+    }
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Clickable link chip
+
+Use the `component` prop to render a chip as a link.
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(display = "flex", gap = 2, p = 2),
+      Chip(
+        label = "Clickable Link",
+        component = "a",
+        href = "https://felixluginbuhl.com",
+        clickable = TRUE
+      ),
+      Chip(
+        label = "Clickable Link",
+        variant = "outlined",
+        component = "a",
+        href = "https://felixluginbuhl.com",
+        clickable = TRUE
+      )
+    )
+  )
+)
+```
+
+
+## Real-world example: User roles
+
+Display user roles as deletable chips:
+
+```{r}
+library(muiMaterial)
+
+muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Typography("User Roles", variant = "h5", sx = list(mb = 2)),
+      Box(
+        sx = list(display = "flex", gap = 1, flexWrap = "wrap"),
+        Chip(
+          avatar = Avatar(children = "A"),
+          label = "Admin",
+          color = "error",
+          onDelete = JS("() => console.log('Remove Admin')")
+        ),
+        Chip(
+          avatar = Avatar(children = "E"),
+          label = "Editor",
+          color = "warning",
+          onDelete = JS("() => console.log('Remove Editor')")
+        ),
+        Chip(
+          avatar = Avatar(children = "V"),
+          label = "Viewer",
+          color = "info",
+          onDelete = JS("() => console.log('Remove Viewer')")
+        )
+      )
+    )
+  )
+)
+```
+
+## Accessibility
+
+Chips are keyboard accessible by default. When a chip is deletable or clickable, it becomes a button in the tab order. When focused:
+- Pressing `Backspace` or `Delete` will trigger the `onDelete` handler
+- Pressing `Escape` will blur the chip

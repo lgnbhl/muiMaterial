@@ -10,26 +10,46 @@ authors:
   Felix Luginbuhl:
     href: "https://felixluginbuhl.com"
 
+llm-docs: true
+
 navbar:
   left:
   - text: Home
     href: index.html
   - text: Reference
     href: reference/index.html
-  - text: Input components
+  - text: Inputs
     menu:
+    - text: Autocomplete
+      href: articles/autocomplete.html
     - text: Button
       href: articles/button.html
     - text: Checkbox
       href: articles/checkbox.html
+    - text: Floating Action Button
+      href: articles/floating-action-button.html
     - text: Rating
       href: articles/rating.html
+    - text: Select
+      href: articles/select.html
     - text: Slider
       href: articles/slider.html
     - text: TextField
       href: articles/textfield.html
     - text: Switch
       href: articles/switch.html
+    - text: Toggle Button Group
+      href: articles/switch.html
+  - text: Data Display
+    menu:
+    - text: Avatar
+      href: articles/avatar.html
+    - text: Chip
+      href: articles/chip.html
+    - text: Divider
+      href: articles/divider.html
+    - text: List
+      href: articles/list.html
   - text: Dashboarding
     menu:
     - text: Basic dashboarding
