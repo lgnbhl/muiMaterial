@@ -11,67 +11,80 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
+`r badger::badge_custom(names(dependencies)[4], dependencies[4], "blue", "https://mui.com/material-ui/getting-started/")`
 `r badger::badge_custom(names(dependencies)[5], dependencies[5], "blue", "https://mui.com/material-ui/getting-started/")`
-`r badger::badge_custom(names(dependencies)[6], dependencies[6], "blue", "https://mui.com/material-ui/getting-started/")`
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
-**muiMaterial** brings [Material UI (MUI)](https://mui.com/material-ui/getting-started/), a popular React component library, to R and Shiny.
+`muiMaterial` brings [Material UI](https://mui.com/material-ui/getting-started/), a popular React component library, to R and Shiny.
 
-## Why muiMaterial?
+## Use cases
 
-Shiny dashboards typically rely on Bootstrap, resulting in a similar look across applications. **muiMaterial** offers a fresh alternative with Google's Material Design, giving your dashboards a modern, distinctive appearance.
+**Give your dashboards a unique look**
 
-- **Break Free from Bootstrap**: Create dashboards that don't look like every other Shiny app.
-- **Full UI Customization**: Unlike Bootstrap's constraints in Shiny, **muiMaterial** gives you complete control over design and styling through Material UI's powerful theming system.
-- **Flexible Navigation**: With the [reactRouter](https://felixluginbuhl.com/reactRouter) R package, build fully custom navigation patterns (no standardized layouts like in bslib or bs4Dash).
-- **Rich Ecosystem**: Extend functionality with companion R packages: [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/), [muiCharts](https://felixluginbuhl.com/muiCharts/), and [muiTreeView](https://felixluginbuhl.com/muiTreeView/).
+Do you have the feeling that all Shiny apps looks the same?
 
-## Installation
+It is because they are generally using the Bootstrap framework. Its strength is also its weakness: a high level of standardization.
 
-```r
-remotes::install_github("lgnbhl/muiMaterial")
-```
+Developed by the company MUI, Material UI is probably the most popular React component library. It provides UI tools to easily customize Web applications.
 
-## Quick Start
+Break free from Bootstrap and give `muiMaterial` a try.
 
-Launch a fully functional dashboard:
+For example, launch a basic dashboard:
 
 ```r
+# remotes::install_github("lgnbhl/muiMaterial")
 muiMaterial::muiMaterialExample("dashboard-simple")
 ```
 
-Try the R replica of the [official MUI dashboard template](https://mui.com/material-ui/getting-started/templates/dashboard/):
+Or have a look at the R replica of the official dashboard template:
 
 ```r
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-Explore available Shiny inputs:
+**Create new UI features easily**
+
+Material UI allows to fully customize your dashboards by providing a rich library of UI components.
+
+Thanks to React, [UI components](https://felixluginbuhl.com/muiMaterial/articles/) can be easily combined together.
+
+For example, you can create a custom `Card()` with `Typography()`:
 
 ```r
-muiMaterial::muiMaterialExample("showcase")
+# remotes::install_github("lgnbhl/muiMaterial")
+library(muiMaterial)
+
+Card(
+  sx = list(p = 3),
+  Typography(
+    "Material UI weekly downloads",
+    variant = "h6",
+    gutterBottom = TRUE
+  ),
+  Typography(
+    "5.8M",
+    variant = "h3",
+    fontWeight = "bold"
+  )
+)
 ```
 
-## What You Can Build
+By comparison, [here](https://rstudio.github.io/bslib/articles/custom-components/index.html) is the more complex custom component example for `bslib`.
 
-**Interactive Shiny Dashboards**
+**Flexible Navigation**
 
-Build [fully customizable Shiny apps](https://felixluginbuhl.com/muiMaterial/articles/dashboard-basic.html) with reactive components. All [UI components](https://felixluginbuhl.com/muiMaterial/reference/) work with R Shiny and Quarto.
+With the [reactRouter](https://felixluginbuhl.com/reactRouter) R package, you can build a complex and advanced web application with Material UI.
 
-**Multi-Page Applications**
+Create multi-page MUI dashboards with [client-side routing](https://felixluginbuhl.com/muiMaterial/articles/routing.html).
 
-Create multi-page dashboards with client-side routing using [reactRouter](https://felixluginbuhl.com/reactRouter). [Learn more about routing](https://felixluginbuhl.com/muiMaterial/articles/routing.html).
+You are not blocked in standardized Shiny layouts, like in Bootstrap's based R packages such as `bslib` or `bs4Dash`.
 
-**Static Dashboards & Websites**
+**Rich Ecosystem**
 
-Create beautiful static dashboards and websites using **muiMaterial** with [Quarto](https://quarto.org/) combined with [reactRouter](https://felixluginbuhl.com/reactRouter) for client-side navigation (no Shiny server required).
-
-**Advanced Data Components**
-
-Extend your apps with specialized MUI companion R packages:
+Extend functionality with companion R packages:
 
 - [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/) - Feature-rich data tables with sorting, filtering, and editing
 - [muiCharts](https://felixluginbuhl.com/muiCharts/) - Beautiful, responsive charts
@@ -82,6 +95,12 @@ Extend your apps with specialized MUI companion R packages:
 **Shiny Input Wrappers**
 
 Material UI components become Shiny inputs through `*.shinyInput()` wrapper functions. For example, use `Button.shinyInput()` instead of `Button()` to capture click events in Shiny.
+
+Explore available Shiny inputs now:
+
+```r
+muiMaterial::muiMaterialExample("showcase")
+```
 
 **Bootstrap-Free Pages**
 
@@ -103,6 +122,22 @@ ui <- muiMaterialPage(
 server <- function(input, output, session) {}
 
 shinyApp(ui, server)
+```
+
+**Server side Shiny rendering**
+
+When rendering a component from the server in R Shiny, always use `shiny::renderUI()` or `shiny.react::renderReact()` in the server. The rendering in the UI side can be done with `shiny::uiOutput()` or `shiny.react::reactOutput()`.
+
+**Tabs**
+
+To create Tabs, you should not use `Tabs()` but instead `TabContext.shinyInput()` with `TabList.shinyInput()` and `TabPanel.shinyInput()` (see [example](https://github.com/lgnbhl/muiMaterial/blob/main/inst/examples/Tabs.R)).
+
+**Read the full documentation with examples [here](https://lgnbhl.github.io/muiMaterial).**
+
+## Install
+
+```r
+remotes::install_github("lgnbhl/muiMaterial")
 ```
 
 ## Contributing
