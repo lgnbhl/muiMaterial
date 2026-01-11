@@ -3112,13 +3112,13 @@ NULL
 #' \item labelRowsPerPage `node` \cr Default is 'Rows per page:' Customize the rows per page label.For localization purposes, you can use the provided translations.
 #' \item nextIconButtonProps `object` \cr Default is - Props applied to the next arrow IconButton element.This prop is an alias for slotProps.actions.nextButton and will be overriden by it if both are used.Deprecated－Use slotProps.actions.nextButton instead.
 #' \item onRowsPerPageChange `func` \cr Default is - Callback fired when the number of rows per page is changed.Signature:function(event: React.ChangeEvent) => voidevent The event source of the callback.
-#' \item rowsPerPageOptions `Array<number| { label: string, value: number }>` \cr Default is 10, 25, 50, 100 Customizes the options of the rows per page select field. If less than two options are available, no select field will be displayed. Use -1 for the value with a custom label to show all the rows.
+#' \item rowsPerPageOptions \cr Default is 10, 25, 50, 100 Customizes the options of the rows per page select field. If less than two options are available, no select field will be displayed. Use -1 for the value with a custom label to show all the rows.
 #' \item SelectProps `object` \cr Default is  Props applied to the rows per page Select element.This prop is an alias for slotProps.select and will be overriden by it if both are used.Deprecated－Use slotProps.select instead.
 #' \item showFirstButton `bool` \cr Default is FALSE If true, show the first-page button.
 #' \item showLastButton `bool` \cr Default is FALSE If true, show the last-page button.
-#' \item slotProps `{ actions?: { firstButton?: object, firstButtonIcon?: object, lastButton?: object, lastButtonIcon?: object, nextButton?: object, nextButtonIcon?: object, previousButton?: object, previousButtonIcon?: object }, displayedRows?: func| object, menuItem?: func| object, root?: func| object, select?: object, selectLabel?: func| object, spacer?: func| object, toolbar?: func| object }` \cr Default is  The props used for each slot inside.
-#' \item slots `{ actions?: { firstButton?: elementType, firstButtonIcon?: elementType, lastButton?: elementType, lastButtonIcon?: elementType, nextButton?: elementType, nextButtonIcon?: elementType, previousButton?: elementType, previousButtonIcon?: elementType }, displayedRows?: elementType, menuItem?: elementType, root?: elementType, select?: elementType, selectLabel?: elementType, spacer?: elementType, toolbar?: elementType }` \cr Default is  The components used for each slot inside.
-#' \item sx `Array<func| object| bool>| func| object` \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the `sx` page for more details.
+#' \item slotProps \cr Default is  The props used for each slot inside.
+#' \item slots  \cr Default is  The components used for each slot inside.
+#' \item sx \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the `sx` page for more details.
 #' }
 #'
 #' @md
