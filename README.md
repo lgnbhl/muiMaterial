@@ -20,15 +20,15 @@ to R and Shiny.
 
 Want to go beyond the standardised layout used by most Shiny dashboards?
 
+If Shiny apps look all the same, it is because most use Bootstrap.
+Replacing it with Material UI will take your dashboards to the next
+level.
+
 Developed by the company MUI, [Material
 UI](https://mui.com/material-ui/getting-started/) is probably the most
 popular React components library globally. `muiMaterial` allows access
 to its vast library of UI tools, so you can create fully customized
 dashboards and websites in R.
-
-If Shiny apps look all the same, it is because most use Bootstrap.
-Replacing it with Material UI will take your dashboards to the next
-level.
 
 For example, launch a basic dashboard:
 
