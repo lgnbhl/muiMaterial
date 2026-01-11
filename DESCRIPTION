@@ -20,7 +20,6 @@ LazyData: true
 Imports:
     htmltools,
     checkmate,
-    shiny,
     shiny.react (>= 0.4.0)
 Suggests: 
     knitr,
@@ -28,7 +27,7 @@ Suggests:
     shiny.router,
     reactRouter,
     testthat (>= 3.0.0)
-RoxygenNote: 7.3.2
+RoxygenNote: 7.3.3
 URL: https://felixluginbuhl.com/muiMaterial
 BugReports: https://github.com/lgnbhl/muiMaterial/issues
 Config/testthat/edition: 3
