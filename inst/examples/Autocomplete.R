@@ -1,10 +1,10 @@
 library(shiny)
 library(muiMaterial)
-library(shiny.react)
 
 df <- data.frame(
   animal = c("dog", "cat", "fish"),
-  owner = c("person1", "person1", "person2")
+  owner = c("person1", "person1", "person2"),
+  stringsAsFactors = FALSE
 )
 
 ui_Autocomplete <- CssBaseline(
@@ -39,9 +39,9 @@ ui_Autocomplete <- CssBaseline(
         placeholder = "Select by group",
         disableClearable = TRUE,
         options = df,
-        value = shiny.react::JS(paste0("{ animal: '", df$animal[1],"', owner: '", df$owner[1],"' }")),
-        groupBy = shiny.react::JS("(option) => option.owner"),
-        getOptionLabel = shiny.react::JS("(option) => option.animal")
+        value = list(animal = df$animal[1], owner = df$owner[1]),
+        groupBy = JS("function(option) { return option.owner; }"),
+        getOptionLabel = JS("function(option) { return option.animal; }")
       )
     ),
     tableOutput("AutocompleteValue3")
