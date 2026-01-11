@@ -10,3 +10,4 @@
 ^dev$
 ^inst/helpers$
 ^data-raw$
+^vignettes$
