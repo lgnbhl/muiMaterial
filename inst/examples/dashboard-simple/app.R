@@ -6,7 +6,7 @@ library(shiny)
 # Define drawer width
 drawer_width <- 240
 
-# Menu items configuration
+# Menu items configuration (icon names for shiny::icon())
 menu_items <- list(
   list(text = "Dashboard", icon = "dashboard", path = "/"),
   list(text = "Analytics", icon = "bar-chart", path = "/analytics"),

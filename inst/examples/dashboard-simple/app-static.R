@@ -1,19 +1,8 @@
----
-format:
-  html:
-    minimal: true
----
-
-```{r}
-#| echo: false
-#| message: false
-#| warning: false
-
 library(muiMaterial)
 library(reactRouter)
 
 # https://mui.com/material-ui/react-drawer/#clipped-under-the-app-bar
-reactRouter::HashRouter(
+ui <- reactRouter::HashRouter(
   Box(
     sx = list(display = 'flex'),
     CssBaseline(
@@ -166,4 +155,8 @@ reactRouter::HashRouter(
     )
   )
 )
-```
+
+# Save static dashboard as an HTML file
+# htmltools::save_html(ui, "dashboard-static.html")
+# See the dashboard
+# htmltools::browsable(ui)
