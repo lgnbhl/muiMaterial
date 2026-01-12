@@ -23,8 +23,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item imgProps \code{object} \cr Default is - Attributes applied to the img element if the component is used to display an image. It can be used to listen for the loading error event.Deprecated Use slotProps.img instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item sizes \code{string} \cr Default is - The sizes attribute for the img element.
-\item slotProps \verb{\{ img?: func| object \}} \cr Default is  The props used for each slot inside.
-\item slots \verb{\{ img?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ img?: func| object \}} \cr Default is The props used for each slot inside.
+\item slots \verb{\{ img?: elementType \}} \cr Default is The components used for each slot inside.
 \item src \code{string} \cr Default is - The src attribute for the img element.
 \item srcSet \code{string} \cr Default is - The srcSet attribute for the img element. Use this attribute for responsive image display.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.

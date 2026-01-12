@@ -36,11 +36,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item color \code{'standard'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'standard' The color of the button when it is in an active state. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
-\item disableFocusRipple \code{bool} \cr Default is FALSE If true, the  keyboard focus ripple is disabled.
-\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled. ️ Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
+\item disableFocusRipple \code{bool} \cr Default is FALSE If true, the keyboard focus ripple is disabled.
+\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled.  Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
 \item fullWidth \code{bool} \cr Default is FALSE If true, the button will take up the full width of its container.
-\item onChange \code{func} \cr Default is - Callback fired when the state changes.Signature:function(event: React.MouseEvent, value: any) =  voidevent The event source of the callback.value of the selected button.
-\item onClick \code{func} \cr Default is - Callback fired when the button is clicked.Signature:function(event: React.MouseEvent, value: any) =  voidevent The event source of the callback.value of the selected button.
+\item onChange \code{func} \cr Default is - Callback fired when the state changes.Signature:function(event: React.MouseEvent, value: any) = voidevent The event source of the callback.value of the selected button.
+\item onClick \code{func} \cr Default is - Callback fired when the button is clicked.Signature:function(event: React.MouseEvent, value: any) = voidevent The event source of the callback.value of the selected button.
 \item selected \code{bool} \cr Default is - If true, the button is rendered in an active state.
 \item size \code{'small'| 'medium'| 'large'| string} \cr Default is 'medium' The size of the component. The prop defaults to the value inherited from the parent ToggleButtonGroup component.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.

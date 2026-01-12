@@ -22,7 +22,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item flexItem \code{bool} \cr Default is FALSE If true, a vertical divider will have the correct height when used in flex container. (By default, a vertical divider will have a calculated height of 0px if it is the child of a flex container.)
-\item light \code{bool} \cr Default is FALSE If true, the divider will have a lighter color.Deprecated Use  Divider sx= opacity: 0.6  /  (or any opacity or color) instead. See Migrating from deprecated APIs for more details.
+\item light \code{bool} \cr Default is FALSE If true, the divider will have a lighter color.Deprecated Use Divider sx= opacity: 0.6 / (or any opacity or color) instead. See Migrating from deprecated APIs for more details.
 \item orientation \code{'horizontal'| 'vertical'} \cr Default is 'horizontal' The component orientation.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item textAlign \code{'center'| 'left'| 'right'} \cr Default is 'center' The text alignment.

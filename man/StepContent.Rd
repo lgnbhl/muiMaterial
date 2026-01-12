@@ -19,8 +19,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item slotProps \verb{\{ transition?: func| object \}} \cr Default is  The props used for each slot inside.
-\item slots \verb{\{ transition?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ transition?: func| object \}} \cr Default is The props used for each slot inside.
+\item slots \verb{\{ transition?: elementType \}} \cr Default is The components used for each slot inside.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item TransitionComponent \code{elementType} \cr Default is Collapse The component used for the transition. Follow this guide to learn more about the requirements for this component.Deprecated Use slots.transition instead. This prop will be removed in a future major release. How to migrate.
 \item transitionDuration \verb{'auto'| number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is 'auto' Adjust the duration of the content expand transition. Passed as a prop to the transition component.Set to 'auto' to automatically calculate transition time based on height.

@@ -25,8 +25,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item primaryTypographyProps \code{object} \cr Default is - These props will be forwarded to the primary typography component (as long as disableTypography is not true).Deprecated Use slotProps.primary instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item secondary \code{node} \cr Default is - The secondary content element.
 \item secondaryTypographyProps \code{object} \cr Default is - These props will be forwarded to the secondary typography component (as long as disableTypography is not true).Deprecated Use slotProps.secondary instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item slotProps \verb{\{ primary?: func| object, root?: func| object, secondary?: func| object \}} \cr Default is  The props used for each slot inside.
-\item slots \verb{\{ primary?: elementType, root?: elementType, secondary?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ primary?: func| object, root?: func| object, secondary?: func| object \}} \cr Default is The props used for each slot inside.
+\item slots \verb{\{ primary?: elementType, root?: elementType, secondary?: elementType \}} \cr Default is The components used for each slot inside.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

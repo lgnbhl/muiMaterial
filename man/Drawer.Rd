@@ -36,15 +36,15 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item elevation \code{integer} \cr Default is 16 The elevation of the drawer.
 \item hideBackdrop \code{bool} \cr Default is FALSE If true, the backdrop is not rendered.
-\item ModalProps \code{object} \cr Default is  Props applied to the Modal element.
-\item onClose \code{func} \cr Default is - Callback fired when the component requests to be closed. The reason parameter can optionally be used to control the response to onClose.Signature:function(event: object, reason: string) =  voidevent The event source of the callback.reason Can be: "escapeKeyDown", "backdropClick".
+\item ModalProps \code{object} \cr Default is Props applied to the Modal element.
+\item onClose \code{func} \cr Default is - Callback fired when the component requests to be closed. The reason parameter can optionally be used to control the response to onClose.Signature:function(event: object, reason: string) = voidevent The event source of the callback.reason Can be: "escapeKeyDown", "backdropClick".
 \item open \code{bool} \cr Default is FALSE If true, the component is shown.
-\item PaperProps \code{object} \cr Default is  Props applied to the Paper element.Deprecated use the slotProps.paper prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item PaperProps \code{object} \cr Default is Props applied to the Paper element.Deprecated use the slotProps.paper prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item SlideProps \code{object} \cr Default is - Props applied to the Slide element.Deprecated use the slotProps.transition prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item slotProps \verb{\{ backdrop?: func| object, docked?: func| object, paper?: func| object, root?: func| object, transition?: func| object \}} \cr Default is  The props used for each slot inside.
-\item slots \verb{\{ backdrop?: elementType, docked?: elementType, paper?: elementType, root?: elementType, transition?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ backdrop?: func| object, docked?: func| object, paper?: func| object, root?: func| object, transition?: func| object \}} \cr Default is The props used for each slot inside.
+\item slots \verb{\{ backdrop?: elementType, docked?: elementType, paper?: elementType, root?: elementType, transition?: elementType \}} \cr Default is The components used for each slot inside.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item transitionDuration \verb{number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is    enter: theme.transitions.duration.enteringScreen,   exit: theme.transitions.duration.leavingScreen,  The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object.
+\item transitionDuration \verb{number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is enter: theme.transitions.duration.enteringScreen, exit: theme.transitions.duration.leavingScreen, The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object.
 \item variant \code{'permanent'| 'persistent'| 'temporary'} \cr Default is 'temporary' The variant to use.
 }
 }

@@ -23,7 +23,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \verb{element type} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.This needs to be able to hold a ref.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
-\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled. ️ Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
+\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled.  Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
 \item disableTouchRipple \code{bool} \cr Default is FALSE If true, the touch ripple effect is disabled.
 \item focusRipple \code{bool} \cr Default is FALSE If true, the base button will have a keyboard focus ripple.
 \item focusVisibleClassName \code{string} \cr Default is - This prop can help identify which element has keyboard focus. The class name will be applied when the element gains the focus through keyboard interaction. It's a polyfill for the CSS :focus-visible selector. The rationale for using this feature is explained here. A polyfill can be used to apply a focus-visible class to other components if needed.

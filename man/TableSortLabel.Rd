@@ -23,8 +23,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item direction \code{'asc'| 'desc'} \cr Default is 'asc' The current sort direction.
 \item hideSortIcon \code{bool} \cr Default is FALSE Hide sort icon when active is false.
 \item IconComponent \code{elementType} \cr Default is ArrowDownwardIcon Sort icon to use.
-\item slotProps \verb{\{ icon?: func| object, root?: func| object \}} \cr Default is  The props used for each slot inside.
-\item slots \verb{\{ icon?: elementType, root?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ icon?: func| object, root?: func| object \}} \cr Default is The props used for each slot inside.
+\item slots \verb{\{ icon?: elementType, root?: elementType \}} \cr Default is The components used for each slot inside.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

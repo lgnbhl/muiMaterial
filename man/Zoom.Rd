@@ -22,6 +22,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item appear \code{bool} \cr Default is TRUE Perform the enter transition when it first mounts if in is also true. Set this to false to disable this behavior.
 \item easing \verb{\{ enter?: string, exit?: string \}| string} \cr Default is - The transition timing function. You may specify a single easing or a object containing enter and exit values.
 \item in \code{bool} \cr Default is - If true, the component will transition in.
-\item timeout \verb{number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is    enter: theme.transitions.duration.enteringScreen,   exit: theme.transitions.duration.leavingScreen,  The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object.
+\item timeout \verb{number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is enter: theme.transitions.duration.enteringScreen, exit: theme.transitions.duration.leavingScreen, The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object.
 }
 }

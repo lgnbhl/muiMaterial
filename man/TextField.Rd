@@ -54,15 +54,15 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item minRows \code{number| string} \cr Default is - Minimum number of rows to display when multiline option is set to true.
 \item multiline \code{bool} \cr Default is FALSE If true, a textarea element is rendered instead of an input.
 \item name \code{string} \cr Default is - Name attribute of the input element.
-\item onChange \code{func} \cr Default is - Callback fired when the value is changed.Signature:function(event: object) =  voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (string).
+\item onChange \code{func} \cr Default is - Callback fired when the value is changed.Signature:function(event: object) = voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (string).
 \item placeholder \code{string} \cr Default is - The short hint displayed in the input before the user enters a value.
 \item required \code{bool} \cr Default is FALSE If true, the label is displayed as required and the input element is required.
 \item rows \code{number| string} \cr Default is - Number of rows to display when multiline option is set to true.
 \item select \code{bool} \cr Default is FALSE Render a Select element while passing the Input element to Select as input parameter. If this option is set you must pass the options of the select as children.
 \item SelectProps \code{object} \cr Default is - Props applied to the Select element.Deprecated Use slotProps.select instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item size \code{'medium'| 'small'| string} \cr Default is 'medium' The size of the component.
-\item slotProps \verb{\{ formHelperText?: func| object, htmlInput?: func| object, input?: func| object, inputLabel?: func| object, select?: func| object \}} \cr Default is  The props used for each slot inside.
-\item slots \verb{\{ formHelperText?: elementType, htmlInput?: elementType, input?: elementType, inputLabel?: elementType, root?: elementType, select?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ formHelperText?: func| object, htmlInput?: func| object, input?: func| object, inputLabel?: func| object, select?: func| object \}} \cr Default is The props used for each slot inside.
+\item slots \verb{\{ formHelperText?: elementType, htmlInput?: elementType, input?: elementType, inputLabel?: elementType, root?: elementType, select?: elementType \}} \cr Default is The components used for each slot inside.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item type \code{string} \cr Default is - Type of the input element. It should be a valid HTML5 input type.
 \item value \code{any} \cr Default is - The value of the input element, required for a controlled component.

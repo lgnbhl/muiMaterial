@@ -36,7 +36,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{node} \cr Default is NA The content of the component.
 \item defaultValue \code{any} \cr Default is NA The default value. Use when the component is not controlled.
 \item name \code{string} \cr Default is NA The name used to reference the value of the control. If you don't provide this prop, it falls back to a randomly generated name.
-\item onChange \code{func} \cr Default is NA Callback fired when a radio button is selected.Signature:function(event: React.ChangeEvent, value: string) =  voidevent The event source of the callback.value The value of the selected radio button. You can pull out the new value by accessing event.target.value (string).
+\item onChange \code{func} \cr Default is NA Callback fired when a radio button is selected.Signature:function(event: React.ChangeEvent, value: string) = voidevent The event source of the callback.value The value of the selected radio button. You can pull out the new value by accessing event.target.value (string).
 \item value \code{any} \cr Default is NA Value of the selected radio button. The DOM API casts this to a string.
 }
 }

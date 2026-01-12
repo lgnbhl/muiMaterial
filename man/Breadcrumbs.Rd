@@ -25,8 +25,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item itemsBeforeCollapse \code{integer} \cr Default is 1 If max items is exceeded, the number of items to show before the ellipsis.
 \item maxItems \code{integer} \cr Default is 8 Specifies the maximum number of breadcrumbs to display. When there are more than the maximum number, only the first itemsBeforeCollapse and last itemsAfterCollapse will be shown, with an ellipsis in between.
 \item separator \code{node} \cr Default is '/' Custom separator node.
-\item slotProps \verb{\{ collapsedIcon?: func| object \}} \cr Default is  The props used for each slot inside the Breadcumb.
-\item slots \verb{\{ CollapsedIcon?: elementType \}} \cr Default is  The components used for each slot inside the Breadcumb. Either a string to use a HTML element or a component.
+\item slotProps \verb{\{ collapsedIcon?: func| object \}} \cr Default is The props used for each slot inside the Breadcumb.
+\item slots \verb{\{ CollapsedIcon?: elementType \}} \cr Default is The components used for each slot inside the Breadcumb. Either a string to use a HTML element or a component.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

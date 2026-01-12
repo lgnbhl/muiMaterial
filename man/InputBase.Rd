@@ -21,8 +21,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item autoFocus \code{bool} \cr Default is - If true, the input element is focused during the first mount.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item color \code{'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is - The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide. The prop defaults to the value ('primary') inherited from the parent FormControl component.
-\item components \verb{\{ Input?: elementType, Root?: elementType \}} \cr Default is  The components used for each slot inside.Deprecated use the slots prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item componentsProps \verb{\{ input?: object, root?: object \}} \cr Default is  The extra props for the slot components. You can override the existing props or add new ones.Deprecated use the slotProps prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item components \verb{\{ Input?: elementType, Root?: elementType \}} \cr Default is The components used for each slot inside.Deprecated use the slots prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item componentsProps \verb{\{ input?: object, root?: object \}} \cr Default is The extra props for the slot components. You can override the existing props or add new ones.Deprecated use the slotProps prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item defaultValue \code{any} \cr Default is - The default value. Use when the component is not controlled.
 \item disabled \code{bool} \cr Default is - If true, the component is disabled. The prop defaults to the value (false) inherited from the parent FormControl component.
 \item disableInjectingGlobalStyles \code{bool} \cr Default is FALSE If true, GlobalStyles for the auto-fill keyframes will not be injected/removed on mount/unmount. Make sure to inject them at the top of your application. This option is intended to help with boosting the initial rendering performance if you are loading a big amount of Input components at once.
@@ -31,7 +31,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item fullWidth \code{bool} \cr Default is FALSE If true, the input will take up the full width of its container.
 \item id \code{string} \cr Default is - The id of the input element.
 \item inputComponent \verb{element type} \cr Default is 'input' The component used for the input element. Either a string to use a HTML element or a component.This needs to be able to hold a ref.
-\item inputProps \code{object} \cr Default is  Attributes applied to the input element.
+\item inputProps \code{object} \cr Default is Attributes applied to the input element.
 \item inputRef \code{ref} \cr Default is - Pass a ref to the input element.
 \item margin \code{'dense'| 'none'} \cr Default is - If dense, will adjust vertical spacing. This is normally obtained via context from FormControl. The prop defaults to the value ('none') inherited from the parent FormControl component.
 \item maxRows \code{number| string} \cr Default is - Maximum number of rows to display when multiline option is set to true.
@@ -39,15 +39,15 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item multiline \code{bool} \cr Default is FALSE If true, a TextareaAutosize element is rendered.
 \item name \code{string} \cr Default is - Name attribute of the input element.
 \item onBlur \code{func} \cr Default is - Callback fired when the input is blurred.Notice that the first argument (event) might be undefined.
-\item onChange \code{func} \cr Default is - Callback fired when the value is changed.Signature:function(event: React.ChangeEvent) =  voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (string).
+\item onChange \code{func} \cr Default is - Callback fired when the value is changed.Signature:function(event: React.ChangeEvent) = voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (string).
 \item onInvalid \code{func} \cr Default is - Callback fired when the input doesn't satisfy its constraints.
 \item placeholder \code{string} \cr Default is - The short hint displayed in the input before the user enters a value.
 \item readOnly \code{bool} \cr Default is - It prevents the user from changing the value of the field (not from interacting with the field).
 \item required \code{bool} \cr Default is - If true, the input element is required. The prop defaults to the value (false) inherited from the parent FormControl component.
 \item rows \code{number| string} \cr Default is - Number of rows to display when multiline option is set to true.
 \item size \code{'medium'| 'small'| string} \cr Default is - The size of the component.
-\item slotProps \verb{\{ input?: object, root?: object \}} \cr Default is  The extra props for the slot components. You can override the existing props or add new ones.This prop is an alias for the componentsProps prop, which will be deprecated in the future.
-\item slots \verb{\{ input?: elementType, root?: elementType \}} \cr Default is  The components used for each slot inside.This prop is an alias for the components prop, which will be deprecated in the future.
+\item slotProps \verb{\{ input?: object, root?: object \}} \cr Default is The extra props for the slot components. You can override the existing props or add new ones.This prop is an alias for the componentsProps prop, which will be deprecated in the future.
+\item slots \verb{\{ input?: elementType, root?: elementType \}} \cr Default is The components used for each slot inside.This prop is an alias for the components prop, which will be deprecated in the future.
 \item startAdornment \code{node} \cr Default is - Start InputAdornment for this component.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item type \code{string} \cr Default is 'text' Type of the input element. It should be a valid HTML5 input type.

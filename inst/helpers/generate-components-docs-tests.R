@@ -124,6 +124,10 @@ create_component_items <- function(url_component) {
 list <- purrr::map(.x = unique(components_props_cleaned$url), .f = create_component_items) |>
   unlist()
 
+# remove emojis from docs
+# textclean::replace_emoji()
+# also remove "<" and ">" from docs
+
 cat(list, sep = "", file = "R/documentation.R")
 
 # Create component tests --------------------------------------------------

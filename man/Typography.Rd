@@ -27,6 +27,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item paragraph \code{bool} \cr Default is FALSE If true, the element will be a paragraph element.Deprecated Use the component prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item variant \code{'body1'| 'body2'| 'button'| 'caption'| 'h1'| 'h2'| 'h3'| 'h4'| 'h5'| 'h6'| 'inherit'| 'overline'| 'subtitle1'| 'subtitle2'| string} \cr Default is 'body1' Applies the theme typography styles.
-\item variantMapping \code{object} \cr Default is    h1: 'h1',   h2: 'h2',   h3: 'h3',   h4: 'h4',   h5: 'h5',   h6: 'h6',   subtitle1: 'h6',   subtitle2: 'h6',   body1: 'p',   body2: 'p',   inherit: 'p',  The component maps the variant prop to a range of different HTML element types. For instance, subtitle1 to  h6 . If you wish to change that mapping, you can provide your own. Alternatively, you can use the component prop.
+\item variantMapping \code{object} \cr Default is h1: 'h1', h2: 'h2', h3: 'h3', h4: 'h4', h5: 'h5', h6: 'h6', subtitle1: 'h6', subtitle2: 'h6', body1: 'p', body2: 'p', inherit: 'p', The component maps the variant prop to a range of different HTML element types. For instance, subtitle1 to h6 . If you wish to change that mapping, you can provide your own. Alternatively, you can use the component prop.
 }
 }

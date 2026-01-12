@@ -17,7 +17,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item children \code{node} \cr Default is - Should be valid  tr  children such as TableCell.
+\item children \code{node} \cr Default is - Should be valid tr children such as TableCell.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item hover \code{bool} \cr Default is FALSE If true, the table row will shade on hover.

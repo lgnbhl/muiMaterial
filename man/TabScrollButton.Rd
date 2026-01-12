@@ -22,8 +22,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
-\item slotProps \verb{\{ endScrollButtonIcon?: func| object, startScrollButtonIcon?: func| object \}} \cr Default is  The extra props for the slot components. You can override the existing props or add new ones.
-\item slots \verb{\{ EndScrollButtonIcon?: elementType, StartScrollButtonIcon?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ endScrollButtonIcon?: func| object, startScrollButtonIcon?: func| object \}} \cr Default is The extra props for the slot components. You can override the existing props or add new ones.
+\item slots \verb{\{ EndScrollButtonIcon?: elementType, StartScrollButtonIcon?: elementType \}} \cr Default is The components used for each slot inside.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

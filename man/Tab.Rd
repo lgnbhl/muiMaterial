@@ -32,8 +32,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{unsupportedProp} \cr Default is - This prop isn't supported. Use the component prop if you need to change the children structure.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
-\item disableFocusRipple \code{bool} \cr Default is FALSE If true, the  keyboard focus ripple is disabled.
-\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled. ️ Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
+\item disableFocusRipple \code{bool} \cr Default is FALSE If true, the keyboard focus ripple is disabled.
+\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled.  Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
 \item icon \code{element| string} \cr Default is - The icon to display.
 \item iconPosition \code{'bottom'| 'end'| 'start'| 'top'} \cr Default is 'top' The position of the icon relative to the label.
 \item label \code{node} \cr Default is - The label element.

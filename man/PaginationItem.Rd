@@ -20,14 +20,14 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item color \code{'primary'| 'secondary'| 'standard'| string} \cr Default is 'standard' The active color. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
-\item components \verb{\{ first?: elementType, last?: elementType, next?: elementType, previous?: elementType \}} \cr Default is  The components used for each slot inside.This prop is an alias for the slots prop. It's recommended to use the slots prop instead.Deprecated use the slots prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item components \verb{\{ first?: elementType, last?: elementType, next?: elementType, previous?: elementType \}} \cr Default is The components used for each slot inside.This prop is an alias for the slots prop. It's recommended to use the slots prop instead.Deprecated use the slots prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
 \item page \code{node} \cr Default is - The current page number.
 \item selected \code{bool} \cr Default is FALSE If true the pagination item is selected.
 \item shape \code{'circular'| 'rounded'} \cr Default is 'circular' The shape of the pagination item.
 \item size \code{'small'| 'medium'| 'large'| string} \cr Default is 'medium' The size of the component.
-\item slotProps \verb{\{ first?: func| object, last?: func| object, next?: func| object, previous?: func| object \}} \cr Default is  The props used for each slot inside.
-\item slots \verb{\{ first?: elementType, last?: elementType, next?: elementType, previous?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ first?: func| object, last?: func| object, next?: func| object, previous?: func| object \}} \cr Default is The props used for each slot inside.
+\item slots \verb{\{ first?: elementType, last?: elementType, next?: elementType, previous?: elementType \}} \cr Default is The components used for each slot inside.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item type \code{'end-ellipsis'| 'first'| 'last'| 'next'| 'page'| 'previous'| 'start-ellipsis'} \cr Default is 'page' The type of pagination item.
 \item variant \code{'outlined'| 'text'| string} \cr Default is 'text' The variant to use.

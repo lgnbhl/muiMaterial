@@ -20,7 +20,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
-\item onChange \code{func} \cr Default is - Callback fired when the value changes.Signature:function(event: React.SyntheticEvent, value: any) =  voidevent The event source of the callback. Warning: This is a generic event not a change event.value We default to the index of the child.
+\item onChange \code{func} \cr Default is - Callback fired when the value changes.Signature:function(event: React.SyntheticEvent, value: any) = voidevent The event source of the callback. Warning: This is a generic event not a change event.value We default to the index of the child.
 \item showLabels \code{bool} \cr Default is FALSE If true, all BottomNavigationActions will show their labels. By default, only the selected BottomNavigationAction will show its label.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item value \code{any} \cr Default is - The value of the currently selected BottomNavigationAction.

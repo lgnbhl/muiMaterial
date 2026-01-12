@@ -35,11 +35,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item color \code{'inherit'| 'default'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'default' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
-\item disableFocusRipple \code{bool} \cr Default is FALSE If true, the  keyboard focus ripple is disabled.
-\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled. ️ Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
+\item disableFocusRipple \code{bool} \cr Default is FALSE If true, the keyboard focus ripple is disabled.
+\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled.  Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
 \item edge \code{'end'| 'start'| false} \cr Default is FALSE If given, uses a negative margin to counteract the padding on one side (this is often helpful for aligning the left or right side of the icon with content above or below, without ruining the border size and shape).
 \item loading \code{bool} \cr Default is null If true, the loading indicator is visible and the button is disabled. If true | false, the loading wrapper is always rendered before the children to prevent Google Translation Crash.
-\item loadingIndicator \code{node} \cr Default is  CircularProgress color="inherit" size=16 /  Element placed before the children if the button is in loading state. The node should contain an element with role="progressbar" with an accessible name. By default, it renders a CircularProgress that is labeled by the button itself.
+\item loadingIndicator \code{node} \cr Default is CircularProgress color="inherit" size=16 / Element placed before the children if the button is in loading state. The node should contain an element with role="progressbar" with an accessible name. By default, it renders a CircularProgress that is labeled by the button itself.
 \item size \code{'small'| 'medium'| 'large'| string} \cr Default is 'medium' The size of the component. small is equivalent to the dense button styling.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }

@@ -24,8 +24,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item LinearProgressProps \code{object} \cr Default is - Props applied to the LinearProgress element.Deprecated Use slotProps.progress instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item nextButton \code{node} \cr Default is - A next button element. For instance, it can be a Button or an IconButton.
 \item position \code{'bottom'| 'static'| 'top'} \cr Default is 'bottom' Set the positioning type.
-\item slotProps \verb{\{ dot?: func| object, dots?: func| object, progress?: func| object, root?: func| object \}} \cr Default is  The props used for each slot inside.
-\item slots \verb{\{ dot?: elementType, dots?: elementType, progress?: elementType, root?: elementType \}} \cr Default is  The components used for each slot inside.
+\item slotProps \verb{\{ dot?: func| object, dots?: func| object, progress?: func| object, root?: func| object \}} \cr Default is The props used for each slot inside.
+\item slots \verb{\{ dot?: elementType, dots?: elementType, progress?: elementType, root?: elementType \}} \cr Default is The components used for each slot inside.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item variant \code{'dots'| 'progress'| 'text'} \cr Default is 'dots' The variant to use.
 }

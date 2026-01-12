@@ -39,7 +39,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled. This implies that all ToggleButton children will be disabled.
 \item exclusive \code{bool} \cr Default is FALSE If true, only allow one of the child ToggleButton values to be selected.
 \item fullWidth \code{bool} \cr Default is FALSE If true, the button group will take up the full width of its container.
-\item onChange \code{func} \cr Default is - Callback fired when the value changes.Signature:function(event: React.MouseEvent, value: any) =  voidevent The event source of the callback.value of the selected buttons. When exclusive is true this is a single value; when false an array of selected values. If no value is selected and exclusive is true the value is null; when false an empty array.
+\item onChange \code{func} \cr Default is - Callback fired when the value changes.Signature:function(event: React.MouseEvent, value: any) = voidevent The event source of the callback.value of the selected buttons. When exclusive is true this is a single value; when false an array of selected values. If no value is selected and exclusive is true the value is null; when false an empty array.
 \item orientation \code{'horizontal'| 'vertical'} \cr Default is 'horizontal' The component orientation (layout flow direction).
 \item size \code{'small'| 'medium'| 'large'| string} \cr Default is 'medium' The size of the component.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
