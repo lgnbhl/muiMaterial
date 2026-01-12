@@ -11,7 +11,7 @@ Authors@R:
 Maintainer: Felix Luginbuhl <felix.luginbuhl@protonmail.ch>
 Description:
   A set of user interface components for building 'shiny' applications and 
-  'quarto' documents, including inputs, layouts, navigations, surfaces, and various
+  'quarto' documents, including inputs, layouts, navigation, surfaces, and various
   utilities. All components 'Material UI' from the company 'MUI' are available and 
   all inputs have usage examples in R.
 License: MIT + file LICENSE
@@ -23,14 +23,11 @@ Imports:
     checkmate,
     shiny,
     shiny.react (>= 0.4.0)
-Suggests: 
-    knitr,
-    rmarkdown,
-    shiny.router,
+Suggests:
     reactRouter,
+    shiny.router,
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.3
-URL: https://felixluginbuhl.com/muiMaterial
+URL: https://felixluginbuhl.com/muiMaterial/
 BugReports: https://github.com/lgnbhl/muiMaterial/issues
 Config/testthat/edition: 3
-VignetteBuilder: knitr
