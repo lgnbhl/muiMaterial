@@ -22,8 +22,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item cols \code{integer} \cr Default is 2 Number of columns.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item gap \code{number} \cr Default is 4 The gap between items in px.
-\item rowHeight \verb{'auto'| number} \cr Default is 'auto' The height of one row in px.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item variant \verb{'masonry'| 'quilted'| 'standard'| 'woven'| string} \cr Default is 'standard' The variant to use.
+\item rowHeight \code{'auto'| number} \cr Default is 'auto' The height of one row in px.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item variant \code{'masonry'| 'quilted'| 'standard'| 'woven'| string} \cr Default is 'standard' The variant to use.
 }
 }

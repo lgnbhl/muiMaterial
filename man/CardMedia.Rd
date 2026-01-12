@@ -22,6 +22,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item component \code{elementType} \cr Default is NA The component used for the root node. Either a string to use a HTML element or a component.
 \item image \code{string} \cr Default is NA Image to be displayed as a background image. Either image or src prop must be specified. Note that caller must specify height otherwise the image will not be visible.
 \item src \code{string} \cr Default is NA An alias for image property. Available only with media components. Media components: video, audio, picture, iframe, img.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is NA The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is NA The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

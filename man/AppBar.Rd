@@ -19,9 +19,9 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'default'| 'inherit'| 'primary'| 'secondary'| 'transparent'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'primary' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item color \code{'default'| 'inherit'| 'primary'| 'secondary'| 'transparent'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'primary' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item enableColorOnDark \code{bool} \cr Default is FALSE If true, the color prop is applied in dark mode.
-\item position \verb{'absolute'| 'fixed'| 'relative'| 'static'| 'sticky'} \cr Default is 'fixed' The positioning type. The behavior of the different options is described in the MDN web docs. Note: sticky is not universally supported and will fall back to static when unavailable.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item position \code{'absolute'| 'fixed'| 'relative'| 'static'| 'sticky'} \cr Default is 'fixed' The positioning type. The behavior of the different options is described in the MDN web docs. Note: sticky is not universally supported and will fall back to static when unavailable.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

@@ -17,21 +17,21 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item anchorOrigin \verb{\{ horizontal?: 'left'| 'right', vertical?: 'bottom'| 'top' \}} \cr Default is    vertical: 'top',   horizontal: 'right',  The anchor of the badge.
+\item anchorOrigin \verb{\{ horizontal?: 'left'| 'right', vertical?: 'bottom'| 'top' \}} \cr Default is    vertical: 'top',   horizontal: 'right',  The anchor of the badge.
 \item badgeContent \code{node} \cr Default is - The content rendered within the badge.
 \item children \code{node} \cr Default is - The badge will be added relative to this node.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'default'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'default' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item color \code{'default'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'default' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
-\item components \verb{\{ Badge?: elementType, Root?: elementType \}} \cr Default is  The components used for each slot inside.Deprecated－use the slots prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item componentsProps \verb{\{ badge?: func| object, root?: func| object \}} \cr Default is  The extra props for the slot components. You can override the existing props or add new ones.Deprecated－use the slotProps prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item components \verb{\{ Badge?: elementType, Root?: elementType \}} \cr Default is  The components used for each slot inside.Deprecated use the slots prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item componentsProps \verb{\{ badge?: func| object, root?: func| object \}} \cr Default is  The extra props for the slot components. You can override the existing props or add new ones.Deprecated use the slotProps prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item invisible \code{bool} \cr Default is FALSE If true, the badge is invisible.
 \item max \code{number} \cr Default is 99 Max count to show.
-\item overlap \verb{'circular'| 'rectangular'} \cr Default is 'rectangular' Wrapped shape the badge should overlap.
+\item overlap \code{'circular'| 'rectangular'} \cr Default is 'rectangular' Wrapped shape the badge should overlap.
 \item showZero \code{bool} \cr Default is FALSE Controls whether the badge is hidden when badgeContent is zero.
-\item slotProps \verb{\{ badge?: func| object, root?: func| object \}} \cr Default is  The props used for each slot inside the Badge.
+\item slotProps \verb{\{ badge?: func| object, root?: func| object \}} \cr Default is  The props used for each slot inside the Badge.
 \item slots \verb{\{ badge?: elementType, root?: elementType \}} \cr Default is  The components used for each slot inside the Badge. Either a string to use a HTML element or a component.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item variant \verb{'dot'| 'standard'| string} \cr Default is 'standard' The variant to use.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item variant \code{'dot'| 'standard'| string} \cr Default is 'standard' The variant to use.
 }
 }

@@ -17,6 +17,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item styles \verb{array| func| number| object| string| bool} \cr Default is NA The styles you want to apply globally.
+\item styles \code{array| func| number| object| string| bool} \cr Default is NA The styles you want to apply globally.
 }
 }

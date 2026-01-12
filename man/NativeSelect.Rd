@@ -17,14 +17,14 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item children \code{node} \cr Default is - The option elements to populate the select with. Can be some \if{html}{\out{<option>}} elements.
+\item children \code{node} \cr Default is - The option elements to populate the select with. Can be some  option  elements.
 \item classes \code{object} \cr Default is  Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item IconComponent \code{elementType} \cr Default is ArrowDropDownIcon The icon that displays the arrow.
-\item input \code{element} \cr Default is \if{html}{\out{<Input />}} An Input element; does not have to be a material-ui specific Input.
+\item input \code{element} \cr Default is  Input /  An Input element; does not have to be a material-ui specific Input.
 \item inputProps \code{object} \cr Default is - Attributes applied to the select element.
-\item onChange \code{func} \cr Default is - Callback fired when a menu item is selected.Signature:function(event: React.ChangeEvent) => voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (string).
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item onChange \code{func} \cr Default is - Callback fired when a menu item is selected.Signature:function(event: React.ChangeEvent) =  voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (string).
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item value \code{any} \cr Default is - The input value. The DOM API casts this to a string.
-\item variant \verb{'filled'| 'outlined'| 'standard'} \cr Default is - The variant to use.
+\item variant \code{'filled'| 'outlined'| 'standard'} \cr Default is - The variant to use.
 }
 }

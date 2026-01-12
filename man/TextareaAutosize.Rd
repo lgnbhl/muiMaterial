@@ -17,7 +17,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item maxRows \verb{number| string} \cr Default is - Maximum number of rows to display.
-\item minRows \verb{number| string} \cr Default is 1 Minimum number of rows to display.
+\item maxRows \code{number| string} \cr Default is - Maximum number of rows to display.
+\item minRows \code{number| string} \cr Default is 1 Minimum number of rows to display.
 }
 }

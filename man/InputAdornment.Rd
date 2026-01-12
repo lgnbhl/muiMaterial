@@ -17,13 +17,13 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item position \verb{'end'| 'start'} \cr Default is - The position this adornment should appear relative to the Input.
+\item position \code{'end'| 'start'} \cr Default is - The position this adornment should appear relative to the Input.
 \item children \code{node} \cr Default is - The content of the component, normally an IconButton or string.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item disablePointerEvents \code{bool} \cr Default is FALSE Disable pointer events on the root. This allows for the content of the adornment to focus the input on click.
 \item disableTypography \code{bool} \cr Default is FALSE If children is a string then disable wrapping in a Typography component.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item variant \verb{'filled'| 'outlined'| 'standard'} \cr Default is - The variant to use. Note: If you are using the TextField component or the FormControl component you do not have to set this manually.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item variant \code{'filled'| 'outlined'| 'standard'} \cr Default is - The variant to use. Note: If you are using the TextField component or the FormControl component you do not have to set this manually.
 }
 }

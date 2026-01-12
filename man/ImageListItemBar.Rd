@@ -18,11 +18,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \details{
 \itemize{
 \item actionIcon \code{node} \cr Default is - An IconButton element to be used as secondary action target (primary action target is the item itself).
-\item actionPosition \verb{'left'| 'right'} \cr Default is 'right' Position of secondary action IconButton.
+\item actionPosition \code{'left'| 'right'} \cr Default is 'right' Position of secondary action IconButton.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item position \verb{'below'| 'bottom'| 'top'} \cr Default is 'bottom' Position of the title bar.
+\item position \code{'below'| 'bottom'| 'top'} \cr Default is 'bottom' Position of the title bar.
 \item subtitle \code{node} \cr Default is - String or element serving as subtitle (support text).
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item title \code{node} \cr Default is - Title to be displayed.
 }
 }

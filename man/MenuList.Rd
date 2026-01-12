@@ -22,6 +22,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{node} \cr Default is - MenuList contents, normally MenuItems.
 \item disabledItemsFocusable \code{bool} \cr Default is FALSE If true, will allow focus on disabled items.
 \item disableListWrap \code{bool} \cr Default is FALSE If true, the menu items will not wrap focus.
-\item variant \verb{'menu'| 'selectedMenu'} \cr Default is 'selectedMenu' The variant to use. Use menu to prevent selected items from impacting the initial focus and the vertical alignment relative to the anchor element.
+\item variant \code{'menu'| 'selectedMenu'} \cr Default is 'selectedMenu' The variant to use. Use menu to prevent selected items from impacting the initial focus and the vertical alignment relative to the anchor element.
 }
 }

@@ -19,11 +19,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'default'| 'inherit'| 'primary'} \cr Default is 'default' The color of the component. It supports those theme colors that make sense for this component.
+\item color \code{'default'| 'inherit'| 'primary'} \cr Default is 'default' The color of the component. It supports those theme colors that make sense for this component.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item disableGutters \code{bool} \cr Default is FALSE If true, the List Subheader will not have gutters.
 \item disableSticky \code{bool} \cr Default is FALSE If true, the List Subheader will not stick to the top during scroll.
 \item inset \code{bool} \cr Default is FALSE If true, the List Subheader is indented.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

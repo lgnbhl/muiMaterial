@@ -18,7 +18,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \details{
 \itemize{
 \item children \code{node} \cr Default is - The children to render into the container.
-\item container \verb{HTML element| func} \cr Default is - An HTML element or function that returns one. The container will have the portal children appended to it.You can also provide a callback, which is called in a React layout effect. This lets you set the container from a ref, and also makes server-side rendering possible.By default, it uses the body of the top-level document object, so it's simply document.body most of the time.
+\item container \verb{HTML element| func} \cr Default is - An HTML element or function that returns one. The container will have the portal children appended to it.You can also provide a callback, which is called in a React layout effect. This lets you set the container from a ref, and also makes server-side rendering possible.By default, it uses the body of the top-level document object, so it's simply document.body most of the time.
 \item disablePortal \code{bool} \cr Default is FALSE The children will be under the DOM hierarchy of the parent component.
 }
 }

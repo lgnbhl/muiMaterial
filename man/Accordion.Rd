@@ -23,12 +23,12 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
 \item disableGutters \code{bool} \cr Default is FALSE If true, it removes the margin between two expanded accordion items and the increase of height.
 \item expanded \code{bool} \cr Default is - If true, expands the accordion, otherwise collapse it. Setting this prop enables control over the accordion.
-\item onChange \code{func} \cr Default is - Callback fired when the expand/collapse state is changed.Signature:function(event: React.SyntheticEvent, expanded: boolean) => voidevent The event source of the callback. Warning: This is a generic event not a change event.expanded The expanded state of the accordion.
-\item slotProps \verb{\{ heading?: func| object, root?: func| object, transition?: func| object \}} \cr Default is  The props used for each slot inside.
+\item onChange \code{func} \cr Default is - Callback fired when the expand/collapse state is changed.Signature:function(event: React.SyntheticEvent, expanded: boolean) =  voidevent The event source of the callback. Warning: This is a generic event not a change event.expanded The expanded state of the accordion.
+\item slotProps \verb{\{ heading?: func| object, root?: func| object, transition?: func| object \}} \cr Default is  The props used for each slot inside.
 \item slots \verb{\{ heading?: elementType, root?: elementType, transition?: elementType \}} \cr Default is  The components used for each slot inside.
 \item square \code{bool} \cr Default is FALSE If true, rounded corners are disabled.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item TransitionComponent \code{elementType} \cr Default is - The component used for the transition. Follow this guide to learn more about the requirements for this component.Deprecated－Use slots.transition instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item TransitionProps \code{object} \cr Default is - Props applied to the transition element. By default, the element is based on this Transition component.Deprecated－Use slotProps.transition instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item TransitionComponent \code{elementType} \cr Default is - The component used for the transition. Follow this guide to learn more about the requirements for this component.Deprecated Use slots.transition instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item TransitionProps \code{object} \cr Default is - Props applied to the transition element. By default, the element is based on this Transition component.Deprecated Use slotProps.transition instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 }
 }

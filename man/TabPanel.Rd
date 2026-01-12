@@ -44,10 +44,10 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item value \verb{number| string} \cr Default is - The value of the corresponding Tab. Must use the index of the Tab when no value was passed to Tab.
+\item value \code{number| string} \cr Default is - The value of the corresponding Tab. Must use the index of the Tab when no value was passed to Tab.
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item keepMounted \code{bool} \cr Default is FALSE Always keep the children in the DOM.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

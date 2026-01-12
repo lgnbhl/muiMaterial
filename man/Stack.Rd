@@ -19,10 +19,10 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
-\item direction \verb{'column-reverse'| 'column'| 'row-reverse'| 'row'| Array<'column-reverse'| 'column'| 'row-reverse'| 'row'>| object} \cr Default is 'column' Defines the flex-direction style property. It is applied for all screen sizes.
+\item direction \verb{'column-reverse'| 'column'| 'row-reverse'| 'row'| Array 'column-reverse'| 'column'| 'row-reverse'| 'row' | object} \cr Default is 'column' Defines the flex-direction style property. It is applied for all screen sizes.
 \item divider \code{node} \cr Default is - Add an element between each child.
-\item spacing \verb{Array<number| string>| number| object| string} \cr Default is 0 Defines the space between immediate children.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop, which allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item spacing \verb{Array number| string | number| object| string} \cr Default is 0 Defines the space between immediate children.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop, which allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item useFlexGap \code{bool} \cr Default is FALSE If true, the CSS flexbox gap is used instead of applying margin to children.While CSS gap removes the known limitations, it is not fully supported in some browsers. We recommend checking https://caniuse.com/?search=flex\%20gap before using this flag.To enable this flag globally, follow the theme's default props configuration.
 }
 }

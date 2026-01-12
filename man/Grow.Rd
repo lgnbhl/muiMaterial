@@ -20,8 +20,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{element} \cr Default is - A single child content element.This needs to be able to hold a ref.
 \item addEndListener \code{func} \cr Default is - Add a custom transition end trigger. Called with the transitioning DOM node and a done callback. Allows for more fine grained transition end logic. Note: Timeouts are still used as a fallback if provided.
 \item appear \code{bool} \cr Default is TRUE Perform the enter transition when it first mounts if in is also true. Set this to false to disable this behavior.
-\item easing \verb{\{ enter?: string, exit?: string \}| string} \cr Default is - The transition timing function. You may specify a single easing or a object containing enter and exit values.
+\item easing \verb{\{ enter?: string, exit?: string \}| string} \cr Default is - The transition timing function. You may specify a single easing or a object containing enter and exit values.
 \item in \code{bool} \cr Default is - If true, the component will transition in.
-\item timeout \verb{'auto'| number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is 'auto' The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object.Set to 'auto' to automatically calculate transition time based on height.
+\item timeout \verb{'auto'| number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is 'auto' The duration for the transition, in milliseconds. You may specify a single timeout for all transitions, or individually with an object.Set to 'auto' to automatically calculate transition time based on height.
 }
 }

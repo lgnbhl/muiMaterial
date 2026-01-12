@@ -22,6 +22,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item completed \code{bool} \cr Default is FALSE Mark the step as completed. Is passed to child components.
 \item error \code{bool} \cr Default is FALSE If true, the step is marked as failed.
 \item icon \code{node} \cr Default is - The label displayed in the step icon.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

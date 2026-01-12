@@ -44,7 +44,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item value \verb{number| string} \cr Default is NA The value of the currently selected Tab.
+\item value \code{number| string} \cr Default is NA The value of the currently selected Tab.
 \item children \code{node} \cr Default is NA The content of the component.
 }
 }

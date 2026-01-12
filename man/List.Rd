@@ -23,6 +23,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item dense \code{bool} \cr Default is FALSE If true, compact vertical padding designed for keyboard and mouse input is used for the list and list items. The prop is available to descendant components as the dense context.
 \item disablePadding \code{bool} \cr Default is FALSE If true, vertical padding is removed from the list.
 \item subheader \code{node} \cr Default is - The content of the subheader, normally ListSubheader.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

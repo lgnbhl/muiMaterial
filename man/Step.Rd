@@ -26,6 +26,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item expanded \code{bool} \cr Default is FALSE Expand the step.
 \item index \code{integer} \cr Default is - The position of the step. The prop defaults to the value inherited from the parent Stepper component.
 \item last \code{bool} \cr Default is - If true, the Step is displayed as rendered last. The prop defaults to the value inherited from the parent Stepper component.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

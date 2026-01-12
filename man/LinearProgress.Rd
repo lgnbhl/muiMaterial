@@ -18,10 +18,10 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \details{
 \itemize{
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'inherit'| 'primary'| 'secondary'| string} \cr Default is 'primary' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item color \code{'inherit'| 'primary'| 'secondary'| string} \cr Default is 'primary' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item value \code{number} \cr Default is - The value of the progress indicator for the determinate and buffer variants. Value between 0 and 100.
 \item valueBuffer \code{number} \cr Default is - The value for the buffer variant. Value between 0 and 100.
-\item variant \verb{'buffer'| 'determinate'| 'indeterminate'| 'query'} \cr Default is 'indeterminate' The variant to use. Use indeterminate or query when there is no progress value.
+\item variant \code{'buffer'| 'determinate'| 'indeterminate'| 'query'} \cr Default is 'indeterminate' The variant to use. Use indeterminate or query when there is no progress value.
 }
 }

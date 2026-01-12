@@ -20,9 +20,9 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{node} \cr Default is - The content of the table, normally TableHead and TableBody.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
-\item padding \verb{'checkbox'| 'none'| 'normal'} \cr Default is 'normal' Allows TableCells to inherit padding of the Table.
-\item size \verb{'medium'| 'small'| string} \cr Default is 'medium' Allows TableCells to inherit size of the Table.
+\item padding \code{'checkbox'| 'none'| 'normal'} \cr Default is 'normal' Allows TableCells to inherit padding of the Table.
+\item size \code{'medium'| 'small'| string} \cr Default is 'medium' Allows TableCells to inherit size of the Table.
 \item stickyHeader \code{bool} \cr Default is FALSE Set the header sticky.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

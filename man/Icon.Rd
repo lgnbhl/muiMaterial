@@ -20,9 +20,9 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item baseClassName \code{string} \cr Default is 'material-icons' The base class applied to the icon. Defaults to 'material-icons', but can be changed to any other base class that suits the icon font you're using (for example material-icons-rounded, fas, etc).
 \item children \code{node} \cr Default is - The name of the icon font ligature.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'inherit'| 'action'| 'disabled'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'inherit' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item color \code{'inherit'| 'action'| 'disabled'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'inherit' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
-\item fontSize \verb{'inherit'| 'large'| 'medium'| 'small'| string} \cr Default is 'medium' The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item fontSize \code{'inherit'| 'large'| 'medium'| 'small'| string} \cr Default is 'medium' The fontSize applied to the icon. Defaults to 24px, but can be configure to inherit font size.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

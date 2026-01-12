@@ -29,14 +29,14 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'default'| 'error'| 'info'| 'inherit'| 'primary'| 'secondary'| 'success'| 'warning'| string} \cr Default is 'default' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item color \code{'default'| 'error'| 'info'| 'inherit'| 'primary'| 'secondary'| 'success'| 'warning'| string} \cr Default is 'default' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
 \item disableFocusRipple \code{bool} \cr Default is FALSE If true, the  keyboard focus ripple is disabled.
 \item disableRipple \code{bool} \cr Default is - If true, the ripple effect is disabled.
 \item href \code{string} \cr Default is - The URL to link to when the button is clicked. If defined, an a element will be used as the root node.
-\item size \verb{'small'| 'medium'| 'large'| string} \cr Default is 'large' The size of the component. small is equivalent to the dense button styling.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item variant \verb{'circular'| 'extended'| string} \cr Default is 'circular' The variant to use.
+\item size \code{'small'| 'medium'| 'large'| string} \cr Default is 'large' The size of the component. small is equivalent to the dense button styling.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item variant \code{'circular'| 'extended'| string} \cr Default is 'circular' The variant to use.
 }
 }

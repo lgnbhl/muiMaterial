@@ -22,7 +22,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item icon \code{node} \cr Default is NA The icon to display.
 \item label \code{node} \cr Default is NA The label element.
 \item showLabel \code{bool} \cr Default is NA If true, the BottomNavigationAction will show its label. By default, only the selected BottomNavigationAction inside BottomNavigation will show its label.The prop defaults to the value (false) inherited from the parent BottomNavigation component.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is NA The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is NA The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item value \code{any} \cr Default is NA You can provide your own value. Otherwise, we fallback to the child position index.
 }
 }

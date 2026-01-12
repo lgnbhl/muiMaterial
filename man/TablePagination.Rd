@@ -18,21 +18,21 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \details{
 \itemize{
 \item count \code{integer} \cr Default is - The total number of rows.To enable server side pagination for an unknown number of items, provide -1.
-\item onPageChange \code{func} \cr Default is - Callback fired when the page is changed.Signature:function(event: React.MouseEvent | null, page: number) => voidevent The event source of the callback.page The page selected.
+\item onPageChange \code{func} \cr Default is - Callback fired when the page is changed.Signature:function(event: React.MouseEvent | null, page: number) =  voidevent The event source of the callback.page The page selected.
 \item page \code{integer} \cr Default is - The zero-based index of the current page.
 \item rowsPerPage \code{integer} \cr Default is - The number of rows per page.Set -1 to display all the rows.
 \item ActionsComponent \code{elementType} \cr Default is TablePaginationActions The component used for displaying the actions. Either a string to use a HTML element or a component.
-\item backIconButtonProps \code{object} \cr Default is - Props applied to the back arrow IconButton component.This prop is an alias for slotProps.actions.previousButton and will be overriden by it if both are used.Deprecated－Use slotProps.actions.previousButton instead.
+\item backIconButtonProps \code{object} \cr Default is - Props applied to the back arrow IconButton component.This prop is an alias for slotProps.actions.previousButton and will be overriden by it if both are used.Deprecated Use slotProps.actions.previousButton instead.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
-\item getItemAriaLabel \code{func} \cr Default is function defaultGetAriaLabel(type)    return \verb{Go to $type page};  Accepts a function which returns a string value that provides a user-friendly name for the current page. This is important for screen reader users.For localization purposes, you can use the provided translations.Signature:function(type: string) => stringtype The link or button type to format ('first' | 'last' | 'next' | 'previous').
+\item getItemAriaLabel \code{func} \cr Default is function defaultGetAriaLabel(type)    return \verb{Go to $type page};  Accepts a function which returns a string value that provides a user-friendly name for the current page. This is important for screen reader users.For localization purposes, you can use the provided translations.Signature:function(type: string) =  stringtype The link or button type to format ('first' | 'last' | 'next' | 'previous').
 \item labelDisplayedRows \code{func} \cr Default is function defaultLabelDisplayedRows( from, to, count )    return \verb{$from–$to of $count !== -1 ? count : }more than $to``;  Customize the displayed rows label. Invoked with a  from, to, count, page  object.For localization purposes, you can use the provided translations.
 \item labelRowsPerPage \code{node} \cr Default is 'Rows per page:' Customize the rows per page label.For localization purposes, you can use the provided translations.
-\item nextIconButtonProps `object` \cr Default is - Props applied to the next arrow IconButton element.This prop is an alias for slotProps.actions.nextButton and will be overriden by it if both are used.Deprecated－Use slotProps.actions.nextButton instead.
-\item onRowsPerPageChange `func` \cr Default is - Callback fired when the number of rows per page is changed.Signature:function(event: React.ChangeEvent) => voidevent The event source of the callback.
+\item nextIconButtonProps `object` \cr Default is - Props applied to the next arrow IconButton element.This prop is an alias for slotProps.actions.nextButton and will be overriden by it if both are used.Deprecated Use slotProps.actions.nextButton instead.
+\item onRowsPerPageChange `func` \cr Default is - Callback fired when the number of rows per page is changed.Signature:function(event: React.ChangeEvent) =  voidevent The event source of the callback.
 \item rowsPerPageOptions \cr Default is 10, 25, 50, 100 Customizes the options of the rows per page select field. If less than two options are available, no select field will be displayed. Use -1 for the value with a custom label to show all the rows.
-\item SelectProps `object` \cr Default is  Props applied to the rows per page Select element.This prop is an alias for slotProps.select and will be overriden by it if both are used.Deprecated－Use slotProps.select instead.
+\item SelectProps `object` \cr Default is  Props applied to the rows per page Select element.This prop is an alias for slotProps.select and will be overriden by it if both are used.Deprecated Use slotProps.select instead.
 \item showFirstButton `bool` \cr Default is FALSE If true, show the first-page button.
 \item showLastButton `bool` \cr Default is FALSE If true, show the last-page button.
 \item slotProps \cr Default is  The props used for each slot inside.

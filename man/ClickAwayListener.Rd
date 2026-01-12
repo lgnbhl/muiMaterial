@@ -20,7 +20,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{element} \cr Default is - The wrapped element.This needs to be able to hold a ref.
 \item onClickAway \code{func} \cr Default is - Callback fired when a "click away" event is detected.
 \item disableReactTree \code{bool} \cr Default is FALSE If true, the React tree is ignored and only the DOM tree is considered. This prop changes how portaled elements are handled.
-\item mouseEvent \verb{'onClick'| 'onMouseDown'| 'onMouseUp'| 'onPointerDown'| 'onPointerUp'| false} \cr Default is 'onClick' The mouse event to listen to. You can disable the listener by providing false.
-\item touchEvent \verb{'onTouchEnd'| 'onTouchStart'| false} \cr Default is 'onTouchEnd' The touch event to listen to. You can disable the listener by providing false.
+\item mouseEvent \code{'onClick'| 'onMouseDown'| 'onMouseUp'| 'onPointerDown'| 'onPointerUp'| false} \cr Default is 'onClick' The mouse event to listen to. You can disable the listener by providing false.
+\item touchEvent \code{'onTouchEnd'| 'onTouchStart'| false} \cr Default is 'onTouchEnd' The touch event to listen to. You can disable the listener by providing false.
 }
 }

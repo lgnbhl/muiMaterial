@@ -17,7 +17,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item alignItems \verb{'center'| 'flex-start'} \cr Default is 'center' Defines the align-items style property.
+\item alignItems \code{'center'| 'flex-start'} \cr Default is 'center' Defines the align-items style property.
 \item autoFocus \code{bool} \cr Default is FALSE If true, the list item is focused during the first mount. Focus will also be triggered if the value changes from false to true.
 \item children \code{node} \cr Default is - The content of the component if a ListItemSecondaryAction is used it must be the last child.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
@@ -28,6 +28,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item divider \code{bool} \cr Default is FALSE If true, a 1px light border is added to the bottom of the list item.
 \item focusVisibleClassName \code{string} \cr Default is - This prop can help identify which element has keyboard focus. The class name will be applied when the element gains the focus through keyboard interaction. It's a polyfill for the CSS :focus-visible selector. The rationale for using this feature is explained here. A polyfill can be used to apply a focus-visible class to other components if needed.
 \item selected \code{bool} \cr Default is FALSE Use to apply selected styling.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

@@ -18,12 +18,12 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \details{
 \itemize{
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'inherit'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'primary' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item color \code{'inherit'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'primary' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item disableShrink \code{bool} \cr Default is FALSE If true, the shrink animation is disabled. This only works if variant is indeterminate.
-\item size \verb{number| string} \cr Default is 40 The size of the component. If using a number, the pixel unit is assumed. If using a string, you need to provide the CSS unit, for example '3rem'.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item size \code{number| string} \cr Default is 40 The size of the component. If using a number, the pixel unit is assumed. If using a string, you need to provide the CSS unit, for example '3rem'.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item thickness \code{number} \cr Default is 3.6 The thickness of the circle.
 \item value \code{number} \cr Default is 0 The value of the progress indicator for the determinate variant. Value between 0 and 100.
-\item variant \verb{'determinate'| 'indeterminate'} \cr Default is 'indeterminate' The variant to use. Use indeterminate when there is no progress value.
+\item variant \code{'determinate'| 'indeterminate'} \cr Default is 'indeterminate' The variant to use. Use indeterminate when there is no progress value.
 }
 }

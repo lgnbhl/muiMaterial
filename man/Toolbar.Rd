@@ -21,7 +21,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item disableGutters \code{bool} \cr Default is FALSE If true, disables gutter padding.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item variant \verb{'dense'| 'regular'| string} \cr Default is 'regular' The variant to use.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item variant \code{'dense'| 'regular'| string} \cr Default is 'regular' The variant to use.
 }
 }

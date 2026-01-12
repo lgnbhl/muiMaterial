@@ -19,13 +19,13 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item columns \verb{Array<number| string>| number| object| string} \cr Default is 4 Number of columns.
+\item columns \verb{Array number| string | number| object| string} \cr Default is 4 Number of columns.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
 \item defaultColumns \code{number} \cr Default is - The default number of columns of the component. This is provided for server-side rendering.
 \item defaultHeight \code{number} \cr Default is - The default height of the component in px. This is provided for server-side rendering.
 \item defaultSpacing \code{number} \cr Default is - The default spacing of the component. Like spacing, it is a factor of the theme's spacing. This is provided for server-side rendering.
 \item sequential \code{bool} \cr Default is FALSE Allows using sequential order rather than adding to shortest column
-\item spacing \verb{Array<number| string>| number| object| string} \cr Default is 1 Defines the space between children. It is a factor of the theme's spacing.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - Allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item spacing \verb{Array number| string | number| object| string} \cr Default is 1 Defines the space between children. It is a factor of the theme's spacing.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - Allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

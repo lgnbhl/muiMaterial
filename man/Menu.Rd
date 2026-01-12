@@ -32,19 +32,19 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \details{
 \itemize{
 \item open \code{bool} \cr Default is - If true, the component is shown.
-\item anchorEl \verb{HTML element| func} \cr Default is - An HTML element, or a function that returns one. It's used to set the position of the menu.
+\item anchorEl \verb{HTML element| func} \cr Default is - An HTML element, or a function that returns one. It's used to set the position of the menu.
 \item autoFocus \code{bool} \cr Default is TRUE If true (Default) will focus the role="menu" if no focusable child is found. Disabled children are not focusable. If you set this prop to false focus will be placed on the parent modal container. This has severe accessibility implications and should only be considered if you manage focus otherwise.
 \item children \code{node} \cr Default is - Menu contents, normally MenuItems.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item disableAutoFocusItem \code{bool} \cr Default is FALSE When opening the menu will not focus the active item but the role="menu" unless autoFocus is also set to false. Not using the default means not following WAI-ARIA authoring practices. Please be considerate about possible accessibility implications.
-\item MenuListProps \code{object} \cr Default is  Props applied to the MenuList element.Deprecated－use the slotProps.list prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item onClose \code{func} \cr Default is - Callback fired when the component requests to be closed.Signature:function(event: object, reason: string) => voidevent The event source of the callback.reason Can be: "escapeKeyDown", "backdropClick", "tabKeyDown".
+\item MenuListProps \code{object} \cr Default is  Props applied to the MenuList element.Deprecated use the slotProps.list prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item onClose \code{func} \cr Default is - Callback fired when the component requests to be closed.Signature:function(event: object, reason: string) =  voidevent The event source of the callback.reason Can be: "escapeKeyDown", "backdropClick", "tabKeyDown".
 \item PopoverClasses \code{object} \cr Default is - classes prop applied to the Popover element.
-\item slotProps \verb{\{ backdrop?: func| object, list?: func| object, paper?: func| object, root?: func| object, transition?: func| object \}} \cr Default is  The props used for each slot inside.
+\item slotProps \verb{\{ backdrop?: func| object, list?: func| object, paper?: func| object, root?: func| object, transition?: func| object \}} \cr Default is  The props used for each slot inside.
 \item slots \verb{\{ backdrop?: elementType, list?: elementType, paper?: elementType, root?: elementType, transition?: elementType \}} \cr Default is  The components used for each slot inside.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item transitionDuration \verb{'auto'| number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is 'auto' The length of the transition in ms, or 'auto'
-\item TransitionProps \code{object} \cr Default is  Props applied to the transition element. By default, the element is based on this Transition component.Deprecated－use the slotProps.transition prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item variant \verb{'menu'| 'selectedMenu'} \cr Default is 'selectedMenu' The variant to use. Use menu to prevent selected items from impacting the initial focus.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item transitionDuration \verb{'auto'| number| \{ appear?: number, enter?: number, exit?: number \}} \cr Default is 'auto' The length of the transition in ms, or 'auto'
+\item TransitionProps \code{object} \cr Default is  Props applied to the transition element. By default, the element is based on this Transition component.Deprecated use the slotProps.transition prop instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item variant \code{'menu'| 'selectedMenu'} \cr Default is 'selectedMenu' The variant to use. Use menu to prevent selected items from impacting the initial focus.
 }
 }

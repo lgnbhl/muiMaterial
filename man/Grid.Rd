@@ -18,14 +18,14 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \details{
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
-\item columns \verb{Array<number>| number| object} \cr Default is 12 The number of columns.
-\item columnSpacing \verb{Array<number| string>| number| object| string} \cr Default is - Defines the horizontal space between the type item components. It overrides the value of the spacing prop.
+\item columns \verb{Array number | number| object} \cr Default is 12 The number of columns.
+\item columnSpacing \verb{Array number| string | number| object| string} \cr Default is - Defines the horizontal space between the type item components. It overrides the value of the spacing prop.
 \item container \code{bool} \cr Default is FALSE If true, the component will have the flex container behavior. You should be wrapping items with a container.
-\item direction \verb{'column-reverse'| 'column'| 'row-reverse'| 'row'| Array<'column-reverse'| 'column'| 'row-reverse'| 'row'>| object} \cr Default is 'row' Defines the flex-direction style property. It is applied for all screen sizes.
-\item offset \verb{string| number| Array<string| number>| object} \cr Default is - Defines the offset value for the type item components.
-\item rowSpacing \verb{Array<number| string>| number| object| string} \cr Default is - Defines the vertical space between the type item components. It overrides the value of the spacing prop.
-\item size \verb{string| bool| number| Array<string| bool| number>| object} \cr Default is - Defines the size of the the type item components.
-\item spacing \verb{Array<number| string>| number| object| string} \cr Default is 0 Defines the space between the type item components. It can only be used on a type container component.
-\item wrap \verb{'nowrap'| 'wrap-reverse'| 'wrap'} \cr Default is 'wrap' Defines the flex-wrap style property. It's applied for all screen sizes.
+\item direction \verb{'column-reverse'| 'column'| 'row-reverse'| 'row'| Array 'column-reverse'| 'column'| 'row-reverse'| 'row' | object} \cr Default is 'row' Defines the flex-direction style property. It is applied for all screen sizes.
+\item offset \verb{string| number| Array string| number | object} \cr Default is - Defines the offset value for the type item components.
+\item rowSpacing \verb{Array number| string | number| object| string} \cr Default is - Defines the vertical space between the type item components. It overrides the value of the spacing prop.
+\item size \verb{string| bool| number| Array string| bool| number | object} \cr Default is - Defines the size of the the type item components.
+\item spacing \verb{Array number| string | number| object| string} \cr Default is 0 Defines the space between the type item components. It can only be used on a type container component.
+\item wrap \code{'nowrap'| 'wrap-reverse'| 'wrap'} \cr Default is 'wrap' Defines the flex-wrap style property. It's applied for all screen sizes.
 }
 }

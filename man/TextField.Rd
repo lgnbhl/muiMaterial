@@ -36,36 +36,36 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item autoComplete \code{string} \cr Default is - This prop helps users to fill forms faster, especially on mobile devices. The name can be confusing, as it's more like an autofill. You can learn more about it following the specification.
 \item autoFocus \code{bool} \cr Default is FALSE If true, the input element is focused during the first mount.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'primary' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item color \code{'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'primary' The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item defaultValue \code{any} \cr Default is - The default value. Use when the component is not controlled.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
 \item error \code{bool} \cr Default is FALSE If true, the label is displayed in an error state.
-\item FormHelperTextProps \code{object} \cr Default is - Props applied to the FormHelperText element.Deprecated－Use slotProps.formHelperText instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item FormHelperTextProps \code{object} \cr Default is - Props applied to the FormHelperText element.Deprecated Use slotProps.formHelperText instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item fullWidth \code{bool} \cr Default is FALSE If true, the input will take up the full width of its container.
 \item helperText \code{node} \cr Default is - The helper text content.
 \item id \code{string} \cr Default is - The id of the input element. Use this prop to make label and helperText accessible for screen readers.
-\item InputLabelProps \code{object} \cr Default is - Props applied to the InputLabel element. Pointer events like onClick are enabled if and only if shrink is true.Deprecated－Use slotProps.inputLabel instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item inputProps \code{object} \cr Default is - Attributes applied to the input element.Deprecated－Use slotProps.htmlInput instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item InputProps \code{object} \cr Default is - Props applied to the Input element. It will be a FilledInput, OutlinedInput or Input component depending on the variant prop value.Deprecated－Use slotProps.input instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item InputLabelProps \code{object} \cr Default is - Props applied to the InputLabel element. Pointer events like onClick are enabled if and only if shrink is true.Deprecated Use slotProps.inputLabel instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item inputProps \code{object} \cr Default is - Attributes applied to the input element.Deprecated Use slotProps.htmlInput instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item InputProps \code{object} \cr Default is - Props applied to the Input element. It will be a FilledInput, OutlinedInput or Input component depending on the variant prop value.Deprecated Use slotProps.input instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 \item inputRef \code{ref} \cr Default is - Pass a ref to the input element.
 \item label \code{node} \cr Default is - The label content.
-\item margin \verb{'dense'| 'none'| 'normal'} \cr Default is 'none' If dense or normal, will adjust vertical spacing of this and contained components.
-\item maxRows \verb{number| string} \cr Default is - Maximum number of rows to display when multiline option is set to true.
-\item minRows \verb{number| string} \cr Default is - Minimum number of rows to display when multiline option is set to true.
+\item margin \code{'dense'| 'none'| 'normal'} \cr Default is 'none' If dense or normal, will adjust vertical spacing of this and contained components.
+\item maxRows \code{number| string} \cr Default is - Maximum number of rows to display when multiline option is set to true.
+\item minRows \code{number| string} \cr Default is - Minimum number of rows to display when multiline option is set to true.
 \item multiline \code{bool} \cr Default is FALSE If true, a textarea element is rendered instead of an input.
 \item name \code{string} \cr Default is - Name attribute of the input element.
-\item onChange \code{func} \cr Default is - Callback fired when the value is changed.Signature:function(event: object) => voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (string).
+\item onChange \code{func} \cr Default is - Callback fired when the value is changed.Signature:function(event: object) =  voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (string).
 \item placeholder \code{string} \cr Default is - The short hint displayed in the input before the user enters a value.
 \item required \code{bool} \cr Default is FALSE If true, the label is displayed as required and the input element is required.
-\item rows \verb{number| string} \cr Default is - Number of rows to display when multiline option is set to true.
+\item rows \code{number| string} \cr Default is - Number of rows to display when multiline option is set to true.
 \item select \code{bool} \cr Default is FALSE Render a Select element while passing the Input element to Select as input parameter. If this option is set you must pass the options of the select as children.
-\item SelectProps \code{object} \cr Default is - Props applied to the Select element.Deprecated－Use slotProps.select instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
-\item size \verb{'medium'| 'small'| string} \cr Default is 'medium' The size of the component.
-\item slotProps \verb{\{ formHelperText?: func| object, htmlInput?: func| object, input?: func| object, inputLabel?: func| object, select?: func| object \}} \cr Default is  The props used for each slot inside.
+\item SelectProps \code{object} \cr Default is - Props applied to the Select element.Deprecated Use slotProps.select instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
+\item size \code{'medium'| 'small'| string} \cr Default is 'medium' The size of the component.
+\item slotProps \verb{\{ formHelperText?: func| object, htmlInput?: func| object, input?: func| object, inputLabel?: func| object, select?: func| object \}} \cr Default is  The props used for each slot inside.
 \item slots \verb{\{ formHelperText?: elementType, htmlInput?: elementType, input?: elementType, inputLabel?: elementType, root?: elementType, select?: elementType \}} \cr Default is  The components used for each slot inside.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item type \code{string} \cr Default is - Type of the input element. It should be a valid HTML5 input type.
 \item value \code{any} \cr Default is - The value of the input element, required for a controlled component.
-\item variant \verb{'filled'| 'outlined'| 'standard'} \cr Default is 'outlined' The variant to use.
+\item variant \code{'filled'| 'outlined'| 'standard'} \cr Default is 'outlined' The variant to use.
 }
 }

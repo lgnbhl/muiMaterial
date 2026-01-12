@@ -35,14 +35,14 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'standard'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'standard' The color of the button when it is selected. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item color \code{'standard'| 'primary'| 'secondary'| 'error'| 'info'| 'success'| 'warning'| string} \cr Default is 'standard' The color of the button when it is selected. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled. This implies that all ToggleButton children will be disabled.
 \item exclusive \code{bool} \cr Default is FALSE If true, only allow one of the child ToggleButton values to be selected.
 \item fullWidth \code{bool} \cr Default is FALSE If true, the button group will take up the full width of its container.
-\item onChange \code{func} \cr Default is - Callback fired when the value changes.Signature:function(event: React.MouseEvent, value: any) => voidevent The event source of the callback.value of the selected buttons. When exclusive is true this is a single value; when false an array of selected values. If no value is selected and exclusive is true the value is null; when false an empty array.
-\item orientation \verb{'horizontal'| 'vertical'} \cr Default is 'horizontal' The component orientation (layout flow direction).
-\item size \verb{'small'| 'medium'| 'large'| string} \cr Default is 'medium' The size of the component.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item onChange \code{func} \cr Default is - Callback fired when the value changes.Signature:function(event: React.MouseEvent, value: any) =  voidevent The event source of the callback.value of the selected buttons. When exclusive is true this is a single value; when false an array of selected values. If no value is selected and exclusive is true the value is null; when false an empty array.
+\item orientation \code{'horizontal'| 'vertical'} \cr Default is 'horizontal' The component orientation (layout flow direction).
+\item size \code{'small'| 'medium'| 'large'| string} \cr Default is 'medium' The size of the component.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item value \code{any} \cr Default is - The currently selected value within the group or an array of selected values when exclusive is false.The value must have reference equality with the option in order to be selected.
 }
 }

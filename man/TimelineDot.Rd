@@ -19,8 +19,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'error'| 'grey'| 'info'| 'inherit'| 'primary'| 'secondary'| 'success'| 'warning'| string} \cr Default is 'grey' The dot can have a different colors.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item variant \verb{'filled'| 'outlined'| string} \cr Default is 'filled' The dot can appear filled or outlined.
+\item color \code{'error'| 'grey'| 'info'| 'inherit'| 'primary'| 'secondary'| 'success'| 'warning'| string} \cr Default is 'grey' The dot can have a different colors.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item variant \code{'filled'| 'outlined'| string} \cr Default is 'filled' The dot can appear filled or outlined.
 }
 }

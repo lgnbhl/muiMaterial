@@ -34,11 +34,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \details{
 \itemize{
 \item autoWidth \code{bool} \cr Default is FALSE If true, the width of the popover will automatically be set according to the items inside the menu, otherwise it will be at least the width of the select input.
-\item children \code{node} \cr Default is - The option elements to populate the select with. Can be some MenuItem when native is false and option when native is true.⚠️The MenuItem elements must be direct descendants when native is false.
+\item children \code{node} \cr Default is - The option elements to populate the select with. Can be some MenuItem when native is false and option when native is true. ️The MenuItem elements must be direct descendants when native is false.
 \item classes \code{object} \cr Default is  Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item defaultOpen \code{bool} \cr Default is FALSE If true, the component is initially open. Use when the component open state is not controlled (i.e. the open prop is not defined). You can only use it when the native prop is false (default).
 \item defaultValue \code{any} \cr Default is - The default value. Use when the component is not controlled.
-\item displayEmpty \code{bool} \cr Default is FALSE If true, a value is displayed even if no items are selected.In order to display a meaningful value, a function can be passed to the renderValue prop which returns the value to be displayed when no items are selected.⚠️ When using this prop, make sure the label doesn't overlap with the empty displayed value. The label should either be hidden or forced to a shrunk state.
+\item displayEmpty \code{bool} \cr Default is FALSE If true, a value is displayed even if no items are selected.In order to display a meaningful value, a function can be passed to the renderValue prop which returns the value to be displayed when no items are selected. ️ When using this prop, make sure the label doesn't overlap with the empty displayed value. The label should either be hidden or forced to a shrunk state.
 \item IconComponent \code{elementType} \cr Default is ArrowDropDownIcon The icon that displays the arrow.
 \item id \code{string} \cr Default is - The id of the wrapper element or the select element when native.
 \item input \code{element} \cr Default is - An Input element; does not have to be a material-ui specific Input.
@@ -48,14 +48,14 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item MenuProps \code{object} \cr Default is - Props applied to the Menu element.
 \item multiple \code{bool} \cr Default is FALSE If true, value must be an array and the menu will support multiple selections.
 \item native \code{bool} \cr Default is FALSE If true, the component uses a native select element.
-\item onChange \code{func} \cr Default is - Callback fired when a menu item is selected.Signature:function(event: SelectChangeEvent, child?: object) => voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (any). Warning: This is a generic event, not a change event, unless the change event is caused by browser autofill.child The react element that was selected when native is false (default).
-\item onClose \code{func} \cr Default is - Callback fired when the component requests to be closed. Use it in either controlled (see the open prop), or uncontrolled mode (to detect when the Select collapses).Signature:function(event: object) => voidevent The event source of the callback.
-\item onOpen \code{func} \cr Default is - Callback fired when the component requests to be opened. Use it in either controlled (see the open prop), or uncontrolled mode (to detect when the Select expands).Signature:function(event: object) => voidevent The event source of the callback.
+\item onChange \code{func} \cr Default is - Callback fired when a menu item is selected.Signature:function(event: SelectChangeEvent, child?: object) =  voidevent The event source of the callback. You can pull out the new value by accessing event.target.value (any). Warning: This is a generic event, not a change event, unless the change event is caused by browser autofill.child The react element that was selected when native is false (default).
+\item onClose \code{func} \cr Default is - Callback fired when the component requests to be closed. Use it in either controlled (see the open prop), or uncontrolled mode (to detect when the Select collapses).Signature:function(event: object) =  voidevent The event source of the callback.
+\item onOpen \code{func} \cr Default is - Callback fired when the component requests to be opened. Use it in either controlled (see the open prop), or uncontrolled mode (to detect when the Select expands).Signature:function(event: object) =  voidevent The event source of the callback.
 \item open \code{bool} \cr Default is - If true, the component is shown. You can only use it when the native prop is false (default).
-\item renderValue \code{func} \cr Default is - Render the selected value. You can only use it when the native prop is false (default).Signature:function(value: any) => ReactNodevalue The value provided to the component.
+\item renderValue \code{func} \cr Default is - Render the selected value. You can only use it when the native prop is false (default).Signature:function(value: any) =  ReactNodevalue The value provided to the component.
 \item SelectDisplayProps \code{object} \cr Default is - Props applied to the clickable div element.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item value \verb{''| any} \cr Default is - The input value. Providing an empty string will select no options. Set to an empty string '' if you don't want any of the available options to be selected.If the value is an object it must have reference equality with the option in order to be selected. If the value is not an object, the string representation must match with the string representation of the option in order to be selected.
-\item variant \verb{'filled'| 'outlined'| 'standard'} \cr Default is 'outlined' The variant to use.
+\item sx \code{Array} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item value \code{''| any} \cr Default is - The input value. Providing an empty string will select no options. Set to an empty string '' if you don't want any of the available options to be selected.If the value is an object it must have reference equality with the option in order to be selected. If the value is not an object, the string representation must match with the string representation of the option in order to be selected.
+\item variant \code{'filled'| 'outlined'| 'standard'} \cr Default is 'outlined' The variant to use.
 }
 }

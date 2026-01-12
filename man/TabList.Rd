@@ -44,6 +44,6 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item children \code{node} \cr Default is NA A list of \if{html}{\out{<Tab />}} elements.
+\item children \code{node} \cr Default is NA A list of  Tab /  elements.
 }
 }

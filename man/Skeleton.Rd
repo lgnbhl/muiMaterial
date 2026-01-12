@@ -17,13 +17,13 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \details{
 \itemize{
-\item animation \verb{'pulse'| 'wave'| false} \cr Default is 'pulse' The animation. If false the animation effect is disabled.
+\item animation \code{'pulse'| 'wave'| false} \cr Default is 'pulse' The animation. If false the animation effect is disabled.
 \item children \code{node} \cr Default is - Optional children to infer width and height from.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item component \code{elementType} \cr Default is - The component used for the root node. Either a string to use a HTML element or a component.
-\item height \verb{number| string} \cr Default is - Height of the skeleton. Useful when you don't want to adapt the skeleton to a text element but for instance a card.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item variant \verb{'circular'| 'rectangular'| 'rounded'| 'text'| string} \cr Default is 'text' The type of content that will be rendered.
-\item width \verb{number| string} \cr Default is - Width of the skeleton. Useful when the skeleton is inside an inline element with no width of its own.
+\item height \code{number| string} \cr Default is - Height of the skeleton. Useful when you don't want to adapt the skeleton to a text element but for instance a card.
+\item sx \code{Array} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item variant \code{'circular'| 'rectangular'| 'rounded'| 'text'| string} \cr Default is 'text' The type of content that will be rendered.
+\item width \code{number| string} \cr Default is - Width of the skeleton. Useful when the skeleton is inside an inline element with no width of its own.
 }
 }

@@ -20,7 +20,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item className \code{string} \cr Default is - className applied to the root element.
-\item position \verb{'alternate-reverse'| 'alternate'| 'left'| 'right'} \cr Default is 'right' The position where the TimelineContent should appear relative to the time axis.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item position \code{'alternate-reverse'| 'alternate'| 'left'| 'right'} \cr Default is 'right' The position where the TimelineContent should appear relative to the time axis.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }

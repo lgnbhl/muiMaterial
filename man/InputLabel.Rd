@@ -19,7 +19,7 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \itemize{
 \item children \code{node} \cr Default is - The content of the component.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
-\item color \verb{'error'| 'info'| 'primary'| 'secondary'| 'success'| 'warning'| string} \cr Default is - The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
+\item color \code{'error'| 'info'| 'primary'| 'secondary'| 'success'| 'warning'| string} \cr Default is - The color of the component. It supports both default and custom theme colors, which can be added as shown in the palette customization guide.
 \item disableAnimation \code{bool} \cr Default is FALSE If true, the transition animation is disabled.
 \item disabled \code{bool} \cr Default is - If true, the component is disabled.
 \item error \code{bool} \cr Default is - If true, the label is displayed in an error state.
@@ -27,8 +27,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item margin \code{'dense'} \cr Default is - If dense, will adjust vertical spacing. This is normally obtained via context from FormControl.
 \item required \code{bool} \cr Default is - if true, the label will indicate that the input is required.
 \item shrink \code{bool} \cr Default is - If true, the label is shrunk.
-\item size \verb{'medium'| 'small'| string} \cr Default is 'medium' The size of the component.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
-\item variant \verb{'filled'| 'outlined'| 'standard'} \cr Default is - The variant to use.
+\item size \code{'medium'| 'small'| string} \cr Default is 'medium' The size of the component.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item variant \code{'filled'| 'outlined'| 'standard'} \cr Default is - The variant to use.
 }
 }

@@ -33,11 +33,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item classes \code{object} \cr Default is - Override or extend the styles applied to the component.See CSS classes API below for more details.
 \item disabled \code{bool} \cr Default is FALSE If true, the component is disabled.
 \item disableFocusRipple \code{bool} \cr Default is FALSE If true, the  keyboard focus ripple is disabled.
-\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled.⚠️ Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
-\item icon \verb{element| string} \cr Default is - The icon to display.
-\item iconPosition \verb{'bottom'| 'end'| 'start'| 'top'} \cr Default is 'top' The position of the icon relative to the label.
+\item disableRipple \code{bool} \cr Default is FALSE If true, the ripple effect is disabled. ️ Without a ripple there is no styling for :focus-visible by default. Be sure to highlight the element by applying separate styles with the .Mui-focusVisible class.
+\item icon \code{element| string} \cr Default is - The icon to display.
+\item iconPosition \code{'bottom'| 'end'| 'start'| 'top'} \cr Default is 'top' The position of the icon relative to the label.
 \item label \code{node} \cr Default is - The label element.
-\item sx \verb{Array<func| object| bool>| func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
+\item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 \item value \code{any} \cr Default is - You can provide your own value. Otherwise, we fallback to the child position index.
 \item wrapped \code{bool} \cr Default is FALSE Tab labels appear in a single row. They can use a second line if needed.
 }
