@@ -60,7 +60,7 @@ compose components like building blocks.
 
 #### Flexible Navigation
 
-With the [reactRouter](https://felixluginbuhl.com/reactRouter) R
+With the [reactRouter](https://felixluginbuhl.com/reactRouter/) R
 package, you can build a complex and multi-page websites thanks to
 [client-side
 routing](https://felixluginbuhl.com/muiMaterial/articles/routing.html).
@@ -72,10 +72,9 @@ based R packages such as `bslib` or `bs4Dash`.
 
 Extend functionality with companion R packages:
 
-- [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/) - Professional
-  data tables with filtering, sorting, and inline editing
-- [muiCharts](https://felixluginbuhl.com/muiCharts/) - Beautiful,
-  responsive charts
+- muiDataGrid (COMING SOON) - Professional data tables with filtering,
+  sorting, and inline editing
+- muiCharts (COMING SOON) - Beautiful, responsive charts
 - [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
   tree navigation
 
@@ -137,7 +136,7 @@ currently doesn’t work). [See full
 example](https://github.com/lgnbhl/muiMaterial/blob/main/inst/examples/Tabs.R).
 
 For more advanced use cases, it is preferabe to use client-side routing
-with [reactRouter](https://felixluginbuhl.com/reactRouter).
+with [reactRouter](https://felixluginbuhl.com/reactRouter/).
 
 #### Styling with sx
 
@@ -145,7 +144,7 @@ Customize any component using the `sx` argument for inline CSS-in-JS
 styling. It’s more powerful and maintainable than traditional CSS.
 
 **Read the full documentation with examples
-[here](https://lgnbhl.github.io/muiMaterial).**
+[here](https://felixluginbuhl.com/muiMaterial/).**
 
 ## Contributing
 
