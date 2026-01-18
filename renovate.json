@@ -4,5 +4,17 @@
     "config:recommended",
     "group:allNonMajor",
     "schedule:monthly"
+  ],
+  "rangeStrategy": "replace",
+  "packageRules": [
+    {
+      "matchPackageNames": ["react", "react-dom"],
+      "allowedVersions": "<19.0.0"
+    },
+    {
+      "matchPackageNames": ["react", "react-dom"],
+      "matchDepTypes": ["peerDependencies"],
+      "allowedVersions": "^18.0.0"
+    }
   ]
 }
