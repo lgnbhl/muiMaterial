@@ -75,6 +75,8 @@ Extend functionality with companion R packages:
 - muiDataGrid (COMING SOON) - Professional data tables with filtering,
   sorting, and inline editing
 - muiCharts (COMING SOON) - Beautiful, responsive charts
+- muiDateTimePickers (COMING SOON) - UI components for selecting dates,
+  times, and ranges
 - [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
   tree navigation
 
@@ -83,6 +85,7 @@ Extend functionality with companion R packages:
 #### Installation
 
 ``` r
+#remotes::install_github("lgnbhl/reactRouter") # dev version
 install.packages("muiMaterial")
 ```
 
