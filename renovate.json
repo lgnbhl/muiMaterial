@@ -3,7 +3,7 @@
   "extends": [
     "config:recommended",
     "group:allNonMajor",
-    "schedule:monthly"
+    "schedule:earlyMondays"
   ],
   "rangeStrategy": "replace",
   "packageRules": [
