@@ -12,8 +12,8 @@ Maintainer: Felix Luginbuhl <felix.luginbuhl@protonmail.ch>
 Description:
   A set of user interface components for building 'shiny' applications and 
   'quarto' documents, including inputs, layouts, navigation, surfaces, and various
-  utilities. All components 'Material UI' from the company 'MUI' are available and 
-  all inputs have usage examples in R.
+  utilities. All components 'Material UI' from the company 'MUI' <https://mui.com/>
+  are available and all inputs have usage examples in R.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true

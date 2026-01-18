@@ -13,6 +13,7 @@ component <- function(name, module = "@mui/material") {
 #'
 #' @export
 #' @param ... args to pass to element
+#' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 #' @description
 #' Visit the documentation at https://mui.com/api/Theme-Provider/ for more information.
 ThemeProvider <- component("ThemeProvider", module = "@/muiMaterial")

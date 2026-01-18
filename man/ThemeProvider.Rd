@@ -9,6 +9,9 @@ ThemeProvider(...)
 \arguments{
 \item{...}{args to pass to element}
 }
+\value{
+Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
+}
 \description{
 Visit the documentation at https://mui.com/api/Theme-Provider/ for more information.
 }
