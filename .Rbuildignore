@@ -11,3 +11,4 @@
 ^inst/helpers$
 ^data-raw$
 ^vignettes$
+^renovate.json
