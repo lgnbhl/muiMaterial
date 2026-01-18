@@ -146,7 +146,9 @@ with [reactRouter](https://felixluginbuhl.com/reactRouter/).
 Customize any component using the `sx` argument for inline CSS-in-JS
 styling. It’s more powerful and maintainable than traditional CSS.
 
-**Read the full documentation with examples
+## Full documentation
+
+**All the docs with examples are
 [here](https://felixluginbuhl.com/muiMaterial/).**
 
 ## Contributing

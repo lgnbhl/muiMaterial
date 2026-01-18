@@ -127,7 +127,9 @@ For more advanced use cases, it is preferabe to use client-side routing with [re
 
 Customize any component using the `sx` argument for inline CSS-in-JS styling. It's more powerful and maintainable than traditional CSS.
 
-**Read the full documentation with examples [here](https://felixluginbuhl.com/muiMaterial/).**
+## Full documentation
+
+**All the docs with examples are [here](https://felixluginbuhl.com/muiMaterial/).**
 
 ## Contributing
 
