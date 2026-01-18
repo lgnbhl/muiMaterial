@@ -8,11 +8,11 @@
   "rangeStrategy": "replace",
   "packageRules": [
     {
-      "matchPackageNames": ["react", "react-dom"],
+      "matchPackageNames": ["react", "react-dom", "react-is"],
       "allowedVersions": "<19.0.0"
     },
     {
-      "matchPackageNames": ["react", "react-dom"],
+      "matchPackageNames": ["react", "react-dom", "react-is"],
       "matchDepTypes": ["peerDependencies"],
       "allowedVersions": "^18.0.0"
     }
