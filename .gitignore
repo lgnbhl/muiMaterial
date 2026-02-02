@@ -12,3 +12,4 @@ dev
 data-raw
 inst/doc
 /.quarto/
+pkgdown
