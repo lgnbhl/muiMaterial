@@ -39,8 +39,8 @@ muiMaterial::muiMaterialExample("dashboard-simple")
 ```
 
 Or have a look at the R replica of the official MUI dashboard template
-live
-[here](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/):
+(live
+[here](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/)):
 
 ``` r
 muiMaterial::muiMaterialExample("mui-template-dashboard")

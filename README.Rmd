@@ -37,7 +37,7 @@ For example, launch a basic dashboard (live [here](https://lgnbhl-muimaterial-si
 muiMaterial::muiMaterialExample("dashboard-simple")
 ```
 
-Or have a look at the R replica of the official MUI dashboard template live [here](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/):
+Or have a look at the R replica of the official MUI dashboard template (live [here](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/)):
 
 ```r
 muiMaterial::muiMaterialExample("mui-template-dashboard")
