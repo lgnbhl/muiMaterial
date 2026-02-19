@@ -527,31 +527,34 @@ TextField <- component('TextField')
  
 #' @rdname Timeline
 #' @export
-Timeline <- component('Timeline')
+Timeline <- component('Timeline', module = '@mui/lab')
  
 #' @rdname TimelineConnector
 #' @export
-TimelineConnector <- component('TimelineConnector')
+TimelineConnector <- component('TimelineConnector', module = '@mui/lab')
  
 #' @rdname TimelineContent
 #' @export
-TimelineContent <- component('TimelineContent')
+TimelineContent <- component('TimelineContent', module = '@mui/lab')
  
 #' @rdname TimelineDot
 #' @export
-TimelineDot <- component('TimelineDot')
+TimelineDot <- component('TimelineDot', module = '@mui/lab')
  
 #' @rdname TimelineItem
 #' @export
-TimelineItem <- component('TimelineItem')
+TimelineItem <- component('TimelineItem', module = '@mui/lab')
  
 #' @rdname TimelineOppositeContent
 #' @export
-TimelineOppositeContent <- component('TimelineOppositeContent')
+TimelineOppositeContent <- component(
+  'TimelineOppositeContent',
+  module = '@mui/lab'
+)
  
 #' @rdname TimelineSeparator
 #' @export
-TimelineSeparator <- component('TimelineSeparator')
+TimelineSeparator <- component('TimelineSeparator', module = '@mui/lab')
  
 #' @rdname ToggleButton
 #' @export
