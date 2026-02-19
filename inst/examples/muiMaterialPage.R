@@ -1,18 +1,21 @@
 # Add Material Symbols (icons) and Roboto font from Google Font API
-library(htmltools)
 library(shiny)
 
 ui_muiMaterialPage <- muiMaterialPage(
-  addFontRoboto = TRUE,
-  materialSymbols = c("home", "search"), # list relevant icons for your app
+  useFontRoboto = TRUE,
+  useMaterialIconsFilled = TRUE,
+  useMaterialIconsOutlined = TRUE,
   Box(
-    sx = list(m = 2),
-    Typography("Roboto font from Google Font API"),
-    Badge(
-      sx = list(mt = 2),
-      badgeContent = 4, 
-      color = "primary",
-      htmltools::span(class = "material-symbols-outlined", "home") # or "search"
+    sx = list(m = 1),
+    Typography("Roboto font and Google icons from Google Font API"),
+    Icon(
+      sx = list(m = 1),
+      "home"
+    ),
+    Icon(
+      sx = list(m = 1),
+      "home",
+      baseClassName = "material-icons-outlined"
     )
   )
 )

@@ -6,20 +6,32 @@
 \usage{
 muiMaterialPage(
   ...,
-  materialSymbols = FALSE,
-  addFontRoboto = FALSE,
+  useFontRoboto = FALSE,
+  useMaterialIconsFilled = FALSE,
+  useMaterialIconsOutlined = FALSE,
+  useMaterialIconsRounded = FALSE,
+  useMaterialIconsTwoTones = FALSE,
   suppressBootstrap = TRUE,
+  styleBody = "margin:0",
   debugReact = FALSE
 )
 }
 \arguments{
 \item{...}{The contents of the document body.}
 
-\item{materialSymbols}{List of Material Symbols to add with Google Font API, ex: c("home", "settings").}
+\item{useFontRoboto}{Use Google Roboto font CDN in head, FALSE by default.}
 
-\item{addFontRoboto}{Whether to add Roboto font with Google Font API.}
+\item{useMaterialIconsFilled}{Use Google icons CDN in head to use `Icon()` component, FALSE by default.}
+
+\item{useMaterialIconsOutlined}{Use Google icons CDN in head to use `Icon()` component, FALSE by default.}
+
+\item{useMaterialIconsRounded}{Use Google icons CDN in head to use `Icon()` component, FALSE by default.}
+
+\item{useMaterialIconsTwoTones}{Use Google icons CDN in head to use `Icon()` component, FALSE by default.}
 
 \item{suppressBootstrap}{Whether to suppress Bootstrap.}
+
+\item{styleBody}{CSS style in body, using `margin:0` by default.}
 
 \item{debugReact}{Whether to enable react debug mode. Default to FALSE.}
 }
@@ -27,14 +39,14 @@ muiMaterialPage(
 html object with 'margin:0' which can be passed as the UI of a Shiny app.
 }
 \description{
-Creates a Material UI page without using CssBaseline, so
-you can use regular Shiny inputs or shiny.router.
+Creates a Material UI page without Bootstrap and with 0 margin in body by default.
+You can choose to use Google Roboto font as well as Google icons fonts
+with the `Icon()` component.
 }
 \details{
 The Bootstrap library is suppressed by default, as it doesn't work well
-with Material UI in general. Some default Material UI styles are apply, i.e. the
-margin is removed for all browser and the font size.
+with Material UI in general.
 
 
-\url{https://mui.com/material-ui/react-css-baseline/}
+\url{https://fonts.google.com/icons?icon.set=Material+Icons}
 }
