@@ -18,7 +18,7 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
-`muiMaterial` brings Material UI, the popular React components library, to R and Shiny.
+`muiMaterial` brings Material UI, the world's most popular React UI framework, to R and Shiny. It is designed to be used with AI coding assistants like [Claude Code](https://claude.ai/code).
 
 ## Why using it?
 
@@ -28,7 +28,7 @@ Want to go beyond the standardised layout used by most Shiny dashboards?
 
 If Shiny apps look all the same, it is because most use Bootstrap. Replacing it with Material UI will take your dashboards to the next level.
 
-Developed by the company MUI, [Material UI](https://mui.com/material-ui/getting-started/) is probably the most popular React components library globally. `muiMaterial` allows access to its vast library of UI tools, so you can create fully customized dashboards and websites in R. 
+Developed by the company MUI, [Material UI](https://mui.com/material-ui/getting-started/) is probably the most popular React components library globally. `muiMaterial` allows access to its vast library of UI tools, so you can create fully customized dashboards and websites in R.
 
 For example, launch a basic dashboard (live [here](https://lgnbhl-muimaterial-simple-dashboard.share.connect.posit.cloud)):
 
@@ -42,6 +42,29 @@ Or have a look at the R replica of the official MUI dashboard template (live [he
 ```r
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
+
+#### Built for AI-assisted development
+
+Material UI (MUI) is the world's most popular React UI framework. This means AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on enormous amounts of MUI code, which make they are so good using it. All you have to do is to ask them to adapt MUI React code into R code using `muiMaterial`.
+
+**Components mirror R functions.** Each MUI component maps directly to an R function with the same name and arguments. React's `<Button variant="contained" />` becomes `Button(variant = "contained")` in R. No React knowledge is needed as the syntax will feel immediately familiar.
+
+**Styling is just an R list.** The `sx` argument accepts a named list of CSS properties. Describe what you want to an AI assistant, and it will write the `sx` list for you:
+
+```r
+# Prompt an LLM: "a Card with blue background, white text, padding and rounded corners"
+Card(
+  sx = list(
+    bgcolor = "blue",
+    color = "white",
+    borderRadius = 3,
+    p = 3
+  ),
+  Typography("Hello!", variant = "h5")
+)
+```
+
+You do not need to know React or CSS. Just describe what you want and let an AI assistant generate the code.
 
 #### Building custom components easily
 

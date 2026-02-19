@@ -1,18 +1,20 @@
 
+
 <!-- badges: start -->
 
 [![CRAN
-status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
+status](https://www.r-pkg.org/badges/version/muiMaterial.png)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
 [![](https://img.shields.io/badge/@mui/material-%5E7.3.7-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://mui.com/material-ui/getting-started/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin.png)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
-`muiMaterial` brings Material UI, the popular React components library,
-to R and Shiny.
+`muiMaterial` brings Material UI, the world’s most popular React UI
+framework, to R and Shiny. It is designed to be used with AI coding
+assistants like [Claude Code](https://claude.ai/code).
 
 ## Why using it?
 
@@ -46,6 +48,40 @@ Or have a look at the R replica of the official MUI dashboard template
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
+#### Built for AI-assisted development
+
+Material UI (MUI) is the world’s most popular React UI framework. This
+means AI tools like Claude, ChatGPT, or GitHub Copilot have been trained
+on enormous amounts of MUI code, which make they are so good using it.
+All you have to do is to ask them to adapt MUI React code into R code
+using `muiMaterial`.
+
+**Components mirror R functions.** Each MUI component maps directly to
+an R function with the same name and arguments. React’s
+`<Button variant="contained" />` becomes `Button(variant = "contained")`
+in R. No React knowledge is needed as the syntax will feel immediately
+familiar.
+
+**Styling is just an R list.** The `sx` argument accepts a named list of
+CSS properties. Describe what you want to an AI assistant, and it will
+write the `sx` list for you:
+
+``` r
+# Prompt an LLM: "a Card with blue background, white text, padding and rounded corners"
+Card(
+  sx = list(
+    bgcolor = "blue",
+    color = "white",
+    borderRadius = 3,
+    p = 3
+  ),
+  Typography("Hello!", variant = "h5")
+)
+```
+
+You do not need to know React or CSS. Just describe what you want and
+let an AI assistant generate the code.
+
 #### Building custom components easily
 
 Creating custom UI elements is simple. Here’s an example of a stat card:
@@ -75,13 +111,13 @@ based R packages such as `bslib` or `bs4Dash`.
 
 Extend functionality with companion R packages:
 
-- muiDataGrid (COMING SOON) - Professional data tables with filtering,
-  sorting, and inline editing
-- muiCharts (COMING SOON) - Beautiful, responsive charts
-- muiDateTimePickers (COMING SOON) - UI components for selecting dates,
-  times, and ranges
-- [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
-  tree navigation
+-   muiDataGrid (COMING SOON) - Professional data tables with filtering,
+    sorting, and inline editing
+-   muiCharts (COMING SOON) - Beautiful, responsive charts
+-   muiDateTimePickers (COMING SOON) - UI components for selecting
+    dates, times, and ranges
+-   [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
+    tree navigation
 
 ## Quick start
 
@@ -158,15 +194,15 @@ styling. It’s more powerful and maintainable than traditional CSS.
 ## Contributing
 
 Found a bug or have a feature request? Open an issue at
-<https://github.com/lgnbhl/muiMaterial>
+https://github.com/lgnbhl/muiMaterial
 
 ## More Information
 
-- [Package documentation](https://felixluginbuhl.com/muiMaterial/)
-- [All R
-  examples](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)
-- [Official Material UI
-  docs](https://mui.com/material-ui/getting-started/)
+-   [Package documentation](https://felixluginbuhl.com/muiMaterial/)
+-   [All R
+    examples](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)
+-   [Official Material UI
+    docs](https://mui.com/material-ui/getting-started/)
 
 Follow [Felix Luginbuhl](https://linkedin.com/in/FelixLuginbuhl) on
 LinkedIn for updates.
