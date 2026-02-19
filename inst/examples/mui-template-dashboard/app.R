@@ -6,7 +6,10 @@ library(reactRouter)
 sapply(
   list.files(
     "./modules",
-    #path = system.file("examples/mui-template-dashboard/modules", package = "muiMaterial"),
+    # path = system.file(
+    #   "examples/mui-template-dashboard/modules",
+    #   package = "muiMaterial"
+    # ),
     full.names = TRUE
   ),
   function(i) {
@@ -21,12 +24,11 @@ sapply(
 # )
 # sapply(component_files, source)
 
-
 # routing with 'reactRouter' R package
 # NavLinks.shinyInput() functions also added in 'MenuContent.R' and 'NavbarBreadcrumbs.R'
 ui <- function() {
   muiMaterialPage(
-    addFontRoboto = TRUE,
+    useFontRoboto = TRUE,
     fct_AppTheme(
       theme_dark = TRUE, # FALSE to use "light" theme, if so change all reactRouter::NavLink() text color
       reactRouter::HashRouter(
@@ -73,9 +75,16 @@ ui <- function() {
                       pb = 5,
                       mt = list(xs = 8, md = 0)
                     ),
-                    mod_Header_ui(id = "Header_2", page_name = "Analytics", page_to = "/analytics"),
+                    mod_Header_ui(
+                      id = "Header_2",
+                      page_name = "Analytics",
+                      page_to = "/analytics"
+                    ),
                     Box(
-                      sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
+                      sx = list(
+                        width = '100%',
+                        maxWidth = list(sm = '100%', md = '1700px')
+                      ),
                       Typography(
                         component = "h2",
                         variant = "h6",
@@ -87,7 +96,7 @@ ui <- function() {
                         spacing = 2,
                         columns = 12,
                         sx = list(mb = "(theme) => theme.spacing(2)"),
-                        uiOutput(outputId = "contentAnalytics")
+                        p("Content analytics")
                       )
                     )
                   )
@@ -102,9 +111,16 @@ ui <- function() {
                       pb = 5,
                       mt = list(xs = 8, md = 0)
                     ),
-                    mod_Header_ui(id = "Header_3", page_name = "Clients", page_to = "/clients"),
+                    mod_Header_ui(
+                      id = "Header_3",
+                      page_name = "Clients",
+                      page_to = "/clients"
+                    ),
                     Box(
-                      sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
+                      sx = list(
+                        width = '100%',
+                        maxWidth = list(sm = '100%', md = '1700px')
+                      ),
                       Typography(
                         component = "h2",
                         variant = "h6",
@@ -131,9 +147,16 @@ ui <- function() {
                       pb = 5,
                       mt = list(xs = 8, md = 0)
                     ),
-                    mod_Header_ui(id = "Header_4", page_name = "Tasks", page_to = "/tasks"),
+                    mod_Header_ui(
+                      id = "Header_4",
+                      page_name = "Tasks",
+                      page_to = "/tasks"
+                    ),
                     Box(
-                      sx = list(width = '100%', maxWidth = list(sm = '100%', md = '1700px')),
+                      sx = list(
+                        width = '100%',
+                        maxWidth = list(sm = '100%', md = '1700px')
+                      ),
                       Typography(
                         component = "h2",
                         variant = "h6",
@@ -162,15 +185,6 @@ ui <- function() {
 server <- function(input, output, session) {
   mod_AppNavbar_server("AppNavbar_1")
   mod_SideMenu_server("SideMenu_1")
-
-  # See shiny server rending issue discussed here: https://github.com/lgnbhl/reactRouter
-  # Reload session when user clicks on new page to refresh server output content
-  # observeEvent(c(input$reactRouterAnalytics, input$reactRouterClients, input$reactRouterTasks), {
-  #   session$reload()
-  # })
-  output$contentAnalytics <- renderUI({
-    p("Content analysis")
-  })
 }
 
 shinyApp(ui = ui, server = server)

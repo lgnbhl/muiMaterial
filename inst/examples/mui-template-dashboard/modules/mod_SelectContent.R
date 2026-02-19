@@ -62,12 +62,12 @@ mod_SelectContent_ui <- function(id, company = ""){
     MenuItem(
       value = "30",
       # ListItemAvatar(
-      #   Avatar(alt = "Sitemark Store",
-      #     shiny::icon("device")
+      #   Avatar(alt = "Sitemark Admin",
+      #     shiny::icon("screwdriver-wrench")
       #   )
       # ),
       ListItemText(
-        primary = "Sitemark-Store",
+        primary = "Sitemark-Admin",
         secondary = "Web app"
       )
     ),

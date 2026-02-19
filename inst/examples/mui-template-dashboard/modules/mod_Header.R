@@ -13,7 +13,7 @@ mod_Header_ui <- function(id, page_name = "Home", page_to = "/"){
       pt = 1.5
     ),
     spacing = 2,
-    mod_NavbarBreadcrumbs_ui(id = "NavbarBreadcrumbs_1", page_name, page_to),
+    mod_NavbarBreadcrumbs_ui(id = ns("NavbarBreadcrumbs_1"), page_name, page_to),
     Stack(
       direction = "row",
       sx = list(gap = 1),
