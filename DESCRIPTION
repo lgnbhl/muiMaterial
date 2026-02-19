@@ -1,7 +1,7 @@
 Package: muiMaterial
 Type: Package
 Title: 'Material UI' for 'shiny' Apps and 'Quarto'
-Version: 0.1.2
+Version: 0.1.3
 Authors@R: 
   c(person(given = "Felix",
            family = "Luginbuhl",
