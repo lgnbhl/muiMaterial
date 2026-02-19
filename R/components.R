@@ -1,8 +1,9 @@
 # Script generated automatically from 'inst/helpers'
 
-component <- function(name) {
-  function(...) shiny.react::reactElement(
-    module = '@mui/material',
+component <- function(name, module = '@mui/material') {
+  function(...) {
+    shiny.react::reactElement(
+      module = module,
     name = name,
     props = shiny.react::asProps(...),
     deps = muiMaterialDependency()
@@ -503,15 +504,15 @@ TableSortLabel <- component('TableSortLabel')
  
 #' @rdname TabList
 #' @export
-TabList <- component('TabList')
+TabList <- component('TabList', module = '@mui/lab')
  
 #' @rdname TabPanel
 #' @export
-TabPanel <- component('TabPanel')
+TabPanel <- component('TabPanel', module = '@mui/lab')
  
-#' @rdname Tabs
+#' @rdname TabContext
 #' @export
-Tabs <- component('Tabs')
+TabContext <- component('TabContext', module = '@mui/lab')
  
 #' @rdname TabScrollButton
 #' @export
