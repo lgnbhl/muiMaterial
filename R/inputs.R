@@ -1,5 +1,4 @@
-# Script manually produced to create Shiny inputs
-# see: https://appsilon.github.io/shiny.react/articles/shiny-react.html#creating-input-wrappers
+# Create Shiny button and input wrappers
 
 button <- function(name, module = "@/muiMaterial") {
   function(inputId, ...) {
