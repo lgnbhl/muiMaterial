@@ -7,7 +7,7 @@ Checkboxes <- div(
   Checkbox.shinyInput(inputId = "Checkboxes1", value = TRUE),
   Checkbox.shinyInput(inputId = "Checkboxes2", value = FALSE),
   Checkbox.shinyInput(inputId = "Checkboxes3", disabled = TRUE),
-  Checkbox.shinyInput(inputId = "Checkboxes4",disabled = TRUE, checked = TRUE),
+  Checkbox.shinyInput(inputId = "Checkboxes4", disabled = TRUE, checked = TRUE),
   Stack(
     spacing = 2,
     direction = "row",
@@ -17,8 +17,11 @@ Checkboxes <- div(
 # https://mui.com/material-ui/react-checkbox/#label
 CheckboxLabels <- div(
   Typography("Label", variant = "h5"),
-  Typography("You can provide a label to the Checkbox
-             thanks to the FormControlLabel component.", variant = "body1"),
+  Typography(
+    "You can provide a label to the Checkbox
+             thanks to the FormControlLabel component.",
+    variant = "body1"
+  ),
   FormGroup(
     FormControlLabel(
       control = Checkbox.shinyInput(inputId = "CheckboxLabels1"),
@@ -39,9 +42,12 @@ CheckboxLabels <- div(
 # https://mui.com/material-ui/react-checkbox/#size
 SizeCheckboxes <- div(
   Typography("Size", variant = "h5"),
-  Typography("Use the size prop or customize the font size of the svg icons
-             to change the size of the checkboxes.", variant = "body1"),
-  Checkbox(defaultChecked = TRUE, size="small"),
+  Typography(
+    "Use the size prop or customize the font size of the svg icons
+             to change the size of the checkboxes.",
+    variant = "body1"
+  ),
+  Checkbox(defaultChecked = TRUE, size = "small"),
   Checkbox(defaultChecked = TRUE),
   Checkbox(sx = list('& .MuiSvgIcon-root' = list(fontSize = 28)))
 )
@@ -49,13 +55,29 @@ SizeCheckboxes <- div(
 ColorCheckboxes <- div(
   Typography("Color", variant = "h5"),
   Checkbox.shinyInput(inputId = "ColorCheckboxes1", value = TRUE),
-  Checkbox.shinyInput(inputId = "ColorCheckboxes2", value = TRUE, color = "secondary"),
-  Checkbox.shinyInput(inputId = "ColorCheckboxes3", value = TRUE, color = "success"),
-  Checkbox.shinyInput(inputId = "ColorCheckboxes4", value = TRUE, color = "default"),
-  Checkbox.shinyInput(inputId = "ColorCheckboxes5", value = TRUE, sx = list(
-    color = "#ad1457", # equivalent to pink[800]
-    "&.Mui-checked" = list(color = "#d81b60") # equivalent to pink[600]
-  ))
+  Checkbox.shinyInput(
+    inputId = "ColorCheckboxes2",
+    value = TRUE,
+    color = "secondary"
+  ),
+  Checkbox.shinyInput(
+    inputId = "ColorCheckboxes3",
+    value = TRUE,
+    color = "success"
+  ),
+  Checkbox.shinyInput(
+    inputId = "ColorCheckboxes4",
+    value = TRUE,
+    color = "default"
+  ),
+  Checkbox.shinyInput(
+    inputId = "ColorCheckboxes5",
+    value = TRUE,
+    sx = list(
+      color = "#ad1457", # equivalent to pink[800]
+      "&.Mui-checked" = list(color = "#d81b60") # equivalent to pink[600]
+    )
+  )
 )
 # https://mui.com/material-ui/react-checkbox/#controlled
 # TODO
@@ -66,11 +88,13 @@ ColorCheckboxes <- div(
 # https://mui.com/material-ui/react-checkbox/#icon
 IconCheckboxes <- div(
   Typography("Icon", variant = "h5"),
-  Checkbox.shinyInput(inputId = "IconCheckboxes",
+  Checkbox.shinyInput(
+    inputId = "IconCheckboxes",
     icon = shiny::icon("heart", class = "fa-regular"),
     checkedIcon = shiny::icon("heart", class = "fa-solid")
   ),
-  Checkbox.shinyInput(inputId = "IconCheckboxe2",
+  Checkbox.shinyInput(
+    inputId = "IconCheckboxe2",
     icon = shiny::icon("bookmark", class = "fa-regular"),
     checkedIcon = shiny::icon("bookmark", class = "fa-solid")
   )
@@ -78,9 +102,12 @@ IconCheckboxes <- div(
 # https://mui.com/material-ui/react-checkbox/#label-placement
 FormControlLabelPosition <- div(
   Typography("Label placement", variant = "h5"),
-  FormControl(component = "fieldset",
+  FormControl(
+    component = "fieldset",
     FormLabel(component = "legend", "Label placement"),
-    FormGroup('aria-label' = "position", row = TRUE,
+    FormGroup(
+      'aria-label' = "position",
+      row = TRUE,
       FormControlLabel(
         value = "bottom",
         control = Checkbox.shinyInput(
