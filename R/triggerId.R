@@ -15,6 +15,7 @@ component <- function(name, module = "@mui/material") {
 #' Custom Drawer for mobiles using Drawer component. See 'js/src/Drawer.triggerId.jsx'.
 #'
 #' @export
+#' @param triggerId HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Drawer.
 #' @param ... args to pass to element
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 Drawer.triggerId <- component(
@@ -27,6 +28,7 @@ Drawer.triggerId <- component(
 #' Custom Menu using Menu component. See 'js/src/MuiMenuTriggerId.jsx'.
 #'
 #' @export
+#' @param triggerId HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Menu.
 #' @param ... args to pass to element
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 Menu.triggerId <- component(
@@ -39,6 +41,7 @@ Menu.triggerId <- component(
 #' Custom Drawer for mobiles using SwipeableDrawer component. See 'js/src/SwipeableDrawer.triggerId.jsx'.
 #'
 #' @export
+#' @param triggerId HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Drawer.
 #' @param ... args to pass to element
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 SwipeableDrawer.triggerId <- component(

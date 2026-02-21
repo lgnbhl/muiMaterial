@@ -7,6 +7,8 @@
 Drawer.triggerId(triggerId, ...)
 }
 \arguments{
+\item{triggerId}{HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Drawer.}
+
 \item{...}{args to pass to element}
 }
 \value{
