@@ -36,15 +36,19 @@ create_component <- function(component) {
 components_text <- purrr::map(.x = df_components$components, .f = create_component) |>
   unlist()
 
-components_text_header <- paste0("## Script generated automatically from 'inst/helpers/documentation/generate-documentation.R' ##
+components_text_header <- paste0("# Script generated automatically from 'inst/helpers'
 
 component <- function(name, module = '@mui/material') {
-  function(...) shiny.react::reactElement(
-    module = module,
-    name = name,
-    props = shiny.react::asProps(...),
-    deps = muiMaterialDependency()
-  )
+  function(...) {
+    tag <- shiny.react::reactElement(
+      module = module,
+      name = name,
+      props = shiny.react::asProps(...),
+      deps = muiMaterialDependency()
+    )
+    class(tag) <- c('muiMaterial', class(tag))
+    tag
+  }
 }
 
 ")
@@ -142,7 +146,7 @@ init_test_component <- function(el) {
   file.create(sprintf("tests/testthat/test-%s.R", el))
   usethis::use_test(sprintf("%s", el))
   test_script <- paste0('test_that("', el, '() returns shiny.tag, correct name and value", {\n',
-                        '   expect_equal(class(', el, '()), "shiny.tag")\n',
+                        '   expect_true(inherits(', el, '(), "shiny.tag"))\n',
                         '   expect_equal(environment(', el, '()[["children"]][[2]])[["data"]][["name"]], "', el, '")\n',
                         '   expect_equal(environment(', el, '("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")\n',
                         '})\n'
