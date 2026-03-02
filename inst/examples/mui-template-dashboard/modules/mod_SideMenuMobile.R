@@ -62,7 +62,7 @@ mod_SideMenuMobile_ui <- function(id){
   )
 }
 
-mod_AppNavbar_server <- function(id) {
+mod_SideMenuMobile_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
     
