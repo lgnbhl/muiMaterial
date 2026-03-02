@@ -1,6 +1,6 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/SideMenuMobile.tsx
 
-mod_SideMenuMobile_ui <- function(id){
+mod_SideMenuMobile_ui <- function(id) {
   ns <- NS(id)
   Drawer.shinyInput(
     inputId = ns("drawer"),
@@ -62,12 +62,12 @@ mod_SideMenuMobile_ui <- function(id){
   )
 }
 
-mod_AppNavbar_server <- function(id) {
+mod_SideMenuMobile_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
+
     mod_MenuContent_server("MenuContent_1")
-    
+
     toggleDrawer <- reactiveVal(FALSE)
     observeEvent(input$showDrawer, toggleDrawer(TRUE))
     observeEvent(input$hideDrawer, toggleDrawer(FALSE))

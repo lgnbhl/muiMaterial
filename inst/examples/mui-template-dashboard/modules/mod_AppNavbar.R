@@ -56,8 +56,6 @@ mod_AppNavbar_ui <- function(id) {
         Drawer.triggerId(
           triggerId = "drawer",
           anchor = "right",
-          open = FALSE,
-          onClose = triggerEvent(ns("hideDrawer")),
           sx = list(
             zIndex = "(theme) => theme.zIndex.drawer + 1,
             [`& .${drawerClasses.paper}`]: {
