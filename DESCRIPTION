@@ -19,8 +19,8 @@ Encoding: UTF-8
 LazyData: true
 Depends: R (>= 3.4)
 Imports:
-    htmltools,
     checkmate,
+    htmltools,
     shiny,
     shiny.react (>= 0.4.0)
 Suggests:
