@@ -2,12 +2,14 @@
 
 component <- function(name, module = '@mui/material') {
   function(...) {
-    shiny.react::reactElement(
+    tag <- shiny.react::reactElement(
       module = module,
       name = name,
       props = shiny.react::asProps(...),
       deps = muiMaterialDependency()
     )
+    class(tag) <- c("muiMaterial", class(tag))
+    tag
   }
 }
 

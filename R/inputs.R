@@ -3,12 +3,14 @@
 button <- function(name, module = "@/muiMaterial") {
   function(inputId, ...) {
     checkmate::assert_string(inputId)
-    shiny.react::reactElement(
+    tag <- shiny.react::reactElement(
       module = module,
       name = name,
       props = shiny.react::asProps(inputId = inputId, ...),
       deps = muiMaterialDependency()
     )
+    class(tag) <- c("muiMaterial", class(tag))
+    tag
   }
 }
 
@@ -86,12 +88,14 @@ updateToggleButton.shinyInput <- shiny.react::updateReactInput
 input <- function(name, defaultValue = NULL, module = "@/muiMaterial") {
   function(inputId, ..., value = defaultValue) {
     checkmate::assert_string(inputId)
-    shiny.react::reactElement(
+    tag <- shiny.react::reactElement(
       module = module,
       name = name,
       props = shiny.react::asProps(inputId = inputId, ..., value = value),
       deps = muiMaterialDependency()
     )
+    class(tag) <- c("muiMaterial", class(tag))
+    tag
   }
 }
 

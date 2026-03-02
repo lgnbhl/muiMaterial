@@ -24,6 +24,7 @@ Imports:
     shiny,
     shiny.react (>= 0.4.0)
 Suggests:
+    knitr,
     reactRouter,
     shiny.router,
     testthat (>= 3.0.0)

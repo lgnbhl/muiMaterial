@@ -33,7 +33,7 @@ muiMaterialPage <- function(
   styleBody = "margin:0",
   debugReact = FALSE
 ) {
-  htmltools::tags$html(
+  htmltools::browsable(htmltools::tags$html(
     htmltools::tags$head(
       htmltools::tags$meta(
         name = "viewport",
@@ -108,5 +108,5 @@ muiMaterialPage <- function(
         ...
       )
     )
-  )
+  ))
 }
