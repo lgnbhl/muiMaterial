@@ -1,0 +1,61 @@
+---
+title: "AI-Assisted Development"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{AI-Assisted Development}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup}
+library(muiMaterial)
+library(shiny)
+```
+
+# AI-Assisted Development
+
+`muiMaterial` is designed to work seamlessly with AI coding assistants like Claude Code, ChatGPT, or GitHub Copilot. Because Material UI is the world's most popular React UI framework, AI tools have been trained on enormous amounts of MUI code and are excellent at generating it.
+
+## Why AI works so well with muiMaterial
+
+**Components mirror R functions.** Each MUI component maps directly to an R function with the same name and arguments. React's `<Button variant="contained" />` becomes `Button(variant = "contained")` in R. This direct mapping means AI assistants can translate any MUI React example into working R code.
+
+**Styling is just an R list.** The `sx` argument accepts a named list of CSS properties. AI assistants write these lists fluently because the `sx` system is extensively documented across the MUI ecosystem.
+
+**No React or CSS knowledge is needed.** You describe what you want in plain language, and the AI generates the R code.
+
+## Example: generating a stat card
+
+Prompt an AI assistant with:
+
+> "Using muiMaterial, create a stat card showing 'Material UI weekly downloads' as title and '5.8M' as a large bold number."
+
+The AI could generate:
+
+```{r}
+Card(
+  sx = list(p = 3),
+  Typography("Material UI weekly downloads", variant = "h6", gutterBottom = TRUE),
+  Typography("5.8M", variant = "h3", fontWeight = "bold")
+)
+```
+
+You can then refine with follow-up prompts like *"add a blue background and white text"* or *"add an icon next to the number"*.
+
+## Helping AI learn about muiMaterial
+
+For best results, point your AI assistant to the muiMaterial documentation so it understands the R-specific API:
+
+- **Package website**: Direct the AI to [felixluginbuhl.com/muiMaterial](https://felixluginbuhl.com/muiMaterial/) for the full documentation with examples.
+- **LLM-optimized docs**: The package provides machine-readable documentation at [felixluginbuhl.com/muiMaterial/llms.txt](https://felixluginbuhl.com/muiMaterial/llms.txt) following the [llms.txt standard](https://llmstxt.org/). AI tools that support web access can fetch this directly.
+- **R help files**: Ask the AI to read function documentation with `?Card`, `?Typography`, etc. AI tools with code execution (like Claude Code) can access these directly.
+- **Runnable examples**: Each component has a working example accessible via `muiMaterial::muiMaterialExample("Card")`. Ask the AI to read the example source files in the `inst/examples/` directory.
+- **MUI documentation**: Since components mirror the React API, the [official MUI docs](https://mui.com/material-ui/getting-started/) are also a valuable reference. Ask the AI to translate any MUI React example to R.
+
+## Tips for effective prompting
+
+- **Reference MUI component names**: Use terms like "AppBar", "Card", "TextField" so the AI knows which components to use.
+- **Ask for `.shinyInput()` variants**: When you need interactivity, specify "use `Button.shinyInput()` with an inputId" so the AI generates Shiny-compatible code.
+- **Be specific about styling**: Instead of "make it look nice", say "blue background, rounded corners, 16px padding" so the AI writes the correct `sx` list.

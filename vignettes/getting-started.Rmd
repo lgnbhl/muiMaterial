@@ -1,0 +1,89 @@
+---
+title: "Getting Started"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Getting Started}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup}
+library(muiMaterial)
+library(shiny)
+```
+
+# Getting Started
+
+## Installation
+
+```r
+install.packages("muiMaterial")
+```
+
+Or install the development version:
+
+```r
+remotes::install_github("lgnbhl/muiMaterial")
+```
+
+## Your first Material UI app
+
+```{r, eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      Typography("Hello Material UI!", variant = "h4")
+    )
+  )
+)
+
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+```
+
+**Important**: Use `muiMaterialPage()` instead of `fluidPage()` and wrap your UI in `CssBaseline()` to ensure proper styling. Material UI uses its own design system and conflicts with Bootstrap.
+
+## Shiny input wrappers
+
+Material UI components become Shiny inputs with `*.shinyInput()` wrappers. For example, use `Button.shinyInput()` instead of `Button()` to capture user interactions in Shiny.
+
+Explore available Shiny inputs with the showcase app (live [here](https://lgnbhl-muimaterial-showcase.share.connect.posit.cloud/)):
+
+```r
+muiMaterial::muiMaterialExample("showcase")
+```
+
+## Server-side rendering
+
+When rendering components from the server, use `shiny::renderUI()` or `shiny.react::renderReact()` in your server function, and `shiny::uiOutput()` or `shiny.react::reactOutput()` in your UI.
+
+## Creating tabs
+
+Use `TabContext.shinyInput()`, `TabList.shinyInput()`, and `TabPanel.shinyInput()` instead of the basic `Tabs()` component (which currently doesn't work). See [full example](https://github.com/lgnbhl/muiMaterial/blob/main/inst/examples/Tabs.R).
+
+For more advanced navigation, use client-side routing with [reactRouter](https://felixluginbuhl.com/reactRouter/).
+
+## Styling with sx
+
+Customize any component using the `sx` argument for inline CSS-in-JS styling:
+
+```{r}
+Box(
+  sx = list(
+    bgcolor = "primary.main",
+    color = "white",
+    p = 3,
+    borderRadius = 2
+  ),
+  Typography("Styled with sx", variant = "h5")
+)
+```
+
+It is more powerful and maintainable than traditional CSS. See the [MUI sx documentation](https://mui.com/system/getting-started/the-sx-prop/) for all available properties.

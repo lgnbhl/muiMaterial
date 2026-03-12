@@ -1,6 +1,5 @@
 ---
 output: github_document
-always_allow_html: true
 ---
 
 ```{r message=FALSE, warning=FALSE, include=FALSE}
@@ -18,93 +17,64 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
-`muiMaterial` brings Material UI, the world's most popular React UI framework, to R and Shiny. It is designed to be used with AI coding assistants like [Claude Code](https://claude.ai/code).
+`muiMaterial` brings [Material UI](https://mui.com/material-ui/getting-started/), the world's most popular React UI framework, to R and Shiny.
 
-## Why using it?
+## Why muiMaterial?
 
-#### Give your dashboards a unique look
+### Go beyond Bootstrap
 
-Want to go beyond the standardised layout used by most Shiny dashboards?
+If Shiny apps look all the same, it is because most use Bootstrap. `muiMaterial` replaces it with Material UI's vast library of components, giving you fully customized dashboards and websites in R.
 
-If Shiny apps look all the same, it is because most use Bootstrap. Replacing it with Material UI will take your dashboards to the next level.
-
-Developed by the company MUI, [Material UI](https://mui.com/material-ui/getting-started/) is probably the most popular React components library globally. `muiMaterial` allows access to its vast library of UI tools, so you can create fully customized dashboards and websites in R.
-
-For example, launch a basic dashboard (live [here](https://lgnbhl-muimaterial-simple-dashboard.share.connect.posit.cloud)):
+Launch a basic dashboard (live [here](https://lgnbhl-muimaterial-simple-dashboard.share.connect.posit.cloud)):
 
 ```r
-# remotes::install_github("lgnbhl/muiMaterial")
 muiMaterial::muiMaterialExample("dashboard-simple")
 ```
 
-Or have a look at the R replica of the official MUI dashboard template (live [here](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/)):
+Or the R replica of the official MUI dashboard template (live [here](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/)):
 
 ```r
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-#### Built for AI-assisted development
+<img src="man/figures/mui-template-dashboard-screenshot.png" alt="MUI Dashboard template in Shiny" width="100%" />
 
-Material UI (MUI) is the world's most popular React UI framework. This means AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on enormous amounts of MUI code, which make they are so good using it. All you have to do is to ask them to adapt MUI React code into R code using `muiMaterial`.
+### Built for AI
 
-**Components mirror R functions.** Each MUI component maps directly to an R function with the same name and arguments. React's `<Button variant="contained" />` becomes `Button(variant = "contained")` in R. No React knowledge is needed as the syntax will feel immediately familiar.
+AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on enormous amounts of MUI code. Each MUI component maps directly to an R function — React's `<Button variant="contained" />` becomes `Button(variant = "contained")` in R. Just ask an AI to generate MUI code and adapt it to R. No React or CSS knowledge needed.
 
-**Styling is just an R list.** The `sx` argument accepts a named list of CSS properties. Describe what you want to an AI assistant, and it will write the `sx` list for you:
+Learn more in the [AI-Assisted Development](https://felixluginbuhl.com/muiMaterial/articles/ai-assisted-development.html) vignette.
 
-```r
-# Prompt an LLM: "a Card with blue background, white text, padding and rounded corners"
-Card(
-  sx = list(
-    bgcolor = "blue",
-    color = "white",
-    borderRadius = 3,
-    p = 3
-  ),
-  Typography("Hello!", variant = "h5")
-)
-```
+### Works with Quarto
 
-You do not need to know React or CSS. Just describe what you want and let an AI assistant generate the code.
+`muiMaterial` is not limited to Shiny — you can also use Material UI components in [Quarto](https://quarto.org/) documents for rich, interactive reports and presentations.
 
-#### Building custom components easily
+### Flexible navigation
 
-Creating custom UI elements is simple. Here's an example of a stat card:
+Unlike Bootstrap-based packages (`bslib`, `bs4Dash`) that lock you into predefined layouts, `muiMaterial` lets you structure your app however you want. Combine it with [reactRouter](https://felixluginbuhl.com/reactRouter/) to build multi-page websites with [client-side routing](https://felixluginbuhl.com/muiMaterial/articles/routing.html).
 
-```r
-Card(
-  sx = list(p = 3),
-  Typography("Material UI weekly downloads", variant = "h6", gutterBottom = TRUE),
-  Typography("5.8M", variant = "h3", fontWeight = "bold")
-)
-```
-
-Material UI's component library makes customization intuitive. Just compose components like building blocks.
-
-#### Flexible Navigation
-
-With the [reactRouter](https://felixluginbuhl.com/reactRouter/) R package, you can build a complex and multi-page websites thanks to [client-side routing](https://felixluginbuhl.com/muiMaterial/articles/routing.html).
-
-You are not blocked in standardized Shiny layouts, like in Bootstrap's based R packages such as `bslib` or `bs4Dash`.
-
-#### Rich Ecosystem
+### Rich ecosystem
 
 Extend functionality with companion R packages:
 
+- [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive tree navigation
 - muiDataGrid (COMING SOON) - Professional data tables with filtering, sorting, and inline editing
 - muiCharts (COMING SOON) - Beautiful, responsive charts
 - muiDateTimePickers (COMING SOON) - UI components for selecting dates, times, and ranges
-- [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive tree navigation
 
 ## Quick start
 
-#### Installation
+Install the stable version from CRAN:
 
 ```r
-#remotes::install_github("lgnbhl/reactRouter") # dev version
 install.packages("muiMaterial")
 ```
 
-#### Your first Material UI app
+Or install the development version from GitHub:
+
+```r
+pak::pak("lgnbhl/muiMaterial")
+```
 
 ```r
 library(shiny)
@@ -124,44 +94,23 @@ server <- function(input, output, session) {}
 shinyApp(ui, server)
 ```
 
-**Important**: Use `muiMaterialPage()` instead of `fluidPage()` and wrap your UI in `CssBaseline()` to ensure proper styling. Material UI uses its own design system and conflicts with Bootstrap.
+Use `muiMaterialPage()` instead of `fluidPage()` and wrap your UI in `CssBaseline()`. Material UI uses its own design system and conflicts with Bootstrap.
 
-#### Shiny Input Wrappers
+For Shiny inputs, server-side rendering, tabs, and styling details, see the [Getting Started](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html) vignette.
 
-Material UI components become Shiny inputs with `*.shinyInput()` wrappers. For example, use `Button.shinyInput()` instead of `Button()` to capture user interactions in Shiny.
-
-Explore available Shiny inputs with app live [here](https://lgnbhl-muimaterial-showcase.share.connect.posit.cloud/):
-
-```r
-muiMaterial::muiMaterialExample("showcase")
-```
-
-#### Server side Shiny rendering
-
-When rendering components from the server, use `shiny::renderUI()` or `shiny.react::renderReact()` in your server function, and `shiny::uiOutput()` or `shiny.react::reactOutput()` in your UI.
-
-#### Creating tabs
-
-Use `TabContext.shinyInput()`, `TabList.shinyInput()`, and `TabPanel.shinyInput()` instead of the basic `Tabs()` component (which currently doesn't work). [See full example](https://github.com/lgnbhl/muiMaterial/blob/main/inst/examples/Tabs.R).
-
-For more advanced use cases, it is preferabe to use client-side routing with [reactRouter](https://felixluginbuhl.com/reactRouter/).
-
-#### Styling with sx
-
-Customize any component using the `sx` argument for inline CSS-in-JS styling. It's more powerful and maintainable than traditional CSS.
-
-## Full documentation
-
-**All the docs with examples are [here](https://felixluginbuhl.com/muiMaterial/).**
-
-## Contributing
-
-Found a bug or have a feature request? Open an issue at https://github.com/lgnbhl/muiMaterial
-
-## More Information
+## Resources
 
 - [Package documentation](https://felixluginbuhl.com/muiMaterial/)
+- [Getting Started vignette](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html)
 - [All R examples](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)
 - [Official Material UI docs](https://mui.com/material-ui/getting-started/)
 
+## Contributing
+
+Found a bug or have a feature request? [Open an issue](https://github.com/lgnbhl/muiMaterial/issues). Pull requests are welcome.
+
 Follow [Felix Luginbuhl](https://linkedin.com/in/FelixLuginbuhl) on LinkedIn for updates.
+
+## License
+
+This package is released under the [MIT License](LICENSE).
