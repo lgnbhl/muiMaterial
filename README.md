@@ -37,7 +37,7 @@ Or the R replica of the official MUI dashboard template (live
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-<img src="man/figures/mui-template-dashboard-screenshot.png" alt="MUI Dashboard template in Shiny" width="100%" />
+<a href="https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/" target="_blank"><img src="man/figures/mui-template-dashboard-screenshot.png" alt="MUI Dashboard template in Shiny" width="100%" /></a>
 
 ### Built for AI
 
