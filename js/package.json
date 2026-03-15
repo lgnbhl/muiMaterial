@@ -4,28 +4,28 @@
   "main": "index.js",
   "license": "MIT",
   "dependencies": {
-    "@emotion/react": "^11.14.0",
-    "@emotion/styled": "^11.14.1",
-    "@mui/lab": "^7.0.1-beta.21",
-    "@mui/material": "^7.3.7",
+    "@emotion/react": "11.14.0",
+    "@emotion/styled": "11.14.1",
+    "@mui/lab": "7.0.1-beta.21",
+    "@mui/material": "7.3.7",
     "react": "18.3.1",
     "react-dom": "18.3.1"
   },
   "resolutions": {
-    "react-is": "^18.3.1"
+    "react-is": "18.3.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.28.5",
-    "@babel/preset-env": "^7.28.5",
-    "@babel/preset-react": "^7.28.5",
-    "@babel/preset-typescript": "^7.28.5",
-    "@babel/register": "^7.28.3",
-    "@babel/eslint-parser": "^7.11.0",
+    "@babel/core": "7.28.5",
+    "@babel/preset-env": "7.28.5",
+    "@babel/preset-react": "7.28.5",
+    "@babel/preset-typescript": "7.28.5",
+    "@babel/register": "7.28.3",
+    "@babel/eslint-parser": "7.11.0",
     "babel-loader": "10.1.1",
-    "css-loader": "^7.1.2",
+    "css-loader": "7.1.2",
     "eslint": "10.0.3",
-    "style-loader": "^4.0.0",
-    "webpack": "^5.104.1",
-    "webpack-cli": "^6.0.1"
+    "style-loader": "4.0.0",
+    "webpack": "5.104.1",
+    "webpack-cli": "6.0.1"
   }
 }

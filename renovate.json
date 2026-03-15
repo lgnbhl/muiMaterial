@@ -5,7 +5,7 @@
     "group:allNonMajor",
     "schedule:earlyMondays"
   ],
-  "rangeStrategy": "replace",
+  "rangeStrategy": "pin",
   "packageRules": [
     {
       "matchPackageNames": ["react", "react-dom", "react-is"],
@@ -17,7 +17,7 @@
       "allowedVersions": "^18.0.0"
     },
     {
-      "matchPackageNames": ["@mui/**"],
+      "matchPackageNames": ["@mui/**", "@emotion/**"],
       "groupName": "MUI packages"
     }
   ]
