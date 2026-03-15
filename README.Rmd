@@ -37,8 +37,6 @@ Or the R replica of the official MUI dashboard template (live [here](https://lgn
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-<a href="https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/" target="_blank"><img src="man/figures/mui-template-dashboard-screenshot.png" alt="MUI Dashboard template in Shiny" width="100%" /></a>
-
 ### Built for AI
 
 AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on enormous amounts of MUI code. Each MUI component maps directly to an R function — React's `<Button variant="contained" />` becomes `Button(variant = "contained")` in R. Just ask an AI to generate MUI code and adapt it to R. No React or CSS knowledge needed.

@@ -34,8 +34,6 @@ Or the R replica of the official MUI dashboard template (live
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-`<a href="https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/" target="_blank"><img src="man/figures/mui-template-dashboard-screenshot.png" alt="MUI Dashboard template in Shiny" width="100%" /></a>`{=html}``{=html}``{=html}
-
 ### Built for AI
 
 AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on
