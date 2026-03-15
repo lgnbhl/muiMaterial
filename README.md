@@ -38,7 +38,7 @@ muiMaterial::muiMaterialExample("mui-template-dashboard")
 
 AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on
 enormous amounts of MUI code. Each MUI component maps directly to an R
-function --- React's `<Button variant="contained" />` becomes
+function: React's `<Button variant="contained" />` becomes
 `Button(variant = "contained")` in R. Just ask an AI to generate MUI
 code and adapt it to R. No React or CSS knowledge needed.
 
@@ -48,7 +48,7 @@ vignette.
 
 ### Works with Quarto
 
-`muiMaterial` is not limited to Shiny --- you can also use Material UI
+`muiMaterial` is not limited to Shiny. You can also use Material UI
 components in [Quarto](https://quarto.org/) documents for rich,
 interactive reports and presentations.
 
