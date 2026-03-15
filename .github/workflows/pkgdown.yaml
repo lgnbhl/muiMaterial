@@ -45,7 +45,7 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
           clean: true
-          branch: gh-pages
+          branch: main
           folder: docs
           repository-name: lgnbhl/lgnbhl.github.io
           target-folder: muiMaterial
