@@ -5,9 +5,9 @@ status](https://www.r-pkg.org/badges/version/muiMaterial.png)](https://CRAN.R-pr
 [![](https://img.shields.io/badge/@mui/material-7.3.9-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin.png)](https://www.linkedin.com/in/FelixLuginbuhl)
-`<!-- badges: end -->`{=html}
+`<!-- badges: end -->`
 
-# muiMaterial `<img src="man/figures/logo.png" align="right" height="138" />`{=html}
+# muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
 `muiMaterial` brings [Material
 UI](https://mui.com/material-ui/getting-started/), the world's most
