@@ -15,6 +15,10 @@
       "matchPackageNames": ["react", "react-dom", "react-is"],
       "matchDepTypes": ["peerDependencies"],
       "allowedVersions": "^18.0.0"
+    },
+    {
+      "matchPackageNames": ["@mui/**"],
+      "groupName": "MUI packages"
     }
   ]
 }
