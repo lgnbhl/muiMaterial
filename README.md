@@ -1,18 +1,16 @@
-
 <!-- badges: start -->
-
 [![CRAN
-status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
+status](https://www.r-pkg.org/badges/version/muiMaterial.png)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
-[![](https://img.shields.io/badge/@mui/material-%5E7.3.7-blue.svg)](https://mui.com/material-ui/getting-started/)
+[![](https://img.shields.io/badge/@mui/material-7.3.9-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://mui.com/material-ui/getting-started/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
-<!-- badges: end -->
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin.png)](https://www.linkedin.com/in/FelixLuginbuhl)
+`<!-- badges: end -->`{=html}
 
-# muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
+# muiMaterial `<img src="man/figures/logo.png" align="right" height="138" />`{=html}
 
 `muiMaterial` brings [Material
-UI](https://mui.com/material-ui/getting-started/), the world’s most
+UI](https://mui.com/material-ui/getting-started/), the world's most
 popular React UI framework, to R and Shiny.
 
 ## Why muiMaterial?
@@ -20,7 +18,7 @@ popular React UI framework, to R and Shiny.
 ### Go beyond Bootstrap
 
 If Shiny apps look all the same, it is because most use Bootstrap.
-`muiMaterial` replaces it with Material UI’s vast library of components,
+`muiMaterial` replaces it with Material UI's vast library of components,
 giving you fully customized dashboards and websites in R.
 
 Launch a basic dashboard (live
@@ -37,13 +35,13 @@ Or the R replica of the official MUI dashboard template (live
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-<a href="https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/" target="_blank"><img src="man/figures/mui-template-dashboard-screenshot.png" alt="MUI Dashboard template in Shiny" width="100%" /></a>
+`<a href="https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/" target="_blank"><img src="man/figures/mui-template-dashboard-screenshot.png" alt="MUI Dashboard template in Shiny" width="100%" /></a>`{=html}``{=html}``{=html}
 
 ### Built for AI
 
 AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on
 enormous amounts of MUI code. Each MUI component maps directly to an R
-function — React’s `<Button variant="contained" />` becomes
+function --- React's `<Button variant="contained" />` becomes
 `Button(variant = "contained")` in R. Just ask an AI to generate MUI
 code and adapt it to R. No React or CSS knowledge needed.
 
@@ -53,7 +51,7 @@ vignette.
 
 ### Works with Quarto
 
-`muiMaterial` is not limited to Shiny — you can also use Material UI
+`muiMaterial` is not limited to Shiny --- you can also use Material UI
 components in [Quarto](https://quarto.org/) documents for rich,
 interactive reports and presentations.
 
@@ -70,13 +68,13 @@ routing](https://felixluginbuhl.com/muiMaterial/articles/routing.html).
 
 Extend functionality with companion R packages:
 
-- [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
-  tree navigation
-- muiDataGrid (COMING SOON) - Professional data tables with filtering,
-  sorting, and inline editing
-- muiCharts (COMING SOON) - Beautiful, responsive charts
-- muiDateTimePickers (COMING SOON) - UI components for selecting dates,
-  times, and ranges
+-   [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
+    tree navigation
+-   muiDataGrid (COMING SOON) - Professional data tables with filtering,
+    sorting, and inline editing
+-   muiCharts (COMING SOON) - Beautiful, responsive charts
+-   muiDateTimePickers (COMING SOON) - UI components for selecting
+    dates, times, and ranges
 
 ## Quick start
 
@@ -119,15 +117,21 @@ the [Getting
 Started](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html)
 vignette.
 
+Run the showcase to see some Shiny inputs in action:
+
+``` r
+muiMaterial::muiMaterialExample("showcase")
+```
+
 ## Resources
 
-- [Package documentation](https://felixluginbuhl.com/muiMaterial/)
-- [Getting Started
-  vignette](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html)
-- [All R
-  examples](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)
-- [Official Material UI
-  docs](https://mui.com/material-ui/getting-started/)
+-   [Package documentation](https://felixluginbuhl.com/muiMaterial/)
+-   [Getting Started
+    vignette](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html)
+-   [All R
+    examples](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)
+-   [Official Material UI
+    docs](https://mui.com/material-ui/getting-started/)
 
 ## Contributing
 

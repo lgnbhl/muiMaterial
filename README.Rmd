@@ -98,6 +98,12 @@ Use `muiMaterialPage()` instead of `fluidPage()` and wrap your UI in `CssBaselin
 
 For Shiny inputs, server-side rendering, tabs, and styling details, see the [Getting Started](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html) vignette.
 
+Run the showcase to see some Shiny inputs in action:
+
+```r
+muiMaterial::muiMaterialExample("showcase")
+```
+
 ## Resources
 
 - [Package documentation](https://felixluginbuhl.com/muiMaterial/)
