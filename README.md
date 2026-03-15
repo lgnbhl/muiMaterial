@@ -1,11 +1,10 @@
 <!-- badges: start -->
-[![CRAN
-status](https://www.r-pkg.org/badges/version/muiMaterial.png)](https://CRAN.R-project.org/package=muiMaterial)
+[![CRAN status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
 [![](https://img.shields.io/badge/@mui/material-7.3.9-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin.png)](https://www.linkedin.com/in/FelixLuginbuhl)
-`<!-- badges: end -->`
+<!-- badges: end -->
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
