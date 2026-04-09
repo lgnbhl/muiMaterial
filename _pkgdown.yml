@@ -60,6 +60,8 @@ navbar:
     menu:
     - text: Basic dashboarding
       href: articles/dashboard-basic.html
+    - text: CSS conflicts with Bootstrap
+      href: articles/bootstrap.html
     - text: Using a router
       href: articles/routing.html
   - text: News

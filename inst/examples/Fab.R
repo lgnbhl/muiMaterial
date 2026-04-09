@@ -35,9 +35,7 @@ ui_Fab <- muiMaterialPage(
   )
 )
 
-server_Fab <- function(input, output, session) {
-
-}
+server_Fab <- function(input, output, session) {}
 
 if (interactive()) {
   shinyApp(ui = ui_Fab, server = server_Fab)

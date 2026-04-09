@@ -17,7 +17,7 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
-`muiMaterial` brings [Material UI](https://mui.com/material-ui/getting-started/), the world's most popular React UI framework, to R and Shiny.
+`muiMaterial` brings MUI [Material UI](https://mui.com/material-ui/getting-started/), the world's most popular React UI framework, to R and Shiny.
 
 ## Why muiMaterial?
 

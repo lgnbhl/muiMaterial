@@ -48,7 +48,7 @@ server <- function(input, output, session) {}
 shinyApp(ui, server)
 ```
 
-**Important**: Use `muiMaterialPage()` instead of `fluidPage()` and wrap your UI in `CssBaseline()` to ensure proper styling. Material UI uses its own design system and conflicts with Bootstrap.
+**Important**: Use `muiMaterialPage()` instead of `fluidPage()` and wrap your UI in `CssBaseline()` to ensure proper styling. Material UI uses its own design system and can conflict with Bootstrap (see [Bootstrap conflict] below).
 
 ## Shiny input wrappers
 
@@ -66,7 +66,7 @@ When rendering components from the server, use `shiny::renderUI()` or `shiny.rea
 
 ## Creating tabs
 
-Use `TabContext.shinyInput()`, `TabList.shinyInput()`, and `TabPanel.shinyInput()` instead of the basic `Tabs()` component (which currently doesn't work). See [full example](https://github.com/lgnbhl/muiMaterial/blob/main/inst/examples/Tabs.R).
+Use `TabContext.shinyInput()`, `TabList.shinyInput()`, and `TabPanel.shinyInput()` to create tabs with server-side reactivity, or `TabContext.static()`, `TabList.static()`, and `TabPanel.static()` for purely client-side tab switching. See [full example](https://github.com/lgnbhl/muiMaterial/blob/main/inst/examples/Tabs.R).
 
 For more advanced navigation, use client-side routing with [reactRouter](https://felixluginbuhl.com/reactRouter/).
 
@@ -87,3 +87,19 @@ Box(
 ```
 
 It is more powerful and maintainable than traditional CSS. See the [MUI sx documentation](https://mui.com/system/getting-started/the-sx-prop/) for all available properties.
+
+## Naming conventions
+
+Function names in `muiMaterial` mirror the original [MUI component names](https://mui.com/material-ui/all-components/) as closely as possible (e.g. `Button()`, `Typography()`, `Drawer()`). Suffixes are used to distinguish variants that add R/Shiny-specific behavior:
+
+- **`.shinyInput`** — Wraps a component as a Shiny input, so its value is available server-side via `input$inputId`. Use these when you need to read or react to user interactions in R. This convention is borrowed from the [shiny.fluent](https://appsilon.github.io/shiny.fluent/) package. Examples: `Button.shinyInput()`, `Slider.shinyInput()`, `Autocomplete.shinyInput()`.
+
+- **`.triggerId`** — Wraps a component that binds to an external DOM element by its HTML `id`. The referenced element acts as a trigger (e.g. a button click opens a drawer or menu), with open/close state managed entirely on the client side. Examples: `Drawer.triggerId()`, `Menu.triggerId()`.
+
+- **`.static`** — Wraps a component whose state is managed entirely on the client side (in React), with no round-trip to the Shiny server. Useful when server-side reactivity is not needed, for example tab switching that only shows/hides content. Examples: `TabContext.static()`, `TabList.static()`, `TabPanel.static()`.
+
+Both `.triggerId` and `.static` variants keep state in the browser and never communicate with the Shiny server. The difference is that `.triggerId` components require a reference to an external trigger element, while `.static` components are self-contained.
+
+## CSS conflicts with Bootstrap
+
+`muiMaterialPage()` suppresses Bootstrap by default, giving MUI components a clean CSS environment. If you need to mix MUI with Bootstrap-dependent packages (e.g. `shiny`, `bslib`, `DT`, `plotly`), see the [CSS conflicts with Bootstrap](bootstrap.html) vignette for details and workarounds.

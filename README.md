@@ -8,7 +8,7 @@
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
-`muiMaterial` brings [Material
+`muiMaterial` brings MUI [Material
 UI](https://mui.com/material-ui/getting-started/), the world's most
 popular React UI framework, to R and Shiny.
 

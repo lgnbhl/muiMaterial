@@ -63,7 +63,12 @@ settings_page <- function() {
 create_drawer_content <- function() {
   Box(
     Toolbar(
-      Typography("muiMaterial App", variant = "h6", noWrap = TRUE, component = "div")
+      Typography(
+        "muiMaterial App",
+        variant = "h6",
+        noWrap = TRUE,
+        component = "div"
+      )
     ),
     List(
       lapply(menu_items, function(item) {
@@ -100,7 +105,7 @@ ui <- function() {
       HashRouter(
         Box(
           sx = list(display = "flex"),
-          
+
           # AppBar
           AppBar(
             position = "fixed",
@@ -116,10 +121,15 @@ ui <- function() {
                 sx = list(mr = 2, display = list(sm = "none")),
                 shiny::icon("bars")
               ),
-              Typography("Dashboard", variant = "h6", noWrap = TRUE, component = "div")
+              Typography(
+                "Dashboard",
+                variant = "h6",
+                noWrap = TRUE,
+                component = "div"
+              )
             )
           ),
-          
+
           # Navigation Drawer
           Box(
             component = "nav",
@@ -156,7 +166,7 @@ ui <- function() {
               create_drawer_content()
             )
           ),
-          
+
           # Main content area
           Box(
             component = "main",
