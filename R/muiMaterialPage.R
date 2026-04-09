@@ -104,7 +104,11 @@ muiMaterialPage <- function(
       htmltools::tags$body(
         if (debugReact) shiny.react::enableReactDebugMode(),
         style = styleBody,
-        if (suppressBootstrap) htmltools::suppressDependencies("bootstrap"),
+        if (suppressBootstrap) {
+          htmltools::suppressDependencies("bootstrap")
+        } else {
+          shiny::bootstrapLib()
+        },
         ...
       )
     )
