@@ -1,27 +1,10 @@
-import React from 'react';
+import { useState } from 'react';
 import { SwipeableDrawer } from '@mui/material';
+import { useTriggerBind } from './useTriggerBind';
 
 export default function MuiSwipeableDrawerTriggerId({ triggerId, width = 280, closeOnLinkClick, children, sx, ...props }) {
-  const [open, setOpen] = React.useState(false);
-  const handleOpen = () => setOpen(true);
-
-  React.useEffect(() => {
-    let cancelled = false;
-    function bind() {
-      const el = document.getElementById(triggerId);
-      if (el) {
-        el.addEventListener('click', handleOpen);
-      } else if (!cancelled) {
-        setTimeout(bind, 50);
-      }
-    }
-    bind();
-    return () => {
-      cancelled = true;
-      const el = document.getElementById(triggerId);
-      if (el) el.removeEventListener('click', handleOpen);
-    };
-  }, [triggerId]);
+  const [open, setOpen] = useState(false);
+  useTriggerBind(triggerId, () => setOpen(true));
 
   return (
     <SwipeableDrawer

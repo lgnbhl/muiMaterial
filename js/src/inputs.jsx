@@ -31,19 +31,19 @@ export const Checkbox = InputAdapter(Material.Checkbox, (value, setValue) => ({
 }));
 
 export const FormControlLabel = InputAdapter(Material.FormControlLabel, (value, setValue) => ({
-  value: value,
+  checked: value,
   onChange: (e) => setValue(e.target.checked),
 }));
 
 export const Input = InputAdapter(Material.Input, (value, setValue) => ({
-  value: value,
+  value: value ?? '',
   onChange: (e) => setValue(e.target.value),
-}));
+}), { policy: debounce, delay: 250 });
 
 export const OutlinedInput = InputAdapter(Material.OutlinedInput, (value, setValue) => ({
-  value: value,
+  value: value ?? '',
   onChange: (e) => setValue(e.target.value),
-}));
+}), { policy: debounce, delay: 250 });
 
 export const Radio = InputAdapter(Material.Radio, (value, setValue) => ({
   checked: value,
@@ -51,22 +51,22 @@ export const Radio = InputAdapter(Material.Radio, (value, setValue) => ({
 }));
 
 export const RadioGroup = InputAdapter(Material.RadioGroup, (value, setValue) => ({
-  value: value,
+  value: value ?? '',
   onChange: (e) => setValue(e.target.value),
 }));
 
 export const Rating = InputAdapter(Material.Rating, (value, setValue) => ({
-  value: value,
+  value: value ?? null,
   onChange: (e, v) => setValue(v),
 }));
 
 export const Select = InputAdapter(Material.Select, (value, setValue) => ({
-  value: value,
-  onChange: (e, v) => setValue(e.target.value),
+  value: value ?? '',
+  onChange: (e) => setValue(e.target.value),
 }));
 
 export const Slider = InputAdapter(Material.Slider, (value, setValue) => ({
-  value: value,
+  value: value ?? 0,
   onChange: (e, v) => setValue(v),
 }), { policy: debounce, delay: 250 });
 
@@ -83,7 +83,7 @@ export const Tabs = InputAdapter(Material.Tabs, (value, setValue) => ({
 /* e.stopPropagation() fix propagation issue when used with TabContext */
 /* https://github.com/mui/material-ui/issues/4403 */
 export const TextField = InputAdapter(Material.TextField, (value, setValue) => ({
-  value: value,
+  value: value ?? '',
   onChange: (e, v) => { setValue(e.target.value) ; e.stopPropagation() },
 }), { policy: debounce, delay: 250 });
 
@@ -103,6 +103,6 @@ export const TabPanel = InputAdapter(MaterialLab.TabPanel, (value, setValue) => 
 }));
 
 export const ToggleButtonGroup = InputAdapter(Material.ToggleButtonGroup, (value, setValue) => ({
-  value: value,
+  value: value || [],
   onChange: (e, v) => setValue(v),
 }));
