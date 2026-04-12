@@ -1,18 +1,89 @@
 library(muiMaterial)
 library(reactRouter)
+library(shiny)
 
 # https://mui.com/material-ui/react-drawer/#clipped-under-the-app-bar
+drawer_width <- 200
+
+drawer_nav <- Box(
+  sx = list(overflow = "auto"),
+  List(
+    dense = TRUE,
+    reactRouter::NavLink(
+      style = list(textDecoration = "none", color = "black"),
+      to = "/",
+      'aria-label' = "Home",
+      ListItem(
+        key = 0,
+        disablePadding = TRUE,
+        sx = list(display = "block"),
+        ListItemButton(
+          ListItemIcon(shiny::icon("house")),
+          ListItemText(primary = "Home")
+        )
+      )
+    ),
+    reactRouter::NavLink(
+      style = list(textDecoration = "none", color = "black"),
+      to = "/analytics",
+      'aria-label' = "Analytics",
+      ListItem(
+        key = 1,
+        disablePadding = TRUE,
+        sx = list(display = "block"),
+        ListItemButton(
+          ListItemIcon(shiny::icon("chart-bar")),
+          ListItemText(primary = "Analytics")
+        )
+      )
+    )
+  )
+)
+
+# Page components
+home_page <- function() {
+  Box(
+    Typography("Dashboard", variant = "h4", gutterBottom = TRUE),
+    Typography(
+      "Welcome to your dashboard. This is the main overview page.",
+      variant = "body1",
+      color = "text.secondary"
+    )
+  )
+}
+
+analytics_page <- function() {
+  Box(
+    Typography("Analytics", variant = "h4", gutterBottom = TRUE),
+    Typography(
+      "View your analytics and statistics here.",
+      variant = "body1",
+      color = "text.secondary"
+    )
+  )
+}
+
 ui <- muiMaterialPage(
-  reactRouter::HashRouter(
-    Box(
-      sx = list(display = 'flex'),
-      CssBaseline(
+  CssBaseline(),
+  reactRouter::RouterProvider(
+    Route(
+      path = "/",
+      element = Box(
+        sx = list(display = "flex"),
         AppBar(
           position = "fixed",
           sx = list(
             zIndex = JS("(theme) => theme.zIndex.drawer + 1")
           ),
           Toolbar(
+            # Hamburger button — visible on mobile only
+            IconButton(
+              id = "nav-trigger",
+              color = "inherit",
+              edge = "start",
+              sx = list(mr = 2, display = list(sm = "none")),
+              shiny::icon("bars")
+            ),
             Typography(
               "Dashboard",
               variant = "h6",
@@ -21,147 +92,61 @@ ui <- muiMaterialPage(
             )
           )
         ),
-        Drawer(
-          variant = "permanent",
+        Box(
+          component = "nav",
           sx = list(
-            width = 250,
-            flexShrink = 0,
-            "[`& .MuiDrawer-paper`]" = list(
-              width = 250,
-              boxSizing = 'border-box'
-            )
+            width = list(sm = drawer_width),
+            flexShrink = list(sm = 0)
           ),
-          Toolbar(),
-          Box(
-            sx = list(overflow = 'auto'),
-            List(
-              dense = TRUE,
-              reactRouter::NavLink(
-                style = list(textDecoration = "none", color = "black"),
-                to = "/",
-                'aria-label' = "Home",
-                ListItem(
-                  key = 0,
-                  disablePadding = TRUE,
-                  sx = list(display = 'block'),
-                  ListItemButton(
-                    #selected = JS("0 === 0"),
-                    ListItemIcon(
-                      shiny::icon("house")
-                    ),
-                    ListItemText(
-                      primary = "Home"
-                    )
-                  )
-                )
-              ),
-              reactRouter::NavLink(
-                style = list(textDecoration = "none", color = "black"),
-                to = "/analytics",
-                'aria-label' = "Home",
-                ListItem(
-                  key = 0,
-                  disablePadding = TRUE,
-                  sx = list(display = 'block'),
-                  ListItemButton(
-                    #selected = JS("1 === 0"),
-                    ListItemIcon(
-                      shiny::icon("chart-bar")
-                    ),
-                    ListItemText(
-                      primary = "Analytics"
-                    )
-                  )
-                )
-              ),
-              reactRouter::NavLink(
-                style = list(textDecoration = "none", color = "black"),
-                to = "/clients",
-                'aria-label' = "Home",
-                ListItem(
-                  key = 0,
-                  disablePadding = TRUE,
-                  sx = list(display = 'block'),
-                  ListItemButton(
-                    #selected = JS("2 === 0"),
-                    ListItemIcon(
-                      shiny::icon("people-group")
-                    ),
-                    ListItemText(
-                      primary = "Clients"
-                    )
-                  )
-                )
-              ),
-              reactRouter::NavLink(
-                style = list(textDecoration = "none", color = "black"),
-                to = "/tasks",
-                'aria-label' = "Tasks",
-                ListItem(
-                  key = 0,
-                  disablePadding = TRUE,
-                  sx = list(display = 'block'),
-                  ListItemButton(
-                    #selected = JS("3 === 0"),
-                    ListItemIcon(
-                      shiny::icon("list")
-                    ),
-                    ListItemText(
-                      primary = "Tasks"
-                    )
-                  )
-                )
+          # Mobile drawer — triggered by the hamburger button, no server needed
+          Drawer.triggerId(
+            triggerId = "nav-trigger",
+            anchor = "left",
+            width = drawer_width,
+            sx = list(
+              display = list(xs = "block", sm = "none"),
+              "& .MuiDrawer-paper" = list(
+                boxSizing = "border-box",
+                width = drawer_width
               )
-            )
+            ),
+            Toolbar(),
+            drawer_nav
+          ),
+          # Permanent drawer — desktop only
+          Drawer(
+            variant = "permanent",
+            sx = list(
+              display = list(xs = "none", sm = "block"),
+              width = drawer_width,
+              flexShrink = 0,
+              "& .MuiDrawer-paper" = list(
+                width = drawer_width,
+                boxSizing = "border-box"
+              )
+            ),
+            Toolbar(),
+            drawer_nav
           )
         ),
         Box(
           component = "main",
-          sx = list(
-            flexGrow = 1
-          ),
+          sx = list(flexGrow = 1, p = 3),
           Toolbar(),
-          Routes(
-            Route(
-              path = "/",
-              element = Box(
-                sx = list(margin = 2),
-                Typography("Home", component = "h2", variant = "h6"),
-                Typography("Content home")
-              )
-            ),
-            Route(
-              path = "/analytics",
-              element = Box(
-                sx = list(margin = 2),
-                Typography("Analytics", component = "h2", variant = "h6"),
-                Typography("Content analytics")
-              )
-            ),
-            Route(
-              path = "/clients",
-              element = Box(
-                sx = list(margin = 2),
-                Typography("Clients", component = "h2", variant = "h6"),
-                Typography("Content clients")
-              )
-            ),
-            Route(
-              path = "/tasks",
-              element = Box(
-                sx = list(margin = 2),
-                Typography("Tasks", component = "h2", variant = "h6"),
-                Typography("Content tasks")
-              )
-            )
-          )
+          Outlet()
         )
-      )
+      ),
+      Route(index = TRUE, element = home_page()),
+      Route(path = "analytics", element = analytics_page())
     )
   )
 )
 
+server <- function(input, output, session) {}
+
+shinyApp(ui, server)
+
 # Save static dashboard as an HTML file
 # htmltools::save_html(ui, "dashboard-static.html")
 # See the dashboard
-htmltools::browsable(ui)
+# htmltools::browsable(ui)

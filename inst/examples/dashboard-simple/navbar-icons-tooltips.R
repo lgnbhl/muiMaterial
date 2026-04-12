@@ -3,26 +3,50 @@ library(muiMaterial)
 library(reactRouter)
 
 # Main navigation items with icons
+# https://mui.com/material-ui/material-icons/
 main_links_data <- list(
   list(icon = "home", label = "Home", path = "/"),
-  list(icon = "desktop", label = "Analytics", path = "/analytics"),
-  list(icon = "calendar", label = "Releases", path = "/releases"),
-  list(icon = "user", label = "Account", path = "/account"),
-  list(icon = "fingerprint", label = "Security", path = "/security"),
-  list(icon = "cog", label = "Settings", path = "/settings")
+  list(icon = "analytics", label = "Analytics", path = "/analytics")
 )
 
+# Page components
+home_page <- function() {
+  Box(
+    Typography("Dashboard", variant = "h4", gutterBottom = TRUE),
+    Typography(
+      "Welcome to your dashboard. This is the main overview page.",
+      variant = "body1",
+      color = "text.secondary"
+    )
+  )
+}
+
+analytics_page <- function() {
+  Box(
+    Typography("Analytics", variant = "h4", gutterBottom = TRUE),
+    Typography(
+      "View your analytics and statistics here.",
+      variant = "body1",
+      color = "text.secondary"
+    )
+  )
+}
+
 ui <- muiMaterialPage(
-  CssBaseline(
-    HashRouter(
-      Paper(
+  useFontRoboto = TRUE,
+  useMaterialIconsOutlined = TRUE,
+  CssBaseline(),
+  RouterProvider(
+    Route(
+      path = "/",
+      element = Paper(
         elevation = 3,
         sx = list(
           display = "flex",
           height = "100vh",
           backgroundColor = "background.paper"
         ),
-        
+
         # Left sidebar with icon navigation
         Box(
           sx = list(
@@ -35,7 +59,7 @@ ui <- muiMaterialPage(
             borderColor = "divider",
             backgroundColor = "background.default"
           ),
-          
+
           # Logo
           Box(
             sx = list(
@@ -53,7 +77,7 @@ ui <- muiMaterialPage(
             ),
             "MUI"
           ),
-          
+
           # Main navigation icons
           Box(
             sx = list(
@@ -69,15 +93,10 @@ ui <- muiMaterialPage(
                 NavLink(
                   to = link$path,
                   IconButton(
-                    icon(link$icon, lib = "font-awesome"),
-                    sx = list(
-                      width = 50,
-                      height = 50,
-                      borderRadius = 1,
-                      color = "text.secondary",
-                      "&:hover" = list(
-                        backgroundColor = "action.hover"
-                      )
+                    Icon(
+                      link$icon,
+                      baseClassName = "material-icons-outlined",
+                      sx = list(m = 1)
                     )
                   )
                 )
@@ -85,43 +104,25 @@ ui <- muiMaterialPage(
             })
           )
         ),
-        
-        # Right panel with routes
+
+        # Right panel renders the matched child route
         Box(
-          sx = list(
-            width = 240,
-            display = "flex",
-            flexDirection = "column",
-            p = 2
-          ),
-          Routes(
-            Route(path = "/", element = "Home"),
-            Route(path = "/analytics", element = "Analytics"),
-            Route(path = "/releases", element = "Releases"),
-            Route(path = "/account", element = "Account"),
-            Route(path = "/security", element = "Security"),
-            Route(path = "/settings", element = "Settings")
-          )
+          component = "main",
+          sx = list(flexGrow = 1, p = 3),
+          Outlet()
         )
-      )
+      ),
+      Route(index = TRUE, element = home_page()),
+      Route(path = "analytics", element = analytics_page())
     )
   )
 )
 
-server <- function(input, output, session) {
-  # # Track current URL hash
-  # current_path <- reactiveVal("/")
-  # 
-  # # Observe URL changes
-  # observeEvent(session$clientData$url_hash, {
-  #   url_hash <- session$clientData$url_hash
-  #   if (!is.null(url_hash) && url_hash != "") {
-  #     # Remove the leading # if present
-  #     #path <- sub("^#", "", url_hash)
-  #     current_path(url_hash)
-  #     cat("Current path:", url_hash, "\n")
-  #   }
-  # })
-}
+server <- function(input, output, session) {}
 
 shinyApp(ui, server)
+
+# Save static dashboard as an HTML file
+# htmltools::save_html(ui, "dashboard-static.html")
+# See the dashboard
+# htmltools::browsable(ui)
