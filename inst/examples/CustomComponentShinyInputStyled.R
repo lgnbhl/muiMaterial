@@ -3,7 +3,8 @@ library(shiny)
 library(muiMaterial)
 
 # Using styled to custom component
-CustomComponents <- tags$script(HTML("(function() {
+CustomComponents <- tags$script(HTML(
+  "(function() {
   const { InputAdapter, debounce } = jsmodule['@/shiny.react'];
   const { Slider, styled } = jsmodule['@mui/material'];
   const CustomComponents = jsmodule['CustomComponents'] ??= {};
@@ -23,7 +24,8 @@ CustomComponents <- tags$script(HTML("(function() {
   value: value,
   onChange: (e, v) => setValue(v),
 }), { policy: debounce, delay: 250 });
-})();"))
+})();"
+))
 
 SliderCustom <- function(inputId, ..., value = defaultValue) {
   shiny.react::reactElement(
@@ -34,14 +36,10 @@ SliderCustom <- function(inputId, ..., value = defaultValue) {
   )
 }
 
-library(shiny)
-
-ui_CustomComponentShinyInputStyled <- fluidPage(
-  tagList(
-    CustomComponents,
-    SliderCustom("custom", value = 2, max = 10, step = 1),
-    textOutput("value")
-  )
+ui_CustomComponentShinyInputStyled <- tagList(
+  CustomComponents,
+  SliderCustom("custom", value = 2, max = 10, step = 1),
+  textOutput("value")
 )
 
 server_CustomComponentShinyInputStyled <- function(input, output, session) {
@@ -49,5 +47,8 @@ server_CustomComponentShinyInputStyled <- function(input, output, session) {
 }
 
 if (interactive()) {
-  shinyApp(ui_CustomComponentShinyInputStyled, server_CustomComponentShinyInputStyled)
+  shinyApp(
+    ui_CustomComponentShinyInputStyled,
+    server_CustomComponentShinyInputStyled
+  )
 }
