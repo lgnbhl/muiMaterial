@@ -1,39 +1,144 @@
 library(shiny)
 library(muiMaterial)
 
-# run R code from examples to get ui objects
-example_files <- list.files(system.file("examples", package = "muiMaterial"), full.names = TRUE, pattern = ".R$")
-sapply(X = example_files, FUN = source)
+# ── Source example files into an isolated environment ────────────────────────
+example_files <- list.files(
+  system.file("examples", package = "muiMaterial"),
+  full.names = TRUE, pattern = "\\.R$"
+)
+example_env <- new.env(parent = globalenv())
+sapply(X = example_files, FUN = source, local = example_env)
 
-# Get R code of examples
-# Inspired from shiny.blueprint showcase
-# https://github.com/Appsilon/shiny.blueprint/tree/main/inst/examples/showcase
-addFileName <- function(code, filename, commentChar) {
-  paste0(commentChar, " ", filename, "\n\n", code)
-}
+# ── Discover components from ui_* objects ────────────────────────────────────
+# Any new example file that defines ui_Foo will automatically appear in the nav.
+# Add names here to exclude them from the showcase.
+exclude_components <- c("CustomComponentShinyInput", "CustomComponentShinyInputStyled")
 
+discovered <- sort(ls(pattern = "^ui_", envir = example_env))
+components <- sub("^ui_", "", discovered)
+components <- components[!components %in% exclude_components]
+
+initial_tab <- components[1]
+
+# Return source code for a given component name.
+# Tries exact filename first, then scans all example files for the definition.
 get_code_example <- function(component_name) {
-  rPath <- system.file(file.path("examples", paste0(component_name, ".R")), package = "muiMaterial")
-  if (!file.exists(rPath)) {
-    return()
+  exact <- system.file(
+    file.path("examples", paste0(component_name, ".R")),
+    package = "muiMaterial"
+  )
+  if (file.exists(exact)) return(readChar(exact, file.info(exact)$size))
+
+  pattern <- paste0("^ui_", gsub("\\.", "\\\\.", component_name), "\\s*<-")
+  for (f in example_files) {
+    txt <- tryCatch(readChar(f, file.info(f)$size), error = function(e) "")
+    if (grepl(pattern, txt, perl = TRUE)) return(txt)
   }
-  rCode <- addFileName(readChar(rPath, file.info(rPath)$size), basename(rPath), "#")
-  return(rCode)
+  ""
 }
 
-# Create examples TabPanels
-create_TabPanel <- function(component_name) {
+# ── Layout constants ─────────────────────────────────────────────────────────
+drawer_width <- 260
+
+# ── Helpers ───────────────────────────────────────────────────────────────────
+
+create_tab_list <- function(tablist_id) {
+  tab_items <- unname(lapply(components, function(name) {
+    Tab(
+      label = name,
+      value = name,
+      sx = list(
+        alignItems  = "flex-start",
+        textAlign   = "left",
+        minHeight   = 44,
+        pl          = 3,
+        textTransform = "none",
+        fontSize    = "0.875rem"
+      )
+    )
+  }))
+  do.call(TabList.shinyInput, c(
+    list(
+      inputId     = tablist_id,
+      value       = initial_tab,
+      orientation = "vertical",
+      sx = list(
+        "& .MuiTabs-indicator" = list(left = 0, right = "auto", width = 3),
+        "& .Mui-selected"      = list(fontWeight = 700)
+      )
+    ),
+    tab_items
+  ))
+}
+
+create_nav_content <- function(tablist_id) {
   Box(
-    Typography(component_name, variant = "h5", pb = 2),
+    sx = list(height = "100%", display = "flex", flexDirection = "column"),
+    Toolbar(
+      Typography(
+        "muiMaterial",
+        variant   = "h6",
+        component = "div",
+        sx        = list(fontWeight = 700, color = "primary.main")
+      )
+    ),
+    Divider(),
     Box(
-      eval(parse(text = paste0("ui_", component_name))),
-      tags$details(
-        tags$summary("Show R code"),
-        Card(
-          tags$pre(
-            tags$code(
-              class = "language-r",
-              get_code_example(component_name)
+      sx = list(overflow = "auto", flexGrow = 1, pt = 1),
+      create_tab_list(tablist_id)
+    )
+  )
+}
+
+create_panel <- function(component_name) {
+  TabPanel.shinyInput(
+    inputId = paste0("tab", component_name),
+    value   = component_name,
+    Box(
+      sx = list(pb = 5),
+      Typography(
+        component_name,
+        variant = "h4",
+        gutterBottom = TRUE,
+        sx = list(fontWeight = 700)
+      ),
+      Divider(sx = list(mb = 3)),
+      Card(
+        elevation = 0,
+        sx = list(border = 1, borderColor = "divider", borderRadius = 2, mb = 3),
+        CardContent(
+          get(paste0("ui_", component_name), envir = example_env)
+        )
+      ),
+      Accordion(
+        elevation      = 0,
+        disableGutters = TRUE,
+        sx = list(
+          border   = 1,
+          borderColor = "divider",
+          borderRadius = 2,
+          "&:before" = list(display = "none")
+        ),
+        AccordionSummary(
+          expandIcon = shiny::icon("chevron-down"),
+          Typography("Show R code", variant = "body2", color = "text.secondary")
+        ),
+        AccordionDetails(
+          sx = list(p = 0),
+          Box(
+            sx = list(
+              bgcolor     = "grey.50",
+              borderTop   = 1,
+              borderColor = "divider",
+              overflow    = "auto",
+              p           = 2
+            ),
+            tags$pre(
+              style = "margin: 0;",
+              tags$code(
+                style = "font-size: 0.75rem; font-family: monospace; white-space: pre-wrap;",
+                get_code_example(component_name)
+              )
             )
           )
         )
@@ -42,163 +147,123 @@ create_TabPanel <- function(component_name) {
   )
 }
 
-# Custom CSS for R code examples
-custom_css <- '
-code[class*="language-"],
-pre[class*="language-"] {
-  background: unset;
-  font-family: monospace;
-  font-size: 0.7rem;
-}'
-
-Sidebar <- TabContext.shinyInput(
-  inputId = "context",
-  Box(
-    bgcolor = 'background.paper',
-    display = 'flex',
-    TabList.shinyInput(
-      inputId = "tabListShowcase",
-      value = "Autocomplete",
-      orientation = "vertical",
-      Typography("Inputs", variant = "h6", m = 1),
-      Tab(label = "Autocomplete", value = "Autocomplete"),
-      Tab(label = "Button", value = "Button"),
-      Tab(label = "Card", value = "Card"),
-      Tab(label = "Checkbox", value = "Checkbox"),
-      Tab(label = "Drawer", value = "Drawer"),
-      Tab(label = "Fab", value = "Fab"),
-      Tab(label = "Menu", value = "Menu"),
-      Tab(label = "Tabs", value = "Tabs"),
-      Tab(label = "Slider", value = "Slider"),
-      Tab(label = "Stepper", value = "Stepper"),
-      Tab(label = "TextField", value = "TextField"),
-      Tab(label = "ThemeProvider", value = "ThemeProvider")
-    ),
-    TabPanel.shinyInput(inputId = "tabAutocomplete", value = "Autocomplete", create_TabPanel("Autocomplete")),
-    TabPanel.shinyInput(inputId = "tabButton", value = "Button", create_TabPanel("Button")),
-    TabPanel.shinyInput(inputId = "tabCard", value = "Card", create_TabPanel("Card")),
-    TabPanel.shinyInput(inputId = "tabCheckbox", value = "Checkbox", create_TabPanel("Checkbox")),
-    TabPanel.shinyInput(inputId = "tabDrawer", value = "Drawer", create_TabPanel("Drawer")),
-    TabPanel.shinyInput(inputId = "tabFab", value = "Fab", create_TabPanel("Fab")),
-    TabPanel.shinyInput(inputId = "tabMenu", value = "Menu", create_TabPanel("Menu")),
-    TabPanel.shinyInput(inputId = "tabTabs", value = "Tabs", create_TabPanel("Tabs")),
-    TabPanel.shinyInput(inputId = "tabSlider", value = "Slider", create_TabPanel("Slider")),
-    TabPanel.shinyInput(inputId = "tabStepper", value = "Stepper", create_TabPanel("Stepper")),
-    TabPanel.shinyInput(inputId = "tabTextField", value = "TextField", create_TabPanel("TextField")),
-    TabPanel.shinyInput(inputId = "tabThemeProvider", value = "ThemeProvider", create_TabPanel("ThemeProvider"))
-  )
-)
-
-Header <- AppBar(
-  position = "static",
-  Toolbar(
-    Typography("Dashboard", variant = "h5", component = "div", sx = list(flexGrow = 1))
-  )
-)
-
+# ── UI ────────────────────────────────────────────────────────────────────────
 ui <- muiMaterialPage(
   CssBaseline(
-    Header,
-    Sidebar
+    TabContext.shinyInput(
+      inputId = "context",
+      value   = initial_tab,
+
+      Box(
+        sx = list(display = "flex"),
+
+        # AppBar ---------------------------------------------------------------
+        AppBar(
+          position = "fixed",
+          sx = list(zIndex = 1300),
+          Toolbar(
+            IconButton(
+              id    = "mobile-nav-trigger",
+              color = "inherit",
+              edge  = "start",
+              sx    = list(mr = 2, display = list(sm = "none")),
+              shiny::icon("bars")
+            ),
+            Typography(
+              "muiMaterial",
+              variant   = "h6",
+              component = "div",
+              sx        = list(fontWeight = 700, letterSpacing = "0.3px")
+            ),
+            Typography(
+              "\u00b7 Showcase",
+              variant = "body1",
+              sx = list(ml = 1, opacity = 0.75, display = list(xs = "none", sm = "block"))
+            )
+          )
+        ),
+
+        # Sidebar nav ----------------------------------------------------------
+        Box(
+          component = "nav",
+          sx = list(width = list(sm = drawer_width), flexShrink = list(sm = 0)),
+
+          # Mobile: Drawer.triggerId (no server logic needed)
+          Drawer.triggerId(
+            triggerId = "mobile-nav-trigger",
+            anchor    = "left",
+            width     = drawer_width,
+            sx = list(
+              display = list(xs = "block", sm = "none"),
+              "& .MuiDrawer-paper" = list(boxSizing = "border-box", width = drawer_width)
+            ),
+            create_nav_content("tabListMobile")
+          ),
+
+          # Desktop: permanent drawer
+          Drawer(
+            variant = "permanent",
+            open    = TRUE,
+            sx = list(
+              display = list(xs = "none", sm = "block"),
+              "& .MuiDrawer-paper" = list(boxSizing = "border-box", width = drawer_width)
+            ),
+            create_nav_content("tabListDesktop")
+          )
+        ),
+
+        # Main content ---------------------------------------------------------
+        Box(
+          component = "main",
+          sx = list(
+            flexGrow  = 1,
+            p         = 3,
+            width     = list(sm = sprintf("calc(100%% - %dpx)", drawer_width)),
+            minHeight = "100vh",
+            bgcolor   = "background.default"
+          ),
+          Toolbar(), # spacer for fixed AppBar
+          do.call(Container, c(
+            list(maxWidth = "md"),
+            unname(lapply(components, create_panel))
+          ))
+        )
+      )
+    )
   )
 )
 
-server <- function(input, output) {
-  # Tabs for showcase app
+# ── Server ────────────────────────────────────────────────────────────────────
+server <- function(input, output, session) {
+  # Navigation sync: two TabLists (desktop + mobile) share one reactiveVal
+  selected_tab <- reactiveVal(initial_tab)
+
+  observeEvent(input$tabListDesktop, {
+    if (!is.null(input$tabListDesktop) && input$tabListDesktop != selected_tab())
+      selected_tab(input$tabListDesktop)
+  })
+
+  observeEvent(input$tabListMobile, {
+    if (!is.null(input$tabListMobile) && input$tabListMobile != selected_tab())
+      selected_tab(input$tabListMobile)
+  })
+
   observe({
-    updateTabContext.shinyInput(inputId = "context", value = input$tabListShowcase)
+    val <- selected_tab()
+    updateTabContext.shinyInput(inputId = "context",       value = val)
+    updateTabList.shinyInput(  inputId = "tabListDesktop", value = val)
+    updateTabList.shinyInput(  inputId = "tabListMobile",  value = val)
   })
-  # Autocomplete
-  output$AutocompleteValue1 <- renderText({
-    paste(input$Autocomplete1)
-  })
-  output$AutocompleteValue2 <- renderText({
-    paste(input$Autocomplete2)
-  })
-  output$AutocompleteValue3 <- renderTable({
-    as.data.frame(input$Autocomplete3)
-  })
-  # CheckBox
-  output$CheckboxesValue1 <- renderText({
-    paste(input$Checkboxes1)
-  })
-  # Drawer
-  toggleDrawer <- reactiveVal(FALSE)
-  observeEvent(input$showDrawer, toggleDrawer(TRUE))
-  observeEvent(input$hideDrawer, toggleDrawer(FALSE))
-  observeEvent(c(input$showDrawer, input$hideDrawer), {
-    updateDrawer.shinyInput(inputId = "drawer", open = toggleDrawer())
-  })
-  # Menu
-  toggleOptionsMenu <- reactiveVal(FALSE)
-  observeEvent(input$showMenuButton, toggleOptionsMenu(TRUE))
-  observeEvent(input$hideMenuButton, toggleOptionsMenu(FALSE))
-  observeEvent(c(input$showMenuButton, input$hideMenuButton), {
-    updateMenu.shinyInput(inputId = "menu", open = toggleOptionsMenu())
-  })
-  # Tabs
-  observe({
-    updateTabContext.shinyInput(inputId = "TabContextExample", value = input$tabListExample)
-  })
-  # Slider
-  output$SliderValue1 <- renderText({
-    paste(input$DiscreteSliderLabel)
-  })
-  # Stepper
-  stepIndex <- reactiveValues(value = 0)
-  
-  ## 'Next' button not disabled if value is 3
-  observe({
-    if(stepIndex$value != 3) updateButton.shinyInput(inputId = "nextStep", disabled = FALSE)
-  })
-  ## 'Next' button disabled if value is 3
-  observeEvent(input$nextStep, {
-    stepIndex$value <- stepIndex$value + 1
-    if(stepIndex$value == 3) updateButton.shinyInput(inputId = "nextStep", disabled = TRUE)
-  })
-  observeEvent(input$backStep, {
-    stepIndex$value <- stepIndex$value - 1
-    if(stepIndex$value <= 0) stepIndex$value <- 0
-  })
-  observeEvent(input$reset, {
-    stepIndex$value <- 0
-    updateButton.shinyInput(inputId = "nextStep", disabled = FALSE)
-  })
-  
-  output$basicStepper <- renderUI({
-    Stepper(
-      activeStep = stepIndex$value,
-      #alternativeLabel = TRUE,
-      #nonLinear = TRUE,
-      Step(
-        StepLabel("Step 1"),
-        StepContent("Content step 1")
-      ),
-      Step(
-        StepLabel("Step 2"),
-        StepContent("Content step 2")
-      ),
-      Step(
-        StepLabel("Step 3"),
-        StepContent("Content step 3")
-      )
-    )
-  })
-  # TextField
-  output$BasicTextFieldsValue1 <- renderText({
-    paste(input$BasicTextFields1)
-  })
-  output$BasicTextFieldsValue2 <- renderText({
-    paste(input$BasicTextFields2)
-  })
-  output$BasicTextFieldsValue3 <- renderText({
-    paste(input$BasicTextFields3)
-  })
-  output$inputWithIconValue1 <- renderText({
-    paste(input$inputWithIcon1)
-  })
-  output$inputWithIconValue2 <- renderText({
-    paste(input$inputWithIcon2)
+
+  # Delegate server logic to each example's server_* function (if it exists).
+  # Pass only the arguments the function actually declares (some omit session).
+  lapply(components, function(comp) {
+    fn_name <- paste0("server_", comp)
+    if (exists(fn_name) && is.function(get(fn_name))) {
+      fn        <- get(fn_name)
+      all_args  <- list(input = input, output = output, session = session)
+      do.call(fn, all_args[names(formals(fn))])
+    }
   })
 }
 
