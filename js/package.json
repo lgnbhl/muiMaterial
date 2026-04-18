@@ -20,6 +20,7 @@
     "@babel/preset-react": "7.28.5",
     "@babel/preset-typescript": "7.28.5",
     "babel-loader": "10.1.1",
+    "license-webpack-plugin": "4.0.2",
     "webpack": "5.106.1",
     "webpack-cli": "7.0.2"
   }

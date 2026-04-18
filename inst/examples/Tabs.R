@@ -1,6 +1,6 @@
 library(muiMaterial)
 
-TabContext.static(
+ui_Tabs <- TabContext.static(
   value = "one",
   Box(
     sx = list(borderBottom = 1, borderColor = "divider"),
@@ -14,3 +14,9 @@ TabContext.static(
   TabPanel.static(value = "two", "Content 2"),
   TabPanel.static(value = "three", "Content 3")
 )
+
+server_Tabs <- function(input, output, session) {}
+
+if (interactive()) {
+  shinyApp(ui = ui_Tabs, server = server_Tabs)
+}

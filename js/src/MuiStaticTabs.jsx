@@ -1,28 +1,32 @@
 import React from 'react';
-import * as MaterialLab from '@mui/lab';
+import Tabs from '@mui/material/Tabs';
 
-const TabChangeContext = React.createContext(null);
+const TabValueContext = React.createContext(null);
 
-export function MuiStaticTabContext({ value: initialValue, children, ...props }) {
+export function MuiStaticTabContext({ value: initialValue, children }) {
   const [value, setValue] = React.useState(initialValue);
   return (
-    <TabChangeContext.Provider value={setValue}>
-      <MaterialLab.TabContext value={value} {...props}>
-        {children}
-      </MaterialLab.TabContext>
-    </TabChangeContext.Provider>
+    <TabValueContext.Provider value={{ value, setValue }}>
+      {children}
+    </TabValueContext.Provider>
   );
 }
 
 export function MuiStaticTabList({ children, ...props }) {
-  const setValue = React.useContext(TabChangeContext);
+  const { value, setValue } = React.useContext(TabValueContext);
   return (
-    <MaterialLab.TabList onChange={(e, v) => setValue(v)} {...props}>
+    <Tabs value={value} onChange={(_e, v) => setValue(v)} {...props}>
       {children}
-    </MaterialLab.TabList>
+    </Tabs>
   );
 }
 
-export function MuiStaticTabPanel(props) {
-  return <MaterialLab.TabPanel {...props} />;
+export function MuiStaticTabPanel({ value: panelValue, children, ...props }) {
+  const { value } = React.useContext(TabValueContext);
+  const isActive = panelValue === value;
+  return (
+    <div role="tabpanel" hidden={!isActive} {...props}>
+      {isActive && children}
+    </div>
+  );
 }

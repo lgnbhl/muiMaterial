@@ -511,15 +511,15 @@ Tabs <- component('Tabs')
 
 #' @rdname TabList
 #' @export
-TabList <- component('TabList', module = '@mui/lab')
+TabList <- component('TabList')
 
 #' @rdname TabPanel
 #' @export
-TabPanel <- component('TabPanel', module = '@mui/lab')
+TabPanel <- component('TabPanel')
 
 #' @rdname TabContext
 #' @export
-TabContext <- component('TabContext', module = '@mui/lab')
+TabContext <- component('TabContext')
 
 #' @rdname TabScrollButton
 #' @export
