@@ -55,9 +55,9 @@ Unlike Bootstrap-based packages (`bslib`, `bs4Dash`) that lock you into predefin
 
 Extend functionality with companion R packages:
 
+- [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/) - Professional data tables with filtering, sorting, and inline editing
+- [muiCharts](https://felixluginbuhl.com/muiCharts/) - Beautiful, responsive charts
 - [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive tree navigation
-- muiDataGrid (COMING SOON) - Professional data tables with filtering, sorting, and inline editing
-- muiCharts (COMING SOON) - Beautiful, responsive charts
 - muiDateTimePickers (COMING SOON) - UI components for selecting dates, times, and ranges
 
 ## Quick start

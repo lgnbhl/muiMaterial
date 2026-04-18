@@ -1,15 +1,18 @@
+
 <!-- badges: start -->
-[![CRAN status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
+
+[![CRAN
+status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
-[![](https://img.shields.io/badge/@mui/material-7.3.9-blue.svg)](https://mui.com/material-ui/getting-started/)
+[![](https://img.shields.io/badge/@mui/material-9.0.0-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://mui.com/material-ui/getting-started/)
-[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin.png)](https://www.linkedin.com/in/FelixLuginbuhl)
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
 # muiMaterial <img src="man/figures/logo.png" align="right" height="138" />
 
 `muiMaterial` brings MUI [Material
-UI](https://mui.com/material-ui/getting-started/), the world's most
+UI](https://mui.com/material-ui/getting-started/), the world’s most
 popular React UI framework, to R and Shiny.
 
 ## Why muiMaterial?
@@ -17,7 +20,7 @@ popular React UI framework, to R and Shiny.
 ### Go beyond Bootstrap
 
 If Shiny apps look all the same, it is because most use Bootstrap.
-`muiMaterial` replaces it with Material UI's vast library of components,
+`muiMaterial` replaces it with Material UI’s vast library of components,
 giving you fully customized dashboards and websites in R.
 
 Launch a basic dashboard (live
@@ -38,7 +41,7 @@ muiMaterial::muiMaterialExample("mui-template-dashboard")
 
 AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on
 enormous amounts of MUI code. Each MUI component maps directly to an R
-function: React's `<Button variant="contained" />` becomes
+function: React’s `<Button variant="contained" />` becomes
 `Button(variant = "contained")` in R. Just ask an AI to generate MUI
 code and adapt it to R. No React or CSS knowledge needed.
 
@@ -65,13 +68,14 @@ routing](https://felixluginbuhl.com/muiMaterial/articles/routing.html).
 
 Extend functionality with companion R packages:
 
--   [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
-    tree navigation
--   muiDataGrid (COMING SOON) - Professional data tables with filtering,
-    sorting, and inline editing
--   muiCharts (COMING SOON) - Beautiful, responsive charts
--   muiDateTimePickers (COMING SOON) - UI components for selecting
-    dates, times, and ranges
+- [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/) - Professional
+  data tables with filtering, sorting, and inline editing
+- [muiCharts](https://felixluginbuhl.com/muiCharts/) - Beautiful,
+  responsive charts
+- [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
+  tree navigation
+- muiDateTimePickers (COMING SOON) - UI components for selecting dates,
+  times, and ranges
 
 ## Quick start
 
@@ -122,13 +126,13 @@ muiMaterial::muiMaterialExample("showcase")
 
 ## Resources
 
--   [Package documentation](https://felixluginbuhl.com/muiMaterial/)
--   [Getting Started
-    vignette](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html)
--   [All R
-    examples](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)
--   [Official Material UI
-    docs](https://mui.com/material-ui/getting-started/)
+- [Package documentation](https://felixluginbuhl.com/muiMaterial/)
+- [Getting Started
+  vignette](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html)
+- [All R
+  examples](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)
+- [Official Material UI
+  docs](https://mui.com/material-ui/getting-started/)
 
 ## Contributing
 
