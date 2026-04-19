@@ -33,13 +33,25 @@ muiMaterialPage <- function(
   styleBody = "margin:0",
   debugReact = FALSE
 ) {
+  useGoogleFonts <- any(
+    useFontRoboto,
+    useMaterialIconsFilled,
+    useMaterialIconsOutlined,
+    useMaterialIconsRounded,
+    useMaterialIconsTwoTones
+  )
+
+  googleFontHref <- function(family) {
+    paste0("https://fonts.googleapis.com/icon?family=", family)
+  }
+
   htmltools::browsable(htmltools::tags$html(
     htmltools::tags$head(
       htmltools::tags$meta(
         name = "viewport",
         content = "initial-scale=1, width=device-width"
       ),
-      if (useFontRoboto) {
+      if (useGoogleFonts) {
         htmltools::tags$link(
           rel = "preconnect",
           href = "https://fonts.googleapis.com"
@@ -52,52 +64,16 @@ muiMaterialPage <- function(
         )
       },
       if (useMaterialIconsFilled) {
-        htmltools::tags$link(
-          rel = "preconnect",
-          href = "https://fonts.googleapis.com"
-        )
-      },
-      if (useMaterialIconsFilled) {
-        htmltools::tags$link(
-          rel = "stylesheet",
-          href = "https://fonts.googleapis.com/icon?family=Material+Icons"
-        )
+        htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons"))
       },
       if (useMaterialIconsOutlined) {
-        htmltools::tags$link(
-          rel = "preconnect",
-          href = "https://fonts.googleapis.com"
-        )
-      },
-      if (useMaterialIconsOutlined) {
-        htmltools::tags$link(
-          rel = "stylesheet",
-          href = "https://fonts.googleapis.com/icon?family=Material+Icons+Outlined"
-        )
+        htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons+Outlined"))
       },
       if (useMaterialIconsRounded) {
-        htmltools::tags$link(
-          rel = "preconnect",
-          href = "https://fonts.googleapis.com"
-        )
-      },
-      if (useMaterialIconsRounded) {
-        htmltools::tags$link(
-          rel = "stylesheet",
-          href = "https://fonts.googleapis.com/icon?family=Material+Icons+Round"
-        )
+        htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons+Round"))
       },
       if (useMaterialIconsTwoTones) {
-        htmltools::tags$link(
-          rel = "preconnect",
-          href = "https://fonts.googleapis.com"
-        )
-      },
-      if (useMaterialIconsTwoTones) {
-        htmltools::tags$link(
-          rel = "stylesheet",
-          href = "https://fonts.googleapis.com/icon?family=Material+Icons+Two+Tone"
-        )
+        htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons+Two+Tone"))
       }
     ),
     htmltools::tagList(
