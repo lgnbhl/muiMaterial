@@ -32,7 +32,7 @@ SliderCustom <- function(inputId, ..., value = defaultValue) {
     module = "CustomComponents",
     name = "SliderCustom",
     props = shiny.react::asProps(inputId = inputId, ..., value = value),
-    deps = muiMaterial:::muiMaterialDependency()
+    deps = muiMaterial::muiMaterialDependency()
   )
 }
 

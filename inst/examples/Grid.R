@@ -1,6 +1,6 @@
 library(muiMaterial)
 
-muiMaterialPage(
+ui_Grid <- muiMaterialPage(
   CssBaseline(),
   Grid(
     container = TRUE,
@@ -23,3 +23,9 @@ muiMaterialPage(
     )
   )
 )
+
+server_Grid <- function(input, output, session) {}
+
+if (interactive()) {
+  shinyApp(ui = ui_Grid, server = server_Grid)
+}

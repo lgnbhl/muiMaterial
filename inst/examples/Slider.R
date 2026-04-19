@@ -8,7 +8,12 @@ DiscreteSliderLabel <- Box(
     inputId = "DiscreteSliderLabel",
     value = 80,
     step = 10,
-    marks = data.frame(value = c(0, 20, 37, 100), label = c("0°C", "20°C", "37°C", "100°C")),
+    marks = list(
+      list(value = 0, label = "0°C"),
+      list(value = 20, label = "20°C"),
+      list(value = 37, label = "37°C"),
+      list(value = 100, label = "100°C")
+    ),
     valueLabelDisplay = "on",
     'aria-label' = "Always visible"
   ),

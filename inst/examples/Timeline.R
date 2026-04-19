@@ -84,4 +84,6 @@ ui_Timeline <- muiMaterialPage(
 
 server_Timeline <- function(input, output, session) {}
 
-shinyApp(ui_Timeline, server_Timeline)
+if (interactive()) {
+  shinyApp(ui = ui_Timeline, server = server_Timeline)
+}

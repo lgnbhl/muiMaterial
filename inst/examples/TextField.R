@@ -14,13 +14,13 @@ ui_TextField <- muiMaterialPage(
         value = "Hello World",
         id = "outlined-basic",
         label = "Outlined",
-        variant="outlined"
+        variant = "outlined"
       ),
       TextField.shinyInput(
         inputId = "BasicTextFields2",
         id = "filled-basic",
         label = "Filled",
-        variant="filled"
+        variant = "filled"
       ),
       TextField.shinyInput(
         inputId = "BasicTextFields3",

@@ -2,12 +2,13 @@ library(muiMaterial)
 library(shiny)
 
 # https://mui.com/material-ui/react-switch/#label
-ui_Switch <- Box(
+ui_Switch <- muiMaterialPage(
+  CssBaseline(),
   FormControlLabel(
     control = Switch.shinyInput(
       inputId = "Switch1",
       value = TRUE
-    ), 
+    ),
     label = "Label"
   ),
   verbatimTextOutput("SwitchValue1")

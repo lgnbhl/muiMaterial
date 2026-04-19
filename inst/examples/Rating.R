@@ -24,9 +24,8 @@ HalfRating <- Stack(
 )
 
 ui_Rating <- muiMaterialPage(
-  CssBaseline(
-    HalfRating
-  )
+  CssBaseline(),
+  HalfRating
 )
 
 server_Rating <- function(input, output, session) {

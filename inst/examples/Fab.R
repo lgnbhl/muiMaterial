@@ -6,13 +6,13 @@ FloatingActionButtons <- Box(
   sx = list('& > :not(style)' = list(m = 1)),
   Fab(
     color = "primary",
-    'aria-label' = "add",
-    shiny::icon("add")
+    'aria-label' = "plus",
+    shiny::icon("plus")
   ),
   Fab(
     color = "secondary",
-    'aria-label' = "edit",
-    shiny::icon("edit")
+    'aria-label' = "pen",
+    shiny::icon("pen")
   ),
   Fab(
     variant = "extended",
