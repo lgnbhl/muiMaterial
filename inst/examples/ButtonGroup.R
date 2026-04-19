@@ -10,14 +10,25 @@ BasicButtonGroup <- ButtonGroup(
   Button.shinyInput(inputId = "BasicButtonGroup3", "Three")
 )
 
-ui_ButtonGroup <- CssBaseline(
-  Box(
-    sx = list(flexDirection = 'row', p = 1, gap = "500px"),
-    BasicButtonGroup
+ui_ButtonGroup <- muiMaterialPage(
+  CssBaseline(
+    Box(
+      sx = list(p = 2),
+      BasicButtonGroup,
+      verbatimTextOutput("clicked")
+    )
   )
 )
 
-server_ButtonGroup <- function(input, output, session) { }
+server_ButtonGroup <- function(input, output, session) {
+  output$clicked <- renderPrint({
+    list(
+      One   = input$BasicButtonGroup1,
+      Two   = input$BasicButtonGroup2,
+      Three = input$BasicButtonGroup3
+    )
+  })
+}
 
 if (interactive()) {
   shinyApp(ui = ui_ButtonGroup, server = server_ButtonGroup)
