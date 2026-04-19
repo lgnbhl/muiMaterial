@@ -18,26 +18,15 @@ ui_ToggleButtonGroup <- CssBaseline(
 )
 
 server_ToggleButtonGroup <- function(input, output, session) {
-  rv <- reactiveValues(value = 1)
-
   observeEvent(input$ToggleButton1, {
-    rv$value <- 1
+    updateToggleButtonGroup.shinyInput(inputId = "ToggleButtonGroup1", value = 1)
   })
   observeEvent(input$ToggleButton2, {
-    rv$value <- 2
+    updateToggleButtonGroup.shinyInput(inputId = "ToggleButtonGroup1", value = 2)
   })
   observeEvent(input$ToggleButton3, {
-    rv$value <- 3
+    updateToggleButtonGroup.shinyInput(inputId = "ToggleButtonGroup1", value = 3)
   })
-  observeEvent(
-    c(input$ToggleButton1, input$ToggleButton2, input$ToggleButton3),
-    {
-      updateToggleButtonGroup.shinyInput(
-        inputId = "ToggleButtonGroup1",
-        value = rv$value
-      )
-    }
-  )
 }
 
 if (interactive()) {
