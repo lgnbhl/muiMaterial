@@ -4,7 +4,8 @@ library(shiny)
 library(muiMaterial)
 
 # Using custom handler to convert input to uppercase
-CustomComponents <- tags$script(HTML("(function() {
+CustomComponents <- tags$script(HTML(
+  "(function() {
   const { InputAdapter } = jsmodule['@/shiny.react'];
   const { TextField } = jsmodule['@mui/material'];
   const CustomComponents = jsmodule['CustomComponents'] ??= {};
@@ -13,14 +14,15 @@ CustomComponents <- tags$script(HTML("(function() {
     value: value.toUpperCase(),
     onChange: (e, v) => { setValue(e.target.value.toUpperCase()) ; e.stopPropagation() },
   }));
-})();"))
+})();"
+))
 
 UpperCaseTextField <- function(inputId, ..., value = defaultValue) {
   shiny.react::reactElement(
     module = "CustomComponents",
     name = "UpperCaseTextField",
     props = shiny.react::asProps(inputId = inputId, ..., value = ""),
-    deps = muiMaterial:::muiMaterialDependency()
+    deps = muiMaterial::muiMaterialDependency()
   )
 }
 

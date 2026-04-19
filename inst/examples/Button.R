@@ -5,13 +5,15 @@ library(shiny)
 BasicButtons <- Stack(
   gap = 2,
   Typography("Basic button", variant = "h5"),
-  Typography("The Button comes with three variants: text (default), contained, and outlined."),
+  Typography(
+    "The Button comes with three variants: text (default), contained, and outlined."
+  ),
   Stack(
     spacing = 2,
     direction = "row",
-    Button.shinyInput(inputId = "BasicButtons1", variant = "text", "Text"),
-    Button.shinyInput(inputId = "BasicButtons2", variant = "contained", "Contained"),
-    Button.shinyInput(inputId = "BasicButtons3", variant = "outlined", "Outlined")
+    Button(variant = "text", "Text"),
+    Button(variant = "contained", "Contained"),
+    Button(variant = "outlined", "Outlined")
   )
 )
 
@@ -19,15 +21,17 @@ BasicButtons <- Stack(
 TextButtons <- Stack(
   gap = 2,
   Typography("Text button", variant = "h5"),
-  Typography("Text buttons are typically used for less-pronounced actions,
+  Typography(
+    "Text buttons are typically used for less-pronounced actions,
              including those located: in dialogs, in cards. In cards, text buttons
-             help maintain an emphasis on card content."),
+             help maintain an emphasis on card content."
+  ),
   Stack(
     spacing = 2,
     direction = "row",
-    Button.shinyInput(inputId = "TextButtons1", "Primary"),
-    Button.shinyInput(inputId = "TextButtons2", disabled = TRUE, "Disabled"),
-    Button.shinyInput(inputId = "TextButtons3", href = "#text-buttons", "Link")
+    Button("Primary"),
+    Button(disabled = TRUE, "Disabled"),
+    Button(href = "#text-buttons", "Link")
   )
 )
 
@@ -35,18 +39,24 @@ TextButtons <- Stack(
 ContainedButtons <- Stack(
   gap = 2,
   Typography("Contained button", variant = "h5"),
-  Typography("Contained buttons are high-emphasis, distinguished by their use of
-             elevation and fill. They contain actions that are primary to your app."),
+  Typography(
+    "Contained buttons are high-emphasis, distinguished by their use of
+             elevation and fill. They contain actions that are primary to your app."
+  ),
   Stack(
     spacing = 2,
     direction = "row",
-    Button.shinyInput(inputId = "TextButtons1", variant = "contained", "Contained"),
-    Button.shinyInput(inputId = "TextButtons2", variant = "contained", disabled = TRUE, "Disabled"),
-    Button.shinyInput(inputId = "TextButtons3", variant="contained", href = "#contained-buttons", "Link")
+    Button(variant = "contained", "Contained"),
+    Button(variant = "contained", disabled = TRUE, "Disabled"),
+    Button(variant = "contained", href = "#contained-buttons", "Link")
   ),
   Typography("You can remove the elevation with the disableElevation prop."),
   Box(
-    Button.shinyInput(inputId = "TextButtons4", variant = "contained", disableElevation = TRUE, "Disable elevation")
+    Button(
+      variant = "contained",
+      disableElevation = TRUE,
+      "Disable elevation"
+    )
   )
 )
 
@@ -54,16 +64,20 @@ ContainedButtons <- Stack(
 OutlinedButtons <- Stack(
   gap = 2,
   Typography("Outlined button", variant = "h5"),
-  Typography("Outlined buttons are medium-emphasis buttons. They contain actions
-             that are important but aren't the primary action in an app."),
-  Typography("Outlined buttons are also a lower emphasis alternative to contained
-             buttons, or a higher emphasis alternative to text buttons."),
+  Typography(
+    "Outlined buttons are medium-emphasis buttons. They contain actions
+             that are important but aren't the primary action in an app."
+  ),
+  Typography(
+    "Outlined buttons are also a lower emphasis alternative to contained
+             buttons, or a higher emphasis alternative to text buttons."
+  ),
   Stack(
     spacing = 2,
     direction = "row",
-    Button.shinyInput(inputId = "TextButtons1", variant = "outlined", "Primary"),
-    Button.shinyInput(inputId = "TextButtons2", variant = "outlined", disabled = TRUE, "Disabled"),
-    Button.shinyInput(inputId = "TextButtons3", variant="outlined", href = "#outlined-buttons", "Link")
+    Button(variant = "outlined", "Primary"),
+    Button(variant = "outlined", disabled = TRUE, "Disabled"),
+    Button(variant = "outlined", href = "#outlined-buttons", "Link")
   )
 )
 
@@ -71,7 +85,9 @@ OutlinedButtons <- Stack(
 ClicksButtons <- Stack(
   gap = 2,
   Typography("Handling clicks", variant = "h5"),
-  Typography("All components accept an onClick handler that is applied to the root DOM element."),
+  Typography(
+    "All components accept an onClick handler that is applied to the root DOM element."
+  ),
   Stack(
     spacing = 2,
     direction = "row",
@@ -86,12 +102,22 @@ ColorButtons <- Stack(
   Stack(
     spacing = 2,
     direction = "row",
-    Button.shinyInput(inputId = "ColorButtons1", color = "secondary", "Secondary"),
-    Button.shinyInput(inputId = "ColorButtons2", variant = "contained", color = "success", "Success"),
-    Button.shinyInput(inputId = "ColorButtons3", variant = "outlined", color = "error", "Error")
+    Button(color = "secondary", "Secondary"),
+    Button(
+      variant = "contained",
+      color = "success",
+      "Success"
+    ),
+    Button(
+      variant = "outlined",
+      color = "error",
+      "Error"
+    )
   ),
-  Typography("In addition to using the default button colors, you can add custom
-             ones, or disable any you don't need. See the Adding new colors examples for more info.")
+  Typography(
+    "In addition to using the default button colors, you can add custom
+             ones, or disable any you don't need. See the Adding new colors examples for more info."
+  )
 )
 
 ui_Button <- CssBaseline(
@@ -106,7 +132,7 @@ ui_Button <- CssBaseline(
   )
 )
 
-server_Button <- function(input, output, session) { }
+server_Button <- function(input, output, session) {}
 
 if (interactive()) {
   shinyApp(ui = ui_Button, server = server_Button)
