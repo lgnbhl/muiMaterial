@@ -32,6 +32,8 @@ updateTabPanel.shinyInput(
 Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \description{
+`TabPanel.static()` is an alias for `TabPanel()`, kept for backward compatibility.
+
 \url{https://mui.com/material-ui/api/tab-panel/}
 }
 \details{
