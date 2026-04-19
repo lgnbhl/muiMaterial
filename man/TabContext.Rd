@@ -10,8 +10,6 @@
 \usage{
 TabContext(...)
 
-TabContext(...)
-
 TabContext.shinyInput(inputId, ..., value = defaultValue)
 
 updateTabContext.shinyInput(
@@ -23,7 +21,7 @@ updateTabContext.shinyInput(
 TabContext.static(value, ...)
 }
 \arguments{
-\item{...}{Child elements (typically a \code{Box} wrapping \code{TabList.static} and \code{TabPanel.static} components).}
+\item{...}{Child elements (typically a \code{Box} wrapping \code{TabList.static} and \code{TabPanel} components).}
 
 \item{inputId}{ID of the component.}
 

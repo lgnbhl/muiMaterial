@@ -20,7 +20,7 @@ Tabs organize content into separate views where only one view is visible at a ti
 
 ## Basic Usage
 
-Use `TabContext.static()`, `TabList.static()`, and `TabPanel.static()` to create tabs. These are custom wrappers around [`@mui/lab`](https://mui.com/material-ui/about-the-lab/) tab components that manage tab state internally with `React.useState`, so they work everywhere -- in Shiny apps, Quarto documents, and plain R Markdown -- with no server logic required.
+Use `TabContext.static()`, `TabList.static()`, and `TabPanel()` to create tabs. These are custom wrappers around [`@mui/lab`](https://mui.com/material-ui/about-the-lab/) tab components that manage tab state internally with `React.useState`, so they work everywhere -- in Shiny apps, Quarto documents, and plain R Markdown -- with no server logic required.
 
 ```{r eval=FALSE}
 library(muiMaterial)
@@ -35,9 +35,9 @@ TabContext.static(
       Tab(label = "Item Three", value = "three")
     )
   ),
-  TabPanel.static(value = "one", "Content 1"),
-  TabPanel.static(value = "two", "Content 2"),
-  TabPanel.static(value = "three", "Content 3")
+  TabPanel(value = "one", "Content 1"),
+  TabPanel(value = "two", "Content 2"),
+  TabPanel(value = "three", "Content 3")
 )
 ```
 
