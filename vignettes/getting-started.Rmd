@@ -66,7 +66,7 @@ When rendering components from the server, use `shiny::renderUI()` or `shiny.rea
 
 ## Creating tabs
 
-Use `TabContext.shinyInput()`, `TabList.shinyInput()`, and `TabPanel.shinyInput()` to create tabs with server-side reactivity, or `TabContext.static()`, `TabList.static()`, and `TabPanel.static()` for purely client-side tab switching. See [full example](https://github.com/lgnbhl/muiMaterial/blob/main/inst/examples/Tabs.R).
+Use `TabContext.shinyInput()`, `TabList.shinyInput()`, and `TabPanel.shinyInput()` to create tabs with server-side reactivity, or `TabContext.static()`, `TabList.static()`, and `TabPanel()` for purely client-side tab switching. Read the [vignette](https://felixluginbuhl.com/muiMaterial/articles/tabs.html) or see a [minimal code example](https://github.com/lgnbhl/muiMaterial/blob/main/inst/examples/Tabs.R).
 
 For more advanced navigation, use client-side routing with [reactRouter](https://felixluginbuhl.com/reactRouter/).
 
@@ -96,7 +96,7 @@ Function names in `muiMaterial` mirror the original [MUI component names](https:
 
 - **`.triggerId`** — Wraps a component that binds to an external DOM element by its HTML `id`. The referenced element acts as a trigger (e.g. a button click opens a drawer or menu), with open/close state managed entirely on the client side. Examples: `Drawer.triggerId()`, `Menu.triggerId()`.
 
-- **`.static`** — Wraps a component whose state is managed entirely on the client side (in React), with no round-trip to the Shiny server. Useful when server-side reactivity is not needed, for example tab switching that only shows/hides content. Examples: `TabContext.static()`, `TabList.static()`, `TabPanel.static()`.
+- **`.static`** — Wraps a component whose state is managed entirely on the client side (in React), with no round-trip to the Shiny server. Useful when server-side reactivity is not needed, for example tab switching that only shows/hides content. Examples: `TabContext.static()` and `TabList.static()`.
 
 Both `.triggerId` and `.static` variants keep state in the browser and never communicate with the Shiny server. The difference is that `.triggerId` components require a reference to an external trigger element, while `.static` components are self-contained.
 
