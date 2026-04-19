@@ -10,8 +10,8 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
-`r badger::badge_custom(names(dependencies)[4], dependencies[4], "blue", "https://mui.com/material-ui/getting-started/")`
-`r badger::badge_custom(names(dependencies)[5], dependencies[5], "blue", "https://mui.com/material-ui/getting-started/")`
+`r badger::badge_custom(names(dependencies)[3], dependencies[3], "blue", "https://mui.com/material-ui/getting-started/")`
+`r badger::badge_custom(names(dependencies)[4], dependencies[4], "blue", "https://mui.com/material-ui/about-the-lab/")`
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
