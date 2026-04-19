@@ -518,6 +518,7 @@ TabList <- component('TabList', module = '@mui/lab')
 TabPanel <- component('TabPanel', module = '@mui/lab')
 
 #' @rdname TabPanel
+#' This is an alias to TabPanel().
 #' @export
 TabPanel.static <- component('TabPanel', module = '@mui/lab')
 
