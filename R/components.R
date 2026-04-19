@@ -295,7 +295,7 @@ ListSubheader <- component('ListSubheader')
 
 #' @rdname Masonry
 #' @export
-Masonry <- component('Masonry')
+Masonry <- component('Masonry', module = '@mui/lab')
 
 #' @rdname Menu
 #' @export
@@ -467,7 +467,7 @@ Tab <- component('Tab')
 
 #' @rdname TabContext
 #' @export
-TabContext <- component('TabContext')
+TabContext <- component('TabContext', module = '@mui/lab')
 
 #' @rdname Table
 #' @export
@@ -511,15 +511,15 @@ Tabs <- component('Tabs')
 
 #' @rdname TabList
 #' @export
-TabList <- component('TabList')
+TabList <- component('TabList', module = '@mui/lab')
 
 #' @rdname TabPanel
 #' @export
-TabPanel <- component('TabPanel')
+TabPanel <- component('TabPanel', module = '@mui/lab')
 
-#' @rdname TabContext
+#' @rdname TabPanel
 #' @export
-TabContext <- component('TabContext')
+TabPanel.static <- component('TabPanel', module = '@mui/lab')
 
 #' @rdname TabScrollButton
 #' @export

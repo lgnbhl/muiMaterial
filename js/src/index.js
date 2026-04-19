@@ -3,7 +3,10 @@ import ThemeProvider from './ThemeProvider';
 import MuiSwipeableDrawerTriggerId from './MuiSwipeableDrawerTriggerId';
 import MuiDrawerTriggerId from './MuiDrawerTriggerId';
 import MuiMenuTriggerId from './MuiMenuTriggerId';
-import { MuiStaticTabContext, MuiStaticTabList, MuiStaticTabPanel } from './MuiStaticTabs';
+import MuiDialogTriggerId from './MuiDialogTriggerId';
+import MuiModalTriggerId from './MuiModalTriggerId';
+import MuiPopoverTriggerId from './MuiPopoverTriggerId';
+import { MuiStaticTabContext, MuiStaticTabList } from './MuiStaticTabs';
 
 import * as MuiMaterial from '@mui/material';
 import * as MuiSystem from '@mui/system';
@@ -14,7 +17,18 @@ import * as EmotionStyled from '@emotion/styled';
 
 window.jsmodule = {
   ...window.jsmodule,
-  '@/muiMaterial': { ...Inputs, ThemeProvider, MuiSwipeableDrawerTriggerId, MuiDrawerTriggerId, MuiMenuTriggerId, MuiStaticTabContext, MuiStaticTabList, MuiStaticTabPanel },
+  '@/muiMaterial': {
+    ...Inputs,
+    ThemeProvider,
+    MuiSwipeableDrawerTriggerId,
+    MuiDrawerTriggerId,
+    MuiMenuTriggerId,
+    MuiDialogTriggerId,
+    MuiModalTriggerId,
+    MuiPopoverTriggerId,
+    MuiStaticTabContext,
+    MuiStaticTabList,
+  },
   '@mui/material': MuiMaterial,
   '@mui/system': MuiSystem,
   '@mui/utils': MuiUtils,

@@ -1,32 +1,34 @@
 import React from 'react';
-import Tabs from '@mui/material/Tabs';
+import { TabContext, TabList } from '@mui/lab';
 
-const TabValueContext = React.createContext(null);
+// Thin stateful wrappers around @mui/lab's TabContext and TabList.
+// They exist so client-side tabs work without a Shiny server round-trip
+// (useful in Quarto docs and static HTML). All rendering, styling, and
+// behavior is delegated to @mui/lab — we only add a React.useState layer.
+//
+// TabPanel does not need wrapping; @mui/lab's TabPanel reads from the
+// TabContext provider directly, so the plain TabPanel() R function works.
 
-export function MuiStaticTabContext({ value: initialValue, children }) {
+const SetValueContext = React.createContext(null);
+
+export function MuiStaticTabContext({ value: initialValue, children, ...props }) {
   const [value, setValue] = React.useState(initialValue);
   return (
-    <TabValueContext.Provider value={{ value, setValue }}>
-      {children}
-    </TabValueContext.Provider>
+    <SetValueContext.Provider value={setValue}>
+      <TabContext value={value} {...props}>{children}</TabContext>
+    </SetValueContext.Provider>
   );
 }
 
-export function MuiStaticTabList({ children, ...props }) {
-  const { value, setValue } = React.useContext(TabValueContext);
+export function MuiStaticTabList({ onChange, ...props }) {
+  const setValue = React.useContext(SetValueContext);
   return (
-    <Tabs value={value} onChange={(_e, v) => setValue(v)} {...props}>
-      {children}
-    </Tabs>
-  );
-}
-
-export function MuiStaticTabPanel({ value: panelValue, children, ...props }) {
-  const { value } = React.useContext(TabValueContext);
-  const isActive = panelValue === value;
-  return (
-    <div role="tabpanel" hidden={!isActive} {...props}>
-      {isActive && children}
-    </div>
+    <TabList
+      onChange={(e, v) => {
+        if (setValue) setValue(v);
+        if (onChange) onChange(e, v);
+      }}
+      {...props}
+    />
   );
 }

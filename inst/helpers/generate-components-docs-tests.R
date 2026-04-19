@@ -25,11 +25,19 @@ df_components <- tibble(
 
 # Generate components.R ---------------------------------------------------
 
+lab_components <- c(
+  "Masonry", "TabContext", "TabList", "TabPanel",
+  "Timeline", "TimelineConnector", "TimelineContent", "TimelineDot",
+  "TimelineItem", "TimelineOppositeContent", "TimelineSeparator",
+  "LoadingButton"
+)
+
 create_component <- function(component) {
+  module_arg <- if (component %in% lab_components) ", module = '@mui/lab'" else ""
   paste0("
 #' @rdname ", component,"
 #' @export
-", component," <- component('", component,"')
+", component," <- component('", component, "'", module_arg, ")
 ")
 }
 

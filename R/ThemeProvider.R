@@ -1,4 +1,4 @@
-component <- function(name, module = "@mui/material") {
+component <- function(name, module = '@mui/material') {
   function(...) {
     tag <- shiny.react::reactElement(
       module = module,
@@ -13,7 +13,7 @@ component <- function(name, module = "@mui/material") {
 
 #' ThemeProvider
 #'
-#' Custom ThemeProvider built with MuiThemeProvider. See 'js/src/ThemeProvider.tsx'.
+#' Custom ThemeProvider built with MuiThemeProvider. See 'js/src/ThemeProvider.jsx'.
 #'
 #' @export
 #' @param ... args to pass to element

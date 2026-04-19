@@ -1,6 +1,6 @@
 #' @rdname TabContext
 #' @param value Initial selected tab value.
-#' @param ... Child elements (typically a \code{Box} wrapping \code{TabList.static} and \code{TabPanel.static} components).
+#' @param ... Child elements (typically a \code{Box} wrapping \code{TabList.static} and \code{TabPanel} components).
 #' @export
 TabContext.static <- function(value, ...) {
   tag <- shiny.react::reactElement(
@@ -21,21 +21,6 @@ TabList.static <- function(...) {
     module = "@/muiMaterial",
     name = "MuiStaticTabList",
     props = shiny.react::asProps(...),
-    deps = muiMaterialDependency()
-  )
-  class(tag) <- c("muiMaterial", class(tag))
-  tag
-}
-
-#' @rdname TabPanel
-#' @param value The value that matches the corresponding tab.
-#' @param ... Content to display when this tab is selected.
-#' @export
-TabPanel.static <- function(value, ...) {
-  tag <- shiny.react::reactElement(
-    module = "@/muiMaterial",
-    name = "MuiStaticTabPanel",
-    props = shiny.react::asProps(value = value, ...),
     deps = muiMaterialDependency()
   )
   class(tag) <- c("muiMaterial", class(tag))

@@ -1,4 +1,4 @@
-component <- function(name, module = "@mui/material") {
+trigger <- function(name, module = "@/muiMaterial") {
   function(triggerId, ...) {
     checkmate::assert_string(triggerId)
     tag <- shiny.react::reactElement(
@@ -14,39 +14,67 @@ component <- function(name, module = "@mui/material") {
 
 #' Drawer.triggerId
 #'
-#' Custom Drawer for mobiles using Drawer component. See 'js/src/Drawer.triggerId.jsx'.
+#' Custom Drawer bound to a DOM element by id. See 'js/src/MuiDrawerTriggerId.jsx'.
 #'
 #' @export
 #' @param triggerId HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Drawer.
 #' @param ... args to pass to element
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
-Drawer.triggerId <- component(
-  "MuiDrawerTriggerId",
-  module = "@/muiMaterial"
-)
+Drawer.triggerId <- trigger("MuiDrawerTriggerId")
 
 #' Menu.triggerId
 #'
-#' Custom Menu using Menu component. See 'js/src/MuiMenuTriggerId.jsx'.
+#' Custom Menu bound to a DOM element by id. See 'js/src/MuiMenuTriggerId.jsx'.
+#'
+#' Pass `closeOnItemClick = FALSE` to disable auto-close on click (useful when the
+#' menu contains interactive children like checkboxes).
 #'
 #' @export
 #' @param triggerId HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Menu.
 #' @param ... args to pass to element
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
-Menu.triggerId <- component(
-  "MuiMenuTriggerId",
-  module = "@/muiMaterial"
-)
+Menu.triggerId <- trigger("MuiMenuTriggerId")
 
 #' SwipeableDrawer.triggerId
 #'
-#' Custom Drawer for mobiles using SwipeableDrawer component. See 'js/src/SwipeableDrawer.triggerId.jsx'.
+#' Custom SwipeableDrawer bound to a DOM element by id. See 'js/src/MuiSwipeableDrawerTriggerId.jsx'.
 #'
 #' @export
 #' @param triggerId HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Drawer.
 #' @param ... args to pass to element
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
-SwipeableDrawer.triggerId <- component(
-  "MuiSwipeableDrawerTriggerId",
-  module = "@/muiMaterial"
-)
+SwipeableDrawer.triggerId <- trigger("MuiSwipeableDrawerTriggerId")
+
+#' Dialog.triggerId
+#'
+#' Custom Dialog bound to a DOM element by id. See 'js/src/MuiDialogTriggerId.jsx'.
+#' Open/close state is managed entirely client-side, so this works in Shiny apps,
+#' Quarto documents, and static HTML without server logic.
+#'
+#' @export
+#' @param triggerId HTML id of an existing DOM element that acts as the trigger to open the Dialog.
+#' @param ... args to pass to element
+#' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
+Dialog.triggerId <- trigger("MuiDialogTriggerId")
+
+#' Modal.triggerId
+#'
+#' Custom Modal bound to a DOM element by id. See 'js/src/MuiModalTriggerId.jsx'.
+#' Open/close state is managed entirely client-side.
+#'
+#' @export
+#' @param triggerId HTML id of an existing DOM element that acts as the trigger to open the Modal.
+#' @param ... args to pass to element
+#' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
+Modal.triggerId <- trigger("MuiModalTriggerId")
+
+#' Popover.triggerId
+#'
+#' Custom Popover bound to a DOM element by id. See 'js/src/MuiPopoverTriggerId.jsx'.
+#' The trigger element acts as the anchor; the Popover opens on click and closes on clickaway.
+#'
+#' @export
+#' @param triggerId HTML id of an existing DOM element that acts as the anchor/trigger for the Popover.
+#' @param ... args to pass to element
+#' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
+Popover.triggerId <- trigger("MuiPopoverTriggerId")

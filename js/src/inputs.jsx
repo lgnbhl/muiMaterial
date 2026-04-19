@@ -3,17 +3,22 @@ import * as MaterialLab from '@mui/lab';
 import { ButtonAdapter, InputAdapter, debounce } from '@/shiny.react';
 
 export const Button = ButtonAdapter(Material.Button);
+export const Dialog = ButtonAdapter(Material.Dialog);
 export const Drawer = ButtonAdapter(Material.Drawer);
 export const Fab = ButtonAdapter(Material.Fab);
 export const IconButton = ButtonAdapter(Material.IconButton);
 export const ListItemButton = ButtonAdapter(Material.ListItemButton);
+export const LoadingButton = ButtonAdapter(MaterialLab.LoadingButton);
 export const Menu = ButtonAdapter(Material.Menu);
+export const MenuItem = ButtonAdapter(Material.MenuItem);
+export const Modal = ButtonAdapter(Material.Modal);
+export const Snackbar = ButtonAdapter(Material.Snackbar);
 export const StepButton = ButtonAdapter(Material.StepButton);
 export const ToggleButton = ButtonAdapter(Material.ToggleButton);
 
-const AutocompleteWrapper = ({ inputProps, ...props }) => (
+const AutocompleteWrapper = ({ inputProps, renderInput, ...props }) => (
   <Material.Autocomplete
-    renderInput={(params) => <Material.TextField {...params} {...inputProps} />}
+    renderInput={renderInput ?? ((params) => <Material.TextField {...params} {...inputProps} />)}
     {...props}
   />
 );
@@ -44,6 +49,11 @@ export const OutlinedInput = InputAdapter(Material.OutlinedInput, (value, setVal
   value: value ?? '',
   onChange: (e) => setValue(e.target.value),
 }), { policy: debounce, delay: 250 });
+
+export const Pagination = InputAdapter(Material.Pagination, (value, setValue) => ({
+  page: value ?? 1,
+  onChange: (e, v) => setValue(v),
+}));
 
 export const Radio = InputAdapter(Material.Radio, (value, setValue) => ({
   checked: value,

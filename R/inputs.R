@@ -24,6 +24,16 @@ Button.shinyInput <- button("Button")
 #' @export
 updateButton.shinyInput <- shiny.react::updateReactInput
 
+#' @rdname Dialog
+#' @inherit shinyInput params return
+#' @export
+Dialog.shinyInput <- button("Dialog")
+
+#' @rdname Dialog
+#' @inherit shinyInput params return
+#' @export
+updateDialog.shinyInput <- shiny.react::updateReactInput
+
 #' @rdname Drawer
 #' @inherit shinyInput params return
 #' @export
@@ -54,6 +64,16 @@ Fab.shinyInput <- button("Fab")
 #' @export
 updateFab.shinyInput <- shiny.react::updateReactInput
 
+#' @rdname LoadingButton
+#' @inherit shinyInput params return
+#' @export
+LoadingButton.shinyInput <- button("LoadingButton")
+
+#' @rdname LoadingButton
+#' @inherit shinyInput params return
+#' @export
+updateLoadingButton.shinyInput <- shiny.react::updateReactInput
+
 #' @rdname Menu
 #' @inherit shinyInput params return
 #' @export
@@ -63,6 +83,36 @@ Menu.shinyInput <- button("Menu")
 #' @inherit shinyInput params return
 #' @export
 updateMenu.shinyInput <- shiny.react::updateReactInput
+
+#' @rdname MenuItem
+#' @inherit shinyInput params return
+#' @export
+MenuItem.shinyInput <- button("MenuItem")
+
+#' @rdname MenuItem
+#' @inherit shinyInput params return
+#' @export
+updateMenuItem.shinyInput <- shiny.react::updateReactInput
+
+#' @rdname Modal
+#' @inherit shinyInput params return
+#' @export
+Modal.shinyInput <- button("Modal")
+
+#' @rdname Modal
+#' @inherit shinyInput params return
+#' @export
+updateModal.shinyInput <- shiny.react::updateReactInput
+
+#' @rdname Snackbar
+#' @inherit shinyInput params return
+#' @export
+Snackbar.shinyInput <- button("Snackbar")
+
+#' @rdname Snackbar
+#' @inherit shinyInput params return
+#' @export
+updateSnackbar.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname StepButton
 #' @inherit shinyInput params return
@@ -148,6 +198,16 @@ OutlinedInput.shinyInput <- input("OutlinedInput")
 #' @inherit shinyInput params return
 #' @export
 updateOutlinedInput.shinyInput <- shiny.react::updateReactInput
+
+#' @rdname Pagination
+#' @inherit shinyInput params return
+#' @export
+Pagination.shinyInput <- input("Pagination", defaultValue = 1)
+
+#' @rdname Pagination
+#' @inherit shinyInput params return
+#' @export
+updatePagination.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Radio
 #' @inherit shinyInput params return

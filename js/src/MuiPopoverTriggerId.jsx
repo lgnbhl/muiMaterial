@@ -1,24 +1,20 @@
 import { useState } from 'react';
-import { Menu } from '@mui/material';
+import { Popover } from '@mui/material';
 import { useTriggerBind } from './useTriggerBind';
 
-export default function MuiMenuTriggerId({ triggerId, closeOnItemClick, children, ...props }) {
+export default function MuiPopoverTriggerId({ triggerId, children, ...props }) {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-  const handleClose = () => setAnchorEl(null);
   useTriggerBind(triggerId, (e) => setAnchorEl(e.currentTarget));
 
-  const onClick = closeOnItemClick === false ? undefined : handleClose;
-
   return (
-    <Menu
+    <Popover
       anchorEl={anchorEl}
       open={open}
-      onClose={handleClose}
-      onClick={onClick}
+      onClose={() => setAnchorEl(null)}
       {...props}
     >
       {children}
-    </Menu>
+    </Popover>
   );
 }

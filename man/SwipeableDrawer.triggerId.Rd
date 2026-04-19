@@ -15,5 +15,5 @@ SwipeableDrawer.triggerId(triggerId, ...)
 Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 }
 \description{
-Custom Drawer for mobiles using SwipeableDrawer component. See 'js/src/SwipeableDrawer.triggerId.jsx'.
+Custom SwipeableDrawer bound to a DOM element by id. See 'js/src/MuiSwipeableDrawerTriggerId.jsx'.
 }

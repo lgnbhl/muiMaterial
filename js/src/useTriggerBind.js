@@ -1,9 +1,9 @@
 import { useEffect, useRef } from 'react';
 
-// Attaches a click handler to a DOM element identified by triggerId.
+// Attaches an event handler to a DOM element identified by triggerId.
 // The element may live outside the React tree (e.g. a plain Shiny actionButton),
 // which is why we look it up by ID rather than receiving a ref.
-export function useTriggerBind(triggerId, handler) {
+export function useTriggerBind(triggerId, handler, eventType = 'click') {
   // Store handler in a ref so the listener always calls the latest version
   // without needing to be re-registered when handler identity changes.
   const handlerRef = useRef(handler);
@@ -19,7 +19,7 @@ export function useTriggerBind(triggerId, handler) {
 
     const bind = (el) => {
       boundEl = el;
-      el.addEventListener('click', listener);
+      el.addEventListener(eventType, listener);
     };
 
     const el = document.getElementById(triggerId);
@@ -40,10 +40,10 @@ export function useTriggerBind(triggerId, handler) {
       observer.observe(document.body, { childList: true, subtree: true });
     }
 
-    // Cleanup runs when triggerId changes or the component unmounts.
+    // Cleanup runs when triggerId/eventType change or the component unmounts.
     return () => {
       if (observer) observer.disconnect();
-      if (boundEl) boundEl.removeEventListener('click', listener);
+      if (boundEl) boundEl.removeEventListener(eventType, listener);
     };
-  }, [triggerId]); // re-run only when the target element ID changes
+  }, [triggerId, eventType]);
 }

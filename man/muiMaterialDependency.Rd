@@ -2,7 +2,7 @@
 % Please edit documentation in R/muiMaterialDependency.R
 \name{muiMaterialDependency}
 \alias{muiMaterialDependency}
-\title{Mui Charts UI JS dependency}
+\title{muiMaterial JS dependency}
 \usage{
 muiMaterialDependency()
 }
@@ -10,5 +10,5 @@ muiMaterialDependency()
 HTML dependency object.
 }
 \description{
-Mui Charts UI JS dependency
+muiMaterial JS dependency
 }
