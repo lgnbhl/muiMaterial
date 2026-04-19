@@ -8,8 +8,7 @@ mod_MenuContent_ui <- function(id) {
     List(
       dense = TRUE,
       # https://github.com/mui/material-ui/issues/32400
-      reactRouter::NavLink.shinyInput(
-        inputId = ns("reactRouterHome"),
+      reactRouter::NavLink(
         style = JS(
           '({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'
         ),
@@ -30,8 +29,7 @@ mod_MenuContent_ui <- function(id) {
           )
         )
       ),
-      reactRouter::NavLink.shinyInput(
-        inputId = ns("reactRouterAnalytics"),
+      reactRouter::NavLink(
         style = JS(
           '({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'
         ),
@@ -52,8 +50,7 @@ mod_MenuContent_ui <- function(id) {
           )
         )
       ),
-      reactRouter::NavLink.shinyInput(
-        inputId = ns("reactRouterClients"),
+      reactRouter::NavLink(
         style = JS(
           '({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'
         ),
@@ -74,8 +71,7 @@ mod_MenuContent_ui <- function(id) {
           )
         )
       ),
-      reactRouter::NavLink.shinyInput(
-        inputId = ns("reactRouterTasks"),
+      reactRouter::NavLink(
         style = JS(
           '({isActive}) => { return isActive ? {color: "purple", textDecoration: "none"} : {color: "#1976d2", textDecoration: "none" }; }'
         ),
@@ -94,6 +90,33 @@ mod_MenuContent_ui <- function(id) {
               primary = "Tasks"
             )
           )
+        )
+      )
+    ),
+    List(
+      dense = TRUE,
+      ListItem(
+        disablePadding = TRUE,
+        sx = list(display = 'block'),
+        ListItemButton(
+          ListItemIcon(shiny::icon("gear")),
+          ListItemText(primary = "Settings")
+        )
+      ),
+      ListItem(
+        disablePadding = TRUE,
+        sx = list(display = 'block'),
+        ListItemButton(
+          ListItemIcon(shiny::icon("circle-info")),
+          ListItemText(primary = "About")
+        )
+      ),
+      ListItem(
+        disablePadding = TRUE,
+        sx = list(display = 'block'),
+        ListItemButton(
+          ListItemIcon(shiny::icon("circle-question")),
+          ListItemText(primary = "Feedback")
         )
       )
     )

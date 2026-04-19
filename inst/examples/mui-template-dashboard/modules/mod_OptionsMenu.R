@@ -4,17 +4,21 @@ mod_OptionsMenu_ui <- function(id) {
   ns <- NS(id)
   Box(
     sx = list(position = 'relative'),
-    mod_MenuButton_ui(
-      id = ns("MenuButton_2"),
-      'aria-label' = "Open menu",
-      onClick = triggerEvent(ns("showMenuButton")),
-      sx = list(borderColor = 'transparent')
+    Badge(
+      color = "error",
+      variant = "dot",
+      invisible = TRUE,
+      sx = list("[`& .${badgeClasses.badge}`]" = list(right = 2, top = 2)),
+      IconButton(
+        id = ns("optionsMenuBtn"),
+        size = "small",
+        'aria-label' = "Open menu",
+        sx = list(borderColor = 'transparent'),
+        shiny::icon("ellipsis-vertical")
+      )
     ),
-    Menu.shinyInput(
-      inputId = ns("menu"),
-      open = FALSE,
-      onClose = triggerEvent(ns("hideMenuButton")),
-      onClick = triggerEvent(ns("hideMenuButton")),
+    Menu.triggerId(
+      triggerId = ns("optionsMenuBtn"),
       transformOrigin = list(horizontal = 'right', vertical = 'top'),
       anchorOrigin = list(horizontal = 'right', vertical = 'bottom'),
       sx = list(
@@ -28,17 +32,13 @@ mod_OptionsMenu_ui <- function(id) {
           margin = '4px -4px'
         )
       ),
-      MenuItem(onClick = triggerEvent(ns("hideMenuButton")), "Profile"),
-      MenuItem(onClick = triggerEvent(ns("hideMenuButton")), "My account"),
+      MenuItem("Profile"),
+      MenuItem("My account"),
+      Divider(),
+      MenuItem("Add another account"),
+      MenuItem("Settings"),
       Divider(),
       MenuItem(
-        onClick = triggerEvent(ns("hideMenuButton")),
-        "Add another account"
-      ),
-      MenuItem(onClick = triggerEvent(ns("hideMenuButton")), "Settings"),
-      Divider(),
-      MenuItem(
-        onClick = triggerEvent(ns("hideMenuButton")),
         sx = list(
           "[`& .${listItemIconClasses.root}`]" = list(
             ml = 'auto',
@@ -57,14 +57,5 @@ mod_OptionsMenu_ui <- function(id) {
 mod_OptionsMenu_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-
-    mod_MenuButton_server("MenuButton_2")
-
-    toggleOptionsMenu <- reactiveVal(FALSE)
-    observeEvent(input$showMenuButton, toggleOptionsMenu(TRUE))
-    observeEvent(input$hideMenuButton, toggleOptionsMenu(FALSE))
-    observeEvent(c(input$showMenuButton, input$hideMenuButton), {
-      updateMenu.shinyInput(inputId = "menu", open = toggleOptionsMenu())
-    })
   })
 }

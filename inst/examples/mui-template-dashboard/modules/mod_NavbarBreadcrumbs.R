@@ -9,8 +9,7 @@ mod_NavbarBreadcrumbs_ui <- function(id, page_name = "Home", page_to = "/"){
       variant = "body1", 
       "Dashboard"
     ),
-    reactRouter::NavLink.shinyInput(
-      inputId = ns("reactRouterHome"),
+    reactRouter::NavLink(
       style = list(textDecoration = "none", color = "inherit"),
       to = page_to,
       'aria-label' = "Home",

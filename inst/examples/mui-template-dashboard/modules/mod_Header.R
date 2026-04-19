@@ -1,6 +1,6 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/Header.js
 
-mod_Header_ui <- function(id, page_name = "Home", page_to = "/"){
+mod_Header_ui <- function(id, page_name = "Home", page_to = "/") {
   ns <- NS(id)
   Stack(
     direction = "row",
@@ -13,7 +13,11 @@ mod_Header_ui <- function(id, page_name = "Home", page_to = "/"){
       pt = 1.5
     ),
     spacing = 2,
-    mod_NavbarBreadcrumbs_ui(id = ns("NavbarBreadcrumbs_1"), page_name, page_to),
+    mod_NavbarBreadcrumbs_ui(
+      id = ns("NavbarBreadcrumbs_1"),
+      page_name,
+      page_to
+    ),
     Stack(
       direction = "row",
       sx = list(gap = 1),
@@ -31,6 +35,5 @@ mod_Header_ui <- function(id, page_name = "Home", page_to = "/"){
 mod_Header_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    # mod_MenuButton_server("MenuButton_1")
   })
 }

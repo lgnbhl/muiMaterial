@@ -1,6 +1,6 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/SideMenu.tsx
 
-mod_SideMenu_ui <- function(id){
+mod_SideMenu_ui <- function(id) {
   ns <- NS(id)
   Drawer(
     variant = "permanent",
@@ -58,15 +58,5 @@ mod_SideMenu_ui <- function(id){
 mod_SideMenu_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    
-    mod_MenuContent_server("MenuContent_1")
-    mod_OptionsMenu_server("OptionsMenu_1")
-    
-    toggleOptionsMenu <- reactiveVal(FALSE)
-    observeEvent(input$showMenuButton, toggleOptionsMenu(TRUE))
-    observeEvent(input$hideMenuButton, toggleOptionsMenu(FALSE))
-    observeEvent(c(input$showMenuButton, input$hideMenuButton), {
-      updateMenu.shinyInput(inputId = "menu", open = toggleOptionsMenu())
-    })
   })
 }

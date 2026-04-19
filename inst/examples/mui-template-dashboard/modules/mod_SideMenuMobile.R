@@ -1,12 +1,10 @@
 # https://github.com/mui/material-ui/blob/v6.3.1/docs/data/material/getting-started/templates/dashboard/components/SideMenuMobile.tsx
 
-mod_SideMenuMobile_ui <- function(id) {
+mod_SideMenuMobile_ui <- function(id, triggerId) {
   ns <- NS(id)
-  Drawer.shinyInput(
-    inputId = ns("drawer"),
+  Drawer.triggerId(
+    triggerId = triggerId,
     anchor = "right",
-    open = FALSE,
-    onClose = triggerEvent(ns("hideDrawer")),
     sx = list(
       zIndex = "(theme) => theme.zIndex.drawer + 1,
       [`& .${drawerClasses.paper}`]: {
@@ -36,11 +34,7 @@ mod_SideMenuMobile_ui <- function(id) {
             variant = "h6",
             "Felix Luginbuhl"
           )
-        ),
-        # MenuButton(
-        #   showBadge = TRUE,
-        #   NotificationsRoundedIcon()
-        # )
+        )
       ),
       Divider(),
       Stack(
@@ -65,14 +59,5 @@ mod_SideMenuMobile_ui <- function(id) {
 mod_SideMenuMobile_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-
-    mod_MenuContent_server("MenuContent_1")
-
-    toggleDrawer <- reactiveVal(FALSE)
-    observeEvent(input$showDrawer, toggleDrawer(TRUE))
-    observeEvent(input$hideDrawer, toggleDrawer(FALSE))
-    observeEvent(c(input$showDrawer, input$hideDrawer), {
-      updateDrawer.shinyInput(inputId = "drawer", open = toggleDrawer())
-    })
   })
 }

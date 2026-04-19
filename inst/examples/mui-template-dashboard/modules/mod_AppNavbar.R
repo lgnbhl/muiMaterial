@@ -114,6 +114,5 @@ mod_AppNavbar_ui <- function(id) {
 mod_AppNavbar_server <- function(id) {
   moduleServer(id, function(input, output, session) {
     ns <- session$ns
-    mod_MenuContent_server("MenuContent_1")
   })
 }
