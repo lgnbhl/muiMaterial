@@ -1,4 +1,4 @@
-#' Mui Charts UI JS dependency
+#' muiMaterial JS dependency
 #'
 #' @return HTML dependency object.
 #'
@@ -6,7 +6,7 @@
 muiMaterialDependency <- function() {
   htmltools::htmlDependency(
     name = "muiMaterial",
-    version = "7.3.5",
+    version = as.character(utils::packageVersion("muiMaterial")),
     package = "muiMaterial",
     src = "www/muiMaterial",
     script = "mui-material.js"
