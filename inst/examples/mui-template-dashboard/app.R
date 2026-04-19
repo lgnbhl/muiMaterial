@@ -3,30 +3,30 @@ library(muiMaterial)
 library(shiny)
 library(reactRouter)
 
-# TO BE USED WITH muiMaterial::muiMaterialExample("mui-template-dashboard")
-# invisible(sapply(
-#   list.files(
-#     path = if (dir.exists("modules")) {
-#       "modules"
-#     } else {
-#       system.file(
-#         "examples/mui-template-dashboard/modules",
-#         package = "muiMaterial"
-#       )
-#     },
-#     pattern = "\\.R$",
-#     full.names = TRUE
-#   ),
-#   source
-# ))
+# TO USED WITH muiMaterial::muiMaterialExample("mui-template-dashboard")
+invisible(sapply(
+  list.files(
+    path = if (dir.exists("modules")) {
+      "modules"
+    } else {
+      system.file(
+        "examples/mui-template-dashboard/modules",
+        package = "muiMaterial"
+      )
+    },
+    pattern = "\\.R$",
+    full.names = TRUE
+  ),
+  source
+))
 
 # FOR MANUAL RUN
-component_files <- list.files(
-  "inst/examples/mui-template-dashboard/modules",
-  #path = system.file("examples/mui-template-dashboard/modules", package = "muiMaterial"),
-  full.names = TRUE
-)
-sapply(component_files, source)
+# component_files <- list.files(
+#   "inst/examples/mui-template-dashboard/modules",
+#   #path = system.file("examples/mui-template-dashboard/modules", package = "muiMaterial"),
+#   full.names = TRUE
+# )
+# sapply(component_files, source)
 
 # routing with 'reactRouter' R package
 # NavLink() added in 'MenuContent.R' and 'NavbarBreadcrumbs.R'
