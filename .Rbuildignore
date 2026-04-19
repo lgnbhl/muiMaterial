@@ -16,3 +16,6 @@
 ^reinstall.sh$
 ^cran-comments\.md$
 ^CRAN-SUBMISSION$
+^inst/examples/mui-template-dashboard/manifest\.json$
+^inst/examples/dashboard-simple/manifest\.json$
+^inst/examples/showcase/manifest\.json$
