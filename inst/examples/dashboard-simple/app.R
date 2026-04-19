@@ -1,16 +1,9 @@
 library(muiMaterial)
 library(reactRouter)
-library(htmltools)
 library(shiny)
 
-# Define drawer width
-drawer_width <- 240
-
-# Menu items configuration (icon names for shiny::icon())
-menu_items <- list(
-  list(text = "Home", icon = "home", path = "/"),
-  list(text = "Analytics", icon = "bar-chart", path = "/analytics")
-)
+# https://mui.com/material-ui/react-drawer/#clipped-under-the-app-bar
+drawer_width <- 200
 
 # Page components
 home_page <- function() {
@@ -35,62 +28,58 @@ analytics_page <- function() {
   )
 }
 
-# Drawer content
-create_drawer_content <- function() {
-  Box(
-    Toolbar(
-      Typography(
-        "muiMaterial App",
-        variant = "h6",
-        noWrap = TRUE,
-        component = "div"
-      )
-    ),
-    List(
-      lapply(menu_items, function(item) {
-        ListItem(
-          disablePadding = TRUE,
-          sx = list(display = 'block'),
-          NavLink(
-            to = item$path,
-            style = list(textDecoration = "none", color = "black"),
-            ListItemButton(
-              sx = list(
-                "&.active" = list(
-                  backgroundColor = "primary.light",
-                  color = "primary.contrastText",
-                  "& .MuiListItemIcon-root" = list(
-                    color = "primary.contrastText"
-                  )
-                )
-              ),
-              ListItemIcon(shiny::icon(item$icon)),
-              ListItemText(primary = item$text)
-            )
+# Menu items configuration (icon names for shiny::icon())
+menu_items <- list(
+  list(text = "Home", icon = "house", path = "/", element = home_page()),
+  list(text = "Analytics", icon = "chart-bar", path = "/analytics", element = analytics_page())
+)
+
+drawer_nav <- Box(
+  sx = list(overflow = "auto"),
+  List(
+    lapply(menu_items, function(item) {
+      ListItem(
+        key = item$path,
+        disablePadding = TRUE,
+        NavLink(
+          to = item$path,
+          # end = TRUE: only mark active on an exact URL match, so "/"
+          # doesn't stay active on every nested route
+          end = TRUE,
+          style = list(
+            textDecoration = "none",
+            color = "inherit",
+            width = "100%"
+          ),
+          ListItemButton(
+            sx = list(
+              "&.active, .active &" = list(
+                bgcolor = "action.selected"
+              )
+            ),
+            ListItemIcon(shiny::icon(item$icon)),
+            ListItemText(primary = item$text)
           )
         )
-      })
-    )
+      )
+    })
   )
-}
+)
 
-# Main app component
 ui <- muiMaterialPage(
   CssBaseline(),
-  RouterProvider(
+  reactRouter::RouterProvider(
     Route(
       path = "/",
       element = Box(
         sx = list(display = "flex"),
-
-        # AppBar
         AppBar(
           position = "fixed",
           sx = list(
-            width = list(sm = sprintf("calc(100%% - %dpx)", drawer_width)),
-            ml = list(sm = sprintf("%dpx", drawer_width))
+            zIndex = JS("(theme) => theme.zIndex.drawer + 1")
           ),
           Toolbar(
+            # Hamburger button — visible on mobile only
             IconButton(
               id = "nav-trigger",
               color = "inherit",
@@ -106,15 +95,13 @@ ui <- muiMaterialPage(
             )
           )
         ),
-
-        # Navigation Drawer
         Box(
           component = "nav",
           sx = list(
             width = list(sm = drawer_width),
             flexShrink = list(sm = 0)
           ),
-          # Temporary drawer for mobile (no server logic needed)
+          # Mobile drawer — triggered by the hamburger button, no server needed
           Drawer.triggerId(
             triggerId = "nav-trigger",
             anchor = "left",
@@ -126,40 +113,37 @@ ui <- muiMaterialPage(
                 width = drawer_width
               )
             ),
-            create_drawer_content()
+            Toolbar(),
+            drawer_nav
           ),
-          # Permanent drawer for desktop
+          # Permanent drawer — desktop only
           Drawer(
             variant = "permanent",
-            open = TRUE,
             sx = list(
               display = list(xs = "none", sm = "block"),
               "& .MuiDrawer-paper" = list(
-                boxSizing = "border-box",
-                width = drawer_width
+                width = drawer_width,
+                boxSizing = "border-box"
               )
             ),
-            create_drawer_content()
+            Toolbar(),
+            drawer_nav
           )
         ),
-
-        # Main content area renders the matched child route
         Box(
           component = "main",
-          sx = list(
-            flexGrow = 1,
-            p = 3,
-            width = list(sm = sprintf("calc(100%% - %dpx)", drawer_width))
-          ),
+          sx = list(flexGrow = 1, p = 3),
           Toolbar(),
-          Container(
-            maxWidth = "lg",
-            Outlet()
-          )
+          Outlet()
         )
       ),
-      Route(index = TRUE, element = home_page()),
-      Route(path = "analytics", element = analytics_page())
+      lapply(menu_items, function(item) {
+        if (item$path == "/") {
+          Route(index = TRUE, element = item$element)
+        } else {
+          Route(path = sub("^/", "", item$path), element = item$element)
+        }
+      })
     )
   )
 )

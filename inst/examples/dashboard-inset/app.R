@@ -2,43 +2,8 @@ library(muiMaterial)
 library(reactRouter)
 library(shiny)
 
-# https://mui.com/material-ui/react-drawer/#clipped-under-the-app-bar
-drawer_width <- 200
-
-drawer_nav <- Box(
-  sx = list(overflow = "auto"),
-  List(
-    dense = TRUE,
-    reactRouter::NavLink(
-      style = list(textDecoration = "none", color = "black"),
-      to = "/",
-      'aria-label' = "Home",
-      ListItem(
-        key = 0,
-        disablePadding = TRUE,
-        sx = list(display = "block"),
-        ListItemButton(
-          ListItemIcon(shiny::icon("house")),
-          ListItemText(primary = "Home")
-        )
-      )
-    ),
-    reactRouter::NavLink(
-      style = list(textDecoration = "none", color = "black"),
-      to = "/analytics",
-      'aria-label' = "Analytics",
-      ListItem(
-        key = 1,
-        disablePadding = TRUE,
-        sx = list(display = "block"),
-        ListItemButton(
-          ListItemIcon(shiny::icon("chart-bar")),
-          ListItemText(primary = "Analytics")
-        )
-      )
-    )
-  )
-)
+# https://mui.com/material-ui/react-drawer/#responsive-drawer
+drawer_width <- 240
 
 # Page components
 home_page <- function() {
@@ -63,20 +28,68 @@ analytics_page <- function() {
   )
 }
 
+# Menu items configuration (icon names for shiny::icon())
+menu_items <- list(
+  list(text = "Home", icon = "house", path = "/", element = home_page()),
+  list(text = "Analytics", icon = "chart-bar", path = "/analytics", element = analytics_page())
+)
+
+drawer_content <- Box(
+  Toolbar(
+    Typography(
+      "muiMaterial App",
+      variant = "h6",
+      noWrap = TRUE,
+      component = "div"
+    )
+  ),
+  Divider(),
+  List(
+    lapply(menu_items, function(item) {
+      ListItem(
+        key = item$path,
+        disablePadding = TRUE,
+        NavLink(
+          to = item$path,
+          # end = TRUE: only mark active on an exact URL match, so "/"
+          # doesn't stay active on every nested route
+          end = TRUE,
+          style = list(
+            textDecoration = "none",
+            color = "inherit",
+            width = "100%"
+          ),
+          ListItemButton(
+            sx = list(
+              "&.active, .active &" = list(
+                bgcolor = "action.selected"
+              )
+            ),
+            ListItemIcon(shiny::icon(item$icon)),
+            ListItemText(primary = item$text)
+          )
+        )
+      )
+    })
+  )
+)
+
 ui <- muiMaterialPage(
   CssBaseline(),
-  reactRouter::RouterProvider(
+  RouterProvider(
     Route(
       path = "/",
       element = Box(
         sx = list(display = "flex"),
+
+        # AppBar — inset to the right of the permanent drawer on desktop
         AppBar(
           position = "fixed",
           sx = list(
-            zIndex = JS("(theme) => theme.zIndex.drawer + 1")
+            width = list(sm = sprintf("calc(100%% - %dpx)", drawer_width)),
+            ml = list(sm = sprintf("%dpx", drawer_width))
           ),
           Toolbar(
-            # Hamburger button — visible on mobile only
             IconButton(
               id = "nav-trigger",
               color = "inherit",
@@ -92,13 +105,15 @@ ui <- muiMaterialPage(
             )
           )
         ),
+
+        # Navigation drawers
         Box(
           component = "nav",
           sx = list(
             width = list(sm = drawer_width),
             flexShrink = list(sm = 0)
           ),
-          # Mobile drawer — triggered by the hamburger button, no server needed
+          # Mobile drawer — opens from the hamburger button, no server needed
           Drawer.triggerId(
             triggerId = "nav-trigger",
             anchor = "left",
@@ -110,34 +125,44 @@ ui <- muiMaterialPage(
                 width = drawer_width
               )
             ),
-            Toolbar(),
-            drawer_nav
+            drawer_content
           ),
           # Permanent drawer — desktop only
           Drawer(
             variant = "permanent",
             sx = list(
               display = list(xs = "none", sm = "block"),
-              width = drawer_width,
-              flexShrink = 0,
               "& .MuiDrawer-paper" = list(
-                width = drawer_width,
-                boxSizing = "border-box"
+                boxSizing = "border-box",
+                width = drawer_width
               )
             ),
-            Toolbar(),
-            drawer_nav
+            drawer_content
           )
         ),
+
+        # Main content — renders the matched child route
         Box(
           component = "main",
-          sx = list(flexGrow = 1, p = 3),
+          sx = list(
+            flexGrow = 1,
+            p = 3,
+            width = list(sm = sprintf("calc(100%% - %dpx)", drawer_width))
+          ),
           Toolbar(),
-          Outlet()
+          Container(
+            maxWidth = "lg",
+            Outlet()
+          )
         )
       ),
-      Route(index = TRUE, element = home_page()),
-      Route(path = "analytics", element = analytics_page())
+      lapply(menu_items, function(item) {
+        if (item$path == "/") {
+          Route(index = TRUE, element = item$element)
+        } else {
+          Route(path = sub("^/", "", item$path), element = item$element)
+        }
+      })
     )
   )
 )
