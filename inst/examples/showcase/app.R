@@ -259,8 +259,8 @@ server <- function(input, output, session) {
   # Pass only the arguments the function actually declares (some omit session).
   lapply(components, function(comp) {
     fn_name <- paste0("server_", comp)
-    if (exists(fn_name) && is.function(get(fn_name))) {
-      fn        <- get(fn_name)
+    if (exists(fn_name, envir = example_env) && is.function(get(fn_name, envir = example_env))) {
+      fn        <- get(fn_name, envir = example_env)
       all_args  <- list(input = input, output = output, session = session)
       do.call(fn, all_args[names(formals(fn))])
     }
