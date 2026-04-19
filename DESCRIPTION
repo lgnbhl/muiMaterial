@@ -10,10 +10,9 @@ Authors@R:
            comment = c(ORCID = "0009-0008-6625-2899")))
 Maintainer: Felix Luginbuhl <felix.luginbuhl@protonmail.ch>
 Description:
-  A set of user interface components for building 'shiny' applications and 
-  'quarto' documents, including inputs, layouts, navigation, surfaces, and various
-  utilities. All components 'Material UI' from the company 'MUI' <https://mui.com/>
-  are available and all inputs have usage examples in R.
+  Wraps the 'Material UI' React components <https://mui.com/> for use in R, 'shiny' 
+  applications and 'quarto' documents, including inputs, layouts, navigation, and 
+  surfaces. All inputs come with R usage examples.
 License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
