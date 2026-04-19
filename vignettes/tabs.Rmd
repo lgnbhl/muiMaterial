@@ -66,9 +66,9 @@ TabContext.static(
       Tab(label = "Item Three", value = "three")
     )
   ),
-  TabPanel.static(value = "one", Typography("First tab content")),
-  TabPanel.static(value = "two", Typography("Second tab content")),
-  TabPanel.static(value = "three", Typography("Third tab content"))
+  TabPanel(value = "one", Typography("First tab content")),
+  TabPanel(value = "two", Typography("Second tab content")),
+  TabPanel(value = "three", Typography("Third tab content"))
 )
 ```
 ````
