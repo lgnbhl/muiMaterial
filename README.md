@@ -4,8 +4,8 @@
 [![CRAN
 status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
-[![](https://img.shields.io/badge/@mui/material-9.0.0-blue.svg)](https://mui.com/material-ui/getting-started/)
-[![](https://img.shields.io/badge/react-18.3.1-blue.svg)](https://mui.com/material-ui/getting-started/)
+[![](https://img.shields.io/badge/@mui/lab-9.0.0--beta.2-blue.svg)](https://mui.com/material-ui/getting-started/)
+[![](https://img.shields.io/badge/@mui/material-9.0.0-blue.svg)](https://mui.com/material-ui/about-the-lab/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
@@ -17,78 +17,43 @@ popular React UI framework, to R and Shiny.
 
 ## Why muiMaterial?
 
-### Go beyond Bootstrap
+Most Shiny apps follow the same template: a sidebar on the left, tabs on
+top, content in the middle. `muiMaterial` lets you go further. It gives
+you access to Material UI’s rich component library, so you can build
+apps and reports that look and feel truly unique.
 
-If Shiny apps look all the same, it is because most use Bootstrap.
-`muiMaterial` replaces it with Material UI’s vast library of components,
-giving you fully customized dashboards and websites in R.
+- **Works with Shiny and Quarto** — use Material UI components in both
+  Shiny apps and [Quarto](https://quarto.org/) documents.
+- **Built for AI** — AI tools like Claude, ChatGPT, or Copilot know MUI
+  well. Ask an AI to generate MUI code, adapt it to R, and you’re done.
+  No React or CSS knowledge needed. See the [AI-Assisted
+  Development](https://felixluginbuhl.com/muiMaterial/articles/ai-assisted-development.html)
+  vignette.
+- **Multi-page apps** — pair with
+  [reactRouter](https://felixluginbuhl.com/reactRouter/) to build apps
+  where each page has its own shareable URL, deployable to GitHub Pages,
+  Netlify, or Posit Connect.
+- **Rich ecosystem** — extend with
+  [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/) (data tables),
+  [muiCharts](https://felixluginbuhl.com/muiCharts/) (charts) and
+  [muiTreeView](https://felixluginbuhl.com/muiTreeView/) (tree
+  navigation).
 
-Launch a basic dashboard (live
-[here](https://lgnbhl-muimaterial-simple-dashboard.share.connect.posit.cloud)):
-
-``` r
-muiMaterial::muiMaterialExample("dashboard-simple")
-```
-
-Or the R replica of the official MUI dashboard template (live
-[here](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/)):
+See a live example: [MUI template
+dashboard](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit.cloud/).
 
 ``` r
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-### Built for AI
-
-AI tools like Claude, ChatGPT, or GitHub Copilot have been trained on
-enormous amounts of MUI code. Each MUI component maps directly to an R
-function: React’s `<Button variant="contained" />` becomes
-`Button(variant = "contained")` in R. Just ask an AI to generate MUI
-code and adapt it to R. No React or CSS knowledge needed.
-
-Learn more in the [AI-Assisted
-Development](https://felixluginbuhl.com/muiMaterial/articles/ai-assisted-development.html)
-vignette.
-
-### Works with Quarto
-
-`muiMaterial` is not limited to Shiny. You can also use Material UI
-components in [Quarto](https://quarto.org/) documents for rich,
-interactive reports and presentations.
-
-### Flexible navigation
-
-Unlike Bootstrap-based packages (`bslib`, `bs4Dash`) that lock you into
-predefined layouts, `muiMaterial` lets you structure your app however
-you want. Combine it with
-[reactRouter](https://felixluginbuhl.com/reactRouter/) to build
-multi-page websites with [client-side
-routing](https://felixluginbuhl.com/muiMaterial/articles/routing.html).
-
-### Rich ecosystem
-
-Extend functionality with companion R packages:
-
-- [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/) - Professional
-  data tables with filtering, sorting, and inline editing
-- [muiCharts](https://felixluginbuhl.com/muiCharts/) - Beautiful,
-  responsive charts
-- [muiTreeView](https://felixluginbuhl.com/muiTreeView/) - Interactive
-  tree navigation
-- muiDateTimePickers (COMING SOON) - UI components for selecting dates,
-  times, and ranges
-
 ## Quick start
 
-Install the stable version from CRAN:
-
 ``` r
-install.packages("muiMaterial")
+remotes::install_github("lgnbhl/muiMaterial") # v0.2.0 (SOON ON CRAN)
 ```
 
-Or install the development version from GitHub:
-
 ``` r
-pak::pak("lgnbhl/muiMaterial")
+install.packages("muiMaterial") # v0.1.3
 ```
 
 ``` r
@@ -96,11 +61,9 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Typography("Hello Material UI!", variant = "h4")
-    )
+  Box(
+    sx = list(p = 2),
+    Typography("Hello Material UI!", variant = "h4")
   )
 )
 
@@ -109,16 +72,9 @@ server <- function(input, output, session) {}
 shinyApp(ui, server)
 ```
 
-Use `muiMaterialPage()` instead of `fluidPage()` and wrap your UI in
-`CssBaseline()`. Material UI uses its own design system and conflicts
-with Bootstrap.
-
-For Shiny inputs, server-side rendering, tabs, and styling details, see
-the [Getting
+Explore the [Getting
 Started](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html)
-vignette.
-
-Run the showcase to see some Shiny inputs in action:
+vignette, or run the showcase:
 
 ``` r
 muiMaterial::muiMaterialExample("showcase")
@@ -127,12 +83,17 @@ muiMaterial::muiMaterialExample("showcase")
 ## Resources
 
 - [Package documentation](https://felixluginbuhl.com/muiMaterial/)
-- [Getting Started
-  vignette](https://felixluginbuhl.com/muiMaterial/articles/getting-started.html)
 - [All R
   examples](https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples)
 - [Official Material UI
   docs](https://mui.com/material-ui/getting-started/)
+
+### Acknowledgements
+
+`muiMaterial` is built on top of
+[shiny.react](https://github.com/Appsilon/shiny.react), the R package by
+[Appsilon](https://appsilon.com) that makes it possible to use React
+components in Shiny and Quarto.
 
 ## Contributing
 
