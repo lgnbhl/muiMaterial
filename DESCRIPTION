@@ -2,12 +2,12 @@ Package: muiMaterial
 Type: Package
 Title: 'Material UI' for 'shiny' Apps and 'Quarto'
 Version: 0.2.0
-Authors@R: 
+Authors@R:
   c(person(given = "Felix",
            family = "Luginbuhl",
            role = c("aut", "cre", "cph"),
-           email = "felix.luginbuhl@protonmail.ch", 
-           comment = c(ORCID = "0009-0008-6625-2899")))
+           email = "felix.luginbuhl@protonmail.ch",
+           comment = c(ORCID = "0009-0008-6625-2899")),
 Maintainer: Felix Luginbuhl <felix.luginbuhl@protonmail.ch>
 Description:
   Wraps the 'Material UI' React components <https://mui.com/> for use in R, 'shiny' 
@@ -24,7 +24,7 @@ Imports:
     shiny.react (>= 0.4.0)
 Suggests:
     knitr,
-    reactRouter,
+    reactRouter (>= 0.2.0),
     shiny.router,
     testthat (>= 3.0.0)
 RoxygenNote: 7.3.3

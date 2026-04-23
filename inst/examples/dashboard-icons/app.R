@@ -29,7 +29,12 @@ analytics_page <- function() {
 # https://mui.com/material-ui/material-icons/
 menu_items <- list(
   list(icon = "home", label = "Home", path = "/", element = home_page()),
-  list(icon = "analytics", label = "Analytics", path = "/analytics", element = analytics_page())
+  list(
+    icon = "analytics",
+    label = "Analytics",
+    path = "/analytics",
+    element = analytics_page()
+  )
 )
 
 sidebar_nav <- Box(
@@ -67,64 +72,66 @@ ui <- muiMaterialPage(
   useMaterialIconsOutlined = TRUE,
   CssBaseline(),
   RouterProvider(
-    Route(
-      path = "/",
-      element = Box(
-        sx = list(
-          display = "flex",
-          height = "100vh",
-          bgcolor = "background.paper"
-        ),
-
-        # Icon-only sidebar
-        Box(
-          component = "nav",
+    router = createHashRouter(
+      Route(
+        path = "/",
+        element = Box(
           sx = list(
-            width = 80,
             display = "flex",
-            flexDirection = "column",
-            alignItems = "center",
-            py = 2,
-            gap = 2,
-            borderRight = 1,
-            borderColor = "divider",
-            bgcolor = "background.default"
+            height = "100vh",
+            bgcolor = "background.paper"
           ),
 
-          # Logo
+          # Icon-only sidebar
           Box(
+            component = "nav",
             sx = list(
-              width = 50,
-              height = 50,
-              borderRadius = "50%",
-              bgcolor = "primary.main",
-              color = "primary.contrastText",
+              width = 80,
               display = "flex",
+              flexDirection = "column",
               alignItems = "center",
-              justifyContent = "center",
-              fontWeight = "bold",
-              fontSize = 20
+              py = 2,
+              gap = 2,
+              borderRight = 1,
+              borderColor = "divider",
+              bgcolor = "background.default"
             ),
-            "MUI"
+
+            # Logo
+            Box(
+              sx = list(
+                width = 50,
+                height = 50,
+                borderRadius = "50%",
+                bgcolor = "primary.main",
+                color = "primary.contrastText",
+                display = "flex",
+                alignItems = "center",
+                justifyContent = "center",
+                fontWeight = "bold",
+                fontSize = 20
+              ),
+              "MUI"
+            ),
+
+            sidebar_nav
           ),
 
-          sidebar_nav
+          # Main content — renders the matched child route
+          Box(
+            component = "main",
+            sx = list(flexGrow = 1, p = 3, overflow = "auto"),
+            Outlet()
+          )
         ),
-
-        # Main content — renders the matched child route
-        Box(
-          component = "main",
-          sx = list(flexGrow = 1, p = 3, overflow = "auto"),
-          Outlet()
-        )
-      ),
-      lapply(menu_items, function(item) {
-        if (item$path == "/") {
-          Route(index = TRUE, element = item$element)
-        } else {
-          Route(path = sub("^/", "", item$path), element = item$element)
-        }
-      })
+        lapply(menu_items, function(item) {
+          if (item$path == "/") {
+            Route(index = TRUE, element = item$element)
+          } else {
+            Route(path = sub("^/", "", item$path), element = item$element)
+          }
+        })
+      )
     )
   )
 )

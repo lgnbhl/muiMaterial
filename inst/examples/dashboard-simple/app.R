@@ -31,7 +31,12 @@ analytics_page <- function() {
 # Menu items configuration (icon names for shiny::icon())
 menu_items <- list(
   list(text = "Home", icon = "house", path = "/", element = home_page()),
-  list(text = "Analytics", icon = "chart-bar", path = "/analytics", element = analytics_page())
+  list(
+    text = "Analytics",
+    icon = "chart-bar",
+    path = "/analytics",
+    element = analytics_page()
+  )
 )
 
 drawer_nav <- Box(
@@ -69,81 +74,83 @@ drawer_nav <- Box(
 ui <- muiMaterialPage(
   CssBaseline(),
   reactRouter::RouterProvider(
-    Route(
-      path = "/",
-      element = Box(
-        sx = list(display = "flex"),
-        AppBar(
-          position = "fixed",
-          sx = list(
-            zIndex = JS("(theme) => theme.zIndex.drawer + 1")
-          ),
-          Toolbar(
-            # Hamburger button — visible on mobile only
-            IconButton(
-              id = "nav-trigger",
-              color = "inherit",
-              edge = "start",
-              sx = list(mr = 2, display = list(sm = "none")),
-              shiny::icon("bars")
+    router = createHashRouter(
+      Route(
+        path = "/",
+        element = Box(
+          sx = list(display = "flex"),
+          AppBar(
+            position = "fixed",
+            sx = list(
+              zIndex = JS("(theme) => theme.zIndex.drawer + 1")
             ),
-            Typography(
-              "Dashboard",
-              variant = "h6",
-              noWrap = TRUE,
-              component = "div"
+            Toolbar(
+              # Hamburger button — visible on mobile only
+              IconButton(
+                id = "nav-trigger",
+                color = "inherit",
+                edge = "start",
+                sx = list(mr = 2, display = list(sm = "none")),
+                shiny::icon("bars")
+              ),
+              Typography(
+                "Dashboard",
+                variant = "h6",
+                noWrap = TRUE,
+                component = "div"
+              )
             )
+          ),
+          Box(
+            component = "nav",
+            sx = list(
+              width = list(sm = drawer_width),
+              flexShrink = list(sm = 0)
+            ),
+            # Mobile drawer — triggered by the hamburger button, no server needed
+            Drawer.triggerId(
+              triggerId = "nav-trigger",
+              anchor = "left",
+              width = drawer_width,
+              sx = list(
+                display = list(xs = "block", sm = "none"),
+                "& .MuiDrawer-paper" = list(
+                  boxSizing = "border-box",
+                  width = drawer_width
+                )
+              ),
+              Toolbar(),
+              drawer_nav
+            ),
+            # Permanent drawer — desktop only
+            Drawer(
+              variant = "permanent",
+              sx = list(
+                display = list(xs = "none", sm = "block"),
+                "& .MuiDrawer-paper" = list(
+                  width = drawer_width,
+                  boxSizing = "border-box"
+                )
+              ),
+              Toolbar(),
+              drawer_nav
+            )
+          ),
+          Box(
+            component = "main",
+            sx = list(flexGrow = 1, p = 3),
+            Toolbar(),
+            Outlet()
           )
         ),
-        Box(
-          component = "nav",
-          sx = list(
-            width = list(sm = drawer_width),
-            flexShrink = list(sm = 0)
-          ),
-          # Mobile drawer — triggered by the hamburger button, no server needed
-          Drawer.triggerId(
-            triggerId = "nav-trigger",
-            anchor = "left",
-            width = drawer_width,
-            sx = list(
-              display = list(xs = "block", sm = "none"),
-              "& .MuiDrawer-paper" = list(
-                boxSizing = "border-box",
-                width = drawer_width
-              )
-            ),
-            Toolbar(),
-            drawer_nav
-          ),
-          # Permanent drawer — desktop only
-          Drawer(
-            variant = "permanent",
-            sx = list(
-              display = list(xs = "none", sm = "block"),
-              "& .MuiDrawer-paper" = list(
-                width = drawer_width,
-                boxSizing = "border-box"
-              )
-            ),
-            Toolbar(),
-            drawer_nav
-          )
-        ),
-        Box(
-          component = "main",
-          sx = list(flexGrow = 1, p = 3),
-          Toolbar(),
-          Outlet()
-        )
-      ),
-      lapply(menu_items, function(item) {
-        if (item$path == "/") {
-          Route(index = TRUE, element = item$element)
-        } else {
-          Route(path = sub("^/", "", item$path), element = item$element)
-        }
-      })
+        lapply(menu_items, function(item) {
+          if (item$path == "/") {
+            Route(index = TRUE, element = item$element)
+          } else {
+            Route(path = sub("^/", "", item$path), element = item$element)
+          }
+        })
+      )
     )
   )
 )
