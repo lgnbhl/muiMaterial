@@ -53,13 +53,16 @@ export const Autocomplete = InputAdapter(AutocompleteWrapper, (value, setValue, 
   onChange: (e, v) => setValue(v),
 }));
 
+// `checked: value ?? false` because MUI's SwitchBase forwards the raw
+// `checked` prop to the underlying <input> (SwitchBase.js:218), and React
+// DOM warns when `checked` is null/undefined.
 export const Checkbox = InputAdapter(Material.Checkbox, (value, setValue) => ({
-  checked: value,
+  checked: value ?? false,
   onChange: (e) => setValue(e.target.checked),
 }));
 
 export const FormControlLabel = InputAdapter(Material.FormControlLabel, (value, setValue) => ({
-  checked: value,
+  checked: value ?? false,
   onChange: (e) => setValue(e.target.checked),
 }));
 
@@ -79,7 +82,7 @@ export const Pagination = InputAdapter(Material.Pagination, (value, setValue) =>
 }));
 
 export const Radio = InputAdapter(Material.Radio, (value, setValue) => ({
-  checked: value,
+  checked: value ?? false,
   onChange: (e) => setValue(e.target.checked),
 }));
 
@@ -93,8 +96,9 @@ export const Rating = InputAdapter(Material.Rating, (value, setValue) => ({
   onChange: (e, v) => setValue(v),
 }));
 
-export const Select = InputAdapter(Material.Select, (value, setValue) => ({
-  value: value ?? '',
+export const Select = InputAdapter(Material.Select, (value, setValue, props) => ({
+  // MUI v9 throws if `multiple` is true and `value` is not an array
+  value: value ?? (props.multiple ? [] : ''),
   onChange: (e) => setValue(e.target.value),
 }));
 
@@ -104,7 +108,7 @@ export const Slider = InputAdapter(Material.Slider, (value, setValue) => ({
 }), { policy: debounce, delay: 250 });
 
 export const Switch = InputAdapter(Material.Switch, (value, setValue) => ({
-  checked: value,
+  checked: value ?? false,
   onChange: (e) => setValue(e.target.checked),
 }));
 
@@ -133,7 +137,8 @@ export const TabPanel = InputAdapter(MaterialLab.TabPanel, (value, setValue) => 
   onChange: (e, v) => { if (isTabValue(v)) setValue(v); },
 }));
 
-export const ToggleButtonGroup = InputAdapter(Material.ToggleButtonGroup, (value, setValue) => ({
-  value: value || [],
+export const ToggleButtonGroup = InputAdapter(Material.ToggleButtonGroup, (value, setValue, props) => ({
+  // `null` when exclusive, `[]` when not.
+  value: value ?? (props.exclusive ? null : []),
   onChange: (e, v) => setValue(v),
 }));
