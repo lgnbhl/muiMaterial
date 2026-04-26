@@ -1,3 +1,4 @@
+import React from 'react';
 import * as Material from '@mui/material';
 import * as MaterialLab from '@mui/lab';
 import { ButtonAdapter, InputAdapter, debounce } from '@/shiny.react';
@@ -26,12 +27,24 @@ export const Snackbar = ButtonAdapter(Material.Snackbar);
 export const StepButton = ButtonAdapter(Material.StepButton);
 export const ToggleButton = ButtonAdapter(Material.ToggleButton);
 
-const AutocompleteWrapper = ({ inputProps, renderInput, ...props }) => (
-  <Material.Autocomplete
-    renderInput={renderInput ?? ((params) => <Material.TextField {...params} {...inputProps} />)}
-    {...props}
-  />
-);
+/*
+ * MUI's Autocomplete requires a `renderInput` function prop, which R cannot
+ * express directly. The wrapper resolves the input in this order:
+ *   1. `renderInput` — an explicit JS() callback, for full control.
+ *   2. A child element (e.g. TextField, OutlinedInput) — cloned with `params`
+ *      merged in. This is the idiomatic path and keeps the R-facing API
+ *      agnostic: if MUI later replaces `renderInput` with a slot, only this
+ *      wrapper changes.
+ *   3. Default TextField + `inputProps` — kept for backward compatibility.
+ */
+const AutocompleteWrapper = ({ inputProps, renderInput, children, ...props }) => {
+  const inputEl = React.Children.toArray(children).find(React.isValidElement);
+  const resolvedRenderInput = renderInput
+    ?? (inputEl
+      ? (params) => React.cloneElement(inputEl, { ...params, ...inputEl.props })
+      : (params) => <Material.TextField {...params} {...inputProps} />);
+  return <Material.Autocomplete renderInput={resolvedRenderInput} {...props} />;
+};
 
 export const Autocomplete = InputAdapter(AutocompleteWrapper, (value, setValue) => ({
   value: value || [],

@@ -152,7 +152,50 @@ input <- function(name, defaultValue = NULL, module = "@/muiMaterial") {
 #' @rdname Autocomplete
 #' @inherit shinyInput params return
 #' @export
-Autocomplete.shinyInput <- input("Autocomplete")
+Autocomplete.shinyInput <- function(inputId, ..., value = NULL) {
+  checkmate::assert_string(inputId)
+  args <- list(...)
+  arg_names <- names(args)
+  if (is.null(arg_names)) arg_names <- rep("", length(args))
+  unnamed <- args[arg_names == ""]
+  has_renderInput <- "renderInput" %in% arg_names
+  has_inputProps <- "inputProps" %in% arg_names
+
+  if (has_inputProps && !is.null(args$inputProps) && !is.list(args$inputProps)) {
+    stop("Autocomplete: `inputProps` must be a list.", call. = FALSE)
+  }
+  if (has_renderInput && length(unnamed) > 0) {
+    warning(
+      "Autocomplete: both `renderInput` and a child element were supplied. ",
+      "`renderInput` takes precedence; the child element is ignored.",
+      call. = FALSE
+    )
+  }
+  if (has_inputProps && length(unnamed) > 0) {
+    warning(
+      "Autocomplete: both `inputProps` and a child element were supplied. ",
+      "The child element takes precedence; `inputProps` is ignored.",
+      call. = FALSE
+    )
+  }
+  if (length(unnamed) > 1) {
+    warning(
+      "Autocomplete: ", length(unnamed), " unnamed arguments were supplied; ",
+      "only the first is used as the input element. Pass extra props via ",
+      "named arguments (e.g. `inputProps = list(...)` or `renderInput = JS(...)`).",
+      call. = FALSE
+    )
+  }
+
+  tag <- shiny.react::reactElement(
+    module = "@/muiMaterial",
+    name = "Autocomplete",
+    props = shiny.react::asProps(inputId = inputId, ..., value = value),
+    deps = muiMaterialDependency()
+  )
+  class(tag) <- c("muiMaterial", class(tag))
+  tag
+}
 
 #' @rdname Autocomplete
 #' @inherit shinyInput params return

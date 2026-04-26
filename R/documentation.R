@@ -159,6 +159,18 @@ NULL
 #'
 #' @description \url{https://mui.com/material-ui/api/autocomplete/}
 #'
+#' MUI's \code{Autocomplete} requires a \code{renderInput} function prop, which
+#' R cannot express directly. The R wrapper resolves the input in this order:
+#' \enumerate{
+#'   \item \code{renderInput} — pass an explicit \code{JS()} callback for full control.
+#'   \item A child element (e.g. \code{TextField(...)}, \code{OutlinedInput(...)})
+#'     — it is cloned and receives the \code{params} from MUI automatically.
+#'     This is the recommended path: it stays close to the MUI API and survives
+#'     upstream changes without touching R user code.
+#'   \item \code{inputProps} — a named list of props forwarded to a default
+#'     \code{TextField}. Kept for backward compatibility with older examples.
+#' }
+#'
 #' @param ... Props to pass to the component.
 #' @return Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 #'
