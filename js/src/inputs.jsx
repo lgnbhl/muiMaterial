@@ -46,8 +46,10 @@ const AutocompleteWrapper = ({ inputProps, renderInput, children, ...props }) =>
   return <Material.Autocomplete renderInput={resolvedRenderInput} {...props} />;
 };
 
-export const Autocomplete = InputAdapter(AutocompleteWrapper, (value, setValue) => ({
-  value: value || [],
+export const Autocomplete = InputAdapter(AutocompleteWrapper, (value, setValue, props) => ({
+  // Match MUI's documented defaults: `[]` when multiple, `null` otherwise.
+  // Using `??` (not `||`) so a legitimately falsy option value (0, "") is preserved.
+  value: value ?? (props.multiple ? [] : null),
   onChange: (e, v) => setValue(v),
 }));
 
