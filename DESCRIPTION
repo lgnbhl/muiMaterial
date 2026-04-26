@@ -7,7 +7,7 @@ Authors@R:
            family = "Luginbuhl",
            role = c("aut", "cre", "cph"),
            email = "felix.luginbuhl@protonmail.ch",
-           comment = c(ORCID = "0009-0008-6625-2899")),
+           comment = c(ORCID = "0009-0008-6625-2899")))
 Maintainer: Felix Luginbuhl <felix.luginbuhl@protonmail.ch>
 Description:
   Wraps the 'Material UI' React components <https://mui.com/> for use in R, 'shiny' 
