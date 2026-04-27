@@ -37,7 +37,7 @@ export const ToggleButton = ButtonAdapter(Material.ToggleButton);
  *      wrapper changes.
  *   3. Default TextField + `inputProps` — kept for backward compatibility.
  */
-const AutocompleteWrapper = ({ inputProps, renderInput, children, ...props }) => {
+export const AutocompleteStatic = ({ inputProps, renderInput, children, ...props }) => {
   const inputEl = React.Children.toArray(children).find(React.isValidElement);
   const resolvedRenderInput = renderInput
     ?? (inputEl
@@ -46,7 +46,7 @@ const AutocompleteWrapper = ({ inputProps, renderInput, children, ...props }) =>
   return <Material.Autocomplete renderInput={resolvedRenderInput} {...props} />;
 };
 
-export const Autocomplete = InputAdapter(AutocompleteWrapper, (value, setValue, props) => ({
+export const Autocomplete = InputAdapter(AutocompleteStatic, (value, setValue, props) => ({
   // Match MUI's documented defaults: `[]` when multiple, `null` otherwise.
   // Using `??` (not `||`) so a legitimately falsy option value (0, "") is preserved.
   value: value ?? (props.multiple ? [] : null),

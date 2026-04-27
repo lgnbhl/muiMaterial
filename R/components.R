@@ -43,7 +43,7 @@ AppBar <- component('AppBar')
 
 #' @rdname Autocomplete
 #' @export
-Autocomplete <- component('Autocomplete')
+Autocomplete <- component('AutocompleteStatic', module = '@/muiMaterial')
 
 #' @rdname Avatar
 #' @export
