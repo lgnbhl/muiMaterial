@@ -45,7 +45,7 @@ navbar:
     - text: Switch
       href: articles/switch.html
     - text: Toggle Button Group
-      href: articles/switch.html
+      href: articles/toogle-button-group.html
   - text: Data Display
     menu:
     - text: Avatar
