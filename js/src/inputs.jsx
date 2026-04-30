@@ -41,7 +41,7 @@ export const AutocompleteStatic = ({ inputProps, renderInput, children, ...props
   const inputEl = React.Children.toArray(children).find(React.isValidElement);
   const resolvedRenderInput = renderInput
     ?? (inputEl
-      ? (params) => React.cloneElement(inputEl, { ...params, ...inputEl.props })
+      ? (params) => React.cloneElement(inputEl, { ...inputEl.props, ...params })
       : (params) => <Material.TextField {...params} {...inputProps} />);
   return <Material.Autocomplete renderInput={resolvedRenderInput} {...props} />;
 };
