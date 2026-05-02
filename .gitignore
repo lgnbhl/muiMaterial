@@ -12,5 +12,6 @@ dev
 data-raw
 inst/doc
 /.quarto/
+/.claude/
 pkgdown
 CRAN-SUBMISSION

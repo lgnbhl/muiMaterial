@@ -15,15 +15,16 @@ status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-projec
 UI](https://mui.com/material-ui/getting-started/), the world’s most
 popular React UI framework, to R and Shiny.
 
-## Why muiMaterial?
+### Why muiMaterial?
 
 Most Shiny apps follow the same template: a sidebar on the left, tabs on
 top, content in the middle. `muiMaterial` lets you go further. It gives
 you access to Material UI’s rich component library, so you can build
 apps and reports that look and feel truly unique.
 
-- **Works with Shiny and Quarto** — use Material UI components in both
-  Shiny apps and [Quarto](https://quarto.org/) documents.
+- **Works with Shiny and Quarto** — use Material UI components in Shiny
+  apps, [Quarto](https://quarto.org/) or on its own for fully customized
+  HTML pages.
 - **Built for AI** — AI tools like Claude, ChatGPT, or Copilot know MUI
   well. Ask an AI to generate MUI code, adapt it to R, and you’re done.
   No React or CSS knowledge needed. See the [AI-Assisted
@@ -46,7 +47,7 @@ dashboard](https://lgnbhl-muimaterial-mui-template-dashboard.share.connect.posit
 muiMaterial::muiMaterialExample("mui-template-dashboard")
 ```
 
-## Quick start
+### Quick start
 
 ``` r
 remotes::install_github("lgnbhl/muiMaterial") # v0.2.0 (SOON ON CRAN)
@@ -80,7 +81,7 @@ vignette, or run the showcase:
 muiMaterial::muiMaterialExample("showcase")
 ```
 
-## Resources
+### Resources
 
 - [Package documentation](https://felixluginbuhl.com/muiMaterial/)
 - [All R
@@ -95,7 +96,7 @@ muiMaterial::muiMaterialExample("showcase")
 [Appsilon](https://appsilon.com) that makes it possible to use React
 components in Shiny and Quarto.
 
-## Contributing
+### Contributing
 
 Found a bug or have a feature request? [Open an
 issue](https://github.com/lgnbhl/muiMaterial/issues). Pull requests are
@@ -104,6 +105,6 @@ welcome.
 Follow [Felix Luginbuhl](https://linkedin.com/in/FelixLuginbuhl) on
 LinkedIn for updates.
 
-## License
+### License
 
 This package is released under the [MIT License](LICENSE).
