@@ -1,15 +1,31 @@
 test_that("Autocomplete() returns shiny.tag, correct name and value", {
   expect_true(inherits(Autocomplete(), "shiny.tag"))
-  expect_equal(environment(Autocomplete()[["children"]][[2]])[["data"]][["name"]], "AutocompleteStatic")
-  expect_equal(environment(Autocomplete("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(
+    environment(Autocomplete()[["children"]][[2]])[["data"]][["name"]],
+    "AutocompleteStatic"
+  )
+  expect_equal(
+    environment(Autocomplete("Test")[["children"]][[2]])[["data"]][["props"]][[
+      "value"
+    ]][["children"]],
+    "Test"
+  )
 })
 
 test_that("Autocomplete.shinyInput() returns shiny.tag bound to the Shiny-wired Autocomplete", {
   tag <- Autocomplete.shinyInput("myId")
   expect_true(inherits(tag, "shiny.tag"))
   expect_true(inherits(tag, "muiMaterial"))
-  expect_equal(environment(tag[["children"]][[2]])[["data"]][["name"]], "Autocomplete")
-  expect_equal(environment(tag[["children"]][[2]])[["data"]][["props"]][["value"]][["inputId"]], "myId")
+  expect_equal(
+    environment(tag[["children"]][[2]])[["data"]][["name"]],
+    "Autocomplete"
+  )
+  expect_equal(
+    environment(tag[["children"]][[2]])[["data"]][["props"]][["value"]][[
+      "inputId"
+    ]],
+    "myId"
+  )
 })
 
 test_that("Autocomplete.shinyInput() validates inputId and inputProps", {
@@ -23,7 +39,11 @@ test_that("Autocomplete.shinyInput() validates inputId and inputProps", {
 test_that("Autocomplete.shinyInput() warns on conflicting arguments", {
   child <- shiny::tags$input()
   expect_warning(
-    Autocomplete.shinyInput("id", child, renderInput = htmlwidgets::JS("function(p){}")),
+    Autocomplete.shinyInput(
+      "id",
+      child,
+      renderInput = muiMaterial::JS("function(p){}")
+    ),
     "renderInput.*takes precedence"
   )
   expect_warning(
