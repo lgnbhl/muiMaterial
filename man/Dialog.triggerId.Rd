@@ -9,7 +9,7 @@ Dialog.triggerId(triggerId, ...)
 \arguments{
 \item{triggerId}{HTML id of an existing DOM element that acts as the trigger to open the Dialog.}
 
-\item{...}{args to pass to element}
+\item{...}{Named arguments forwarded as React props, plus children to render inside the component.}
 }
 \value{
 Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
@@ -18,4 +18,21 @@ Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 Custom Dialog bound to a DOM element by id. See 'js/src/MuiDialogTriggerId.jsx'.
 Open/close state is managed entirely client-side, so this works in Shiny apps,
 Quarto documents, and static HTML without server logic.
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  Button(id = "openDialog", "Open dialog"),
+  Dialog.triggerId(
+    "openDialog",
+    DialogTitle("Hello"),
+    DialogContent("Open/close managed entirely client-side.")
+  )
+)
+
+shinyApp(ui, function(input, output, session) {})
+\dontshow{\}) # examplesIf}
 }

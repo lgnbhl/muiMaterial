@@ -9,7 +9,7 @@ Modal.triggerId(triggerId, ...)
 \arguments{
 \item{triggerId}{HTML id of an existing DOM element that acts as the trigger to open the Modal.}
 
-\item{...}{args to pass to element}
+\item{...}{Named arguments forwarded as React props, plus children to render inside the component.}
 }
 \value{
 Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
