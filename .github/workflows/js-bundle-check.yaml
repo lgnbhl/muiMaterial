@@ -1,0 +1,44 @@
+# Verify that the committed JS bundle in inst/www/muiMaterial/
+# matches a fresh build from js/src/. Catches the case where source
+# JSX is updated but the bundle isn't rebuilt and committed.
+on:
+  push:
+    branches: [main, master]
+    paths:
+      - 'js/**'
+      - 'inst/www/muiMaterial/**'
+      - '.github/workflows/js-bundle-check.yaml'
+  pull_request:
+    paths:
+      - 'js/**'
+      - 'inst/www/muiMaterial/**'
+      - '.github/workflows/js-bundle-check.yaml'
+
+name: js-bundle-check.yaml
+
+permissions: read-all
+
+jobs:
+  bundle-drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Install JS dependencies
+        working-directory: js
+        run: yarn install --frozen-lockfile
+
+      - name: Rebuild JS bundle
+        working-directory: js
+        run: yarn build
+
+      - name: Verify the committed bundle matches the rebuild
+        run: |
+          if ! git diff --exit-code -- inst/www/muiMaterial/; then
+            echo "::error::Committed JS bundle in inst/www/muiMaterial/ differs from a fresh build of js/. Run 'yarn --cwd js build' and commit the result."
+            exit 1
+          fi

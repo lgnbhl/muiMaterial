@@ -1,0 +1,53 @@
+# Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
+# Deploys the pkgdown site to https://lgnbhl.github.io/muiMaterial/
+# (https://felixluginbuhl.com/muiMaterial/ redirects there).
+on:
+  push:
+    branches: [main, master]
+  pull_request:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+name: pkgdown.yaml
+
+permissions: read-all
+
+jobs:
+  pkgdown:
+    runs-on: ubuntu-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: r-lib/actions/setup-pandoc@v2
+
+      - uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          extra-packages: any::pkgdown, local::.
+          needs: website
+
+      - name: Build site
+        # new_process = FALSE keeps everything in one R session; install = FALSE
+        # is fine because the previous step already installed the package.
+        # NOTE: deliberately using build_site() rather than
+        # build_site_github_pages() to avoid auto-writing a CNAME from the
+        # `url:` in _pkgdown.yml (set to felixluginbuhl.com, which redirects
+        # to the canonical lgnbhl.github.io/muiMaterial Pages deployment).
+        run: pkgdown::build_site(new_process = FALSE, install = FALSE)
+        shell: Rscript {0}
+
+      - name: Deploy to GitHub Pages
+        if: github.event_name != 'pull_request'
+        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        with:
+          clean: false
+          branch: gh-pages
+          folder: docs
