@@ -10,7 +10,7 @@ ui_Tabs <- muiMaterialPage(
   Box(
     sx = list(p = 2, width = "100%", typography = "body1"),
     TabContext.static(
-      value = "one",
+      defaultValue = "one",
       Box(
         sx = list(borderBottom = 1, borderColor = "divider"),
         TabList.static(

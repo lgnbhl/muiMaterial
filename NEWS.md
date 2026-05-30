@@ -1,6 +1,36 @@
 # muiMaterial 0.2.0 (unreleased)
 
+## Breaking changes
+
+- `TabContext.static()` now follows the React `<input>` convention for tab
+  state ownership. Pass `defaultValue` for *uncontrolled* tabs (the wrapper owns
+  and updates the active tab) and `value` for *controlled* tabs (you own it; the
+  value is honored on every render). The previous `value` argument behaved as an
+  uncontrolled seed, so existing code should rename `value` to `defaultValue`:
+
+  ```r
+  # before
+  TabContext.static(value = "one", ...)
+  # after
+  TabContext.static(defaultValue = "one", ...)
+  ```
+
+  Code that left `value` unchanged will become controlled and freeze on the
+  first tab (clicks fire but the wrapper no longer updates state) unless an
+  `onChange` writes the value back.
+
 ## New features
+
+- `TabContext.static()` gains a *controlled* mode: pass `value` together with a
+  writer that updates it (an `onChange` on `TabList.static()` / `TabContext.static()`,
+  or `Tab(href = ...)` links that change the URL) to make an external source the
+  source of truth. This enables URL-bound, bookmarkable tabs via
+  `reactRouter::useParams(as = "value", ...)`, cross-component tab
+  synchronization, and programmatic tab activation. See the Tabs vignette.
+- `TabContext.static()` now emits a development console warning when it is used
+  in controlled mode (`value` supplied) without any `onChange` to move the
+  active tab -- the same guidance React gives for a controlled `<input>` with no
+  handler -- pointing you to either add an `onChange` or switch to `defaultValue`.
 
 - new `*.shinyInput()` family of Shiny-wired input wrappers covering the most
   commonly bound components (Autocomplete, Button, Checkbox, Dialog, Drawer,

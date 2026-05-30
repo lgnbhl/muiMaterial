@@ -11,3 +11,4 @@ Rscript -e 'devtools::document()'
 
 # Install the package
 Rscript -e 'devtools::install()'
+
