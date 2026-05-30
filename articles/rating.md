@@ -1,0 +1,475 @@
+# Rating
+
+This page is an adaptation of the related [MUI Material UI documentation
+page](https://mui.com/material-ui/react-rating/).
+
+Ratings provide insight regarding others’ opinions and experiences, and
+can allow the user to submit a rating of their own.
+
+## Controlled
+
+JS code
+
+``` jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import Typography from '@mui/material/Typography';
+
+export default function BasicRating() {
+  const [value, setValue] = React.useState<number | null>(2);
+
+  return (
+    <Box sx={{ '& > legend': { mt: 2 } }}>
+      <Typography component="legend">Controlled</Typography>
+      <Rating
+        name="simple-controlled"
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      />
+      <Typography component="legend">Uncontrolled</Typography>
+      <Rating
+        name="simple-uncontrolled"
+        onChange={(event, newValue) => {
+          console.log(newValue);
+        }}
+        defaultValue={2}
+      />
+      <Typography component="legend">Read only</Typography>
+      <Rating name="read-only" value={value} readOnly />
+      <Typography component="legend">Disabled</Typography>
+      <Rating name="disabled" value={value} disabled />
+      <Typography component="legend">No rating given</Typography>
+      <Rating name="no-value" value={null} />
+    </Box>
+  );
+}
+```
+
+``` r
+
+library(muiMaterial)
+library(shiny)
+
+ui <- muiMaterialPage(
+  Box(
+    sx = list('& > legend' = list(mt = 2)),
+    
+    Typography(component = "legend", "Controlled"),
+    Rating.shinyInput(
+      inputId = "simple_controlled",
+      value = 2
+    ),
+    
+    Typography(component = "legend", "Uncontrolled"),
+    Rating.shinyInput(
+      inputId = "simple_uncontrolled",
+      value = 2
+    ),
+    
+    Typography(component = "legend", "Read only"),
+    Rating(
+      name = "read-only", 
+      value = 2, 
+      readOnly = TRUE
+    ),
+    
+    Typography(component = "legend", "Disabled"),
+    Rating(
+      name = "disabled", 
+      value = 2, 
+      disabled = TRUE
+    ),
+    
+    Typography(component = "legend", "No rating given"),
+    Rating(
+      name = "no-value", 
+      value = NULL
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$simple_controlled, {
+    # Handle the rating value change
+  })
+  
+  observeEvent(input$simple_uncontrolled, {
+    # Print the new value to console
+    print(input$simple_uncontrolled)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Rating precision
+
+JS code
+
+``` jsx
+import * as React from 'react';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+
+export default function HalfRating() {
+  return (
+    <Stack spacing={1}>
+      <Rating name="half-rating" defaultValue={2.5} precision={0.5} />
+      <Rating name="half-rating-read" defaultValue={2.5} precision={0.5} readOnly />
+    </Stack>
+  );
+}
+```
+
+``` r
+
+library(muiMaterial)
+
+CssBaseline(
+  Stack(
+    spacing = 1,
+    Rating(
+      value = 2.5,
+      precision = 0.5
+    ),
+    Rating(
+      name = "half-rating-read",
+      value = 2.5,
+      precision = 0.5,
+      readOnly = TRUE
+    )
+  )
+)
+```
+
+## Hover feedback
+
+You can display a label on hover to help the user pick the correct
+rating value. The demo uses the onChangeActive prop.
+
+JS code
+
+``` jsx
+import * as React from 'react';
+import Rating from '@mui/material/Rating';
+import Box from '@mui/material/Box';
+import StarIcon from '@mui/icons-material/Star';
+
+const labels: { [index: string]: string } = {
+  0.5: 'Useless',
+  1: 'Useless+',
+  1.5: 'Poor',
+  2: 'Poor+',
+  2.5: 'Ok',
+  3: 'Ok+',
+  3.5: 'Good',
+  4: 'Good+',
+  4.5: 'Excellent',
+  5: 'Excellent+',
+};
+
+function getLabelText(value: number) {
+  return `${value} Star${value !== 1 ? 's' : ''}, ${labels[value]}`;
+}
+
+export default function HoverRating() {
+  const [value, setValue] = React.useState<number | null>(2);
+  const [hover, setHover] = React.useState(-1);
+
+  return (
+    <Box sx={{ width: 200, display: 'flex', alignItems: 'center' }}>
+      <Rating
+        name="hover-feedback"
+        value={value}
+        precision={0.5}
+        getLabelText={getLabelText}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+        onChangeActive={(event, newHover) => {
+          setHover(newHover);
+        }}
+        emptyIcon={<StarIcon style={{ opacity: 0.55 }} fontSize="inherit" />}
+      />
+      {value !== null && (
+        <Box sx={{ ml: 2 }}>{labels[hover !== -1 ? hover : value]}</Box>
+      )}
+    </Box>
+  );
+}
+```
+
+``` r
+
+# Hover Feedback Example
+labels <- list(
+  "0.5" = "Useless",
+  "1" = "Useless+",
+  "1.5" = "Poor",
+  "2" = "Poor+",
+  "2.5" = "Ok",
+  "3" = "Ok+",
+  "3.5" = "Good",
+  "4" = "Good+",
+  "4.5" = "Excellent",
+  "5" = "Excellent+"
+)
+
+ui <- muiMaterialPage(
+  div(
+    Rating.shinyInput(
+      inputId = "hover_feedback",
+      value = 2,
+      precision = 0.5
+    ),
+    # Note: Hover feedback is more complex to replicate exactly in Shiny
+    textOutput("hover_label")
+  )
+)
+
+server <- function(input, output, session) {
+  output$hover_label <- renderText({
+    req(input$hover_feedback)
+    labels[[as.character(input$hover_feedback)]]
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Sizes
+
+For larger or smaller ratings use the size prop.
+
+JS code
+
+``` jsx
+import * as React from 'react';
+import Rating from '@mui/material/Rating';
+import Stack from '@mui/material/Stack';
+
+export default function RatingSize() {
+  return (
+    <Stack spacing={1}>
+      <Rating name="size-small" defaultValue={2} size="small" />
+      <Rating name="size-medium" defaultValue={2} />
+      <Rating name="size-large" defaultValue={2} size="large" />
+    </Stack>
+  );
+}
+```
+
+``` r
+
+library(muiMaterial)
+
+CssBaseline(
+  Stack(
+    spacing = 1,
+    Rating(
+      value = 2,
+      size = "small"
+    ),
+    Rating(
+      value = 2
+    ),
+    Rating(
+      value = 2,
+      size = "large"
+    )
+  )
+)
+```
+
+## Customization
+
+Here are some examples of customizing the component. You can learn more
+about this in the overrides documentation page.
+
+JS code
+
+``` jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Rating from '@mui/material/Rating';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import Typography from '@mui/material/Typography';
+
+const StyledRating = styled(Rating)({
+  '& .MuiRating-iconFilled': {
+    color: '#ff6d75',
+  },
+  '& .MuiRating-iconHover': {
+    color: '#ff3d47',
+  },
+});
+
+export default function CustomizedRating() {
+  return (
+    <Box sx={{ '& > legend': { mt: 2 } }}>
+      <Typography component="legend">Custom icon and color</Typography>
+      <StyledRating
+        name="customized-color"
+        defaultValue={2}
+        getLabelText={(value: number) => `${value} Heart${value !== 1 ? 's' : ''}`}
+        precision={0.5}
+        icon={<FavoriteIcon fontSize="inherit" />}
+        emptyIcon={<FavoriteBorderIcon fontSize="inherit" />}
+      />
+      <Typography component="legend">10 stars</Typography>
+      <Rating name="customized-10" defaultValue={2} max={10} />
+    </Box>
+  );
+}
+```
+
+``` r
+
+muiMaterialPage(
+  CssBaseline(
+    ThemeProvider(
+      theme = list(
+        components = list(
+          MuiRating = list(
+            styleOverrides = list(
+              iconFilled = list(
+                color = "#ff6d75"
+              ),
+              iconHover = list(
+                color = "#ff3d47"
+              )
+            )
+          )
+        )
+      ),
+      Box(
+        sx = list('& > legend' = list(mt = 2)),
+        Typography("Custom icon and color", component = "legend"),
+        Rating(
+          name = "customized_color",
+          defaultValue = 2,
+          precision = 0.5,
+          icon = shiny::icon("heart"),
+          emptyIcon = shiny::icon("heart", class = "far")
+        ),
+        Typography("10 stars", component = "legend"),
+        Rating(name = "customized_10", defaultValue = 2, max = 10)
+      )
+    )
+  )
+)
+```
+
+## Radio group
+
+The rating is implemented with a radio group, set highlightSelectedOnly
+to restore the natural behavior.
+
+JS code
+
+``` jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Rating, { IconContainerProps } from '@mui/material/Rating';
+import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
+import SentimentDissatisfiedIcon from '@mui/icons-material/SentimentDissatisfied';
+import SentimentSatisfiedIcon from '@mui/icons-material/SentimentSatisfied';
+import SentimentSatisfiedAltIcon from '@mui/icons-material/SentimentSatisfiedAltOutlined';
+import SentimentVerySatisfiedIcon from '@mui/icons-material/SentimentVerySatisfied';
+
+const StyledRating = styled(Rating)(({ theme }) => ({
+  '& .MuiRating-iconEmpty .MuiSvgIcon-root': {
+    color: theme.palette.action.disabled,
+  },
+}));
+
+const customIcons: {
+  [index: string]: {
+    icon: React.ReactElement<unknown>;
+    label: string;
+  };
+} = {
+  1: {
+    icon: <SentimentVeryDissatisfiedIcon color="error" />,
+    label: 'Very Dissatisfied',
+  },
+  2: {
+    icon: <SentimentDissatisfiedIcon color="error" />,
+    label: 'Dissatisfied',
+  },
+  3: {
+    icon: <SentimentSatisfiedIcon color="warning" />,
+    label: 'Neutral',
+  },
+  4: {
+    icon: <SentimentSatisfiedAltIcon color="success" />,
+    label: 'Satisfied',
+  },
+  5: {
+    icon: <SentimentVerySatisfiedIcon color="success" />,
+    label: 'Very Satisfied',
+  },
+};
+
+function IconContainer(props: IconContainerProps) {
+  const { value, ...other } = props;
+  return <span {...other}>{customIcons[value].icon}</span>;
+}
+
+export default function RadioGroupRating() {
+  return (
+    <StyledRating
+      name="highlight-selected-only"
+      defaultValue={2}
+      IconContainerComponent={IconContainer}
+      getLabelText={(value: number) => customIcons[value].label}
+      highlightSelectedOnly
+    />
+  );
+}
+```
+
+``` r
+
+ui <- muiMaterialPage(
+  CssBaseline(
+    ThemeProvider(
+      theme = list(
+        components = list(
+          MuiRating = list(
+            styleOverrides = list(
+              iconEmpty = list(
+                '& .MuiSvgIcon-root' = list(
+                  color = "rgba(0, 0, 0, 0.26)"
+                )
+              )
+            )
+          )
+        )
+      ),
+      Rating(
+        name = "highlight_selected_only",
+        defaultValue = 2,
+        highlightSelectedOnly = TRUE,
+        # Custom icons would need to be implemented with custom IconContainerComponent
+        # For simplicity, using standard emoticon icons
+        icon = shiny::icon("smile"),
+        emptyIcon = shiny::icon("meh")
+      )
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$radio_group_rating, {
+    # Handle rating change
+  })
+}
+
+shinyApp(ui, server)
+```

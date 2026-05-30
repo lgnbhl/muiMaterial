@@ -1,0 +1,29 @@
+pandoc: 3.8.3
+pkgdown: 2.2.0
+pkgdown_sha: ~
+articles:
+  ai-assisted-development: ai-assisted-development.html
+  autocomplete: autocomplete.html
+  avatar: avatar.html
+  badge: badge.html
+  bootstrap: bootstrap.html
+  button: button.html
+  checkbox: checkbox.html
+  chip: chip.html
+  dashboard-basic: dashboard-basic.html
+  divider: divider.html
+  floating-action-button: floating-action-button.html
+  getting-started: getting-started.html
+  list: list.html
+  rating: rating.html
+  routing: routing.html
+  select: select.html
+  slider: slider.html
+  switch: switch.html
+  tabs: tabs.html
+  textfield: textfield.html
+  toggle-button-group: toggle-button-group.html
+last_built: 2026-05-30T14:25Z
+urls:
+  reference: https://felixluginbuhl.com/muiMaterial/reference
+  article: https://felixluginbuhl.com/muiMaterial/articles

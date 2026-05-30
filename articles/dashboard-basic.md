@@ -1,0 +1,54 @@
+# Basic Dashboarding
+
+This vignette demonstrates how to build basic dashboards using
+muiMaterial tabs components. The examples show both horizontal and
+vertical tab layouts using Material-UI’s TabContext system.
+
+### Simple dashboard
+
+Launch an example of a simple dashboard:
+
+``` r
+
+muiMaterial::muiMaterialExample("dashboard-simple")
+```
+
+The code is here:
+<https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/dashboard-simple>
+
+### Inset dashboard
+
+Launch an example of an inset dashboard:
+
+``` r
+
+muiMaterial::muiMaterialExample("dashboard-inset")
+```
+
+The code is here:
+<https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/dashboard-inset>
+
+### Icons dashboard
+
+Launch an example of an dashboard with icons instead of texts in the
+sidebar:
+
+``` r
+
+muiMaterial::muiMaterialExample("dashboard-icons")
+```
+
+The code is here:
+<https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/dashboard-icons>
+
+### Advanced dashboard
+
+Launch the R replica dashboard of the official MUI dashboard:
+
+``` r
+
+muiMaterial::muiMaterialExample("mui-template-dashboard")
+```
+
+The code is here:
+<https://github.com/lgnbhl/muiMaterial/tree/main/inst/examples/mui-template-dashboard>
