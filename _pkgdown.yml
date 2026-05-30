@@ -2,7 +2,6 @@ url: https://felixluginbuhl.com/muiMaterial
 template:
   bootstrap: 5
   bootswatch: litera
-  ganalytics: UA-158089797-1
   bslib:
     primary: "#3399ff"
 
@@ -45,11 +44,13 @@ navbar:
     - text: Switch
       href: articles/switch.html
     - text: Toggle Button Group
-      href: articles/toogle-button-group.html
+      href: articles/toggle-button-group.html
   - text: Data Display
     menu:
     - text: Avatar
       href: articles/avatar.html
+    - text: Badge
+      href: articles/badge.html
     - text: Chip
       href: articles/chip.html
     - text: Divider
@@ -78,3 +79,247 @@ navbar:
      href: https://github.com/lgnbhl/muiMaterial
    - icon: fa-home
      href: http://felixluginbuhl.com
+
+reference:
+- title: Page wrapper and theming
+  desc: Page setup, theme customization, and Shiny app dependencies.
+  contents:
+  - muiMaterialPage
+  - ThemeProvider
+  - muiMaterialDependency
+  - muiMaterialExample
+
+- title: Shiny inputs
+  desc: Material UI components wired to Shiny's `input` object via `.shinyInput()` /
+        `update*.shinyInput()` pairs.
+  contents:
+  - Autocomplete.shinyInput
+  - Button.shinyInput
+  - Checkbox.shinyInput
+  - Dialog.shinyInput
+  - Drawer.shinyInput
+  - Fab.shinyInput
+  - FormControlLabel.shinyInput
+  - IconButton.shinyInput
+  - Input.shinyInput
+  - LoadingButton.shinyInput
+  - Menu.shinyInput
+  - MenuItem.shinyInput
+  - Modal.shinyInput
+  - OutlinedInput.shinyInput
+  - Pagination.shinyInput
+  - Radio.shinyInput
+  - RadioGroup.shinyInput
+  - Rating.shinyInput
+  - Select.shinyInput
+  - Slider.shinyInput
+  - Snackbar.shinyInput
+  - StepButton.shinyInput
+  - Switch.shinyInput
+  - Tab.shinyInput
+  - TabContext.shinyInput
+  - TabList.shinyInput
+  - TabPanel.shinyInput
+  - Tabs.shinyInput
+  - TextField.shinyInput
+  - ToggleButton.shinyInput
+  - ToggleButtonGroup.shinyInput
+
+- title: triggerId — overlays bound to a DOM id
+  desc: Overlay components whose open/close state is managed client-side, bound to
+        an existing DOM element by id. No server logic required.
+  contents:
+  - Dialog.triggerId
+  - Drawer.triggerId
+  - Menu.triggerId
+  - Modal.triggerId
+  - Popover.triggerId
+  - SwipeableDrawer.triggerId
+
+- title: Inputs and form controls
+  desc: Raw MUI input components (use `*.shinyInput()` variants above for Shiny wiring).
+  contents:
+  - Autocomplete
+  - Button
+  - ButtonBase
+  - ButtonGroup
+  - Checkbox
+  - FilledInput
+  - FormControl
+  - FormControlLabel
+  - FormGroup
+  - FormHelperText
+  - FormLabel
+  - Input
+  - InputAdornment
+  - InputBase
+  - InputLabel
+  - LoadingButton
+  - NativeSelect
+  - OutlinedInput
+  - Radio
+  - RadioGroup
+  - Rating
+  - Select
+  - Slider
+  - Switch
+  - TextField
+  - TextareaAutosize
+  - ToggleButton
+  - ToggleButtonGroup
+
+- title: Data display
+  desc: Components for displaying content.
+  contents:
+  - Avatar
+  - AvatarGroup
+  - Badge
+  - Chip
+  - Divider
+  - Icon
+  - List
+  - ListItem
+  - ListItemAvatar
+  - ListItemButton
+  - ListItemIcon
+  - ListItemSecondaryAction
+  - ListItemText
+  - ListSubheader
+  - SvgIcon
+  - Table
+  - TableBody
+  - TableCell
+  - TableContainer
+  - TableFooter
+  - TableHead
+  - TablePagination
+  - TableRow
+  - TableSortLabel
+  - Tooltip
+  - Typography
+
+- title: Feedback
+  desc: Alerts, progress, dialogs, and other user feedback.
+  contents:
+  - Alert
+  - AlertTitle
+  - Backdrop
+  - CircularProgress
+  - Dialog
+  - DialogActions
+  - DialogContent
+  - DialogContentText
+  - DialogTitle
+  - LinearProgress
+  - Skeleton
+  - Snackbar
+  - SnackbarContent
+
+- title: Surfaces
+  desc: Container surfaces (cards, accordions, app bar, paper, …).
+  contents:
+  - Accordion
+  - AccordionActions
+  - AccordionDetails
+  - AccordionSummary
+  - AppBar
+  - Card
+  - CardActionArea
+  - CardActions
+  - CardContent
+  - CardHeader
+  - CardMedia
+  - Paper
+  - Toolbar
+
+- title: Navigation
+  desc: Navigation, tabs, pagination, stepper.
+  contents:
+  - BottomNavigation
+  - BottomNavigationAction
+  - Breadcrumbs
+  - Drawer
+  - IconButton
+  - Link
+  - Menu
+  - MenuItem
+  - MenuList
+  - MobileStepper
+  - Pagination
+  - PaginationItem
+  - SpeedDial
+  - SpeedDialAction
+  - SpeedDialIcon
+  - Step
+  - StepButton
+  - StepConnector
+  - StepContent
+  - StepIcon
+  - StepLabel
+  - Stepper
+  - Tab
+  - TabScrollButton
+  - Tabs
+
+- title: Layout
+  desc: Layout primitives — Box, Grid, Stack, Container, image lists, Masonry.
+  contents:
+  - Box
+  - Container
+  - Grid
+  - GridLegacy
+  - ImageList
+  - ImageListItem
+  - ImageListItemBar
+  - Masonry
+  - PigmentContainer
+  - PigmentGrid
+  - PigmentStack
+  - Stack
+
+- title: Utils and transitions
+  desc: CSS resets, transitions, low-level utilities.
+  contents:
+  - ClickAwayListener
+  - Collapse
+  - CssBaseline
+  - Fab
+  - Fade
+  - GlobalStyles
+  - Grow
+  - Modal
+  - NoSsr
+  - Popover
+  - Popper
+  - Portal
+  - ScopedCssBaseline
+  - Slide
+  - SwipeableDrawer
+  - Zoom
+
+- title: Lab — TabContext / TabList / TabPanel and Timeline
+  desc: Components from `@mui/lab` (beta upstream).
+  contents:
+  - TabContext
+  - TabContext.static
+  - TabList
+  - TabList.static
+  - TabPanel
+  - TabPanel.static
+  - Timeline
+  - TimelineConnector
+  - TimelineContent
+  - TimelineDot
+  - TimelineItem
+  - TimelineOppositeContent
+  - TimelineSeparator
+
+- title: Shiny / React glue (re-exports)
+  desc: Re-exported helpers from `shiny.react` and the package's own React glue.
+  contents:
+  - JS
+  - reactOutput
+  - renderReact
+  - setInput
+  - triggerEvent
+  - starts_with("update")
