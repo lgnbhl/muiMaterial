@@ -43,6 +43,18 @@ import { TabContext, TabList } from '@mui/lab';
 
 const isSupplied = (v) => v != null;
 
+// A Tab that navigates on its own -- via an `href`, an `onClick`, or a routing
+// `component` (e.g. a NavLink) -- is itself a writer: clicking it changes the
+// active tab with no `onChange` involved. Used so controlled tabs driven by
+// links (the URL-bound pattern in the Tabs vignette) don't trip the
+// "controlled value with no writer" warning below.
+const childIsWriter = (child) =>
+  React.isValidElement(child) &&
+  child.props != null &&
+  (isSupplied(child.props.href) ||
+    isSupplied(child.props.onClick) ||
+    isSupplied(child.props.component));
+
 const SetValueContext = React.createContext(null);
 
 export function MuiStaticTabContext({
@@ -98,9 +110,10 @@ export function MuiStaticTabContext({
   // that has no way to move -- the classic "value set but no onChange"
   // footgun React itself warns about for <input>. A writer is either an
   // onChange on this TabContext.static, or one registered by a child
-  // <MuiStaticTabList> via registerWriter(). Child effects run before
-  // parent effects, so by the time the warning effect below runs, any
-  // TabList writer has already registered.
+  // <MuiStaticTabList> via registerWriter() -- which a TabList does when it
+  // has its own onChange OR when its Tabs navigate via href/onClick/component
+  // (the URL-bound pattern). Child effects run before parent effects, so by
+  // the time the warning effect below runs, any TabList writer has registered.
   const hasWriterRef = React.useRef(false);
   hasWriterRef.current = isSupplied(onChange);
   const registerWriter = React.useCallback(() => {
@@ -114,10 +127,10 @@ export function MuiStaticTabContext({
       // eslint-disable-next-line no-console
       console.warn(
         'MuiStaticTabContext: you provided a `value` prop (controlled mode) ' +
-          'without an `onChange` handler, so the active tab cannot change. ' +
-          'Either add an `onChange` (on TabList.static or TabContext.static) ' +
-          'that writes the new value back to your source of truth, or use ' +
-          '`defaultValue` instead of `value` for self-managing tabs.'
+          'with no way to change the active tab. Add an `onChange` (on ' +
+          'TabList.static or TabContext.static) that writes the new value back ' +
+          'to your source of truth, give each Tab an `href` so clicks navigate ' +
+          '(the URL-bound pattern), or use `defaultValue` for self-managing tabs.'
       );
     }
   }, [isControlled]);
@@ -137,13 +150,18 @@ export function MuiStaticTabContext({
 export function MuiStaticTabList({ onChange, ...props }) {
   const ctx = React.useContext(SetValueContext);
 
+  // Tabs that navigate on their own (href/onClick/component) are writers too,
+  // so link-driven controlled tabs don't look "frozen" to the warning above.
+  const hasLinkChild = React.Children.toArray(props.children).some(childIsWriter);
+
   // Let the surrounding TabContext know a writer exists, so it won't warn
-  // about a controlled-but-frozen tab when the onChange lives here.
+  // about a controlled-but-frozen tab when the onChange lives here -- or when
+  // the Tabs are links rather than an onChange.
   React.useEffect(() => {
-    if (isSupplied(onChange) && ctx && ctx.registerWriter) {
+    if ((isSupplied(onChange) || hasLinkChild) && ctx && ctx.registerWriter) {
       ctx.registerWriter();
     }
-  }, [onChange, ctx]);
+  }, [onChange, hasLinkChild, ctx]);
 
   return (
     <TabList
