@@ -51,3 +51,20 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item variant \code{'contained'| 'outlined'| 'text'| string} \cr Default is 'text' The variant to use.
 }
 }
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  Button.shinyInput("btn", "Click me", variant = "contained"),
+  verbatimTextOutput("count")
+)
+
+server <- function(input, output, session) {
+  output$count <- renderPrint(input$btn)
+}
+
+shinyApp(ui, server)
+\dontshow{\}) # examplesIf}
+}

@@ -69,3 +69,20 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item variant \code{'filled'| 'outlined'| 'standard'} \cr Default is 'outlined' The variant to use.
 }
 }
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  TextField.shinyInput("txt", label = "Your name", value = ""),
+  verbatimTextOutput("out")
+)
+
+server <- function(input, output, session) {
+  output$out <- renderPrint(input$txt)
+}
+
+shinyApp(ui, server)
+\dontshow{\}) # examplesIf}
+}

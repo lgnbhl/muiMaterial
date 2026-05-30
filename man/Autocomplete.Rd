@@ -111,3 +111,26 @@ upstream changes without touching R user code.
 \item value \code{any} \cr Default is - The value of the autocomplete.The value must have reference equality with the option in order to be selected. You can customize the equality behavior with the isOptionEqualToValue prop.
 }
 }
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  Autocomplete.shinyInput(
+    "auto",
+    options = list("Apple", "Banana", "Cherry"),
+    renderInput = JS("function(params){
+      return React.createElement(MuiMaterial.TextField, params);
+    }")
+  ),
+  verbatimTextOutput("out")
+)
+
+server <- function(input, output, session) {
+  output$out <- renderPrint(input$auto)
+}
+
+shinyApp(ui, server)
+\dontshow{\}) # examplesIf}
+}

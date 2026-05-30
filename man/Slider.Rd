@@ -66,3 +66,20 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item valueLabelFormat \code{func| string} \cr Default is function Identity(x) return x; The format function the value label's value.When a function is provided, it should have the following signature:- number value The value label's value to format - number index The value label's index to format
 }
 }
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  Slider.shinyInput("s", value = 30, min = 0, max = 100),
+  verbatimTextOutput("out")
+)
+
+server <- function(input, output, session) {
+  output$out <- renderPrint(input$s)
+}
+
+shinyApp(ui, server)
+\dontshow{\}) # examplesIf}
+}

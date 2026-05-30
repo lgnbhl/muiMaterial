@@ -16,6 +16,20 @@ button <- function(name, module = "@/muiMaterial") {
 
 #' @rdname Button
 #' @inherit shinyInput params return
+#' @examplesIf interactive()
+#' library(shiny)
+#' library(muiMaterial)
+#'
+#' ui <- muiMaterialPage(
+#'   Button.shinyInput("btn", "Click me", variant = "contained"),
+#'   verbatimTextOutput("count")
+#' )
+#'
+#' server <- function(input, output, session) {
+#'   output$count <- renderPrint(input$btn)
+#' }
+#'
+#' shinyApp(ui, server)
 #' @export
 Button.shinyInput <- button("Button")
 
@@ -151,17 +165,41 @@ input <- function(name, defaultValue = NULL, module = "@/muiMaterial") {
 
 #' @rdname Autocomplete
 #' @inherit shinyInput params return
+#' @examplesIf interactive()
+#' library(shiny)
+#' library(muiMaterial)
+#'
+#' ui <- muiMaterialPage(
+#'   Autocomplete.shinyInput(
+#'     "auto",
+#'     options = list("Apple", "Banana", "Cherry"),
+#'     renderInput = JS("function(params){
+#'       return React.createElement(MuiMaterial.TextField, params);
+#'     }")
+#'   ),
+#'   verbatimTextOutput("out")
+#' )
+#'
+#' server <- function(input, output, session) {
+#'   output$out <- renderPrint(input$auto)
+#' }
+#'
+#' shinyApp(ui, server)
 #' @export
 Autocomplete.shinyInput <- function(inputId, ..., value = NULL) {
   checkmate::assert_string(inputId)
   args <- list(...)
   arg_names <- names(args)
-  if (is.null(arg_names)) arg_names <- rep("", length(args))
+  if (is.null(arg_names)) {
+    arg_names <- rep("", length(args))
+  }
   unnamed <- args[arg_names == ""]
   has_renderInput <- "renderInput" %in% arg_names
   has_inputProps <- "inputProps" %in% arg_names
 
-  if (has_inputProps && !is.null(args$inputProps) && !is.list(args$inputProps)) {
+  if (
+    has_inputProps && !is.null(args$inputProps) && !is.list(args$inputProps)
+  ) {
     stop("Autocomplete: `inputProps` must be a list.", call. = FALSE)
   }
   if (has_renderInput && length(unnamed) > 0) {
@@ -180,7 +218,9 @@ Autocomplete.shinyInput <- function(inputId, ..., value = NULL) {
   }
   if (length(unnamed) > 1) {
     warning(
-      "Autocomplete: ", length(unnamed), " unnamed arguments were supplied; ",
+      "Autocomplete: ",
+      length(unnamed),
+      " unnamed arguments were supplied; ",
       "only the first is used as the input element. Pass extra props via ",
       "named arguments (e.g. `inputProps = list(...)` or `renderInput = JS(...)`).",
       call. = FALSE
@@ -294,6 +334,20 @@ updateSelect.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Slider
 #' @inherit shinyInput params return
+#' @examplesIf interactive()
+#' library(shiny)
+#' library(muiMaterial)
+#'
+#' ui <- muiMaterialPage(
+#'   Slider.shinyInput("s", value = 30, min = 0, max = 100),
+#'   verbatimTextOutput("out")
+#' )
+#'
+#' server <- function(input, output, session) {
+#'   output$out <- renderPrint(input$s)
+#' }
+#'
+#' shinyApp(ui, server)
 #' @export
 Slider.shinyInput <- input("Slider")
 
@@ -364,6 +418,20 @@ updateTabPanel.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname TextField
 #' @inherit shinyInput params return
+#' @examplesIf interactive()
+#' library(shiny)
+#' library(muiMaterial)
+#'
+#' ui <- muiMaterialPage(
+#'   TextField.shinyInput("txt", label = "Your name", value = ""),
+#'   verbatimTextOutput("out")
+#' )
+#'
+#' server <- function(input, output, session) {
+#'   output$out <- renderPrint(input$txt)
+#' }
+#'
+#' shinyApp(ui, server)
 #' @export
 TextField.shinyInput <- input("TextField")
 
