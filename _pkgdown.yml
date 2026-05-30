@@ -88,6 +88,7 @@ reference:
   - ThemeProvider
   - muiMaterialDependency
   - muiMaterialExample
+  - print.muiMaterial
 
 - title: Shiny inputs
   desc: Material UI components wired to Shiny's `input` object via `.shinyInput()` /
