@@ -29,11 +29,11 @@ muiMaterialPage(
 
 \item{useMaterialIconsTwoTones}{Use Google icons CDN in head to use `Icon()` component, FALSE by default.}
 
-\item{suppressBootstrap}{Whether to suppress Bootstrap.}
+\item{suppressBootstrap}{Whether to suppress Bootstrap. TRUE by default.}
 
 \item{styleBody}{CSS style in body, using `margin:0` by default.}
 
-\item{debugReact}{Whether to enable react debug mode. Default to FALSE.}
+\item{debugReact}{Whether to enable react debug mode. FALSE by default.}
 }
 \value{
 html object with 'margin:0' which can be passed as the UI of a Shiny app.
@@ -45,8 +45,24 @@ with the `Icon()` component.
 }
 \details{
 The Bootstrap library is suppressed by default, as it doesn't work well
-with Material UI in general.
+with Material UI in general. The full set of available Material Icon names
+is at <https://fonts.google.com/icons?icon.set=Material+Icons>.
+}
+\examples{
+\dontshow{if (interactive()) withAutoprint(\{ # examplesIf}
+library(shiny)
+library(muiMaterial)
 
+ui <- muiMaterialPage(
+  useFontRoboto = TRUE,
+  useMaterialIconsFilled = TRUE,
+  Box(
+    sx = list(p = 2),
+    Typography("Hello Material UI!", variant = "h4"),
+    Icon("home")
+  )
+)
 
-\url{https://fonts.google.com/icons?icon.set=Material+Icons}
+shinyApp(ui, function(input, output, session) {})
+\dontshow{\}) # examplesIf}
 }

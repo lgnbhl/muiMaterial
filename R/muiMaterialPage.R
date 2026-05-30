@@ -5,10 +5,8 @@
 #' with the `Icon()` component.
 #'
 #' The Bootstrap library is suppressed by default, as it doesn't work well
-#' with Material UI in general.
-#'
-#' @details
-#' \url{https://fonts.google.com/icons?icon.set=Material+Icons}
+#' with Material UI in general. The full set of available Material Icon names
+#' is at <https://fonts.google.com/icons?icon.set=Material+Icons>.
 #'
 #' @param ... The contents of the document body.
 #' @param useFontRoboto Use Google Roboto font CDN in head, FALSE by default.
@@ -16,11 +14,26 @@
 #' @param useMaterialIconsOutlined Use Google icons CDN in head to use `Icon()` component, FALSE by default.
 #' @param useMaterialIconsRounded Use Google icons CDN in head to use `Icon()` component, FALSE by default.
 #' @param useMaterialIconsTwoTones Use Google icons CDN in head to use `Icon()` component, FALSE by default.
-#' @param suppressBootstrap Whether to suppress Bootstrap.
+#' @param suppressBootstrap Whether to suppress Bootstrap. TRUE by default.
 #' @param styleBody CSS style in body, using `margin:0` by default.
-#' @param debugReact Whether to enable react debug mode. Default to FALSE.
+#' @param debugReact Whether to enable react debug mode. FALSE by default.
 #' @return html object with 'margin:0' which can be passed as the UI of a Shiny app.
 #'
+#' @examplesIf interactive()
+#' library(shiny)
+#' library(muiMaterial)
+#'
+#' ui <- muiMaterialPage(
+#'   useFontRoboto = TRUE,
+#'   useMaterialIconsFilled = TRUE,
+#'   Box(
+#'     sx = list(p = 2),
+#'     Typography("Hello Material UI!", variant = "h4"),
+#'     Icon("home")
+#'   )
+#' )
+#'
+#' shinyApp(ui, function(input, output, session) {})
 #' @export
 muiMaterialPage <- function(
   ...,
@@ -33,6 +46,19 @@ muiMaterialPage <- function(
   styleBody = "margin:0",
   debugReact = FALSE
 ) {
+  checkmate::assert_flag(useFontRoboto)
+  checkmate::assert_flag(useMaterialIconsFilled)
+  checkmate::assert_flag(useMaterialIconsOutlined)
+  checkmate::assert_flag(useMaterialIconsRounded)
+  checkmate::assert_flag(useMaterialIconsTwoTones)
+  checkmate::assert_flag(suppressBootstrap)
+  checkmate::assert_string(styleBody)
+  checkmate::assert_flag(debugReact)
+
+  if (debugReact) {
+    shiny.react::enableReactDebugMode()
+  }
+
   useGoogleFonts <- any(
     useFontRoboto,
     useMaterialIconsFilled,
@@ -78,7 +104,6 @@ muiMaterialPage <- function(
     ),
     htmltools::tagList(
       htmltools::tags$body(
-        if (debugReact) shiny.react::enableReactDebugMode(),
         style = styleBody,
         if (suppressBootstrap) {
           htmltools::suppressDependencies("bootstrap")
