@@ -1,0 +1,41 @@
+The muiMaterial R package is released under the MIT License
+(see the LICENSE and LICENSE.md files).
+
+The package bundles a pre-built JavaScript file
+('inst/www/muiMaterial/mui-material.js') that includes minified
+third-party code. The third-party libraries below are all
+distributed under the MIT License and their copyright notices
+and license texts are preserved in:
+
+    inst/www/muiMaterial/mui-material.js.LICENSE.txt
+
+Bundled third-party libraries
+-----------------------------
+
+  Library                         Copyright holder
+  ------------------------------  -----------------------------
+  @mui/material                   Copyright (c) MUI
+  @mui/lab                        Copyright (c) MUI
+  @mui/system                     Copyright (c) MUI
+  @mui/utils                      Copyright (c) MUI
+  @emotion/react                  Copyright (c) Emotion team
+  @emotion/styled                 Copyright (c) Emotion team
+  react-is                        Copyright (c) Meta Platforms, Inc. and affiliates
+  react / react-dom (peer)        Copyright (c) Meta Platforms, Inc. and affiliates
+
+The 'react' and 'react-dom' libraries are declared as peer
+dependencies of the bundled JavaScript and are provided at
+runtime by 'shiny.react'; they are not themselves redistributed
+inside this package. The 'react-is' helper is bundled into
+'mui-material.js' as a transitive dependency of '@mui/material'.
+
+Trademark notice
+----------------
+
+"MUI" and "Material UI" are trademarks of MUI Inc.
+The muiMaterial R package is an independent, community-maintained
+wrapper and is not affiliated with, sponsored by, or endorsed by
+MUI Inc. Use of the "MUI" and "Material UI" names is solely to
+identify the third-party JavaScript library that this package
+wraps. See https://mui.com/legal/ for MUI's published legal
+information.

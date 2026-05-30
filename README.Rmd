@@ -9,7 +9,9 @@ dependencies <- jsonlite::fromJSON("js/package.json")$dependencies
 
 <!-- badges: start -->
 [![CRAN status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
+[![Lifecycle: stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
+[![CRAN downloads](https://cranlogs.r-pkg.org/badges/grand-total/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
 `r badger::badge_custom(names(dependencies)[3], dependencies[3], "blue", "https://mui.com/material-ui/getting-started/")`
 `r badger::badge_custom(names(dependencies)[4], dependencies[4], "blue", "https://mui.com/material-ui/about-the-lab/")`
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
@@ -84,4 +86,8 @@ Follow [Felix Luginbuhl](https://linkedin.com/in/FelixLuginbuhl) on LinkedIn for
 
 ### License
 
-This package is released under the [MIT License](LICENSE).
+This package is released under the [MIT License](LICENSE). It bundles a pre-built copy of the [Material UI](https://mui.com/) JavaScript library; the third-party copyrights and license texts are summarised in [LICENSE.note](LICENSE.note) and preserved in `inst/www/muiMaterial/mui-material.js.LICENSE.txt`.
+
+### Trademark notice
+
+"MUI" and "Material UI" are trademarks of MUI Inc. `muiMaterial` is an independent, community-maintained R package and is **not affiliated with, sponsored by, or endorsed by MUI Inc.** The names are used solely to identify the underlying JavaScript library that this package wraps. See MUI's [legal information](https://mui.com/legal/) for the canonical list of MUI's published policies.
