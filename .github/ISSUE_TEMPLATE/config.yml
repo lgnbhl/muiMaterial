@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Material UI (upstream) issues
+    url: https://github.com/mui/material-ui/issues
+    about: For bugs in the underlying React library itself, please open an issue upstream.
+  - name: Questions and discussion
+    url: https://github.com/lgnbhl/muiMaterial/discussions
+    about: For usage questions, please use Discussions rather than Issues.

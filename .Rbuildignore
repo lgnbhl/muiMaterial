@@ -15,6 +15,7 @@
 ^renovate.json
 ^reinstall.sh$
 ^cran-comments\.md$
+^CONTRIBUTING\.md$
 ^CRAN-SUBMISSION$
 ^inst/examples/mui-template-dashboard/manifest\.json$
 ^inst/examples/dashboard-simple/manifest\.json$
