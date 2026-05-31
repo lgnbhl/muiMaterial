@@ -3,9 +3,13 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
+[![Lifecycle:
+stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
-[![](https://img.shields.io/badge/@mui/lab-9.0.0--beta.2-blue.svg)](https://mui.com/material-ui/getting-started/)
-[![](https://img.shields.io/badge/@mui/material-9.0.0-blue.svg)](https://mui.com/material-ui/about-the-lab/)
+[![CRAN
+downloads](https://cranlogs.r-pkg.org/badges/grand-total/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
+[![](https://img.shields.io/badge/@mui/lab-9.0.0--beta.2-blue.svg)](https://mui.com/material-ui/about-the-lab/)
+[![](https://img.shields.io/badge/@mui/material-9.0.0-blue.svg)](https://mui.com/material-ui/getting-started/)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Follow-E4405F?style=social&logo=linkedin)](https://www.linkedin.com/in/FelixLuginbuhl)
 <!-- badges: end -->
 
