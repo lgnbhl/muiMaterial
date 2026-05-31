@@ -45,6 +45,15 @@ jobs:
         run: pkgdown::build_site(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
+      - name: Detach HEAD to free the 'main' branch name for deploy
+        # The deploy action below creates a git worktree and checks out the
+        # target branch (main on lgnbhl.github.io). Git refuses because this
+        # runner's source checkout is also on a branch named 'main'. Detaching
+        # HEAD frees the name so the deploy worktree can use it.
+        if: github.event_name != 'pull_request'
+        run: git checkout --detach
+        shell: bash
+
       - name: Deploy to user site repo
         # Pushes the built site into the muiMaterial/ subfolder of the
         # lgnbhl/lgnbhl.github.io user site (served at felixluginbuhl.com/muiMaterial,
