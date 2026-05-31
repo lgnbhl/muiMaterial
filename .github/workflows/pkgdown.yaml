@@ -23,6 +23,12 @@ jobs:
       contents: write
     steps:
       - uses: actions/checkout@v6
+        # persist-credentials: false stops checkout from leaving the
+        # github-actions[bot] GITHUB_TOKEN as a git auth header, which would
+        # otherwise hijack the cross-repo deploy push and cause a 403
+        # ("denied to github-actions[bot]") instead of using DEPLOY_PAT.
+        with:
+          persist-credentials: false
 
       - uses: r-lib/actions/setup-pandoc@v2
 
