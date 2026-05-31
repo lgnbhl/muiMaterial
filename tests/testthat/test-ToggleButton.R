@@ -1,5 +1,5 @@
 test_that("ToggleButton() returns shiny.tag, correct name and value", {
   expect_true(inherits(ToggleButton(), "shiny.tag"))
-  expect_equal(environment(ToggleButton()[["children"]][[2]])[["data"]][["name"]], "ToggleButton")
-  expect_equal(environment(ToggleButton("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(ToggleButton()), "ToggleButton")
+  expect_equal(react_props(ToggleButton("Test"))[["children"]], "Test")
 })

@@ -1,5 +1,5 @@
 test_that("TextField() returns shiny.tag, correct name and value", {
   expect_true(inherits(TextField(), "shiny.tag"))
-  expect_equal(environment(TextField()[["children"]][[2]])[["data"]][["name"]], "TextField")
-  expect_equal(environment(TextField("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(TextField()), "TextField")
+  expect_equal(react_props(TextField("Test"))[["children"]], "Test")
 })

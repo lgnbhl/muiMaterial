@@ -1,5 +1,5 @@
 test_that("TabPanel() returns shiny.tag, correct name and value", {
   expect_true(inherits(TabPanel(), "shiny.tag"))
-  expect_equal(environment(TabPanel()[["children"]][[2]])[["data"]][["name"]], "TabPanel")
-  expect_equal(environment(TabPanel("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(TabPanel()), "TabPanel")
+  expect_equal(react_props(TabPanel("Test"))[["children"]], "Test")
 })

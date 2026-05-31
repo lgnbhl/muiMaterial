@@ -1,5 +1,5 @@
 test_that("RadioGroup() returns shiny.tag, correct name and value", {
   expect_true(inherits(RadioGroup(), "shiny.tag"))
-  expect_equal(environment(RadioGroup()[["children"]][[2]])[["data"]][["name"]], "RadioGroup")
-  expect_equal(environment(RadioGroup("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(RadioGroup()), "RadioGroup")
+  expect_equal(react_props(RadioGroup("Test"))[["children"]], "Test")
 })

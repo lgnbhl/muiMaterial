@@ -1,5 +1,5 @@
 test_that("Masonry() returns shiny.tag, correct name and value", {
   expect_true(inherits(Masonry(), "shiny.tag"))
-  expect_equal(environment(Masonry()[["children"]][[2]])[["data"]][["name"]], "Masonry")
-  expect_equal(environment(Masonry("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(Masonry()), "Masonry")
+  expect_equal(react_props(Masonry("Test"))[["children"]], "Test")
 })

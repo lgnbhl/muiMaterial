@@ -1,7 +1,7 @@
 test_that("ListItemSecondaryAction() returns shiny.tag, correct name and value",
           {
             expect_true(inherits(ListItemSecondaryAction(), "shiny.tag"))
-            expect_equal(environment(ListItemSecondaryAction()[["children"]][[2]])[["data"]][["name"]],
+            expect_equal(react_name(ListItemSecondaryAction()),
                          "ListItemSecondaryAction")
-            expect_equal(environment(ListItemSecondaryAction("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+            expect_equal(react_props(ListItemSecondaryAction("Test"))[["children"]], "Test")
           })

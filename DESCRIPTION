@@ -40,3 +40,19 @@ RoxygenNote: 7.3.3
 URL: https://felixluginbuhl.com/muiMaterial/
 BugReports: https://github.com/lgnbhl/muiMaterial/issues
 Config/testthat/edition: 3
+Collate: 
+    'aaa-utils.R'
+    'ThemeProvider.R'
+    'browse.R'
+    'components-extra.R'
+    'components.R'
+    'docs-templates.R'
+    'documentation.R'
+    'inputs.R'
+    'muiMaterial-package.R'
+    'muiMaterialDependency.R'
+    'muiMaterialExample.R'
+    'muiMaterialPage.R'
+    'reexports.R'
+    'static-tabs.R'
+    'triggerId.R'

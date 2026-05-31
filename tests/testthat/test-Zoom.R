@@ -1,5 +1,5 @@
 test_that("Zoom() returns shiny.tag, correct name and value", {
   expect_true(inherits(Zoom(), "shiny.tag"))
-  expect_equal(environment(Zoom()[["children"]][[2]])[["data"]][["name"]], "Zoom")
-  expect_equal(environment(Zoom("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(Zoom()), "Zoom")
+  expect_equal(react_props(Zoom("Test"))[["children"]], "Test")
 })

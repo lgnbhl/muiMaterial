@@ -1,5 +1,5 @@
 test_that("Button() returns shiny.tag, correct name and value", {
   expect_true(inherits(Button(), "shiny.tag"))
-  expect_equal(environment(Button()[["children"]][[2]])[["data"]][["name"]], "Button")
-  expect_equal(environment(Button("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(Button()), "Button")
+  expect_equal(react_props(Button("Test"))[["children"]], "Test")
 })

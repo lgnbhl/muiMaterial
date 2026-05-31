@@ -1,5 +1,5 @@
 test_that("SpeedDialAction() returns shiny.tag, correct name and value", {
   expect_true(inherits(SpeedDialAction(), "shiny.tag"))
-  expect_equal(environment(SpeedDialAction()[["children"]][[2]])[["data"]][["name"]], "SpeedDialAction")
-  expect_equal(environment(SpeedDialAction("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(SpeedDialAction()), "SpeedDialAction")
+  expect_equal(react_props(SpeedDialAction("Test"))[["children"]], "Test")
 })

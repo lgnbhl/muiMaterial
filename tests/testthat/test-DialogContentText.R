@@ -1,6 +1,6 @@
 test_that("DialogContentText() returns shiny.tag, correct name and value",
           {
             expect_true(inherits(DialogContentText(), "shiny.tag"))
-            expect_equal(environment(DialogContentText()[["children"]][[2]])[["data"]][["name"]], "DialogContentText")
-            expect_equal(environment(DialogContentText("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+            expect_equal(react_name(DialogContentText()), "DialogContentText")
+            expect_equal(react_props(DialogContentText("Test"))[["children"]], "Test")
           })

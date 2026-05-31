@@ -1,11 +1,11 @@
 test_that("Autocomplete() returns shiny.tag, correct name and value", {
   expect_true(inherits(Autocomplete(), "shiny.tag"))
   expect_equal(
-    environment(Autocomplete()[["children"]][[2]])[["data"]][["name"]],
+    react_name(Autocomplete()),
     "AutocompleteStatic"
   )
   expect_equal(
-    environment(Autocomplete("Test")[["children"]][[2]])[["data"]][["props"]][[
+    react_data(Autocomplete("Test"))[["props"]][[
       "value"
     ]][["children"]],
     "Test"
@@ -17,11 +17,11 @@ test_that("Autocomplete.shinyInput() returns shiny.tag bound to the Shiny-wired 
   expect_true(inherits(tag, "shiny.tag"))
   expect_true(inherits(tag, "muiMaterial"))
   expect_equal(
-    environment(tag[["children"]][[2]])[["data"]][["name"]],
+    react_name(tag),
     "Autocomplete"
   )
   expect_equal(
-    environment(tag[["children"]][[2]])[["data"]][["props"]][["value"]][[
+    react_props(tag)[[
       "inputId"
     ]],
     "myId"

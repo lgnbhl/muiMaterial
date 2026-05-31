@@ -1,7 +1,7 @@
 test_that("TimelineOppositeContent() returns shiny.tag, correct name and value",
           {
             expect_true(inherits(TimelineOppositeContent(), "shiny.tag"))
-            expect_equal(environment(TimelineOppositeContent()[["children"]][[2]])[["data"]][["name"]],
+            expect_equal(react_name(TimelineOppositeContent()),
                          "TimelineOppositeContent")
-            expect_equal(environment(TimelineOppositeContent("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+            expect_equal(react_props(TimelineOppositeContent("Test"))[["children"]], "Test")
           })

@@ -1,5 +1,5 @@
 test_that("InputBase() returns shiny.tag, correct name and value", {
   expect_true(inherits(InputBase(), "shiny.tag"))
-  expect_equal(environment(InputBase()[["children"]][[2]])[["data"]][["name"]], "InputBase")
-  expect_equal(environment(InputBase("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(InputBase()), "InputBase")
+  expect_equal(react_props(InputBase("Test"))[["children"]], "Test")
 })

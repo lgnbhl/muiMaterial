@@ -1,5 +1,5 @@
 test_that("Popover() returns shiny.tag, correct name and value", {
   expect_true(inherits(Popover(), "shiny.tag"))
-  expect_equal(environment(Popover()[["children"]][[2]])[["data"]][["name"]], "Popover")
-  expect_equal(environment(Popover("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(Popover()), "Popover")
+  expect_equal(react_props(Popover("Test"))[["children"]], "Test")
 })

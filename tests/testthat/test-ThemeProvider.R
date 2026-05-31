@@ -6,14 +6,14 @@ test_that("ThemeProvider() returns a shiny.tag with the muiMaterial class", {
 
 test_that("ThemeProvider() wraps the muiMaterial-namespaced ThemeProvider", {
   tag <- ThemeProvider(theme = list())
-  inner_name <- environment(tag[["children"]][[2]])[["data"]][["name"]]
+  inner_name <- react_name(tag)
   expect_equal(inner_name, "ThemeProvider")
 })
 
 test_that("ThemeProvider() forwards `theme` and children through props", {
   theme <- list(palette = list(mode = "dark", primary = list(main = "#90caf9")))
   tag <- ThemeProvider(theme = theme, Box("inside"))
-  props <- environment(tag[["children"]][[2]])[["data"]][["props"]]
+  props <- react_data(tag)[["props"]]
   expect_false(is.null(props))
   # The theme list should round-trip through asProps() unchanged.
   # asProps() wraps each prop with its own ReactData envelope.

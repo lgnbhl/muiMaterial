@@ -1,5 +1,5 @@
 test_that("Card() returns shiny.tag, correct name and value", {
   expect_true(inherits(Card(), "shiny.tag"))
-  expect_equal(environment(Card()[["children"]][[2]])[["data"]][["name"]], "Card")
-  expect_equal(environment(Card("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(Card()), "Card")
+  expect_equal(react_props(Card("Test"))[["children"]], "Test")
 })

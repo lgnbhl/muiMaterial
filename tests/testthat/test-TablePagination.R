@@ -1,5 +1,5 @@
 test_that("TablePagination() returns shiny.tag, correct name and value", {
   expect_true(inherits(TablePagination(), "shiny.tag"))
-  expect_equal(environment(TablePagination()[["children"]][[2]])[["data"]][["name"]], "TablePagination")
-  expect_equal(environment(TablePagination("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(TablePagination()), "TablePagination")
+  expect_equal(react_props(TablePagination("Test"))[["children"]], "Test")
 })

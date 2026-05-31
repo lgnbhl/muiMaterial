@@ -1,5 +1,5 @@
 test_that("PigmentContainer() returns shiny.tag, correct name and value", {
   expect_true(inherits(PigmentContainer(), "shiny.tag"))
-  expect_equal(environment(PigmentContainer()[["children"]][[2]])[["data"]][["name"]], "PigmentContainer")
-  expect_equal(environment(PigmentContainer("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(PigmentContainer()), "PigmentContainer")
+  expect_equal(react_props(PigmentContainer("Test"))[["children"]], "Test")
 })

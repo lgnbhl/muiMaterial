@@ -12,13 +12,16 @@ muiMaterialExample(example = NULL, ...)
 \item{...}{Additional arguments to pass to `shiny::runApp()`.}
 }
 \value{
-This function normally does not return;
-interrupt R to stop the application (usually by pressing Ctrl+C or Esc).
+When `example` is `NULL`, a character vector of the available example
+names. Otherwise the function launches a Shiny app and does not return;
+interrupt R to stop it (usually by pressing Ctrl+C or Esc).
 }
 \description{
 Launch a Shiny example app or list the available examples.
-Use `muiMaterial::runExample("showcase")` to run a showcase app with all the components.
+Use `muiMaterial::muiMaterialExample("showcase")` to run a showcase app with
+all the components.
 }
-\seealso{
-[shiny.blueprint::runExample()] which this function is an adaptation.
+\details{
+This function is adapted from `runExample()` in the shiny.blueprint
+package.
 }

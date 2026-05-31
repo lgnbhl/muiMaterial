@@ -1,16 +1,3 @@
-component <- function(name, module = '@mui/material') {
-  function(...) {
-    tag <- shiny.react::reactElement(
-      module = module,
-      name = name,
-      props = shiny.react::asProps(...),
-      deps = muiMaterialDependency()
-    )
-    class(tag) <- c("muiMaterial", class(tag))
-    tag
-  }
-}
-
 #' ThemeProvider
 #'
 #' Custom ThemeProvider built on top of MUI's `ThemeProvider`. See
@@ -38,5 +25,6 @@ component <- function(name, module = '@mui/material') {
 #' )
 #'
 #' shinyApp(ui, function(input, output, session) {})
+#' @include aaa-utils.R
 #' @export
 ThemeProvider <- component("ThemeProvider", module = "@/muiMaterial")

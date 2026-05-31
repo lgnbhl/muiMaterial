@@ -12,5 +12,6 @@
 NULL
 
 #' @rdname LoadingButton
+#' @include aaa-utils.R
 #' @export
 LoadingButton <- component("LoadingButton", module = "@mui/lab")

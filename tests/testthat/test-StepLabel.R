@@ -1,5 +1,5 @@
 test_that("StepLabel() returns shiny.tag, correct name and value", {
   expect_true(inherits(StepLabel(), "shiny.tag"))
-  expect_equal(environment(StepLabel()[["children"]][[2]])[["data"]][["name"]], "StepLabel")
-  expect_equal(environment(StepLabel("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(StepLabel()), "StepLabel")
+  expect_equal(react_props(StepLabel("Test"))[["children"]], "Test")
 })

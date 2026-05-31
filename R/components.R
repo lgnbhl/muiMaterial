@@ -1,19 +1,7 @@
-# Script generated automatically from 'inst/helpers'
-
-component <- function(name, module = '@mui/material') {
-  function(...) {
-    tag <- shiny.react::reactElement(
-      module = module,
-      name = name,
-      props = shiny.react::asProps(...),
-      deps = muiMaterialDependency()
-    )
-    class(tag) <- c("muiMaterial", class(tag))
-    tag
-  }
-}
+# The `component()` factory used below lives in R/aaa-utils.R.
 
 #' @rdname Accordion
+#' @include aaa-utils.R
 #' @export
 Accordion <- component('Accordion')
 

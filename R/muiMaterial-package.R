@@ -40,7 +40,7 @@
 #'
 #' Wrap your UI in [muiMaterialPage()] (or include a
 #' [muiMaterialDependency()] manually) and start composing components.
-#' See `vignette("getting-started", package = "muiMaterial")` for a
+#' See https://felixluginbuhl.com/muiMaterial/articles/ for a
 #' full walkthrough.
 #'
 #' @keywords internal

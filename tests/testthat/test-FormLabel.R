@@ -1,5 +1,5 @@
 test_that("FormLabel() returns shiny.tag, correct name and value", {
   expect_true(inherits(FormLabel(), "shiny.tag"))
-  expect_equal(environment(FormLabel()[["children"]][[2]])[["data"]][["name"]], "FormLabel")
-  expect_equal(environment(FormLabel("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(FormLabel()), "FormLabel")
+  expect_equal(react_props(FormLabel("Test"))[["children"]], "Test")
 })

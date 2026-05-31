@@ -1,5 +1,5 @@
 test_that("CssBaseline() returns shiny.tag, correct name and value", {
   expect_true(inherits(CssBaseline(), "shiny.tag"))
-  expect_equal(environment(CssBaseline()[["children"]][[2]])[["data"]][["name"]], "CssBaseline")
-  expect_equal(environment(CssBaseline("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(CssBaseline()), "CssBaseline")
+  expect_equal(react_props(CssBaseline("Test"))[["children"]], "Test")
 })

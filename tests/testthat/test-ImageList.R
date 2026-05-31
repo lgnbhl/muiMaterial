@@ -1,5 +1,5 @@
 test_that("ImageList() returns shiny.tag, correct name and value", {
   expect_true(inherits(ImageList(), "shiny.tag"))
-  expect_equal(environment(ImageList()[["children"]][[2]])[["data"]][["name"]], "ImageList")
-  expect_equal(environment(ImageList("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(ImageList()), "ImageList")
+  expect_equal(react_props(ImageList("Test"))[["children"]], "Test")
 })

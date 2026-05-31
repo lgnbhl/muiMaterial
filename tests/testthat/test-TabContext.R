@@ -1,5 +1,5 @@
 test_that("TabContext() returns shiny.tag, correct name and value", {
   expect_true(inherits(TabContext(), "shiny.tag"))
-  expect_equal(environment(TabContext()[["children"]][[2]])[["data"]][["name"]], "TabContext")
-  expect_equal(environment(TabContext("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(TabContext()), "TabContext")
+  expect_equal(react_props(TabContext("Test"))[["children"]], "Test")
 })

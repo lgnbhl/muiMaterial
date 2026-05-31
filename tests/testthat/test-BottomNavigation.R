@@ -1,5 +1,5 @@
 test_that("BottomNavigation() returns shiny.tag, correct name and value", {
   expect_true(inherits(BottomNavigation(), "shiny.tag"))
-  expect_equal(environment(BottomNavigation()[["children"]][[2]])[["data"]][["name"]], "BottomNavigation")
-  expect_equal(environment(BottomNavigation("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(BottomNavigation()), "BottomNavigation")
+  expect_equal(react_props(BottomNavigation("Test"))[["children"]], "Test")
 })

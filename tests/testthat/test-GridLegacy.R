@@ -1,5 +1,5 @@
 test_that("GridLegacy() returns shiny.tag, correct name and value", {
   expect_true(inherits(GridLegacy(), "shiny.tag"))
-  expect_equal(environment(GridLegacy()[["children"]][[2]])[["data"]][["name"]], "GridLegacy")
-  expect_equal(environment(GridLegacy("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(GridLegacy()), "GridLegacy")
+  expect_equal(react_props(GridLegacy("Test"))[["children"]], "Test")
 })

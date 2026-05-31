@@ -1,5 +1,5 @@
 test_that("MobileStepper() returns shiny.tag, correct name and value", {
   expect_true(inherits(MobileStepper(), "shiny.tag"))
-  expect_equal(environment(MobileStepper()[["children"]][[2]])[["data"]][["name"]], "MobileStepper")
-  expect_equal(environment(MobileStepper("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(MobileStepper()), "MobileStepper")
+  expect_equal(react_props(MobileStepper("Test"))[["children"]], "Test")
 })

@@ -45,19 +45,7 @@ components_text <- purrr::map(.x = df_components$components, .f = create_compone
   unlist()
 
 components_text_header <- paste0("# Script generated automatically from 'inst/helpers'
-
-component <- function(name, module = '@mui/material') {
-  function(...) {
-    tag <- shiny.react::reactElement(
-      module = module,
-      name = name,
-      props = shiny.react::asProps(...),
-      deps = muiMaterialDependency()
-    )
-    class(tag) <- c('muiMaterial', class(tag))
-    tag
-  }
-}
+# The `component()` factory used below lives in R/aaa-utils.R.
 
 ")
 
@@ -153,10 +141,12 @@ init_test_component <- function(el) {
   if (!dir.exists("tests/testthat/")) usethis::use_testthat()
   file.create(sprintf("tests/testthat/test-%s.R", el))
   usethis::use_test(sprintf("%s", el))
+  # Payload accessors react_name() / react_props() live in
+  # tests/testthat/helper-react.R.
   test_script <- paste0('test_that("', el, '() returns shiny.tag, correct name and value", {\n',
                         '   expect_true(inherits(', el, '(), "shiny.tag"))\n',
-                        '   expect_equal(environment(', el, '()[["children"]][[2]])[["data"]][["name"]], "', el, '")\n',
-                        '   expect_equal(environment(', el, '("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")\n',
+                        '   expect_equal(react_name(', el, '()), "', el, '")\n',
+                        '   expect_equal(react_props(', el, '("Test"))[["children"]], "Test")\n',
                         '})\n'
   )
 

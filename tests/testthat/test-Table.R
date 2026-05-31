@@ -1,5 +1,5 @@
 test_that("Table() returns shiny.tag, correct name and value", {
   expect_true(inherits(Table(), "shiny.tag"))
-  expect_equal(environment(Table()[["children"]][[2]])[["data"]][["name"]], "Table")
-  expect_equal(environment(Table("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+  expect_equal(react_name(Table()), "Table")
+  expect_equal(react_props(Table("Test"))[["children"]], "Test")
 })

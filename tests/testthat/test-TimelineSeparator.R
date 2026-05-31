@@ -1,6 +1,6 @@
 test_that("TimelineSeparator() returns shiny.tag, correct name and value",
           {
             expect_true(inherits(TimelineSeparator(), "shiny.tag"))
-            expect_equal(environment(TimelineSeparator()[["children"]][[2]])[["data"]][["name"]], "TimelineSeparator")
-            expect_equal(environment(TimelineSeparator("Test")[["children"]][[2]])[["data"]][["props"]][["value"]][["children"]], "Test")
+            expect_equal(react_name(TimelineSeparator()), "TimelineSeparator")
+            expect_equal(react_props(TimelineSeparator("Test"))[["children"]], "Test")
           })
