@@ -28,23 +28,22 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Container(
-      sx = list(py = 4),
-      ToggleButtonGroup.shinyInput(
-        inputId = "alignment",
-        value = "left",
-        exclusive = TRUE,
-        ToggleButton.shinyInput(inputId = "align_left", value = "left", "Left"),
-        ToggleButton.shinyInput(inputId = "align_center", value = "center", "Center"),
-        ToggleButton.shinyInput(inputId = "align_right", value = "right", "Right"),
-        ToggleButton.shinyInput(inputId = "align_justify", value = "justify", disabled = TRUE, "Justify")
-      ),
-      Typography(
-        textOutput("alignment_text"),
-        variant = "body2",
-        sx = list(mt = 2)
-      )
+  CssBaseline(),
+  Container(
+    sx = list(py = 4),
+    ToggleButtonGroup.shinyInput(
+      inputId = "alignment",
+      value = "left",
+      exclusive = TRUE,
+      ToggleButton.shinyInput(inputId = "align_left", value = "left", "Left"),
+      ToggleButton.shinyInput(inputId = "align_center", value = "center", "Center"),
+      ToggleButton.shinyInput(inputId = "align_right", value = "right", "Right"),
+      ToggleButton.shinyInput(inputId = "align_justify", value = "justify", disabled = TRUE, "Justify")
+    ),
+    Typography(
+      textOutput("alignment_text"),
+      variant = "body2",
+      sx = list(mt = 2)
     )
   )
 )
@@ -78,22 +77,21 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Container(
-      sx = list(py = 4),
-      ToggleButtonGroup.shinyInput(
-        inputId = "formatting",
-        value = "bold",
-        ToggleButton.shinyInput(inputId = "fmt_bold", value = "bold", "Bold"),
-        ToggleButton.shinyInput(inputId = "fmt_italic", value = "italic", "Italic"),
-        ToggleButton.shinyInput(inputId = "fmt_underline", value = "underline", "Underline"),
-        ToggleButton.shinyInput(inputId = "fmt_color", value = "color", disabled = TRUE, "Color")
-      ),
-      Typography(
-        textOutput("formatting_text"),
-        variant = "body2",
-        sx = list(mt = 2)
-      )
+  CssBaseline(),
+  Container(
+    sx = list(py = 4),
+    ToggleButtonGroup.shinyInput(
+      inputId = "formatting",
+      value = "bold",
+      ToggleButton.shinyInput(inputId = "fmt_bold", value = "bold", "Bold"),
+      ToggleButton.shinyInput(inputId = "fmt_italic", value = "italic", "Italic"),
+      ToggleButton.shinyInput(inputId = "fmt_underline", value = "underline", "Underline"),
+      ToggleButton.shinyInput(inputId = "fmt_color", value = "color", disabled = TRUE, "Color")
+    ),
+    Typography(
+      textOutput("formatting_text"),
+      variant = "body2",
+      sx = list(mt = 2)
     )
   )
 )
@@ -126,46 +124,45 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Container(
-      sx = list(py = 4),
-      Stack(
-        spacing = 2,
-        Box(
-          Typography("Small", variant = "caption", sx = list(mb = 1)),
-          ToggleButtonGroup.shinyInput(
-            inputId = "size_small",
-            value = "option1",
-            exclusive = TRUE,
-            size = "small",
-            ToggleButton.shinyInput(inputId = "small_1", value = "option1", "Option 1"),
-            ToggleButton.shinyInput(inputId = "small_2", value = "option2", "Option 2"),
-            ToggleButton.shinyInput(inputId = "small_3", value = "option3", "Option 3")
-          )
-        ),
-        Box(
-          Typography("Medium (default)", variant = "caption", sx = list(mb = 1)),
-          ToggleButtonGroup.shinyInput(
-            inputId = "size_medium",
-            value = "option1",
-            exclusive = TRUE,
-            size = "medium",
-            ToggleButton.shinyInput(inputId = "medium_1", value = "option1", "Option 1"),
-            ToggleButton.shinyInput(inputId = "medium_2", value = "option2", "Option 2"),
-            ToggleButton.shinyInput(inputId = "medium_3", value = "option3", "Option 3")
-          )
-        ),
-        Box(
-          Typography("Large", variant = "caption", sx = list(mb = 1)),
-          ToggleButtonGroup.shinyInput(
-            inputId = "size_large",
-            value = "option1",
-            exclusive = TRUE,
-            size = "large",
-            ToggleButton.shinyInput(inputId = "large_1", value = "option1", "Option 1"),
-            ToggleButton.shinyInput(inputId = "large_2", value = "option2", "Option 2"),
-            ToggleButton.shinyInput(inputId = "large_3", value = "option3", "Option 3")
-          )
+  CssBaseline(),
+  Container(
+    sx = list(py = 4),
+    Stack(
+      spacing = 2,
+      Box(
+        Typography("Small", variant = "caption", sx = list(mb = 1)),
+        ToggleButtonGroup.shinyInput(
+          inputId = "size_small",
+          value = "option1",
+          exclusive = TRUE,
+          size = "small",
+          ToggleButton.shinyInput(inputId = "small_1", value = "option1", "Option 1"),
+          ToggleButton.shinyInput(inputId = "small_2", value = "option2", "Option 2"),
+          ToggleButton.shinyInput(inputId = "small_3", value = "option3", "Option 3")
+        )
+      ),
+      Box(
+        Typography("Medium (default)", variant = "caption", sx = list(mb = 1)),
+        ToggleButtonGroup.shinyInput(
+          inputId = "size_medium",
+          value = "option1",
+          exclusive = TRUE,
+          size = "medium",
+          ToggleButton.shinyInput(inputId = "medium_1", value = "option1", "Option 1"),
+          ToggleButton.shinyInput(inputId = "medium_2", value = "option2", "Option 2"),
+          ToggleButton.shinyInput(inputId = "medium_3", value = "option3", "Option 3")
+        )
+      ),
+      Box(
+        Typography("Large", variant = "caption", sx = list(mb = 1)),
+        ToggleButtonGroup.shinyInput(
+          inputId = "size_large",
+          value = "option1",
+          exclusive = TRUE,
+          size = "large",
+          ToggleButton.shinyInput(inputId = "large_1", value = "option1", "Option 1"),
+          ToggleButton.shinyInput(inputId = "large_2", value = "option2", "Option 2"),
+          ToggleButton.shinyInput(inputId = "large_3", value = "option3", "Option 3")
         )
       )
     )
@@ -217,37 +214,36 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Container(
-      sx = list(py = 4),
-      Stack(
-        spacing = 2,
-        ToggleButtonGroup.shinyInput(
-          inputId = "color_standard",
-          value = "option1",
-          exclusive = TRUE,
-          ToggleButton.shinyInput(inputId = "std_1", value = "option1", "Standard"),
-          ToggleButton.shinyInput(inputId = "std_2", value = "option2", "Standard"),
-          ToggleButton.shinyInput(inputId = "std_3", value = "option3", "Standard")
-        ),
-        ToggleButtonGroup.shinyInput(
-          inputId = "color_primary",
-          value = "option1",
-          exclusive = TRUE,
-          color = "primary",
-          ToggleButton.shinyInput(inputId = "pri_1", value = "option1", "Primary"),
-          ToggleButton.shinyInput(inputId = "pri_2", value = "option2", "Primary"),
-          ToggleButton.shinyInput(inputId = "pri_3", value = "option3", "Primary")
-        ),
-        ToggleButtonGroup.shinyInput(
-          inputId = "color_secondary",
-          value = "option1",
-          exclusive = TRUE,
-          color = "secondary",
-          ToggleButton.shinyInput(inputId = "sec_1", value = "option1", "Secondary"),
-          ToggleButton.shinyInput(inputId = "sec_2", value = "option2", "Secondary"),
-          ToggleButton.shinyInput(inputId = "sec_3", value = "option3", "Secondary")
-        )
+  CssBaseline(),
+  Container(
+    sx = list(py = 4),
+    Stack(
+      spacing = 2,
+      ToggleButtonGroup.shinyInput(
+        inputId = "color_standard",
+        value = "option1",
+        exclusive = TRUE,
+        ToggleButton.shinyInput(inputId = "std_1", value = "option1", "Standard"),
+        ToggleButton.shinyInput(inputId = "std_2", value = "option2", "Standard"),
+        ToggleButton.shinyInput(inputId = "std_3", value = "option3", "Standard")
+      ),
+      ToggleButtonGroup.shinyInput(
+        inputId = "color_primary",
+        value = "option1",
+        exclusive = TRUE,
+        color = "primary",
+        ToggleButton.shinyInput(inputId = "pri_1", value = "option1", "Primary"),
+        ToggleButton.shinyInput(inputId = "pri_2", value = "option2", "Primary"),
+        ToggleButton.shinyInput(inputId = "pri_3", value = "option3", "Primary")
+      ),
+      ToggleButtonGroup.shinyInput(
+        inputId = "color_secondary",
+        value = "option1",
+        exclusive = TRUE,
+        color = "secondary",
+        ToggleButton.shinyInput(inputId = "sec_1", value = "option1", "Secondary"),
+        ToggleButton.shinyInput(inputId = "sec_2", value = "option2", "Secondary"),
+        ToggleButton.shinyInput(inputId = "sec_3", value = "option3", "Secondary")
       )
     )
   )
@@ -299,23 +295,22 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Container(
-      sx = list(py = 4),
-      ToggleButtonGroup.shinyInput(
-        inputId = "vertical",
-        value = "option1",
-        exclusive = TRUE,
-        orientation = "vertical",
-        ToggleButton.shinyInput(inputId = "vert_1", value = "option1", "Option 1"),
-        ToggleButton.shinyInput(inputId = "vert_2", value = "option2", "Option 2"),
-        ToggleButton.shinyInput(inputId = "vert_3", value = "option3", "Option 3")
-      ),
-      Typography(
-        textOutput("vertical_text"),
-        variant = "body2",
-        sx = list(mt = 2)
-      )
+  CssBaseline(),
+  Container(
+    sx = list(py = 4),
+    ToggleButtonGroup.shinyInput(
+      inputId = "vertical",
+      value = "option1",
+      exclusive = TRUE,
+      orientation = "vertical",
+      ToggleButton.shinyInput(inputId = "vert_1", value = "option1", "Option 1"),
+      ToggleButton.shinyInput(inputId = "vert_2", value = "option2", "Option 2"),
+      ToggleButton.shinyInput(inputId = "vert_3", value = "option3", "Option 3")
+    ),
+    Typography(
+      textOutput("vertical_text"),
+      variant = "body2",
+      sx = list(mt = 2)
     )
   )
 )
@@ -346,19 +341,18 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Container(
-      sx = list(py = 4),
-      ToggleButton.shinyInput(
-        inputId = "standalone",
-        value = FALSE,
-        shiny::icon("check")
-      ),
-      Typography(
-        textOutput("standalone_text"),
-        variant = "body2",
-        sx = list(mt = 2)
-      )
+  CssBaseline(),
+  Container(
+    sx = list(py = 4),
+    ToggleButton.shinyInput(
+      inputId = "standalone",
+      value = FALSE,
+      shiny::icon("check")
+    ),
+    Typography(
+      textOutput("standalone_text"),
+      variant = "body2",
+      sx = list(mt = 2)
     )
   )
 )
@@ -383,32 +377,31 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Container(
-      sx = list(py = 4),
-      ToggleButtonGroup.shinyInput(
-        inputId = "custom",
-        value = "option1",
-        exclusive = TRUE,
-        color = "primary",
-        sx = list(
-          '& .MuiToggleButton-root' = list(
-            borderRadius = '8px',
-            margin = '4px',
-            border = '2px solid',
-            '&.Mui-selected' = list(
-              backgroundColor = 'primary.main',
-              color = 'white',
-              '&:hover' = list(
-                backgroundColor = 'primary.dark'
-              )
+  CssBaseline(),
+  Container(
+    sx = list(py = 4),
+    ToggleButtonGroup.shinyInput(
+      inputId = "custom",
+      value = "option1",
+      exclusive = TRUE,
+      color = "primary",
+      sx = list(
+        '& .MuiToggleButton-root' = list(
+          borderRadius = '8px',
+          margin = '4px',
+          border = '2px solid',
+          '&.Mui-selected' = list(
+            backgroundColor = 'primary.main',
+            color = 'white',
+            '&:hover' = list(
+              backgroundColor = 'primary.dark'
             )
           )
-        ),
-        ToggleButton.shinyInput(inputId = "cust_1", value = "option1", "Custom 1"),
-        ToggleButton.shinyInput(inputId = "cust_2", value = "option2", "Custom 2"),
-        ToggleButton.shinyInput(inputId = "cust_3", value = "option3", "Custom 3")
-      )
+        )
+      ),
+      ToggleButton.shinyInput(inputId = "cust_1", value = "option1", "Custom 1"),
+      ToggleButton.shinyInput(inputId = "cust_2", value = "option2", "Custom 2"),
+      ToggleButton.shinyInput(inputId = "cust_3", value = "option3", "Custom 3")
     )
   )
 )

@@ -29,7 +29,8 @@ outlined.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     spacing = 2, 
     direction = "row",
@@ -66,7 +67,8 @@ maintain an emphasis on card content.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     direction = "row", 
     spacing = 2,
@@ -102,7 +104,8 @@ elevation and fill. They contain actions that are primary to your app.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     direction = "row", 
     spacing = 2,
@@ -139,7 +142,8 @@ You can remove the elevation with the disableElevation prop.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Button(variant = "contained", disableElevation = TRUE, "Disable elevation")
 )
 ```
@@ -169,7 +173,8 @@ buttons, or a higher emphasis alternative to text buttons.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     direction = "row", 
     spacing = 2,
@@ -247,7 +252,8 @@ lot) in the API section of the components.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     direction = "row", 
     spacing = 2,
@@ -290,7 +296,8 @@ For larger or smaller buttons, use the size prop.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Box(
     sx = list('& button' = list(m = 1)),
     div(
@@ -363,7 +370,8 @@ dustbin icon.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     direction = "row", 
     spacing = 2,
@@ -414,7 +422,8 @@ item.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     direction = "row", 
     spacing = 1,
@@ -478,7 +487,8 @@ For larger or smaller icon buttons, use the size prop.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     direction = "row", 
     spacing = 1, 
@@ -541,7 +551,8 @@ Use color prop to apply theme color palette to component.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     direction = "row", 
     spacing = 1,
@@ -649,7 +660,8 @@ You can use the Badge component to add a badge to an IconButton.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   IconButton(
     shiny::icon("shopping-cart", class = "fa-sm"),
     Badge(
@@ -776,7 +788,8 @@ state and disable interactions.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     spacing = 2,
     Stack(
@@ -1197,7 +1210,8 @@ export default function CustomizedButtons() {
 library(shiny)
 
 CustomizedButtons <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     ThemeProvider(
       theme = list(
         components = list(
@@ -1425,7 +1439,8 @@ ButtonBaseDemo <- function() {
     )
   )
   
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       sx = list(
         display = "flex",

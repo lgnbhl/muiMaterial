@@ -26,7 +26,8 @@ represent the most common action.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Box(
     sx = list('& > :not(style)' = list(m = 1)),
     Fab(
@@ -92,7 +93,8 @@ floating action buttons.
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Box(
     sx = list('& > :not(style)' = list(m = 1)),
     Fab(
@@ -143,7 +145,8 @@ export default function FloatingActionButtonSize() {
 
 ``` r
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Box(
     sx = list('& > :not(style)' = list(m = 1)),
     Fab(

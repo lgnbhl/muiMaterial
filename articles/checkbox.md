@@ -37,7 +37,8 @@ export default function Checkboxes() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   div(
     Checkbox.shinyInput(inputId = "checkbox1", value = TRUE, 
                         inputProps = list("aria-label" = "Checkbox demo")),
@@ -83,7 +84,8 @@ export default function CheckboxLabels() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   FormGroup(
     FormControlLabel(
       control = Checkbox.shinyInput(inputId = "labeledCheckbox1", value = TRUE),
@@ -137,7 +139,8 @@ export default function SizeCheckboxes() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   div(
     Checkbox.shinyInput(
       inputId = "sizeCheckbox1", 
@@ -199,7 +202,8 @@ export default function ColorCheckboxes() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   div(
     Checkbox.shinyInput(
       inputId = "colorCheckbox1", 
@@ -273,7 +277,8 @@ export default function IconCheckboxes() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   div(
     Checkbox.shinyInput(
       inputId = "iconCheckbox1",
@@ -727,7 +732,8 @@ export default function FormControlLabelPosition() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   FormControl(
     component = "fieldset",
     FormLabel(component = "legend", "Label placement"),

@@ -14,19 +14,18 @@ The badge is applied to its children.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Badge(
-        badgeContent = 4,
-        color = "primary",
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        badgeContent = 4,
-        color = "secondary",
-        shiny::icon(name = "envelope")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Badge(
+      badgeContent = 4,
+      color = "primary",
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      badgeContent = 4,
+      color = "secondary",
+      shiny::icon(name = "envelope")
     )
   )
 )
@@ -41,39 +40,38 @@ Use the `color` prop to apply theme palette to the badge.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Badge(
-        badgeContent = 4,
-        color = "primary",
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        badgeContent = 4,
-        color = "secondary",
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        badgeContent = 4,
-        color = "success",
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        badgeContent = 4,
-        color = "error",
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        badgeContent = 4,
-        color = "warning",
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        badgeContent = 4,
-        color = "info",
-        shiny::icon(name = "envelope")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Badge(
+      badgeContent = 4,
+      color = "primary",
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      badgeContent = 4,
+      color = "secondary",
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      badgeContent = 4,
+      color = "success",
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      badgeContent = 4,
+      color = "error",
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      badgeContent = 4,
+      color = "warning",
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      badgeContent = 4,
+      color = "info",
+      shiny::icon(name = "envelope")
     )
   )
 )
@@ -88,20 +86,19 @@ The visibility of badges can be controlled using the `invisible` prop.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Badge(
-        badgeContent = 1,
-        color = "secondary",
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        badgeContent = 1,
-        invisible = TRUE,
-        color = "secondary",
-        shiny::icon(name = "envelope")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Badge(
+      badgeContent = 1,
+      color = "secondary",
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      badgeContent = 1,
+      invisible = TRUE,
+      color = "secondary",
+      shiny::icon(name = "envelope")
     )
   )
 )
@@ -115,20 +112,19 @@ override this with the `showZero` prop.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Badge(
-        color = "secondary",
-        badgeContent = 0,
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        color = "secondary",
-        badgeContent = 0,
-        showZero = TRUE,
-        shiny::icon(name = "envelope")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Badge(
+      color = "secondary",
+      badgeContent = 0,
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      color = "secondary",
+      badgeContent = 0,
+      showZero = TRUE,
+      shiny::icon(name = "envelope")
     )
   )
 )
@@ -143,25 +139,24 @@ You can use the `max` prop to cap the value of the badge content.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Badge(
-        color = "secondary",
-        badgeContent = 99,
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        color = "secondary",
-        badgeContent = 100,
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        color = "secondary",
-        badgeContent = 1000,
-        max = 999,
-        shiny::icon(name = "envelope")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Badge(
+      color = "secondary",
+      badgeContent = 99,
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      color = "secondary",
+      badgeContent = 100,
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      color = "secondary",
+      badgeContent = 1000,
+      max = 999,
+      shiny::icon(name = "envelope")
     )
   )
 )
@@ -178,24 +173,23 @@ count.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Badge(
-        color = "secondary",
-        variant = "dot",
-        shiny::icon(name = "envelope")
-      ),
-      Badge(
-        color = "error",
-        variant = "dot",
-        shiny::icon(name = "phone")
-      ),
-      Badge(
-        color = "success",
-        variant = "dot",
-        shiny::icon(name = "check")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Badge(
+      color = "secondary",
+      variant = "dot",
+      shiny::icon(name = "envelope")
+    ),
+    Badge(
+      color = "error",
+      variant = "dot",
+      shiny::icon(name = "phone")
+    ),
+    Badge(
+      color = "success",
+      variant = "dot",
+      shiny::icon(name = "check")
     )
   )
 )
@@ -212,46 +206,45 @@ children or `"circular"` for circular children like avatars.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 3, p = 2),
-      # Rectangular overlap
-      Badge(
-        color = "secondary",
-        badgeContent = " ",
-        overlap = "rectangular",
-        Paper(
-          sx = list(width = 40, height = 40, bgcolor = "lightgray")
-        )
-      ),
-      # Dot variant with rectangular
-      Badge(
-        color = "secondary",
-        variant = "dot",
-        overlap = "rectangular",
-        Paper(
-          sx = list(width = 40, height = 40, bgcolor = "lightgray")
-        )
-      ),
-      # Circular overlap with Avatar
-      Badge(
-        color = "secondary",
-        badgeContent = " ",
-        overlap = "circular",
-        Avatar(
-          alt = "John Doe",
-          src = "https://mui.com/static/images/avatar/1.jpg"
-        )
-      ),
-      # Dot variant with circular
-      Badge(
-        color = "success",
-        variant = "dot",
-        overlap = "circular",
-        Avatar(
-          alt = "Jane Smith",
-          src = "https://mui.com/static/images/avatar/2.jpg"
-        )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 3, p = 2),
+    # Rectangular overlap
+    Badge(
+      color = "secondary",
+      badgeContent = " ",
+      overlap = "rectangular",
+      Paper(
+        sx = list(width = 40, height = 40, bgcolor = "lightgray")
+      )
+    ),
+    # Dot variant with rectangular
+    Badge(
+      color = "secondary",
+      variant = "dot",
+      overlap = "rectangular",
+      Paper(
+        sx = list(width = 40, height = 40, bgcolor = "lightgray")
+      )
+    ),
+    # Circular overlap with Avatar
+    Badge(
+      color = "secondary",
+      badgeContent = " ",
+      overlap = "circular",
+      Avatar(
+        alt = "John Doe",
+        src = "https://mui.com/static/images/avatar/1.jpg"
+      )
+    ),
+    # Dot variant with circular
+    Badge(
+      color = "success",
+      variant = "dot",
+      overlap = "circular",
+      Avatar(
+        alt = "Jane Smith",
+        src = "https://mui.com/static/images/avatar/2.jpg"
       )
     )
   )
@@ -268,57 +261,56 @@ the wrapped element.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Typography("Badge Positions", variant = "h5", sx = list(mb = 3)),
     Box(
-      sx = list(p = 2),
-      Typography("Badge Positions", variant = "h5", sx = list(mb = 3)),
-      Box(
-        sx = list(display = "grid", gridTemplateColumns = "repeat(3, 100px)", gap = 2),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "top", horizontal = "left"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        ),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "top", horizontal = "right"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        ),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "bottom", horizontal = "left"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        ),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "bottom", horizontal = "right"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        ),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "top", horizontal = "center"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        ),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "bottom", horizontal = "center"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        ),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "center", horizontal = "left"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        ),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "center", horizontal = "right"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        ),
-        Badge(
-          badgeContent = 1,
-          anchorOrigin = list(vertical = "center", horizontal = "center"),
-          Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
-        )
+      sx = list(display = "grid", gridTemplateColumns = "repeat(3, 100px)", gap = 2),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "top", horizontal = "left"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
+      ),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "top", horizontal = "right"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
+      ),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "bottom", horizontal = "left"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
+      ),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "bottom", horizontal = "right"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
+      ),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "top", horizontal = "center"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
+      ),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "bottom", horizontal = "center"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
+      ),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "center", horizontal = "left"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
+      ),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "center", horizontal = "right"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
+      ),
+      Badge(
+        badgeContent = 1,
+        anchorOrigin = list(vertical = "center", horizontal = "center"),
+        Paper(sx = list(width = 40, height = 40, bgcolor = "lightgray"))
       )
     )
   )
@@ -334,53 +326,52 @@ Combine badges with avatars to show online status or other information.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 3, flexWrap = "wrap"),
-      # Online status indicator
-      Badge(
-        overlap = "circular",
-        anchorOrigin = list(vertical = "bottom", horizontal = "right"),
-        variant = "dot",
-        sx = list(
-          "& .MuiBadge-badge" = list(
-            bgcolor = "#44b700",
-            boxShadow = "0 0 0 2px white"
-          )
-        ),
-        Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg"
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 3, flexWrap = "wrap"),
+    # Online status indicator
+    Badge(
+      overlap = "circular",
+      anchorOrigin = list(vertical = "bottom", horizontal = "right"),
+      variant = "dot",
+      sx = list(
+        "& .MuiBadge-badge" = list(
+          bgcolor = "#44b700",
+          boxShadow = "0 0 0 2px white"
         )
       ),
-      # Badge with nested avatar
-      Badge(
-        overlap = "circular",
-        anchorOrigin = list(vertical = "bottom", horizontal = "right"),
-        badgeContent = Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg",
-          sx = list(width = 22, height = 22, border = "2px solid white")
-        ),
-        Avatar(
-          alt = "Travis Howard",
-          src = "https://mui.com/static/images/avatar/2.jpg"
+      Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg"
+      )
+    ),
+    # Badge with nested avatar
+    Badge(
+      overlap = "circular",
+      anchorOrigin = list(vertical = "bottom", horizontal = "right"),
+      badgeContent = Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg",
+        sx = list(width = 22, height = 22, border = "2px solid white")
+      ),
+      Avatar(
+        alt = "Travis Howard",
+        src = "https://mui.com/static/images/avatar/2.jpg"
+      )
+    ),
+    # Error status
+    Badge(
+      overlap = "circular",
+      anchorOrigin = list(vertical = "bottom", horizontal = "right"),
+      variant = "dot",
+      sx = list(
+        "& .MuiBadge-badge" = list(
+          bgcolor = "#f44336"
         )
       ),
-      # Error status
-      Badge(
-        overlap = "circular",
-        anchorOrigin = list(vertical = "bottom", horizontal = "right"),
-        variant = "dot",
-        sx = list(
-          "& .MuiBadge-badge" = list(
-            bgcolor = "#f44336"
-          )
-        ),
-        Avatar(
-          alt = "Cindy Baker",
-          src = "https://mui.com/static/images/avatar/3.jpg"
-        )
+      Avatar(
+        alt = "Cindy Baker",
+        src = "https://mui.com/static/images/avatar/3.jpg"
       )
     )
   )
@@ -398,24 +389,23 @@ element to describe the badge content.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      IconButton(
-        `aria-label` = "100 unread notifications",
-        Badge(
-          badgeContent = 100,
-          color = "error",
-          shiny::icon(name = "bell")
-        )
-      ),
-      IconButton(
-        `aria-label` = "shopping cart with 5 items",
-        Badge(
-          badgeContent = 5,
-          color = "secondary",
-          shiny::icon(name = "shop")
-        )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    IconButton(
+      `aria-label` = "100 unread notifications",
+      Badge(
+        badgeContent = 100,
+        color = "error",
+        shiny::icon(name = "bell")
+      )
+    ),
+    IconButton(
+      `aria-label` = "shopping cart with 5 items",
+      Badge(
+        badgeContent = 5,
+        color = "secondary",
+        shiny::icon(name = "shop")
       )
     )
   )

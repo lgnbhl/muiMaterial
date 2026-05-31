@@ -13,12 +13,11 @@ The `Chip` component supports filled (default) and outlined styling.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Chip(label = "Chip Filled"),
-      Chip(label = "Chip Outlined", variant = "outlined")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Chip(label = "Chip Filled"),
+    Chip(label = "Chip Outlined", variant = "outlined")
   )
 )
 ```
@@ -34,17 +33,16 @@ are: “default”, “primary”, “secondary”, “error”, “warning”, 
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
-      # Filled variants
-      Chip(label = "primary", color = "primary"),
-      Chip(label = "secondary", color = "secondary"),
-      Chip(label = "success", color = "success"),
-      Chip(label = "error", color = "error"),
-      Chip(label = "warning", color = "warning"),
-      Chip(label = "info", color = "info")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
+    # Filled variants
+    Chip(label = "primary", color = "primary"),
+    Chip(label = "secondary", color = "secondary"),
+    Chip(label = "success", color = "success"),
+    Chip(label = "error", color = "error"),
+    Chip(label = "warning", color = "warning"),
+    Chip(label = "info", color = "info")
   )
 )
 ```
@@ -58,17 +56,16 @@ Outlined chips with different colors:
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
-      # Outlined variants
-      Chip(label = "primary", color = "primary", variant = "outlined"),
-      Chip(label = "secondary", color = "secondary", variant = "outlined"),
-      Chip(label = "success", color = "success", variant = "outlined"),
-      Chip(label = "error", color = "error", variant = "outlined"),
-      Chip(label = "warning", color = "warning", variant = "outlined"),
-      Chip(label = "info", color = "info", variant = "outlined")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
+    # Outlined variants
+    Chip(label = "primary", color = "primary", variant = "outlined"),
+    Chip(label = "secondary", color = "secondary", variant = "outlined"),
+    Chip(label = "success", color = "success", variant = "outlined"),
+    Chip(label = "error", color = "error", variant = "outlined"),
+    Chip(label = "warning", color = "warning", variant = "outlined"),
+    Chip(label = "info", color = "info", variant = "outlined")
   )
 )
 ```
@@ -83,14 +80,13 @@ or “small”.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2, alignItems = "center"),
-      Chip(label = "Medium", size = "medium"),
-      Chip(label = "Small", size = "small"),
-      Chip(label = "Medium", size = "medium", variant = "outlined"),
-      Chip(label = "Small", size = "small", variant = "outlined")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2, alignItems = "center"),
+    Chip(label = "Medium", size = "medium"),
+    Chip(label = "Small", size = "small"),
+    Chip(label = "Medium", size = "medium", variant = "outlined"),
+    Chip(label = "Small", size = "small", variant = "outlined")
   )
 )
 ```
@@ -105,17 +101,16 @@ on the chip and `whiteSpace: normal` on the label.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Chip(
-        label = "This is a chip that has multiple lines.",
-        sx = list(
-          height = "auto",
-          "& .MuiChip-label" = list(
-            display = "block",
-            whiteSpace = "normal"
-          )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Chip(
+      label = "This is a chip that has multiple lines.",
+      sx = list(
+        height = "auto",
+        "& .MuiChip-label" = list(
+          display = "block",
+          whiteSpace = "normal"
         )
       )
     )
@@ -132,21 +127,20 @@ Add an avatar to the beginning of a chip using the `avatar` prop.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Chip(
-        avatar = Avatar(children = "M"),
-        label = "Avatar"
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Chip(
+      avatar = Avatar(children = "M"),
+      label = "Avatar"
+    ),
+    Chip(
+      avatar = Avatar(
+        alt = "Natacha",
+        src = "https://mui.com/static/images/avatar/1.jpg"
       ),
-      Chip(
-        avatar = Avatar(
-          alt = "Natacha",
-          src = "https://mui.com/static/images/avatar/1.jpg"
-        ),
-        label = "Avatar",
-        variant = "outlined"
-      )
+      label = "Avatar",
+      variant = "outlined"
     )
   )
 )
@@ -161,18 +155,17 @@ Add an icon to the beginning of a chip using the `icon` prop.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Chip(
-        icon = shiny::icon(name = "person"),
-        label = "With Icon"
-      ),
-      Chip(
-        icon = shiny::icon(name = "person"),
-        label = "With Icon",
-        variant = "outlined"
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Chip(
+      icon = shiny::icon(name = "person"),
+      label = "With Icon"
+    ),
+    Chip(
+      icon = shiny::icon(name = "person"),
+      label = "With Icon",
+      variant = "outlined"
     )
   )
 )
@@ -189,23 +182,22 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
-      Chip(
-        label = "Clickable",
-        onClick = JS("() => Shiny.setInputValue('chip1', Math.random())")
-      ),
-      Chip(
-        label = "Clickable",
-        variant = "outlined",
-        onClick = JS("() => Shiny.setInputValue('chip2', Math.random())")
-      ),
-      Typography(
-        uiOutput("click_message"),
-        variant = "body2",
-        sx = list(mt = 2)
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2, flexWrap = "wrap"),
+    Chip(
+      label = "Clickable",
+      onClick = JS("() => Shiny.setInputValue('chip1', Math.random())")
+    ),
+    Chip(
+      label = "Clickable",
+      variant = "outlined",
+      onClick = JS("() => Shiny.setInputValue('chip2', Math.random())")
+    ),
+    Typography(
+      uiOutput("click_message"),
+      variant = "body2",
+      sx = list(mt = 2)
     )
   )
 )
@@ -251,18 +243,17 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Typography("Chips (deletable):", variant = "h6", sx = list(mb = 2)),
     Box(
-      sx = list(p = 2),
-      Typography("Chips (deletable):", variant = "h6", sx = list(mb = 2)),
-      Box(
-        sx = list(display = "flex", gap = 2, flexWrap = "wrap", mb = 2),
-        uiOutput("chips_list")
-      ),
-      Button(
-        "Reset Chips",
-        onClick = JS("() => Shiny.setInputValue('reset_chips', Math.random())")
-      )
+      sx = list(display = "flex", gap = 2, flexWrap = "wrap", mb = 2),
+      uiOutput("chips_list")
+    ),
+    Button(
+      "Reset Chips",
+      onClick = JS("() => Shiny.setInputValue('reset_chips', Math.random())")
     )
   )
 )
@@ -302,18 +293,17 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Typography("Filter Tags:", variant = "h6", sx = list(mb = 2)),
     Box(
-      sx = list(p = 2),
-      Typography("Filter Tags:", variant = "h6", sx = list(mb = 2)),
-      Box(
-        sx = list(display = "flex", gap = 2, flexWrap = "wrap", mb = 2),
-        uiOutput("filter_chips")
-      ),
-      Typography(
-        uiOutput("selected_message"),
-        variant = "body2"
-      )
+      sx = list(display = "flex", gap = 2, flexWrap = "wrap", mb = 2),
+      uiOutput("filter_chips")
+    ),
+    Typography(
+      uiOutput("selected_message"),
+      variant = "body2"
     )
   )
 )
@@ -374,22 +364,21 @@ Use the `component` prop to render a chip as a link.
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(display = "flex", gap = 2, p = 2),
-      Chip(
-        label = "Clickable Link",
-        component = "a",
-        href = "https://felixluginbuhl.com",
-        clickable = TRUE
-      ),
-      Chip(
-        label = "Clickable Link",
-        variant = "outlined",
-        component = "a",
-        href = "https://felixluginbuhl.com",
-        clickable = TRUE
-      )
+  CssBaseline(),
+  Box(
+    sx = list(display = "flex", gap = 2, p = 2),
+    Chip(
+      label = "Clickable Link",
+      component = "a",
+      href = "https://felixluginbuhl.com",
+      clickable = TRUE
+    ),
+    Chip(
+      label = "Clickable Link",
+      variant = "outlined",
+      component = "a",
+      href = "https://felixluginbuhl.com",
+      clickable = TRUE
     )
   )
 )
@@ -404,30 +393,29 @@ Display user roles as deletable chips:
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Typography("User Roles", variant = "h5", sx = list(mb = 2)),
     Box(
-      sx = list(p = 2),
-      Typography("User Roles", variant = "h5", sx = list(mb = 2)),
-      Box(
-        sx = list(display = "flex", gap = 1, flexWrap = "wrap"),
-        Chip(
-          avatar = Avatar(children = "A"),
-          label = "Admin",
-          color = "error",
-          onDelete = JS("() => console.log('Remove Admin')")
-        ),
-        Chip(
-          avatar = Avatar(children = "E"),
-          label = "Editor",
-          color = "warning",
-          onDelete = JS("() => console.log('Remove Editor')")
-        ),
-        Chip(
-          avatar = Avatar(children = "V"),
-          label = "Viewer",
-          color = "info",
-          onDelete = JS("() => console.log('Remove Viewer')")
-        )
+      sx = list(display = "flex", gap = 1, flexWrap = "wrap"),
+      Chip(
+        avatar = Avatar(children = "A"),
+        label = "Admin",
+        color = "error",
+        onDelete = JS("() => console.log('Remove Admin')")
+      ),
+      Chip(
+        avatar = Avatar(children = "E"),
+        label = "Editor",
+        color = "warning",
+        onDelete = JS("() => console.log('Remove Editor')")
+      ),
+      Chip(
+        avatar = Avatar(children = "V"),
+        label = "Viewer",
+        color = "info",
+        onDelete = JS("() => console.log('Remove Viewer')")
       )
     )
   )

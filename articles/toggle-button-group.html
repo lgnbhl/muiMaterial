@@ -126,23 +126,22 @@ button must be active.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"alignment"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"left"</span>,</span>
-<span>        exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"align_left"</span>, value <span class="op">=</span> <span class="st">"left"</span>, <span class="st">"Left"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"align_center"</span>, value <span class="op">=</span> <span class="st">"center"</span>, <span class="st">"Center"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"align_right"</span>, value <span class="op">=</span> <span class="st">"right"</span>, <span class="st">"Right"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"align_justify"</span>, value <span class="op">=</span> <span class="st">"justify"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, <span class="st">"Justify"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"alignment_text"</span><span class="op">)</span>,</span>
-<span>        variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"alignment"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"left"</span>,</span>
+<span>      exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"align_left"</span>, value <span class="op">=</span> <span class="st">"left"</span>, <span class="st">"Left"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"align_center"</span>, value <span class="op">=</span> <span class="st">"center"</span>, <span class="st">"Center"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"align_right"</span>, value <span class="op">=</span> <span class="st">"right"</span>, <span class="st">"Right"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"align_justify"</span>, value <span class="op">=</span> <span class="st">"justify"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, <span class="st">"Justify"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"alignment_text"</span><span class="op">)</span>,</span>
+<span>      variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -174,22 +173,21 @@ italic, and underline, to have multiple options selected.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"formatting"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"bold"</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"fmt_bold"</span>, value <span class="op">=</span> <span class="st">"bold"</span>, <span class="st">"Bold"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"fmt_italic"</span>, value <span class="op">=</span> <span class="st">"italic"</span>, <span class="st">"Italic"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"fmt_underline"</span>, value <span class="op">=</span> <span class="st">"underline"</span>, <span class="st">"Underline"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"fmt_color"</span>, value <span class="op">=</span> <span class="st">"color"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, <span class="st">"Color"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"formatting_text"</span><span class="op">)</span>,</span>
-<span>        variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"formatting"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"bold"</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"fmt_bold"</span>, value <span class="op">=</span> <span class="st">"bold"</span>, <span class="st">"Bold"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"fmt_italic"</span>, value <span class="op">=</span> <span class="st">"italic"</span>, <span class="st">"Italic"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"fmt_underline"</span>, value <span class="op">=</span> <span class="st">"underline"</span>, <span class="st">"Underline"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"fmt_color"</span>, value <span class="op">=</span> <span class="st">"color"</span>, disabled <span class="op">=</span> <span class="cn">TRUE</span>, <span class="st">"Color"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"formatting_text"</span><span class="op">)</span>,</span>
+<span>      variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -220,46 +218,45 @@ italic, and underline, to have multiple options selected.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
-<span>        spacing <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>        <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Small"</span>, variant <span class="op">=</span> <span class="st">"caption"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>            inputId <span class="op">=</span> <span class="st">"size_small"</span>,</span>
-<span>            value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>            exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            size <span class="op">=</span> <span class="st">"small"</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"small_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"small_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"small_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Medium (default)"</span>, variant <span class="op">=</span> <span class="st">"caption"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>            inputId <span class="op">=</span> <span class="st">"size_medium"</span>,</span>
-<span>            value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>            exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            size <span class="op">=</span> <span class="st">"medium"</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"medium_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"medium_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"medium_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Large"</span>, variant <span class="op">=</span> <span class="st">"caption"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>            inputId <span class="op">=</span> <span class="st">"size_large"</span>,</span>
-<span>            value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>            exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            size <span class="op">=</span> <span class="st">"large"</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"large_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"large_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"large_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
+<span>      spacing <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Small"</span>, variant <span class="op">=</span> <span class="st">"caption"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>          inputId <span class="op">=</span> <span class="st">"size_small"</span>,</span>
+<span>          value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>          exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>          size <span class="op">=</span> <span class="st">"small"</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"small_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"small_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"small_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Medium (default)"</span>, variant <span class="op">=</span> <span class="st">"caption"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>          inputId <span class="op">=</span> <span class="st">"size_medium"</span>,</span>
+<span>          value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>          exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>          size <span class="op">=</span> <span class="st">"medium"</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"medium_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"medium_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"medium_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Large"</span>, variant <span class="op">=</span> <span class="st">"caption"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>          inputId <span class="op">=</span> <span class="st">"size_large"</span>,</span>
+<span>          value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>          exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>          size <span class="op">=</span> <span class="st">"large"</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"large_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"large_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"large_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -310,37 +307,36 @@ component.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
-<span>        spacing <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"color_standard"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>          exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"std_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Standard"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"std_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Standard"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"std_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Standard"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"color_primary"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>          exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          color <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"pri_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Primary"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"pri_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Primary"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"pri_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Primary"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"color_secondary"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>          exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          color <span class="op">=</span> <span class="st">"secondary"</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"sec_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Secondary"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"sec_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Secondary"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"sec_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Secondary"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
+<span>      spacing <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"color_standard"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>        exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"std_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Standard"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"std_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Standard"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"std_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Standard"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"color_primary"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>        exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        color <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"pri_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Primary"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"pri_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Primary"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"pri_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Primary"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"color_secondary"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>        exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        color <span class="op">=</span> <span class="st">"secondary"</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"sec_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Secondary"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"sec_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Secondary"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"sec_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Secondary"</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -390,23 +386,22 @@ component.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"vertical"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>        exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        orientation <span class="op">=</span> <span class="st">"vertical"</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"vert_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"vert_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"vert_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"vertical_text"</span><span class="op">)</span>,</span>
-<span>        variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>      exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      orientation <span class="op">=</span> <span class="st">"vertical"</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"vert_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"vert_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"vert_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"vertical_text"</span><span class="op">)</span>,</span>
+<span>      variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -436,19 +431,18 @@ component.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"standalone"</span>,</span>
-<span>        value <span class="op">=</span> <span class="cn">FALSE</span>,</span>
-<span>        <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"check"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"standalone_text"</span><span class="op">)</span>,</span>
-<span>        variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"standalone"</span>,</span>
+<span>      value <span class="op">=</span> <span class="cn">FALSE</span>,</span>
+<span>      <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"check"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">textOutput</a></span><span class="op">(</span><span class="st">"standalone_text"</span><span class="op">)</span>,</span>
+<span>      variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -471,32 +465,31 @@ component.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"custom"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>        exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        color <span class="op">=</span> <span class="st">"primary"</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          <span class="st">'&amp; .MuiToggleButton-root'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            borderRadius <span class="op">=</span> <span class="st">'8px'</span>,</span>
-<span>            margin <span class="op">=</span> <span class="st">'4px'</span>,</span>
-<span>            border <span class="op">=</span> <span class="st">'2px solid'</span>,</span>
-<span>            <span class="st">'&amp;.Mui-selected'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>              backgroundColor <span class="op">=</span> <span class="st">'primary.main'</span>,</span>
-<span>              color <span class="op">=</span> <span class="st">'white'</span>,</span>
-<span>              <span class="st">'&amp;:hover'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>                backgroundColor <span class="op">=</span> <span class="st">'primary.dark'</span></span>
-<span>              <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Container.html">Container</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>py <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/ToggleButtonGroup.html">ToggleButtonGroup.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"custom"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>      exclusive <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      color <span class="op">=</span> <span class="st">"primary"</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        <span class="st">'&amp; .MuiToggleButton-root'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          borderRadius <span class="op">=</span> <span class="st">'8px'</span>,</span>
+<span>          margin <span class="op">=</span> <span class="st">'4px'</span>,</span>
+<span>          border <span class="op">=</span> <span class="st">'2px solid'</span>,</span>
+<span>          <span class="st">'&amp;.Mui-selected'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>            backgroundColor <span class="op">=</span> <span class="st">'primary.main'</span>,</span>
+<span>            color <span class="op">=</span> <span class="st">'white'</span>,</span>
+<span>            <span class="st">'&amp;:hover'</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>              backgroundColor <span class="op">=</span> <span class="st">'primary.dark'</span></span>
 <span>            <span class="op">)</span></span>
 <span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"cust_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Custom 1"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"cust_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Custom 2"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"cust_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Custom 3"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"cust_1"</span>, value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Custom 1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"cust_2"</span>, value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Custom 2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ToggleButton.html">ToggleButton.shinyInput</a></span><span class="op">(</span>inputId <span class="op">=</span> <span class="st">"cust_3"</span>, value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Custom 3"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>

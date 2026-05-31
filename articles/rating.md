@@ -128,7 +128,8 @@ export default function HalfRating() {
 
 library(muiMaterial)
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     spacing = 1,
     Rating(
@@ -266,7 +267,8 @@ export default function RatingSize() {
 
 library(muiMaterial)
 
-CssBaseline(
+tagList(
+  CssBaseline(),
   Stack(
     spacing = 1,
     Rating(
@@ -331,35 +333,34 @@ export default function CustomizedRating() {
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    ThemeProvider(
-      theme = list(
-        components = list(
-          MuiRating = list(
-            styleOverrides = list(
-              iconFilled = list(
-                color = "#ff6d75"
-              ),
-              iconHover = list(
-                color = "#ff3d47"
-              )
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      components = list(
+        MuiRating = list(
+          styleOverrides = list(
+            iconFilled = list(
+              color = "#ff6d75"
+            ),
+            iconHover = list(
+              color = "#ff3d47"
             )
           )
         )
-      ),
-      Box(
-        sx = list('& > legend' = list(mt = 2)),
-        Typography("Custom icon and color", component = "legend"),
-        Rating(
-          name = "customized_color",
-          defaultValue = 2,
-          precision = 0.5,
-          icon = shiny::icon("heart"),
-          emptyIcon = shiny::icon("heart", class = "far")
-        ),
-        Typography("10 stars", component = "legend"),
-        Rating(name = "customized_10", defaultValue = 2, max = 10)
       )
+    ),
+    Box(
+      sx = list('& > legend' = list(mt = 2)),
+      Typography("Custom icon and color", component = "legend"),
+      Rating(
+        name = "customized_color",
+        defaultValue = 2,
+        precision = 0.5,
+        icon = shiny::icon("heart"),
+        emptyIcon = shiny::icon("heart", class = "far")
+      ),
+      Typography("10 stars", component = "legend"),
+      Rating(name = "customized_10", defaultValue = 2, max = 10)
     )
   )
 )
@@ -437,30 +438,29 @@ export default function RadioGroupRating() {
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    ThemeProvider(
-      theme = list(
-        components = list(
-          MuiRating = list(
-            styleOverrides = list(
-              iconEmpty = list(
-                '& .MuiSvgIcon-root' = list(
-                  color = "rgba(0, 0, 0, 0.26)"
-                )
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      components = list(
+        MuiRating = list(
+          styleOverrides = list(
+            iconEmpty = list(
+              '& .MuiSvgIcon-root' = list(
+                color = "rgba(0, 0, 0, 0.26)"
               )
             )
           )
         )
-      ),
-      Rating(
-        name = "highlight_selected_only",
-        defaultValue = 2,
-        highlightSelectedOnly = TRUE,
-        # Custom icons would need to be implemented with custom IconContainerComponent
-        # For simplicity, using standard emoticon icons
-        icon = shiny::icon("smile"),
-        emptyIcon = shiny::icon("meh")
       )
+    ),
+    Rating(
+      name = "highlight_selected_only",
+      defaultValue = 2,
+      highlightSelectedOnly = TRUE,
+      # Custom icons would need to be implemented with custom IconContainerComponent
+      # For simplicity, using standard emoticon icons
+      icon = shiny::icon("smile"),
+      emptyIcon = shiny::icon("meh")
     )
   )
 )

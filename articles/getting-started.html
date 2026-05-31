@@ -122,11 +122,10 @@
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Hello Material UI!"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Hello Material UI!"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -136,8 +135,8 @@
 <p><strong>Important</strong>: Use <code><a href="../reference/muiMaterialPage.html">muiMaterialPage()</a></code>
 instead of <code><a href="https://rdrr.io/pkg/shiny/man/fluidPage.html" class="external-link">fluidPage()</a></code> and wrap your UI in
 <code><a href="../reference/CssBaseline.html">CssBaseline()</a></code> to ensure proper styling. Material UI uses
-its own design system and can conflict with Bootstrap (see [Bootstrap
-conflict] below).</p>
+its own design system and can conflict with Bootstrap (see the <a href="#css-conflicts-with-bootstrap">CSS conflicts with Bootstrap</a>
+section below).</p>
 </div>
 <div class="section level3">
 <h3 id="shiny-input-wrappers">Shiny input wrappers<a class="anchor" aria-label="anchor" href="#shiny-input-wrappers"></a>

@@ -12,13 +12,12 @@ By default, the Divider renders as a horizontal line:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, width = "100%", maxWidth = 360),
-      Typography("Content above", variant = "body1"),
-      Divider(),
-      Typography("Content below", variant = "body1")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, width = "100%", maxWidth = 360),
+    Typography("Content above", variant = "body1"),
+    Divider(),
+    Typography("Content below", variant = "body1")
   )
 )
 ```
@@ -31,16 +30,15 @@ The Divider component supports three variants: `"fullWidth"` (default),
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, width = "100%", maxWidth = 360),
-      Typography("Full width variant below", variant = "body2"),
-      Divider(variant = "fullWidth"),
-      Typography("Inset variant below", variant = "body2", sx = list(mt = 2)),
-      Divider(variant = "inset"),
-      Typography("Middle variant below", variant = "body2", sx = list(mt = 2)),
-      Divider(variant = "middle")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, width = "100%", maxWidth = 360),
+    Typography("Full width variant below", variant = "body2"),
+    Divider(variant = "fullWidth"),
+    Typography("Inset variant below", variant = "body2", sx = list(mt = 2)),
+    Divider(variant = "inset"),
+    Typography("Middle variant below", variant = "body2", sx = list(mt = 2)),
+    Divider(variant = "middle")
   )
 )
 ```
@@ -54,18 +52,17 @@ with the corresponding accessibility attributes instead of `<hr>`:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(
-        p = 2,
-        display = "flex",
-        alignItems = "center",
-        gap = 1
-      ),
-      Typography("Left content"),
-      Divider(orientation = "vertical", flexItem = TRUE),
-      Typography("Right content")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(
+      p = 2,
+      display = "flex",
+      alignItems = "center",
+      gap = 1
+    ),
+    Typography("Left content"),
+    Divider(orientation = "vertical", flexItem = TRUE),
+    Typography("Right content")
   )
 )
 ```
@@ -78,31 +75,30 @@ flex container:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(
-        p = 1,
-        display = "inline-flex",
-        alignItems = "center",
-        border = '1px solid',
-        borderColor = "divider",
-        borderRadius = 2,
-        bgcolor = "background.paper",
-        color = "text.secondary",
-        gap = 1
-      ),
-      shiny::icon("bold"),
-      Divider(
-        orientation = "vertical",
-        flexItem = TRUE
-      ),
-      shiny::icon("italic"),
-      Divider(
-        orientation = "vertical",
-        flexItem = TRUE
-      ),
-      shiny::icon("underline")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(
+      p = 1,
+      display = "inline-flex",
+      alignItems = "center",
+      border = '1px solid',
+      borderColor = "divider",
+      borderRadius = 2,
+      bgcolor = "background.paper",
+      color = "text.secondary",
+      gap = 1
+    ),
+    shiny::icon("bold"),
+    Divider(
+      orientation = "vertical",
+      flexItem = TRUE
+    ),
+    shiny::icon("italic"),
+    Divider(
+      orientation = "vertical",
+      flexItem = TRUE
+    ),
+    shiny::icon("underline")
   )
 )
 ```
@@ -115,20 +111,19 @@ other content:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, width = "100%"),
-      Typography(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        variant = "body2",
-        sx = list(mb = 2)
-      ),
-      Divider("CENTER"),
-      Typography(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        variant = "body2",
-        sx = list(my = 2)
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, width = "100%"),
+    Typography(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      variant = "body2",
+      sx = list(mb = 2)
+    ),
+    Divider("CENTER"),
+    Typography(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      variant = "body2",
+      sx = list(my = 2)
     )
   )
 )
@@ -142,28 +137,27 @@ Divider:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, width = "100%"),
-      Typography(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        variant = "body2"
-      ),
-      Divider("CENTER", textAlign = "center", sx = list(my = 2)),
-      Typography(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        variant = "body2"
-      ),
-      Divider("LEFT", textAlign = "left", sx = list(my = 2)),
-      Typography(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        variant = "body2"
-      ),
-      Divider("RIGHT", textAlign = "right", sx = list(my = 2)),
-      Typography(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        variant = "body2"
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, width = "100%"),
+    Typography(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      variant = "body2"
+    ),
+    Divider("CENTER", textAlign = "center", sx = list(my = 2)),
+    Typography(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      variant = "body2"
+    ),
+    Divider("LEFT", textAlign = "left", sx = list(my = 2)),
+    Typography(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      variant = "body2"
+    ),
+    Divider("RIGHT", textAlign = "right", sx = list(my = 2)),
+    Typography(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      variant = "body2"
     )
   )
 )
@@ -176,21 +170,20 @@ Combine the Divider with other components like Chip:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, width = "100%"),
-      Typography(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        variant = "body2"
-      ),
-      Divider(
-        Chip(label = "CHIP", size = "small"),
-        sx = list(my = 2)
-      ),
-      Typography(
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
-        variant = "body2"
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, width = "100%"),
+    Typography(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      variant = "body2"
+    ),
+    Divider(
+      Chip(label = "CHIP", size = "small"),
+      sx = list(my = 2)
+    ),
+    Typography(
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit.",
+      variant = "body2"
     )
   )
 )
@@ -205,18 +198,17 @@ element:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, width = "100%", maxWidth = 360),
-      List(
-        ListItem(ListItemText(primary = "Inbox")),
-        Divider(component = "li"),
-        ListItem(ListItemText(primary = "Drafts")),
-        Divider(component = "li"),
-        ListItem(ListItemText(primary = "Trash")),
-        Divider(component = "li"),
-        ListItem(ListItemText(primary = "Spam"))
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, width = "100%", maxWidth = 360),
+    List(
+      ListItem(ListItemText(primary = "Inbox")),
+      Divider(component = "li"),
+      ListItem(ListItemText(primary = "Drafts")),
+      Divider(component = "li"),
+      ListItem(ListItemText(primary = "Trash")),
+      Divider(component = "li"),
+      ListItem(ListItemText(primary = "Spam"))
     )
   )
 )

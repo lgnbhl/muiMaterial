@@ -38,19 +38,18 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "animal",
-        value = "dog",
-        sx = list(minWidth = 200),
-        MenuItem(value = "dog", "Dog"),
-        MenuItem(value = "cat", "Cat"),
-        MenuItem(value = "fish", "Fish")
-      ),
-      verbatimTextOutput("selected")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "animal",
+      value = "dog",
+      sx = list(minWidth = 200),
+      MenuItem(value = "dog", "Dog"),
+      MenuItem(value = "cat", "Cat"),
+      MenuItem(value = "fish", "Fish")
+    ),
+    verbatimTextOutput("selected")
   )
 )
 
@@ -71,38 +70,37 @@ and `standard`.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Stack(
-        spacing = 2,
-        Select.shinyInput(
-          inputId = "select_outlined",
-          variant = "outlined",
-          value = "dog",
-          sx = list(minWidth = 200),
-          MenuItem(value = "dog", "Dog"),
-          MenuItem(value = "cat", "Cat"),
-          MenuItem(value = "fish", "Fish")
-        ),
-        Select.shinyInput(
-          inputId = "select_filled",
-          variant = "filled",
-          value = "dog",
-          sx = list(minWidth = 200),
-          MenuItem(value = "dog", "Dog"),
-          MenuItem(value = "cat", "Cat"),
-          MenuItem(value = "fish", "Fish")
-        ),
-        Select.shinyInput(
-          inputId = "select_standard",
-          variant = "standard",
-          value = "dog",
-          sx = list(minWidth = 200),
-          MenuItem(value = "dog", "Dog"),
-          MenuItem(value = "cat", "Cat"),
-          MenuItem(value = "fish", "Fish")
-        )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Stack(
+      spacing = 2,
+      Select.shinyInput(
+        inputId = "select_outlined",
+        variant = "outlined",
+        value = "dog",
+        sx = list(minWidth = 200),
+        MenuItem(value = "dog", "Dog"),
+        MenuItem(value = "cat", "Cat"),
+        MenuItem(value = "fish", "Fish")
+      ),
+      Select.shinyInput(
+        inputId = "select_filled",
+        variant = "filled",
+        value = "dog",
+        sx = list(minWidth = 200),
+        MenuItem(value = "dog", "Dog"),
+        MenuItem(value = "cat", "Cat"),
+        MenuItem(value = "fish", "Fish")
+      ),
+      Select.shinyInput(
+        inputId = "select_standard",
+        variant = "standard",
+        value = "dog",
+        sx = list(minWidth = 200),
+        MenuItem(value = "dog", "Dog"),
+        MenuItem(value = "cat", "Cat"),
+        MenuItem(value = "fish", "Fish")
       )
     )
   )
@@ -121,21 +119,20 @@ the Select.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "pet",
-        value = "dog",
-        inputProps = list(label = "Choose your pet"),
-        sx = list(minWidth = 200),
-        MenuItem(value = "dog", "Dog"),
-        MenuItem(value = "cat", "Cat"),
-        MenuItem(value = "fish", "Fish"),
-        MenuItem(value = "bird", "Bird")
-      ),
-      verbatimTextOutput("pet_output")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "pet",
+      value = "dog",
+      inputProps = list(label = "Choose your pet"),
+      sx = list(minWidth = 200),
+      MenuItem(value = "dog", "Dog"),
+      MenuItem(value = "cat", "Cat"),
+      MenuItem(value = "fish", "Fish"),
+      MenuItem(value = "bird", "Bird")
+    ),
+    verbatimTextOutput("pet_output")
   )
 )
 
@@ -156,23 +153,22 @@ value will be an array.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "animals",
-        multiple = TRUE,
-        value = list("dog", "cat"),
-        inputProps = list(label = "Select multiple animals"),
-        sx = list(minWidth = 300),
-        MenuItem(value = "dog", "Dog"),
-        MenuItem(value = "cat", "Cat"),
-        MenuItem(value = "fish", "Fish"),
-        MenuItem(value = "bird", "Bird"),
-        MenuItem(value = "rabbit", "Rabbit")
-      ),
-      verbatimTextOutput("animals_output")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "animals",
+      multiple = TRUE,
+      value = list("dog", "cat"),
+      inputProps = list(label = "Select multiple animals"),
+      sx = list(minWidth = 300),
+      MenuItem(value = "dog", "Dog"),
+      MenuItem(value = "cat", "Cat"),
+      MenuItem(value = "fish", "Fish"),
+      MenuItem(value = "bird", "Bird"),
+      MenuItem(value = "rabbit", "Rabbit")
+    ),
+    verbatimTextOutput("animals_output")
   )
 )
 
@@ -196,27 +192,26 @@ to organize options into groups.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "environment",
-        value = "",
-        displayEmpty = TRUE,
-        inputProps = list('aria-label' = 'Select environment'),
-        sx = list(minWidth = 300),
-        ListSubheader("Production"),
-        MenuItem(value = "prod_web", "Web Application"),
-        MenuItem(value = "prod_mobile", "Mobile App"),
-        MenuItem(value = "prod_api", "API Service"),
-        ListSubheader("Development"),
-        MenuItem(value = "dev_local", "Local Development"),
-        MenuItem(value = "dev_staging", "Staging Environment"),
-        Divider(sx = list(mx = -1)),
-        MenuItem(value = "add_new", "Add New Environment")
-      ),
-      verbatimTextOutput("env_output")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "environment",
+      value = "",
+      displayEmpty = TRUE,
+      inputProps = list('aria-label' = 'Select environment'),
+      sx = list(minWidth = 300),
+      ListSubheader("Production"),
+      MenuItem(value = "prod_web", "Web Application"),
+      MenuItem(value = "prod_mobile", "Mobile App"),
+      MenuItem(value = "prod_api", "API Service"),
+      ListSubheader("Development"),
+      MenuItem(value = "dev_local", "Local Development"),
+      MenuItem(value = "dev_staging", "Staging Environment"),
+      Divider(sx = list(mx = -1)),
+      MenuItem(value = "add_new", "Add New Environment")
+    ),
+    verbatimTextOutput("env_output")
   )
 )
 
@@ -238,38 +233,37 @@ to create menu items with primary and secondary text.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "project",
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "project",
+      value = "web_app",
+      inputProps = list(label = "Select project"),
+      sx = list(minWidth = 300),
+      MenuItem(
         value = "web_app",
-        inputProps = list(label = "Select project"),
-        sx = list(minWidth = 300),
-        MenuItem(
-          value = "web_app",
-          ListItemText(
-            primary = "Web Application",
-            secondary = "React-based frontend"
-          )
-        ),
-        MenuItem(
-          value = "mobile_app",
-          ListItemText(
-            primary = "Mobile Application",
-            secondary = "Cross-platform mobile app"
-          )
-        ),
-        MenuItem(
-          value = "backend_api",
-          ListItemText(
-            primary = "Backend API",
-            secondary = "RESTful API service"
-          )
+        ListItemText(
+          primary = "Web Application",
+          secondary = "React-based frontend"
         )
       ),
-      verbatimTextOutput("project_output")
-    )
+      MenuItem(
+        value = "mobile_app",
+        ListItemText(
+          primary = "Mobile Application",
+          secondary = "Cross-platform mobile app"
+        )
+      ),
+      MenuItem(
+        value = "backend_api",
+        ListItemText(
+          primary = "Backend API",
+          secondary = "RESTful API service"
+        )
+      )
+    ),
+    verbatimTextOutput("project_output")
   )
 )
 
@@ -290,24 +284,23 @@ enhanced forms.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      FormControl(
-        sx = list(minWidth = 300),
-        FormLabel("Pet Selection"),
-        Select.shinyInput(
-          inputId = "pet_form",
-          value = "dog",
-          MenuItem(value = "dog", "Dog"),
-          MenuItem(value = "cat", "Cat"),
-          MenuItem(value = "fish", "Fish"),
-          MenuItem(value = "bird", "Bird")
-        ),
-        FormHelperText("Choose your favorite pet from the list.")
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    FormControl(
+      sx = list(minWidth = 300),
+      FormLabel("Pet Selection"),
+      Select.shinyInput(
+        inputId = "pet_form",
+        value = "dog",
+        MenuItem(value = "dog", "Dog"),
+        MenuItem(value = "cat", "Cat"),
+        MenuItem(value = "fish", "Fish"),
+        MenuItem(value = "bird", "Bird")
       ),
-      verbatimTextOutput("pet_form_output")
-    )
+      FormHelperText("Choose your favorite pet from the list.")
+    ),
+    verbatimTextOutput("pet_form_output")
   )
 )
 
@@ -328,22 +321,21 @@ selected.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "choice",
-        value = "",
-        displayEmpty = TRUE,
-        inputProps = list(label = "Make a choice"),
-        sx = list(minWidth = 200),
-        MenuItem(value = "", em("None")),
-        MenuItem(value = "option1", "Option 1"),
-        MenuItem(value = "option2", "Option 2"),
-        MenuItem(value = "option3", "Option 3")
-      ),
-      verbatimTextOutput("choice_output")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "choice",
+      value = "",
+      displayEmpty = TRUE,
+      inputProps = list(label = "Make a choice"),
+      sx = list(minWidth = 200),
+      MenuItem(value = "", em("None")),
+      MenuItem(value = "option1", "Option 1"),
+      MenuItem(value = "option2", "Option 2"),
+      MenuItem(value = "option3", "Option 3")
+    ),
+    verbatimTextOutput("choice_output")
   )
 )
 
@@ -368,27 +360,26 @@ its content.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Stack(
-        spacing = 2,
-        Typography("Without autoWidth:", variant = "body2"),
-        Select.shinyInput(
-          inputId = "select1",
-          value = "short",
-          sx = list(minWidth = 200),
-          MenuItem(value = "short", "Short"),
-          MenuItem(value = "long", "Very Long Option Text Here")
-        ),
-        Typography("With autoWidth:", variant = "body2"),
-        Select.shinyInput(
-          inputId = "select2",
-          value = "short",
-          autoWidth = TRUE,
-          MenuItem(value = "short", "Short"),
-          MenuItem(value = "long", "Very Long Option Text Here")
-        )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Stack(
+      spacing = 2,
+      Typography("Without autoWidth:", variant = "body2"),
+      Select.shinyInput(
+        inputId = "select1",
+        value = "short",
+        sx = list(minWidth = 200),
+        MenuItem(value = "short", "Short"),
+        MenuItem(value = "long", "Very Long Option Text Here")
+      ),
+      Typography("With autoWidth:", variant = "body2"),
+      Select.shinyInput(
+        inputId = "select2",
+        value = "short",
+        autoWidth = TRUE,
+        MenuItem(value = "short", "Short"),
+        MenuItem(value = "long", "Very Long Option Text Here")
       )
     )
   )
@@ -407,29 +398,28 @@ the Select component.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "styled_select",
-        value = "option1",
-        inputProps = list(label = "Styled Select"),
-        sx = list(
-          minWidth = 250,
-          backgroundColor = "primary.light",
-          borderRadius = 2,
-          "& .MuiOutlinedInput-notchedOutline" = list(
-            borderColor = "primary.main",
-            borderWidth = 2
-          ),
-          "&:hover .MuiOutlinedInput-notchedOutline" = list(
-            borderColor = "primary.dark"
-          )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "styled_select",
+      value = "option1",
+      inputProps = list(label = "Styled Select"),
+      sx = list(
+        minWidth = 250,
+        backgroundColor = "primary.light",
+        borderRadius = 2,
+        "& .MuiOutlinedInput-notchedOutline" = list(
+          borderColor = "primary.main",
+          borderWidth = 2
         ),
-        MenuItem(value = "option1", "Option 1"),
-        MenuItem(value = "option2", "Option 2"),
-        MenuItem(value = "option3", "Option 3")
-      )
+        "&:hover .MuiOutlinedInput-notchedOutline" = list(
+          borderColor = "primary.dark"
+        )
+      ),
+      MenuItem(value = "option1", "Option 1"),
+      MenuItem(value = "option2", "Option 2"),
+      MenuItem(value = "option3", "Option 3")
     )
   )
 )
@@ -448,28 +438,27 @@ to programmatically update the selected value from the server.
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "animal_update",
+      value = "dog",
+      inputProps = list(label = "Select animal"),
+      sx = list(minWidth = 200),
+      MenuItem(value = "dog", "Dog"),
+      MenuItem(value = "cat", "Cat"),
+      MenuItem(value = "fish", "Fish"),
+      MenuItem(value = "bird", "Bird")
+    ),
     Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "animal_update",
-        value = "dog",
-        inputProps = list(label = "Select animal"),
-        sx = list(minWidth = 200),
-        MenuItem(value = "dog", "Dog"),
-        MenuItem(value = "cat", "Cat"),
-        MenuItem(value = "fish", "Fish"),
-        MenuItem(value = "bird", "Bird")
-      ),
-      Box(
-        sx = list(mt = 2),
-        Button.shinyInput(
-          inputId = "reset_btn",
-          "Reset to Dog"
-        )
-      ),
-      verbatimTextOutput("animal_update_output")
-    )
+      sx = list(mt = 2),
+      Button.shinyInput(
+        inputId = "reset_btn",
+        "Reset to Dog"
+      )
+    ),
+    verbatimTextOutput("animal_update_output")
   )
 )
 
@@ -498,21 +487,20 @@ for mobile devices).
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Select.shinyInput(
-        inputId = "native_select",
-        native = TRUE,
-        value = "dog",
-        inputProps = list(label = "Native Select"),
-        sx = list(minWidth = 200),
-        tags$option(value = "dog", "Dog"),
-        tags$option(value = "cat", "Cat"),
-        tags$option(value = "fish", "Fish")
-      ),
-      verbatimTextOutput("native_output")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Select.shinyInput(
+      inputId = "native_select",
+      native = TRUE,
+      value = "dog",
+      inputProps = list(label = "Native Select"),
+      sx = list(minWidth = 200),
+      tags$option(value = "dog", "Dog"),
+      tags$option(value = "cat", "Cat"),
+      tags$option(value = "fish", "Fish")
+    ),
+    verbatimTextOutput("native_output")
   )
 )
 

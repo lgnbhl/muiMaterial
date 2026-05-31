@@ -161,7 +161,8 @@ export default function SwitchesSize() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     div(
       Switch.shinyInput(
         inputId = "size-switch-small",
@@ -228,7 +229,8 @@ export default function ColorSwitches() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     div(
       Switch.shinyInput(
         inputId = "color-switch-primary",
@@ -526,7 +528,8 @@ export default function CustomizedSwitches() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     ThemeProvider(
       theme = list(
         components = list(
@@ -657,7 +660,8 @@ export default function FormControlLabelPosition() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     FormGroup(
       "aria-label" = "position",
       row = TRUE,
@@ -743,7 +747,8 @@ JS code
 library(shiny)
 
 AccessibleSwitch <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Switch.shinyInput(
       inputId = "accessible-switch",
       value = FALSE,

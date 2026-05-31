@@ -240,7 +240,8 @@ JS code
 library(shiny)
 
 ControlledInput <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     TextField.shinyInput(
       inputId = "controlled-input",
       value = "",
@@ -714,7 +715,8 @@ export default function TextFieldSizes() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       p = 3,
       TextField.shinyInput(
@@ -784,7 +786,8 @@ export default function LayoutTextFields() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       component = "form",
       sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
@@ -848,7 +851,8 @@ export default function FullWidthTextField() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       sx = list(width = 500, maxWidth = '100%', p = 3),
       TextField.shinyInput(
@@ -991,7 +995,8 @@ export default function InputWithIcon() {
 library(shiny)
 
 InputWithIcon <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       sx = list('& > :not(style)' = list(m = 1)),
       FormControl(
@@ -1061,7 +1066,8 @@ export default function ColorTextFields() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       component = "form",
       sx = list('& > :not(style)' = list(m = 1, width = '25ch')),
@@ -1180,7 +1186,8 @@ export default function CustomizedInputsStyled() {
 library(shiny)
 
 CustomizedInputsStyled <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     ThemeProvider(
       theme = list(
         components = list(
@@ -1292,7 +1299,8 @@ JS code
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       p = 3,
       TextField.shinyInput(
@@ -1372,7 +1380,8 @@ JS code
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     div(
       h4("Misaligned:"),
       TextField.shinyInput(
@@ -1494,7 +1503,8 @@ JS code
 ``` r
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     FormControl(
       InputLabel(htmlFor = "my-input", "Email address"),
       Input(

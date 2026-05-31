@@ -13,21 +13,20 @@ component:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 1),
-      Avatar(
-        alt = "Remy Sharp",
-        src = "https://mui.com/static/images/avatar/1.jpg"
-      ),
-      Avatar(
-        alt = "Travis Howard",
-        src = "https://mui.com/static/images/avatar/2.jpg"
-      ),
-      Avatar(
-        alt = "Cindy Baker",
-        src = "https://mui.com/static/images/avatar/3.jpg"
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 1),
+    Avatar(
+      alt = "Remy Sharp",
+      src = "https://mui.com/static/images/avatar/1.jpg"
+    ),
+    Avatar(
+      alt = "Travis Howard",
+      src = "https://mui.com/static/images/avatar/2.jpg"
+    ),
+    Avatar(
+      alt = "Cindy Baker",
+      src = "https://mui.com/static/images/avatar/3.jpg"
     )
   )
 )
@@ -40,18 +39,17 @@ Avatars can display text initials or single characters as children:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 1),
-      Avatar("H"),
-      Avatar(
-        "N",
-        sx = list(bgcolor = "#FF7043")
-      ),
-      Avatar(
-        "OP",
-        sx = list(bgcolor = "#7E57C2")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 1),
+    Avatar("H"),
+    Avatar(
+      "N",
+      sx = list(bgcolor = "#FF7043")
+    ),
+    Avatar(
+      "OP",
+      sx = list(bgcolor = "#7E57C2")
     )
   )
 )
@@ -65,23 +63,22 @@ properties:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 1, alignItems = "center"),
-      Avatar(
-        alt = "Remy Sharp",
-        src = "https://mui.com/static/images/avatar/1.jpg",
-        sx = list(width = 24, height = 24)
-      ),
-      Avatar(
-        alt = "Remy Sharp",
-        src = "https://mui.com/static/images/avatar/1.jpg"
-      ),
-      Avatar(
-        alt = "Remy Sharp",
-        src = "https://mui.com/static/images/avatar/1.jpg",
-        sx = list(width = 56, height = 56)
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 1, alignItems = "center"),
+    Avatar(
+      alt = "Remy Sharp",
+      src = "https://mui.com/static/images/avatar/1.jpg",
+      sx = list(width = 24, height = 24)
+    ),
+    Avatar(
+      alt = "Remy Sharp",
+      src = "https://mui.com/static/images/avatar/1.jpg"
+    ),
+    Avatar(
+      alt = "Remy Sharp",
+      src = "https://mui.com/static/images/avatar/1.jpg",
+      sx = list(width = 56, height = 56)
     )
   )
 )
@@ -94,21 +91,20 @@ Use Material Design icons as avatar content:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 1),
-      Avatar(
-        shiny::icon("folder"),
-        sx = list(bgcolor = "#E91E63")
-      ),
-      Avatar(
-        shiny::icon("file"),
-        sx = list(bgcolor = "#FF1744")
-      ),
-      Avatar(
-        shiny::icon("image"),
-        sx = list(bgcolor = "#4CAF50")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 1),
+    Avatar(
+      shiny::icon("folder"),
+      sx = list(bgcolor = "#E91E63")
+    ),
+    Avatar(
+      shiny::icon("file"),
+      sx = list(bgcolor = "#FF1744")
+    ),
+    Avatar(
+      shiny::icon("image"),
+      sx = list(bgcolor = "#4CAF50")
     )
   )
 )
@@ -125,24 +121,23 @@ Change avatar shape using the `variant` prop. Options include:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 1),
-      Avatar(
-        "N",
-        variant = "circular",
-        sx = list(bgcolor = "#FF7043")
-      ),
-      Avatar(
-        "N",
-        variant = "rounded",
-        sx = list(bgcolor = "#FF7043")
-      ),
-      Avatar(
-        "N",
-        variant = "square",
-        sx = list(bgcolor = "#FF7043")
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 1),
+    Avatar(
+      "N",
+      variant = "circular",
+      sx = list(bgcolor = "#FF7043")
+    ),
+    Avatar(
+      "N",
+      variant = "rounded",
+      sx = list(bgcolor = "#FF7043")
+    ),
+    Avatar(
+      "N",
+      variant = "square",
+      sx = list(bgcolor = "#FF7043")
     )
   )
 )
@@ -159,26 +154,25 @@ When an image fails to load, avatars fall back in the following order:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 1),
-      # Fallback to children
-      Avatar(
-        alt = "Remy Sharp",
-        src = "https://invalid-url.jpg",
-        "B",
-        sx = list(bgcolor = "#FF7043")
-      ),
-      # Fallback to first letter of alt
-      Avatar(
-        alt = "Remy Sharp",
-        src = "https://invalid-url.jpg",
-        sx = list(bgcolor = "#FF7043")
-      ),
-      # Fallback to generic icon
-      Avatar(
-        src = "https://invalid-url.jpg"
-      )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 1),
+    # Fallback to children
+    Avatar(
+      alt = "Remy Sharp",
+      src = "https://invalid-url.jpg",
+      "B",
+      sx = list(bgcolor = "#FF7043")
+    ),
+    # Fallback to first letter of alt
+    Avatar(
+      alt = "Remy Sharp",
+      src = "https://invalid-url.jpg",
+      sx = list(bgcolor = "#FF7043")
+    ),
+    # Fallback to generic icon
+    Avatar(
+      src = "https://invalid-url.jpg"
     )
   )
 )
@@ -194,31 +188,30 @@ to stack multiple avatars. Control the maximum number displayed with the
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 2),
-      AvatarGroup(
-        max = 4,
-        Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg"
-        ),
-        Avatar(
-          alt = "Travis Howard",
-          src = "https://mui.com/static/images/avatar/2.jpg"
-        ),
-        Avatar(
-          alt = "Cindy Baker",
-          src = "https://mui.com/static/images/avatar/3.jpg"
-        ),
-        Avatar(
-          alt = "Agnes Walker",
-          src = "https://mui.com/static/images/avatar/4.jpg"
-        ),
-        Avatar(
-          alt = "Trevor Henderson",
-          src = "https://mui.com/static/images/avatar/5.jpg"
-        )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 2),
+    AvatarGroup(
+      max = 4,
+      Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg"
+      ),
+      Avatar(
+        alt = "Travis Howard",
+        src = "https://mui.com/static/images/avatar/2.jpg"
+      ),
+      Avatar(
+        alt = "Cindy Baker",
+        src = "https://mui.com/static/images/avatar/3.jpg"
+      ),
+      Avatar(
+        alt = "Agnes Walker",
+        src = "https://mui.com/static/images/avatar/4.jpg"
+      ),
+      Avatar(
+        alt = "Trevor Henderson",
+        src = "https://mui.com/static/images/avatar/5.jpg"
       )
     )
   )
@@ -232,27 +225,26 @@ Control the total number of avatars not shown using the `total` prop:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      AvatarGroup(
-        total = 24,
-        Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg"
-        ),
-        Avatar(
-          alt = "Travis Howard",
-          src = "https://mui.com/static/images/avatar/2.jpg"
-        ),
-        Avatar(
-          alt = "Agnes Walker",
-          src = "https://mui.com/static/images/avatar/4.jpg"
-        ),
-        Avatar(
-          alt = "Trevor Henderson",
-          src = "https://mui.com/static/images/avatar/5.jpg"
-        )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    AvatarGroup(
+      total = 24,
+      Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg"
+      ),
+      Avatar(
+        alt = "Travis Howard",
+        src = "https://mui.com/static/images/avatar/2.jpg"
+      ),
+      Avatar(
+        alt = "Agnes Walker",
+        src = "https://mui.com/static/images/avatar/4.jpg"
+      ),
+      Avatar(
+        alt = "Trevor Henderson",
+        src = "https://mui.com/static/images/avatar/5.jpg"
       )
     )
   )
@@ -270,56 +262,55 @@ Control the spacing between avatars in a group using the `spacing` prop:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", flexDirection = "column", gap = 2),
-      Typography("Small spacing:", variant = "h6"),
-      AvatarGroup(
-        spacing = "small",
-        Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg"
-        ),
-        Avatar(
-          alt = "Travis Howard",
-          src = "https://mui.com/static/images/avatar/2.jpg"
-        ),
-        Avatar(
-          alt = "Cindy Baker",
-          src = "https://mui.com/static/images/avatar/3.jpg"
-        )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", flexDirection = "column", gap = 2),
+    Typography("Small spacing:", variant = "h6"),
+    AvatarGroup(
+      spacing = "small",
+      Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg"
       ),
-      Typography("Medium spacing (default):", variant = "h6"),
-      AvatarGroup(
-        spacing = "medium",
-        Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg"
-        ),
-        Avatar(
-          alt = "Travis Howard",
-          src = "https://mui.com/static/images/avatar/2.jpg"
-        ),
-        Avatar(
-          alt = "Cindy Baker",
-          src = "https://mui.com/static/images/avatar/3.jpg"
-        )
+      Avatar(
+        alt = "Travis Howard",
+        src = "https://mui.com/static/images/avatar/2.jpg"
       ),
-      Typography("Custom spacing (24px):", variant = "h6"),
-      AvatarGroup(
-        spacing = 24,
-        Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg"
-        ),
-        Avatar(
-          alt = "Travis Howard",
-          src = "https://mui.com/static/images/avatar/2.jpg"
-        ),
-        Avatar(
-          alt = "Cindy Baker",
-          src = "https://mui.com/static/images/avatar/3.jpg"
-        )
+      Avatar(
+        alt = "Cindy Baker",
+        src = "https://mui.com/static/images/avatar/3.jpg"
+      )
+    ),
+    Typography("Medium spacing (default):", variant = "h6"),
+    AvatarGroup(
+      spacing = "medium",
+      Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg"
+      ),
+      Avatar(
+        alt = "Travis Howard",
+        src = "https://mui.com/static/images/avatar/2.jpg"
+      ),
+      Avatar(
+        alt = "Cindy Baker",
+        src = "https://mui.com/static/images/avatar/3.jpg"
+      )
+    ),
+    Typography("Custom spacing (24px):", variant = "h6"),
+    AvatarGroup(
+      spacing = 24,
+      Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg"
+      ),
+      Avatar(
+        alt = "Travis Howard",
+        src = "https://mui.com/static/images/avatar/2.jpg"
+      ),
+      Avatar(
+        alt = "Cindy Baker",
+        src = "https://mui.com/static/images/avatar/3.jpg"
       )
     )
   )
@@ -335,36 +326,35 @@ component to add status indicators:
 ``` r
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2, display = "flex", gap = 2),
-      Badge(
-        overlap = "circular",
-        anchorOrigin = list(vertical = "bottom", horizontal = "right"),
-        variant = "dot",
-        sx = list(
-          "& .MuiBadge-badge" = list(
-            bgcolor = "#44b700",
-            boxShadow = "0 0 0 2px white"
-          )
-        ),
-        Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg"
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, display = "flex", gap = 2),
+    Badge(
+      overlap = "circular",
+      anchorOrigin = list(vertical = "bottom", horizontal = "right"),
+      variant = "dot",
+      sx = list(
+        "& .MuiBadge-badge" = list(
+          bgcolor = "#44b700",
+          boxShadow = "0 0 0 2px white"
         )
       ),
-      Badge(
-        overlap = "circular",
-        anchorOrigin = list(vertical = "bottom", horizontal = "right"),
-        badgeContent = Avatar(
-          alt = "Remy Sharp",
-          src = "https://mui.com/static/images/avatar/1.jpg",
-          sx = list(width = 22, height = 22)
-        ),
-        Avatar(
-          alt = "Travis Howard",
-          src = "https://mui.com/static/images/avatar/2.jpg"
-        )
+      Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg"
+      )
+    ),
+    Badge(
+      overlap = "circular",
+      anchorOrigin = list(vertical = "bottom", horizontal = "right"),
+      badgeContent = Avatar(
+        alt = "Remy Sharp",
+        src = "https://mui.com/static/images/avatar/1.jpg",
+        sx = list(width = 22, height = 22)
+      ),
+      Avatar(
+        alt = "Travis Howard",
+        src = "https://mui.com/static/images/avatar/2.jpg"
       )
     )
   )

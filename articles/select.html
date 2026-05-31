@@ -127,19 +127,18 @@ options provided as <code><a href="../reference/MenuItem.html">MenuItem()</a></c
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"animal"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"dog"</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"selected"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"animal"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"dog"</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"selected"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -158,38 +157,37 @@ options provided as <code><a href="../reference/MenuItem.html">MenuItem()</a></c
 (default), <code>filled</code>, and <code>standard</code>.</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
-<span>        spacing <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>        <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"select_outlined"</span>,</span>
-<span>          variant <span class="op">=</span> <span class="st">"outlined"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"dog"</span>,</span>
-<span>          sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"select_filled"</span>,</span>
-<span>          variant <span class="op">=</span> <span class="st">"filled"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"dog"</span>,</span>
-<span>          sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"select_standard"</span>,</span>
-<span>          variant <span class="op">=</span> <span class="st">"standard"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"dog"</span>,</span>
-<span>          sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
+<span>      spacing <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"select_outlined"</span>,</span>
+<span>        variant <span class="op">=</span> <span class="st">"outlined"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"dog"</span>,</span>
+<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"select_filled"</span>,</span>
+<span>        variant <span class="op">=</span> <span class="st">"filled"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"dog"</span>,</span>
+<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"select_standard"</span>,</span>
+<span>        variant <span class="op">=</span> <span class="st">"standard"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"dog"</span>,</span>
+<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -206,21 +204,20 @@ options provided as <code><a href="../reference/MenuItem.html">MenuItem()</a></c
 property to add a label to the Select.</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"pet"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"dog"</span>,</span>
-<span>        inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Choose your pet"</span><span class="op">)</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bird"</span>, <span class="st">"Bird"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"pet_output"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"pet"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"dog"</span>,</span>
+<span>      inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Choose your pet"</span><span class="op">)</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bird"</span>, <span class="st">"Bird"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"pet_output"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -239,23 +236,22 @@ property to add a label to the Select.</p>
 The selected value will be an array.</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"animals"</span>,</span>
-<span>        multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span>,</span>
-<span>        inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Select multiple animals"</span><span class="op">)</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bird"</span>, <span class="st">"Bird"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"rabbit"</span>, <span class="st">"Rabbit"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"animals_output"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"animals"</span>,</span>
+<span>      multiple <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      value <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">"dog"</span>, <span class="st">"cat"</span><span class="op">)</span>,</span>
+<span>      inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Select multiple animals"</span><span class="op">)</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bird"</span>, <span class="st">"Bird"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"rabbit"</span>, <span class="st">"Rabbit"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"animals_output"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -274,27 +270,26 @@ The selected value will be an array.</p>
 organize options into groups.</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"environment"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">""</span>,</span>
-<span>        displayEmpty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'aria-label'</span> <span class="op">=</span> <span class="st">'Select environment'</span><span class="op">)</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListSubheader.html">ListSubheader</a></span><span class="op">(</span><span class="st">"Production"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"prod_web"</span>, <span class="st">"Web Application"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"prod_mobile"</span>, <span class="st">"Mobile App"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"prod_api"</span>, <span class="st">"API Service"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListSubheader.html">ListSubheader</a></span><span class="op">(</span><span class="st">"Development"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dev_local"</span>, <span class="st">"Local Development"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dev_staging"</span>, <span class="st">"Staging Environment"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Divider.html">Divider</a></span><span class="op">(</span>sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mx <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"add_new"</span>, <span class="st">"Add New Environment"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"env_output"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"environment"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">""</span>,</span>
+<span>      displayEmpty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span><span class="st">'aria-label'</span> <span class="op">=</span> <span class="st">'Select environment'</span><span class="op">)</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListSubheader.html">ListSubheader</a></span><span class="op">(</span><span class="st">"Production"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"prod_web"</span>, <span class="st">"Web Application"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"prod_mobile"</span>, <span class="st">"Mobile App"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"prod_api"</span>, <span class="st">"API Service"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListSubheader.html">ListSubheader</a></span><span class="op">(</span><span class="st">"Development"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dev_local"</span>, <span class="st">"Local Development"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dev_staging"</span>, <span class="st">"Staging Environment"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Divider.html">Divider</a></span><span class="op">(</span>sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mx <span class="op">=</span> <span class="op">-</span><span class="fl">1</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"add_new"</span>, <span class="st">"Add New Environment"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"env_output"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -313,38 +308,37 @@ organize options into groups.</p>
 secondary text.</p>
 <div class="sourceCode" id="cb6"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"project"</span>,</span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"project"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"web_app"</span>,</span>
+<span>      inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Select project"</span><span class="op">)</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
 <span>        value <span class="op">=</span> <span class="st">"web_app"</span>,</span>
-<span>        inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Select project"</span><span class="op">)</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
-<span>          value <span class="op">=</span> <span class="st">"web_app"</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Web Application"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"React-based frontend"</span></span>
-<span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
-<span>          value <span class="op">=</span> <span class="st">"mobile_app"</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Mobile Application"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Cross-platform mobile app"</span></span>
-<span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
-<span>          value <span class="op">=</span> <span class="st">"backend_api"</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Backend API"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"RESTful API service"</span></span>
-<span>          <span class="op">)</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Web Application"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"React-based frontend"</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"project_output"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"mobile_app"</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Mobile Application"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Cross-platform mobile app"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
+<span>        value <span class="op">=</span> <span class="st">"backend_api"</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Backend API"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"RESTful API service"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"project_output"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -363,24 +357,23 @@ secondary text.</p>
 <code>FormHelperText</code> for enhanced forms.</p>
 <div class="sourceCode" id="cb7"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/FormControl.html">FormControl</a></span><span class="op">(</span></span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/FormLabel.html">FormLabel</a></span><span class="op">(</span><span class="st">"Pet Selection"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"pet_form"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"dog"</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bird"</span>, <span class="st">"Bird"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/FormHelperText.html">FormHelperText</a></span><span class="op">(</span><span class="st">"Choose your favorite pet from the list."</span><span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/FormControl.html">FormControl</a></span><span class="op">(</span></span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">300</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/FormLabel.html">FormLabel</a></span><span class="op">(</span><span class="st">"Pet Selection"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"pet_form"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"dog"</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bird"</span>, <span class="st">"Bird"</span><span class="op">)</span></span>
 <span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"pet_form_output"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>      <span class="fu"><a href="../reference/FormHelperText.html">FormHelperText</a></span><span class="op">(</span><span class="st">"Choose your favorite pet from the list."</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"pet_form_output"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -399,22 +392,21 @@ secondary text.</p>
 no value is selected.</p>
 <div class="sourceCode" id="cb8"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"choice"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">""</span>,</span>
-<span>        displayEmpty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Make a choice"</span><span class="op">)</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">""</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">em</a></span><span class="op">(</span><span class="st">"None"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"choice_output"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"choice"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">""</span>,</span>
+<span>      displayEmpty <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Make a choice"</span><span class="op">)</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">""</span>, <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">em</a></span><span class="op">(</span><span class="st">"None"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"choice_output"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -437,27 +429,26 @@ no value is selected.</p>
 menu based on its content.</p>
 <div class="sourceCode" id="cb9"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
-<span>        spacing <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>        <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Without autoWidth:"</span>, variant <span class="op">=</span> <span class="st">"body2"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"select1"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"short"</span>,</span>
-<span>          sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"short"</span>, <span class="st">"Short"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"long"</span>, <span class="st">"Very Long Option Text Here"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"With autoWidth:"</span>, variant <span class="op">=</span> <span class="st">"body2"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"select2"</span>,</span>
-<span>          value <span class="op">=</span> <span class="st">"short"</span>,</span>
-<span>          autoWidth <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"short"</span>, <span class="st">"Short"</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"long"</span>, <span class="st">"Very Long Option Text Here"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
+<span>      spacing <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Without autoWidth:"</span>, variant <span class="op">=</span> <span class="st">"body2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"select1"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"short"</span>,</span>
+<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"short"</span>, <span class="st">"Short"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"long"</span>, <span class="st">"Very Long Option Text Here"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"With autoWidth:"</span>, variant <span class="op">=</span> <span class="st">"body2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"select2"</span>,</span>
+<span>        value <span class="op">=</span> <span class="st">"short"</span>,</span>
+<span>        autoWidth <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"short"</span>, <span class="st">"Short"</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"long"</span>, <span class="st">"Very Long Option Text Here"</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
@@ -474,29 +465,28 @@ menu based on its content.</p>
 appearance of the Select component.</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"styled_select"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"option1"</span>,</span>
-<span>        inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Styled Select"</span><span class="op">)</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>          minWidth <span class="op">=</span> <span class="fl">250</span>,</span>
-<span>          backgroundColor <span class="op">=</span> <span class="st">"primary.light"</span>,</span>
-<span>          borderRadius <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>          <span class="st">"&amp; .MuiOutlinedInput-notchedOutline"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            borderColor <span class="op">=</span> <span class="st">"primary.main"</span>,</span>
-<span>            borderWidth <span class="op">=</span> <span class="fl">2</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="st">"&amp;:hover .MuiOutlinedInput-notchedOutline"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
-<span>            borderColor <span class="op">=</span> <span class="st">"primary.dark"</span></span>
-<span>          <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"styled_select"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"option1"</span>,</span>
+<span>      inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Styled Select"</span><span class="op">)</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>        minWidth <span class="op">=</span> <span class="fl">250</span>,</span>
+<span>        backgroundColor <span class="op">=</span> <span class="st">"primary.light"</span>,</span>
+<span>        borderRadius <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>        <span class="st">"&amp; .MuiOutlinedInput-notchedOutline"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          borderColor <span class="op">=</span> <span class="st">"primary.main"</span>,</span>
+<span>          borderWidth <span class="op">=</span> <span class="fl">2</span></span>
 <span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>        <span class="st">"&amp;:hover .MuiOutlinedInput-notchedOutline"</span> <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span></span>
+<span>          borderColor <span class="op">=</span> <span class="st">"primary.dark"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option1"</span>, <span class="st">"Option 1"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option2"</span>, <span class="st">"Option 2"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"option3"</span>, <span class="st">"Option 3"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -512,28 +502,27 @@ appearance of the Select component.</p>
 the selected value from the server.</p>
 <div class="sourceCode" id="cb11"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"animal_update"</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"dog"</span>,</span>
+<span>      inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Select animal"</span><span class="op">)</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bird"</span>, <span class="st">"Bird"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
 <span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"animal_update"</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"dog"</span>,</span>
-<span>        inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Select animal"</span><span class="op">)</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span>value <span class="op">=</span> <span class="st">"bird"</span>, <span class="st">"Bird"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Button.html">Button.shinyInput</a></span><span class="op">(</span></span>
-<span>          inputId <span class="op">=</span> <span class="st">"reset_btn"</span>,</span>
-<span>          <span class="st">"Reset to Dog"</span></span>
-<span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"animal_update_output"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Button.html">Button.shinyInput</a></span><span class="op">(</span></span>
+<span>        inputId <span class="op">=</span> <span class="st">"reset_btn"</span>,</span>
+<span>        <span class="st">"Reset to Dog"</span></span>
+<span>      <span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"animal_update_output"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -560,21 +549,20 @@ the selected value from the server.</p>
 element (useful for mobile devices).</p>
 <div class="sourceCode" id="cb12"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
-<span>        inputId <span class="op">=</span> <span class="st">"native_select"</span>,</span>
-<span>        native <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        value <span class="op">=</span> <span class="st">"dog"</span>,</span>
-<span>        inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Native Select"</span><span class="op">)</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">option</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">option</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
-<span>        <span class="va">tags</span><span class="op">$</span><span class="fu">option</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"native_output"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Select.html">Select.shinyInput</a></span><span class="op">(</span></span>
+<span>      inputId <span class="op">=</span> <span class="st">"native_select"</span>,</span>
+<span>      native <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      value <span class="op">=</span> <span class="st">"dog"</span>,</span>
+<span>      inputProps <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>label <span class="op">=</span> <span class="st">"Native Select"</span><span class="op">)</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>minWidth <span class="op">=</span> <span class="fl">200</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">option</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"dog"</span>, <span class="st">"Dog"</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">option</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"cat"</span>, <span class="st">"Cat"</span><span class="op">)</span>,</span>
+<span>      <span class="va">tags</span><span class="op">$</span><span class="fu">option</span><span class="op">(</span>value <span class="op">=</span> <span class="st">"fish"</span>, <span class="st">"Fish"</span><span class="op">)</span></span>
+<span>    <span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/textOutput.html" class="external-link">verbatimTextOutput</a></span><span class="op">(</span><span class="st">"native_output"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>

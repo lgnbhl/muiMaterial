@@ -94,7 +94,8 @@ export default function SliderSizes() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(inputId = "smallSlider", value = 70, size = "small", 
                       "aria-label" = "Small", valueLabelDisplay = "auto"),
@@ -147,7 +148,8 @@ export default function DiscreteSlider() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(inputId = "temperatureSlider", value = 30, 
                       "aria-label" = "Temperature", 
@@ -206,7 +208,8 @@ export default function DiscreteSliderSteps() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(inputId = "smallStepsSlider", value = 0.00000005, 
                       "aria-label" = "Small steps", 
@@ -295,7 +298,8 @@ marks <- list(
   )
 )
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(inputId = "customMarksSlider", value = 20, 
                       "aria-label" = "Custom marks", 
@@ -383,7 +387,8 @@ marks <- list(
   )
 )
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(inputId = "restrictedValuesSlider", value = 20, 
                       "aria-label" = "Restricted values", 
@@ -471,7 +476,8 @@ marks <- list(
   )
 )
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(inputId = "alwaysVisibleSlider", value = 80, 
                       "aria-label" = "Always visible", 
@@ -699,7 +705,8 @@ export default function ColorSlider() {
 
 ``` r
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   Box(sx = list(width = 300, mt = 4),
     Slider.shinyInput(inputId = "colorSlider", value = 30, 
                       "aria-label" = "Temperature", 
@@ -917,152 +924,151 @@ export default function CustomizedSlider() {
 ``` r
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = 320),
-      Typography("iOS", gutterBottom = TRUE),
-      ThemeProvider(
-        theme = list(
-          palette = list(
-            primary = list(main = "#007bff")
-          ),
-          components = list(
-            MuiSlider = list(
-              styleOverrides = list(
-                root = list(
-                  height = 5,
-                  padding = "15px 0"
-                ),
-                thumb = list(
-                  height = 20,
-                  width = 20,
-                  backgroundColor = "#fff",
-                  boxShadow = "0 0 2px 0px rgba(0, 0, 0, 0.1)"
-                ),
-                track = list(
-                  border = "none",
-                  height = 5
-                ),
-                rail = list(
-                  opacity = 0.5,
-                  boxShadow = "inset 0px 0px 4px -2px #000",
-                  backgroundColor = "#d0d0d0"
-                )
+  CssBaseline(),
+  Box(
+    sx = list(width = 320),
+    Typography("iOS", gutterBottom = TRUE),
+    ThemeProvider(
+      theme = list(
+        palette = list(
+          primary = list(main = "#007bff")
+        ),
+        components = list(
+          MuiSlider = list(
+            styleOverrides = list(
+              root = list(
+                height = 5,
+                padding = "15px 0"
+              ),
+              thumb = list(
+                height = 20,
+                width = 20,
+                backgroundColor = "#fff",
+                boxShadow = "0 0 2px 0px rgba(0, 0, 0, 0.1)"
+              ),
+              track = list(
+                border = "none",
+                height = 5
+              ),
+              rail = list(
+                opacity = 0.5,
+                boxShadow = "inset 0px 0px 4px -2px #000",
+                backgroundColor = "#d0d0d0"
               )
             )
           )
-        ),
-        Slider.shinyInput(
-          inputId = "iosSlider",
-          value = 60,
-          "aria-label" = "ios slider",
-          valueLabelDisplay = "on"
         )
       ),
-      Box(sx = list(m = 3)),
-      
-      Typography("pretto.fr", gutterBottom = TRUE),
-      ThemeProvider(
-        theme = list(
-          palette = list(
-            primary = list(main = "#52af77")
-          ),
-          components = list(
-            MuiSlider = list(
-              styleOverrides = list(
-                root = list(
-                  color = '#52af77',
-                  height = 8,
-                  '& .MuiSlider-track' = list(
-                    border = 'none'
+      Slider.shinyInput(
+        inputId = "iosSlider",
+        value = 60,
+        "aria-label" = "ios slider",
+        valueLabelDisplay = "on"
+      )
+    ),
+    Box(sx = list(m = 3)),
+    
+    Typography("pretto.fr", gutterBottom = TRUE),
+    ThemeProvider(
+      theme = list(
+        palette = list(
+          primary = list(main = "#52af77")
+        ),
+        components = list(
+          MuiSlider = list(
+            styleOverrides = list(
+              root = list(
+                color = '#52af77',
+                height = 8,
+                '& .MuiSlider-track' = list(
+                  border = 'none'
+                ),
+                '& .MuiSlider-thumb' = list(
+                  height = 24,
+                  width = 24,
+                  backgroundColor = '#fff',
+                  border = '2px solid currentColor',
+                  '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible' = list(
+                    boxShadow = 'inherit'
                   ),
-                  '& .MuiSlider-thumb' = list(
-                    height = 24,
-                    width = 24,
-                    backgroundColor = '#fff',
-                    border = '2px solid currentColor',
-                    '&:focus, &:hover, &.Mui-active, &.Mui-focusVisible' = list(
-                      boxShadow = 'inherit'
-                    ),
-                    '&::before' = list(
-                      display = 'none'
-                    )
+                  '&::before' = list(
+                    display = 'none'
+                  )
+                ),
+                '& .MuiSlider-valueLabel' = list(
+                  lineHeight = 1.2,
+                  fontSize = 12,
+                  background = 'unset',
+                  padding = 0,
+                  width = 32,
+                  height = 32,
+                  borderRadius = '50% 50% 50% 0',
+                  backgroundColor = '#52af77',
+                  transformOrigin = 'bottom left',
+                  transform = 'translate(50%, -100%) rotate(-45deg) scale(0)',
+                  '&::before' = list( display = 'none' ),
+                  '&.MuiSlider-valueLabelOpen' = list(
+                    transform = 'translate(50%, -100%) rotate(-45deg) scale(1)'
                   ),
-                  '& .MuiSlider-valueLabel' = list(
-                    lineHeight = 1.2,
-                    fontSize = 12,
-                    background = 'unset',
-                    padding = 0,
-                    width = 32,
-                    height = 32,
-                    borderRadius = '50% 50% 50% 0',
-                    backgroundColor = '#52af77',
-                    transformOrigin = 'bottom left',
-                    transform = 'translate(50%, -100%) rotate(-45deg) scale(0)',
-                    '&::before' = list( display = 'none' ),
-                    '&.MuiSlider-valueLabelOpen' = list(
-                      transform = 'translate(50%, -100%) rotate(-45deg) scale(1)'
-                    ),
-                    '& > *' = list(
-                      transform = 'rotate(45deg)'
-                    )
+                  '& > *' = list(
+                    transform = 'rotate(45deg)'
                   )
                 )
               )
             )
           )
-        ),
-        Slider.shinyInput(
-          inputId = "prettoSlider",
-          value = 20,
-          "aria-label" = "pretto slider",
-          valueLabelDisplay = "auto"
         )
       ),
-      Box(sx = list(m = 3)),
-      
-      Typography("Tooltip value label", gutterBottom = TRUE),
       Slider.shinyInput(
-        inputId = "tooltipSlider",
+        inputId = "prettoSlider",
         value = 20,
-        "aria-label" = "custom thumb label",
+        "aria-label" = "pretto slider",
         valueLabelDisplay = "auto"
-      ),
-      Box(sx = list(m = 3)),
-      
-      Typography("Airbnb", gutterBottom = TRUE),
-      ThemeProvider(
-        theme = list(
-          palette = list(
-            primary = list(main = "#3a8589")
-          ),
-          components = list(
-            MuiSlider = list(
-              styleOverrides = list(
-                root = list(
-                  height = 3,
-                  padding = "13px 0"
-                ),
-                thumb = list(
-                  height = 27,
-                  width = 27,
-                  backgroundColor = "#fff",
-                  border = "1px solid currentColor"
-                ),
-                track = list(height = 3),
-                rail = list(
-                  color = "#d8d8d8",
-                  opacity = 1,
-                  height = 3
-                )
+      )
+    ),
+    Box(sx = list(m = 3)),
+    
+    Typography("Tooltip value label", gutterBottom = TRUE),
+    Slider.shinyInput(
+      inputId = "tooltipSlider",
+      value = 20,
+      "aria-label" = "custom thumb label",
+      valueLabelDisplay = "auto"
+    ),
+    Box(sx = list(m = 3)),
+    
+    Typography("Airbnb", gutterBottom = TRUE),
+    ThemeProvider(
+      theme = list(
+        palette = list(
+          primary = list(main = "#3a8589")
+        ),
+        components = list(
+          MuiSlider = list(
+            styleOverrides = list(
+              root = list(
+                height = 3,
+                padding = "13px 0"
+              ),
+              thumb = list(
+                height = 27,
+                width = 27,
+                backgroundColor = "#fff",
+                border = "1px solid currentColor"
+              ),
+              track = list(height = 3),
+              rail = list(
+                color = "#d8d8d8",
+                opacity = 1,
+                height = 3
               )
             )
           )
-        ),
-        Slider.shinyInput(
-          inputId = "airbnbSlider", 
-          value = c(20, 40)
         )
+      ),
+      Slider.shinyInput(
+        inputId = "airbnbSlider", 
+        value = c(20, 40)
       )
     )
   )
@@ -1381,105 +1387,104 @@ ui <- muiMaterialPage(
     }
   "),
   
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", overflow = "hidden", position = "relative", p = 3),
-      
-      div(class = "music-widget",
-        Box(
-          sx = list(display = "flex", alignItems = "center"),
-          div(class = "cover-image",
-            tags$img(
-              alt = "can't win - Chilling Sunday",
-              src = "https://mui.com/static/images/sliders/chilling-sunday.jpg"
-            )
-          ),
-          Box(
-            sx = list(ml = 1.5, minWidth = 0),
-            Typography(
-              variant = "caption",
-              sx = list(color = "text.secondary", fontWeight = 500),
-              "Jun Pulse"
-            ),
-            Typography(
-              noWrap = TRUE,
-              tags$b("คนเก่าเขาทำไว้ดี (Can't win)")
-            ),
-            Typography(
-              noWrap = TRUE,
-              sx = list(letterSpacing = -0.25),
-              "Chilling Sunday — คนเก่าเขาทำไว้ดี"
-            )
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", overflow = "hidden", position = "relative", p = 3),
+    
+    div(class = "music-widget",
+      Box(
+        sx = list(display = "flex", alignItems = "center"),
+        div(class = "cover-image",
+          tags$img(
+            alt = "can't win - Chilling Sunday",
+            src = "https://mui.com/static/images/sliders/chilling-sunday.jpg"
           )
         ),
-        
-        Slider.shinyInput(
-          inputId = "timeSlider",
-          value = 32,
-          min = 0,
-          step = 1,
-          max = 200,
-          size = "small",
-          "aria-label" = "time-indicator"
-        ),
-        
         Box(
-          sx = list(
-            display = "flex", 
-            alignItems = "center", 
-            justifyContent = "space-between",
-            mt = -2
+          sx = list(ml = 1.5, minWidth = 0),
+          Typography(
+            variant = "caption",
+            sx = list(color = "text.secondary", fontWeight = 500),
+            "Jun Pulse"
           ),
-          div(class = "tiny-text", textOutput("currentPosition")),
-          div(class = "tiny-text", textOutput("remainingTime"))
-        ),
-        
-        Box(
-          sx = list(
-            display = "flex",
-            alignItems = "center",
-            justifyContent = "center",
-            mt = -1
+          Typography(
+            noWrap = TRUE,
+            tags$b("คนเก่าเขาทำไว้ดี (Can't win)")
           ),
-          IconButton(
-            "aria-label" = "previous song",
-            shiny::icon("backward")
-          ),
-          IconButton(
-            inputId = "playPauseBtn",
-            "aria-label" = "play",
-            shiny::icon("play", style = "font-size: 2rem;")
-          ),
-          IconButton(
-            "aria-label" = "next song",
-            shiny::icon("forward")
+          Typography(
+            noWrap = TRUE,
+            sx = list(letterSpacing = -0.25),
+            "Chilling Sunday — คนเก่าเขาทำไว้ดี"
           )
-        ),
-        
-        Stack(
-          spacing = 2,
-          direction = "row",
-          sx = list(mb = 1, px = 1),
-          alignItems = "center",
-          
-          shiny::icon("volume-down"),
-          
-          Slider.shinyInput(
-            inputId = "volumeSlider",
-            value = 30,
-            "aria-label" = "Volume",
-            sx = list(
-              width = 200,
-              color = "rgba(0,0,0,0.87)"
-            )
-          ),
-          
-          shiny::icon("volume-up")
         )
       ),
       
-      div(class = "wall-paper")
-    )
+      Slider.shinyInput(
+        inputId = "timeSlider",
+        value = 32,
+        min = 0,
+        step = 1,
+        max = 200,
+        size = "small",
+        "aria-label" = "time-indicator"
+      ),
+      
+      Box(
+        sx = list(
+          display = "flex", 
+          alignItems = "center", 
+          justifyContent = "space-between",
+          mt = -2
+        ),
+        div(class = "tiny-text", textOutput("currentPosition")),
+        div(class = "tiny-text", textOutput("remainingTime"))
+      ),
+      
+      Box(
+        sx = list(
+          display = "flex",
+          alignItems = "center",
+          justifyContent = "center",
+          mt = -1
+        ),
+        IconButton(
+          "aria-label" = "previous song",
+          shiny::icon("backward")
+        ),
+        IconButton(
+          inputId = "playPauseBtn",
+          "aria-label" = "play",
+          shiny::icon("play", style = "font-size: 2rem;")
+        ),
+        IconButton(
+          "aria-label" = "next song",
+          shiny::icon("forward")
+        )
+      ),
+      
+      Stack(
+        spacing = 2,
+        direction = "row",
+        sx = list(mb = 1, px = 1),
+        alignItems = "center",
+        
+        shiny::icon("volume-down"),
+        
+        Slider.shinyInput(
+          inputId = "volumeSlider",
+          value = 30,
+          "aria-label" = "Volume",
+          sx = list(
+            width = 200,
+            color = "rgba(0,0,0,0.87)"
+          )
+        ),
+        
+        shiny::icon("volume-up")
+      )
+    ),
+    
+    div(class = "wall-paper")
   )
 )
 
@@ -1592,7 +1597,8 @@ marks <- list(
   list(value = 100, label = "100°C")
 )
 
-ui <- CssBaseline(
+ui <- muiMaterialPage(
+  CssBaseline(),
   Stack(
     sx = list(height = 300, mt = 4, ml = 4),
     spacing = 1,
@@ -1726,30 +1732,29 @@ marks <- list(
 
 # Create Shiny app
 ui <- muiMaterialPage(
-  CssBaseline(
+  CssBaseline(),
+  Box(
+    sx = list(width = 250, m = 4),
+    Slider.shinyInput(
+      inputId = "custom_slider",
+      marks = marks,
+      step = 10,
+      value = MIN,
+      valueLabelDisplay = "auto",
+      min = MIN,
+      max = MAX
+    ),
     Box(
-      sx = list(width = 250, m = 4),
-      Slider.shinyInput(
-        inputId = "custom_slider",
-        marks = marks,
-        step = 10,
-        value = MIN,
-        valueLabelDisplay = "auto",
-        min = MIN,
-        max = MAX
+      sx = list(display = "flex", justifyContent = "space-between"),
+      Typography(
+        variant = "body2",
+        sx = list(cursor = "pointer"),
+        paste0(MIN, " min")
       ),
-      Box(
-        sx = list(display = "flex", justifyContent = "space-between"),
-        Typography(
-          variant = "body2",
-          sx = list(cursor = "pointer"),
-          paste0(MIN, " min")
-        ),
-        Typography(
-          variant = "body2",
-          sx = list(cursor = "pointer"),
-          paste0(MAX, " max")
-        )
+      Typography(
+        variant = "body2",
+        sx = list(cursor = "pointer"),
+        paste0(MAX, " max")
       )
     )
   )
@@ -1847,37 +1852,36 @@ marks <- list(
 
 # Create Shiny app
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = 250),
-      Typography(
-        id = "track-false-slider",
-        gutterBottom = TRUE,
-        "Removed track"
-      ),
-      Slider.shinyInput(
-        inputId = "track_false_slider",
-        track = FALSE,
-        `aria-labelledby` = "track-false-slider",
-        #getAriaValueText = "",
-        value = 30,
-        marks = marks
-      ),
-      # Custom separator with theme spacing
-      div(style = "height: 24px;"),
-      Typography(
-        id = "track-false-range-slider",
-        gutterBottom = TRUE,
-        "Removed track range slider"
-      ),
-      Slider.shinyInput(
-        inputId = "track_false_range_slider",
-        track = FALSE,
-        `aria-labelledby` = "track-false-range-slider",
-        #getAriaValueText = "",
-        value = c(20, 37, 50),
-        marks = marks
-      )
+  CssBaseline(),
+  Box(
+    sx = list(width = 250),
+    Typography(
+      id = "track-false-slider",
+      gutterBottom = TRUE,
+      "Removed track"
+    ),
+    Slider.shinyInput(
+      inputId = "track_false_slider",
+      track = FALSE,
+      `aria-labelledby` = "track-false-slider",
+      #getAriaValueText = "",
+      value = 30,
+      marks = marks
+    ),
+    # Custom separator with theme spacing
+    div(style = "height: 24px;"),
+    Typography(
+      id = "track-false-range-slider",
+      gutterBottom = TRUE,
+      "Removed track range slider"
+    ),
+    Slider.shinyInput(
+      inputId = "track_false_range_slider",
+      track = FALSE,
+      `aria-labelledby` = "track-false-range-slider",
+      #getAriaValueText = "",
+      value = c(20, 37, 50),
+      marks = marks
     )
   )
 )
@@ -1974,37 +1978,36 @@ marks <- list(
 
 # Create Shiny app
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = 250),
-      Typography(
-        id = "track-inverted-slider",
-        gutterBottom = TRUE,
-        "Inverted track"
-      ),
-      Slider.shinyInput(
-        inputId = "track_inverted_slider",
-        track = "inverted",
-        `aria-labelledby` = "track-inverted-slider",
-        #getAriaValueText = "",
-        value = 30,
-        marks = marks
-      ),
-      # Custom separator with theme spacing
-      div(style = "height: 24px;"),
-      Typography(
-        id = "track-inverted-range-slider",
-        gutterBottom = TRUE,
-        "Inverted track range"
-      ),
-      Slider.shinyInput(
-        inputId = "track_inverted_range_slider",
-        track = "inverted",
-        `aria-labelledby` = "track-inverted-range-slider",
-        #getAriaValueText = "",
-        value = c(20, 37),
-        marks = marks
-      )
+  CssBaseline(),
+  Box(
+    sx = list(width = 250),
+    Typography(
+      id = "track-inverted-slider",
+      gutterBottom = TRUE,
+      "Inverted track"
+    ),
+    Slider.shinyInput(
+      inputId = "track_inverted_slider",
+      track = "inverted",
+      `aria-labelledby` = "track-inverted-slider",
+      #getAriaValueText = "",
+      value = 30,
+      marks = marks
+    ),
+    # Custom separator with theme spacing
+    div(style = "height: 24px;"),
+    Typography(
+      id = "track-inverted-range-slider",
+      gutterBottom = TRUE,
+      "Inverted track range"
+    ),
+    Slider.shinyInput(
+      inputId = "track_inverted_range_slider",
+      track = "inverted",
+      `aria-labelledby` = "track-inverted-range-slider",
+      #getAriaValueText = "",
+      value = c(20, 37),
+      marks = marks
     )
   )
 )
@@ -2101,18 +2104,18 @@ calculateValue <- function(value) {
 
 # Create Shiny app
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = 250, mt = 4),
-      textOutput("storage_text"),
-      Slider.shinyInput(
-        inputId = "non_linear_slider",
-        value = 10,
-        min = 5,
-        step = 1,
-        max = 30,
-        scale = JS("function(value) { return Math.pow(2, value); }"),
-        getAriaValueText = JS("function(value) { 
+  CssBaseline(),
+  Box(
+    sx = list(width = 250, mt = 4),
+    textOutput("storage_text"),
+    Slider.shinyInput(
+      inputId = "non_linear_slider",
+      value = 10,
+      min = 5,
+      step = 1,
+      max = 30,
+      scale = JS("function(value) { return Math.pow(2, value); }"),
+      getAriaValueText = JS("function(value) { 
           const units = ['KB', 'MB', 'GB', 'TB'];
           let unitIndex = 0;
           let scaledValue = Math.pow(2, value);
@@ -2124,7 +2127,7 @@ ui <- muiMaterialPage(
           
           return `${scaledValue.toFixed(2)} ${units[unitIndex]}`;
         }"),
-        valueLabelFormat = JS("function(value) { 
+      valueLabelFormat = JS("function(value) { 
           const units = ['KB', 'MB', 'GB', 'TB'];
           let unitIndex = 0;
           let scaledValue = value;
@@ -2136,9 +2139,8 @@ ui <- muiMaterialPage(
           
           return `${scaledValue.toFixed(2)} ${units[unitIndex]}`;
         }"),
-        valueLabelDisplay = "auto",
-        `aria-labelledby` = "non-linear-slider"
-      )
+      valueLabelDisplay = "auto",
+      `aria-labelledby` = "non-linear-slider"
     )
   )
 )

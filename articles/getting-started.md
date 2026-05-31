@@ -30,11 +30,10 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      Typography("Hello Material UI!", variant = "h4")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Typography("Hello Material UI!", variant = "h4")
   )
 )
 
@@ -49,7 +48,8 @@ instead of [`fluidPage()`](https://rdrr.io/pkg/shiny/man/fluidPage.html)
 and wrap your UI in
 [`CssBaseline()`](https://felixluginbuhl.com/muiMaterial/reference/CssBaseline.md)
 to ensure proper styling. Material UI uses its own design system and can
-conflict with Bootstrap (see \[Bootstrap conflict\] below).
+conflict with Bootstrap (see the [CSS conflicts with
+Bootstrap](#css-conflicts-with-bootstrap) section below).
 
 ### Shiny input wrappers
 

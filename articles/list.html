@@ -93,9 +93,9 @@
 
 
 
-<script src="list_files/react-18.3.1/react.production.min.js"></script><script src="list_files/react-18.3.1/react-dom.production.min.js"></script><script src="list_files/shiny.react-0.1.0/shiny-react.js"></script><link href="list_files/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
+<script src="list_files/react-18.3.1/react.production.min.js"></script><script src="list_files/react-18.3.1/react-dom.production.min.js"></script><script src="list_files/shiny.react-0.1.0/shiny-react.js"></script><script src="list_files/muiMaterial-0.2.0/mui-material.js"></script><link href="list_files/font-awesome-6.5.2/css/all.min.css" rel="stylesheet">
 <link href="list_files/font-awesome-6.5.2/css/v4-shims.min.css" rel="stylesheet">
-<script src="list_files/muiMaterial-0.2.0/mui-material.js"></script><script src="list_files/reactRouter-0.2.0/react-router-dom.js"></script><div class="row">
+<script src="list_files/reactRouter-0.2.0/react-router-dom.js"></script><div class="row">
   <main id="main" class="col-md-9"><div class="page-header">
       <img src="../logo.png" class="logo" alt=""><h1>List</h1>
             
@@ -115,21 +115,20 @@ represented by icons and text.</p>
 <p>A simple list with text items:</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"inbox"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Inbox"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"paper-plane"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Drafts"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"inbox"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Inbox"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"paper-plane"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Drafts"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -137,8 +136,11 @@ represented by icons and text.</p>
 <span><span class="op">)</span></span></code></pre></div>
 
 
+<div class="react-container" data-react-id="cvpeammhtuweaikfkbkz">
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"raw","value":[]}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('cvpeammhtuweaikfkbkz')</script>
+</div>
 <div class="react-container" data-react-id="jyfadwffbyguhwhzptvt">
-<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-inbox","role":"presentation","aria-label":"inbox icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Inbox"}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-paper-plane","role":"presentation","aria-label":"paper-plane icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Drafts"}}}]}}}}}}}]}}}}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('jyfadwffbyguhwhzptvt')</script>
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-inbox","role":"presentation","aria-label":"inbox icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Inbox"}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-paper-plane","role":"presentation","aria-label":"paper-plane icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Drafts"}}}]}}}}}}}]}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('jyfadwffbyguhwhzptvt')</script>
 </div>
 
 
@@ -152,58 +154,60 @@ represented by icons and text.</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
-<span>        component <span class="op">=</span> <span class="st">"nav"</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"home"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Home"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"envelope"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Inbox"</span><span class="op">)</span>,</span>
-<span>          <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"chevron-down"</span><span class="op">)</span>,</span>
-<span>          onClick <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">"() =&gt; {</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
+<span>      component <span class="op">=</span> <span class="st">"nav"</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"home"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Home"</span><span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"envelope"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Inbox"</span><span class="op">)</span>,</span>
+<span>        <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"chevron-down"</span><span class="op">)</span>,</span>
+<span>        onClick <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">"() =&gt; {</span></span>
 <span><span class="st">            const el = document.getElementById('inbox-collapse');</span></span>
 <span><span class="st">            if (el) {</span></span>
 <span><span class="st">              el.style.display = el.style.display === 'none' ? 'block' : 'none';</span></span>
 <span><span class="st">            }</span></span>
 <span><span class="st">          }"</span><span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Collapse.html">Collapse</a></span><span class="op">(</span></span>
-<span>          `in` <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          timeout <span class="op">=</span> <span class="st">"auto"</span>,</span>
-<span>          unmountOnExit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>          id <span class="op">=</span> <span class="st">"inbox-collapse"</span>,</span>
-<span>          <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
-<span>            component <span class="op">=</span> <span class="st">"div"</span>,</span>
-<span>            disablePadding <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>            <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>              sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pl <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"star"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Starred"</span><span class="op">)</span></span>
-<span>            <span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>              sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pl <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"clock"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Snoozed"</span><span class="op">)</span></span>
-<span>            <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Collapse.html">Collapse</a></span><span class="op">(</span></span>
+<span>        `in` <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        timeout <span class="op">=</span> <span class="st">"auto"</span>,</span>
+<span>        unmountOnExit <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>        id <span class="op">=</span> <span class="st">"inbox-collapse"</span>,</span>
+<span>        <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
+<span>          component <span class="op">=</span> <span class="st">"div"</span>,</span>
+<span>          disablePadding <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>          <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>            sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pl <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"star"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Starred"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>            sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>pl <span class="op">=</span> <span class="fl">4</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"clock"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Snoozed"</span><span class="op">)</span></span>
 <span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"paper-plane"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Drafts"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"paper-plane"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Drafts"</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 
 
+<div class="react-container" data-react-id="kdcrprizswzfrkbqpkwn">
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"raw","value":[]}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('kdcrprizswzfrkbqpkwn')</script>
+</div>
 <div class="react-container" data-react-id="jqdrwvwgpxittwzczqbm">
-<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"component":{"type":"raw","value":"nav"},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-house","role":"presentation","aria-label":"house icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Home"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"onClick":{"type":"expr","value":"() => {\n            const el = document.getElementById('inbox-collapse');\n            if (el) {\n              el.style.display = el.style.display === 'none' ? 'block' : 'none';\n            }\n          }"},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-envelope","role":"presentation","aria-label":"envelope icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Inbox"}}},{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-chevron-down","role":"presentation","aria-label":"chevron-down icon"}}}]}}}},{"type":"element","module":"@mui/material","name":"Collapse","props":{"type":"object","value":{"in":{"type":"raw","value":true},"timeout":{"type":"raw","value":"auto"},"unmountOnExit":{"type":"raw","value":true},"id":{"type":"raw","value":"inbox-collapse"},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"component":{"type":"raw","value":"div"},"disablePadding":{"type":"raw","value":true},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"sx":{"type":"raw","value":{"pl":4}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-star","role":"presentation","aria-label":"star icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Starred"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"sx":{"type":"raw","value":{"pl":4}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-clock","role":"presentation","aria-label":"clock icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Snoozed"}}}]}}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-paper-plane","role":"presentation","aria-label":"paper-plane icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Drafts"}}}]}}}}]}}}}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('jqdrwvwgpxittwzczqbm')</script>
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"component":{"type":"raw","value":"nav"},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-house","role":"presentation","aria-label":"house icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Home"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"onClick":{"type":"expr","value":"() => {\n            const el = document.getElementById('inbox-collapse');\n            if (el) {\n              el.style.display = el.style.display === 'none' ? 'block' : 'none';\n            }\n          }"},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-envelope","role":"presentation","aria-label":"envelope icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Inbox"}}},{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-chevron-down","role":"presentation","aria-label":"chevron-down icon"}}}]}}}},{"type":"element","module":"@mui/material","name":"Collapse","props":{"type":"object","value":{"in":{"type":"raw","value":true},"timeout":{"type":"raw","value":"auto"},"unmountOnExit":{"type":"raw","value":true},"id":{"type":"raw","value":"inbox-collapse"},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"component":{"type":"raw","value":"div"},"disablePadding":{"type":"raw","value":true},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"sx":{"type":"raw","value":{"pl":4}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-star","role":"presentation","aria-label":"star icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Starred"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"sx":{"type":"raw","value":{"pl":4}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-clock","role":"presentation","aria-label":"clock icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Snoozed"}}}]}}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-paper-plane","role":"presentation","aria-label":"paper-plane icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Drafts"}}}]}}}}]}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('jqdrwvwgpxittwzczqbm')</script>
 </div>
 
 
@@ -214,30 +218,29 @@ represented by icons and text.</p>
 <p>Use <code><a href="../reference/Divider.html">Divider()</a></code> to separate list items:</p>
 <div class="sourceCode" id="cb3"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
-<span>        component <span class="op">=</span> <span class="st">"nav"</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"inbox"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Inbox"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Divider.html">Divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"paper-plane"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Drafts"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Divider.html">Divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"trash"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Trash"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
+<span>      component <span class="op">=</span> <span class="st">"nav"</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"inbox"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Inbox"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Divider.html">Divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"paper-plane"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Drafts"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Divider.html">Divider</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"trash"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Trash"</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -245,8 +248,11 @@ represented by icons and text.</p>
 <span><span class="op">)</span></span></code></pre></div>
 
 
+<div class="react-container" data-react-id="hpdqsparqlnrwtkldlpb">
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"raw","value":[]}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('hpdqsparqlnrwtkldlpb')</script>
+</div>
 <div class="react-container" data-react-id="grfrfuaycaiuhelvruct">
-<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"component":{"type":"raw","value":"nav"},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-inbox","role":"presentation","aria-label":"inbox icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Inbox"}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"Divider","props":{"type":"raw","value":[]}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-paper-plane","role":"presentation","aria-label":"paper-plane icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Drafts"}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"Divider","props":{"type":"raw","value":[]}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-trash","role":"presentation","aria-label":"trash icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Trash"}}}]}}}}}}}]}}}}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('grfrfuaycaiuhelvruct')</script>
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"component":{"type":"raw","value":"nav"},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-inbox","role":"presentation","aria-label":"inbox icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Inbox"}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"Divider","props":{"type":"raw","value":[]}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-paper-plane","role":"presentation","aria-label":"paper-plane icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Drafts"}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"Divider","props":{"type":"raw","value":[]}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-trash","role":"presentation","aria-label":"trash icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Trash"}}}]}}}}}}}]}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('grfrfuaycaiuhelvruct')</script>
 </div>
 
 
@@ -257,45 +263,44 @@ represented by icons and text.</p>
 <p>Combine lists with Avatar() components:</p>
 <div class="sourceCode" id="cb4"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
-<span>              alt <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
-<span>              src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/1.jpg"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Available for chat"</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
+<span>            alt <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
+<span>            src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/1.jpg"</span></span>
 <span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
-<span>              alt <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
-<span>              src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/2.jpg"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Busy - Do not disturb"</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Available for chat"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
+<span>            alt <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
+<span>            src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/2.jpg"</span></span>
 <span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
-<span>              alt <span class="op">=</span> <span class="st">"Cindy Baker"</span>,</span>
-<span>              src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/3.jpg"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Cindy Baker"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Away"</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Busy - Do not disturb"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
+<span>            alt <span class="op">=</span> <span class="st">"Cindy Baker"</span>,</span>
+<span>            src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/3.jpg"</span></span>
 <span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Cindy Baker"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Away"</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -303,8 +308,11 @@ represented by icons and text.</p>
 <span><span class="op">)</span></span></code></pre></div>
 
 
+<div class="react-container" data-react-id="khtmuavhyogmsaugzeap">
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"raw","value":[]}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('khtmuavhyogmsaugzeap')</script>
+</div>
 <div class="react-container" data-react-id="wtcvwstdfidwmmuiiivh">
-<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Remy Sharp","src":"https://mui.com/static/images/avatar/1.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Remy Sharp","secondary":"Available for chat"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Travis Howard","src":"https://mui.com/static/images/avatar/2.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Travis Howard","secondary":"Busy - Do not disturb"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Cindy Baker","src":"https://mui.com/static/images/avatar/3.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Cindy Baker","secondary":"Away"}}}]}}}}]}}}}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('wtcvwstdfidwmmuiiivh')</script>
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Remy Sharp","src":"https://mui.com/static/images/avatar/1.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Remy Sharp","secondary":"Available for chat"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Travis Howard","src":"https://mui.com/static/images/avatar/2.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Travis Howard","secondary":"Busy - Do not disturb"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Cindy Baker","src":"https://mui.com/static/images/avatar/3.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Cindy Baker","secondary":"Away"}}}]}}}}]}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('wtcvwstdfidwmmuiiivh')</script>
 </div>
 
 
@@ -316,41 +324,40 @@ represented by icons and text.</p>
 ListItemSecondaryAction():</p>
 <div class="sourceCode" id="cb5"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          secondaryAction <span class="op">=</span> <span class="fu"><a href="../reference/IconButton.html">IconButton</a></span><span class="op">(</span></span>
-<span>            edge <span class="op">=</span> <span class="st">"end"</span>,</span>
-<span>            <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"comment"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
-<span>              alt <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
-<span>              src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/1.jpg"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Jan 9, 2024"</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        secondaryAction <span class="op">=</span> <span class="fu"><a href="../reference/IconButton.html">IconButton</a></span><span class="op">(</span></span>
+<span>          edge <span class="op">=</span> <span class="st">"end"</span>,</span>
+<span>          <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"comment"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
+<span>            alt <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
+<span>            src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/1.jpg"</span></span>
 <span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          secondaryAction <span class="op">=</span> <span class="fu"><a href="../reference/IconButton.html">IconButton</a></span><span class="op">(</span></span>
-<span>            edge <span class="op">=</span> <span class="st">"end"</span>,</span>
-<span>            <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"comment"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
-<span>              alt <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
-<span>              src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/2.jpg"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Jan 7, 2024"</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Jan 9, 2024"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        secondaryAction <span class="op">=</span> <span class="fu"><a href="../reference/IconButton.html">IconButton</a></span><span class="op">(</span></span>
+<span>          edge <span class="op">=</span> <span class="st">"end"</span>,</span>
+<span>          <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"comment"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
+<span>            alt <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
+<span>            src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/2.jpg"</span></span>
 <span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Jan 7, 2024"</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -358,8 +365,11 @@ ListItemSecondaryAction():</p>
 <span><span class="op">)</span></span></code></pre></div>
 
 
+<div class="react-container" data-react-id="lkdreypivxdodqbhidue">
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"raw","value":[]}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('lkdreypivxdodqbhidue')</script>
+</div>
 <div class="react-container" data-react-id="nqetvffgtkotombcpkgn">
-<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"secondaryAction":{"type":"element","module":"@mui/material","name":"IconButton","props":{"type":"object","value":{"edge":{"type":"raw","value":"end"},"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-comment","role":"presentation","aria-label":"comment icon"}}}}}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Remy Sharp","src":"https://mui.com/static/images/avatar/1.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Remy Sharp","secondary":"Jan 9, 2024"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"secondaryAction":{"type":"element","module":"@mui/material","name":"IconButton","props":{"type":"object","value":{"edge":{"type":"raw","value":"end"},"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-comment","role":"presentation","aria-label":"comment icon"}}}}}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Travis Howard","src":"https://mui.com/static/images/avatar/2.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Travis Howard","secondary":"Jan 7, 2024"}}}]}}}}]}}}}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('nqetvffgtkotombcpkgn')</script>
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"secondaryAction":{"type":"element","module":"@mui/material","name":"IconButton","props":{"type":"object","value":{"edge":{"type":"raw","value":"end"},"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-comment","role":"presentation","aria-label":"comment icon"}}}}}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Remy Sharp","src":"https://mui.com/static/images/avatar/1.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Remy Sharp","secondary":"Jan 9, 2024"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"secondaryAction":{"type":"element","module":"@mui/material","name":"IconButton","props":{"type":"object","value":{"edge":{"type":"raw","value":"end"},"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-comment","role":"presentation","aria-label":"comment icon"}}}}}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Travis Howard","src":"https://mui.com/static/images/avatar/2.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Travis Howard","secondary":"Jan 7, 2024"}}}]}}}}]}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('nqetvffgtkotombcpkgn')</script>
 </div>
 
 
@@ -379,79 +389,81 @@ package:</p>
 <span><span class="co">#&gt;     Link</span></span>
 <span></span>
 <span><span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/HashRouter.html" class="external-link">HashRouter</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>display <span class="op">=</span> <span class="st">"flex"</span>, height <span class="op">=</span> <span class="st">"100vh"</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>            sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">240</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span>, borderRight <span class="op">=</span> <span class="st">"1px solid #e0e0e0"</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
-<span>                component <span class="op">=</span> <span class="st">"nav"</span>,</span>
-<span>                <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
-<span>                    to <span class="op">=</span> <span class="st">"/"</span>,</span>
-<span>                    style <span class="op">=</span> <span class="st">"text-decoration: none; color: black"</span>,</span>
-<span>                    <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>                        <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"home"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Home"</span><span class="op">)</span></span>
-<span>                    <span class="op">)</span></span>
-<span>                <span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
-<span>                    to <span class="op">=</span> <span class="st">"/inbox"</span>,</span>
-<span>                    style <span class="op">=</span> <span class="st">"text-decoration: none; color: black"</span>,</span>
-<span>                    <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>                        onClick <span class="op">=</span> <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Navigate.html" class="external-link">Navigate</a></span><span class="op">(</span><span class="st">"/inbox"</span><span class="op">)</span>,</span>
-<span>                        <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"inbox"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Inbox"</span><span class="op">)</span></span>
-<span>                    <span class="op">)</span></span>
-<span>                <span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
-<span>                    to <span class="op">=</span> <span class="st">"/starred"</span>,</span>
-<span>                    style <span class="op">=</span> <span class="st">"text-decoration: none; color: black"</span>,</span>
-<span>                    <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>                        onClick <span class="op">=</span> <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Navigate.html" class="external-link">Navigate</a></span><span class="op">(</span><span class="st">"/starred"</span><span class="op">)</span>,</span>
-<span>                        <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"star"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Starred"</span><span class="op">)</span></span>
-<span>                    <span class="op">)</span></span>
-<span>                <span class="op">)</span>,</span>
-<span>                <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
-<span>                    to <span class="op">=</span> <span class="st">"/drafts"</span>,</span>
-<span>                    style <span class="op">=</span> <span class="st">"text-decoration: none; color: black"</span>,</span>
-<span>                    <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
-<span>                        <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"paper-plane"</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>                        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Drafts"</span><span class="op">)</span></span>
-<span>                    <span class="op">)</span></span>
-<span>                <span class="op">)</span></span>
-<span>            <span class="op">)</span></span>
-<span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>            sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>flex <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Routes.html" class="external-link">Routes</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>                path <span class="op">=</span> <span class="st">"/"</span>,</span>
-<span>                element <span class="op">=</span> <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Home Page"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
-<span>            <span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>                path <span class="op">=</span> <span class="st">"/inbox"</span>,</span>
-<span>                element <span class="op">=</span> <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Inbox"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
-<span>            <span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>                path <span class="op">=</span> <span class="st">"/starred"</span>,</span>
-<span>                element <span class="op">=</span> <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Starred"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
-<span>            <span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>                path <span class="op">=</span> <span class="st">"/drafts"</span>,</span>
-<span>                element <span class="op">=</span> <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Drafts"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
-<span>            <span class="op">)</span></span>
-<span>            <span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/HashRouter.html" class="external-link">HashRouter</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>display <span class="op">=</span> <span class="st">"flex"</span>, height <span class="op">=</span> <span class="st">"100vh"</span><span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>          sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="fl">240</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span>, borderRight <span class="op">=</span> <span class="st">"1px solid #e0e0e0"</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
+<span>              component <span class="op">=</span> <span class="st">"nav"</span>,</span>
+<span>              <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>                  to <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>                  style <span class="op">=</span> <span class="st">"text-decoration: none; color: black"</span>,</span>
+<span>                  <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>                      <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"home"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                      <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Home"</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span></span>
+<span>              <span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>                  to <span class="op">=</span> <span class="st">"/inbox"</span>,</span>
+<span>                  style <span class="op">=</span> <span class="st">"text-decoration: none; color: black"</span>,</span>
+<span>                  <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>                      onClick <span class="op">=</span> <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Navigate.html" class="external-link">Navigate</a></span><span class="op">(</span><span class="st">"/inbox"</span><span class="op">)</span>,</span>
+<span>                      <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"inbox"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                      <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Inbox"</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span></span>
+<span>              <span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>                  to <span class="op">=</span> <span class="st">"/starred"</span>,</span>
+<span>                  style <span class="op">=</span> <span class="st">"text-decoration: none; color: black"</span>,</span>
+<span>                  <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>                      onClick <span class="op">=</span> <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Navigate.html" class="external-link">Navigate</a></span><span class="op">(</span><span class="st">"/starred"</span><span class="op">)</span>,</span>
+<span>                      <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"star"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                      <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Starred"</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span></span>
+<span>              <span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>                  to <span class="op">=</span> <span class="st">"/drafts"</span>,</span>
+<span>                  style <span class="op">=</span> <span class="st">"text-decoration: none; color: black"</span>,</span>
+<span>                  <span class="fu"><a href="../reference/ListItemButton.html">ListItemButton</a></span><span class="op">(</span></span>
+<span>                      <span class="fu"><a href="../reference/ListItemIcon.html">ListItemIcon</a></span><span class="op">(</span><span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/icon.html" class="external-link">icon</a></span><span class="op">(</span><span class="st">"paper-plane"</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>                      <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span>primary <span class="op">=</span> <span class="st">"Drafts"</span><span class="op">)</span></span>
+<span>                  <span class="op">)</span></span>
+<span>              <span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>          sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>flex <span class="op">=</span> <span class="fl">1</span>, p <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Routes.html" class="external-link">Routes</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>              path <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>              element <span class="op">=</span> <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Home Page"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>              path <span class="op">=</span> <span class="st">"/inbox"</span>,</span>
+<span>              element <span class="op">=</span> <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Inbox"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>              path <span class="op">=</span> <span class="st">"/starred"</span>,</span>
+<span>              element <span class="op">=</span> <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Starred"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>              path <span class="op">=</span> <span class="st">"/drafts"</span>,</span>
+<span>              element <span class="op">=</span> <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Drafts"</span>, variant <span class="op">=</span> <span class="st">"h4"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
+<span>      <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
 
 
+<div class="react-container" data-react-id="qvxyqubjmsswsjujtxlf">
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"raw","value":[]}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('qvxyqubjmsswsjujtxlf')</script>
+</div>
 <div class="react-container" data-react-id="gdzmcggaeqfbqiqzenpi">
-<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"HashRouter","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"display":"flex","height":"100vh"}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":240,"bgcolor":"background.paper","borderRight":"1px solid #e0e0e0"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"component":{"type":"raw","value":"nav"},"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/"},"style":{"type":"raw","value":"text-decoration: none; color: black"},"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-house","role":"presentation","aria-label":"house icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Home"}}}]}}}}}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/inbox"},"style":{"type":"raw","value":"text-decoration: none; color: black"},"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"onClick":{"type":"element","module":"react-router-dom","name":"Navigate","props":{"type":"raw","value":{"children":"/inbox"}}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-inbox","role":"presentation","aria-label":"inbox icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Inbox"}}}]}}}}}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/starred"},"style":{"type":"raw","value":"text-decoration: none; color: black"},"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"onClick":{"type":"element","module":"react-router-dom","name":"Navigate","props":{"type":"raw","value":{"children":"/starred"}}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-star","role":"presentation","aria-label":"star icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Starred"}}}]}}}}}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/drafts"},"style":{"type":"raw","value":"text-decoration: none; color: black"},"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-paper-plane","role":"presentation","aria-label":"paper-plane icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Drafts"}}}]}}}}}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"flex":1,"p":3}},"children":{"type":"element","module":"react-router-dom","name":"Routes","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"lht0dbwyamykcw93"},"children":{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h4","children":"Home Page"}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/inbox"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"elj4v3gud3sgzm0s"},"children":{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h4","children":"Inbox"}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/starred"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"04mx3jg6ykroz01k"},"children":{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h4","children":"Starred"}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/drafts"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"thej88swmgaxbxn2"},"children":{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h4","children":"Drafts"}}}}}}}}}]}}}}}}}]}}}}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('gdzmcggaeqfbqiqzenpi')</script>
+<script class="react-data" type="application/json">{"type":"element","module":"react-router-dom","name":"HashRouter","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"display":"flex","height":"100vh"}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":240,"bgcolor":"background.paper","borderRight":"1px solid #e0e0e0"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"component":{"type":"raw","value":"nav"},"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/"},"style":{"type":"raw","value":"text-decoration: none; color: black"},"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-house","role":"presentation","aria-label":"house icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Home"}}}]}}}}}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/inbox"},"style":{"type":"raw","value":"text-decoration: none; color: black"},"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"onClick":{"type":"element","module":"react-router-dom","name":"Navigate","props":{"type":"raw","value":{"children":"/inbox"}}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"fas fa-inbox","role":"presentation","aria-label":"inbox icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Inbox"}}}]}}}}}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/starred"},"style":{"type":"raw","value":"text-decoration: none; color: black"},"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"onClick":{"type":"element","module":"react-router-dom","name":"Navigate","props":{"type":"raw","value":{"children":"/starred"}}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-star","role":"presentation","aria-label":"star icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Starred"}}}]}}}}}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/drafts"},"style":{"type":"raw","value":"text-decoration: none; color: black"},"children":{"type":"element","module":"@mui/material","name":"ListItemButton","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemIcon","props":{"type":"object","value":{"children":{"type":"element","name":"i","props":{"type":"raw","value":{"class":"far fa-paper-plane","role":"presentation","aria-label":"paper-plane icon"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Drafts"}}}]}}}}}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"flex":1,"p":3}},"children":{"type":"element","module":"react-router-dom","name":"Routes","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"kcw93000wxny4k5n"},"children":{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h4","children":"Home Page"}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/inbox"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"0swvl6tjdlff9js0"},"children":{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h4","children":"Inbox"}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/starred"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"z01kkozb3hjlzwm4"},"children":{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h4","children":"Starred"}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/drafts"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"bxn2utmdua8e6aw5"},"children":{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h4","children":"Drafts"}}}}}}}}}]}}}}}}}]}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('gdzmcggaeqfbqiqzenpi')</script>
 </div>
 
 
@@ -465,16 +477,15 @@ package:</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span>, p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Select items:"</span>, variant <span class="op">=</span> <span class="st">"h6"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"selectable_list"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"selected_message"</span><span class="op">)</span>,</span>
-<span>        variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
-<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span>, p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Select items:"</span>, variant <span class="op">=</span> <span class="st">"h6"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"selectable_list"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
+<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"selected_message"</span><span class="op">)</span>,</span>
+<span>      variant <span class="op">=</span> <span class="st">"body2"</span>,</span>
+<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mt <span class="op">=</span> <span class="fl">2</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
@@ -532,12 +543,11 @@ package:</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span>, p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"To-do list:"</span>, variant <span class="op">=</span> <span class="st">"h6"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"checkbox_list"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span>, p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"To-do list:"</span>, variant <span class="op">=</span> <span class="st">"h6"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"checkbox_list"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -603,12 +613,11 @@ package:</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span>, p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Notifications:"</span>, variant <span class="op">=</span> <span class="st">"h6"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"settings_list"</span><span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span>, p <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"Notifications:"</span>, variant <span class="op">=</span> <span class="st">"h6"</span>, sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>mb <span class="op">=</span> <span class="fl">2</span><span class="op">)</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span><span class="st">"settings_list"</span><span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
@@ -663,46 +672,45 @@ package:</p>
 <p>Use the dense prop for more compact lists:</p>
 <div class="sourceCode" id="cb10"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>      sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
-<span>        dense <span class="op">=</span> <span class="cn">TRUE</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
-<span>              alt <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
-<span>              src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/1.jpg"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Software Engineer"</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>width <span class="op">=</span> <span class="st">"100%"</span>, maxWidth <span class="op">=</span> <span class="fl">360</span>, bgcolor <span class="op">=</span> <span class="st">"background.paper"</span><span class="op">)</span>,</span>
+<span>    <span class="fu"><a href="../reference/List.html">List</a></span><span class="op">(</span></span>
+<span>      dense <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
+<span>            alt <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
+<span>            src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/1.jpg"</span></span>
 <span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
-<span>              alt <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
-<span>              src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/2.jpg"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Product Manager"</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Remy Sharp"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Software Engineer"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
+<span>            alt <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
+<span>            src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/2.jpg"</span></span>
 <span>          <span class="op">)</span></span>
 <span>        <span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
-<span>          <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
-<span>            <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
-<span>              alt <span class="op">=</span> <span class="st">"Cindy Baker"</span>,</span>
-<span>              src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/3.jpg"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
-<span>            primary <span class="op">=</span> <span class="st">"Cindy Baker"</span>,</span>
-<span>            secondary <span class="op">=</span> <span class="st">"Designer"</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Travis Howard"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Product Manager"</span></span>
+<span>        <span class="op">)</span></span>
+<span>      <span class="op">)</span>,</span>
+<span>      <span class="fu"><a href="../reference/ListItem.html">ListItem</a></span><span class="op">(</span></span>
+<span>        <span class="fu"><a href="../reference/ListItemAvatar.html">ListItemAvatar</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Avatar.html">Avatar</a></span><span class="op">(</span></span>
+<span>            alt <span class="op">=</span> <span class="st">"Cindy Baker"</span>,</span>
+<span>            src <span class="op">=</span> <span class="st">"https://mui.com/static/images/avatar/3.jpg"</span></span>
 <span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/ListItemText.html">ListItemText</a></span><span class="op">(</span></span>
+<span>          primary <span class="op">=</span> <span class="st">"Cindy Baker"</span>,</span>
+<span>          secondary <span class="op">=</span> <span class="st">"Designer"</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
@@ -710,8 +718,11 @@ package:</p>
 <span><span class="op">)</span></span></code></pre></div>
 
 
+<div class="react-container" data-react-id="mqczwuwuilfjazdlwdbo">
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"raw","value":[]}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('mqczwuwuilfjazdlwdbo')</script>
+</div>
 <div class="react-container" data-react-id="gejetmwcdhvkxpgjdcqv">
-<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"CssBaseline","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"dense":{"type":"raw","value":true},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Remy Sharp","src":"https://mui.com/static/images/avatar/1.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Remy Sharp","secondary":"Software Engineer"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Travis Howard","src":"https://mui.com/static/images/avatar/2.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Travis Howard","secondary":"Product Manager"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Cindy Baker","src":"https://mui.com/static/images/avatar/3.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Cindy Baker","secondary":"Designer"}}}]}}}}]}}}}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('gejetmwcdhvkxpgjdcqv')</script>
+<script class="react-data" type="application/json">{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"width":"100%","maxWidth":360,"bgcolor":"background.paper"}},"children":{"type":"element","module":"@mui/material","name":"List","props":{"type":"object","value":{"dense":{"type":"raw","value":true},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Remy Sharp","src":"https://mui.com/static/images/avatar/1.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Remy Sharp","secondary":"Software Engineer"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Travis Howard","src":"https://mui.com/static/images/avatar/2.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Travis Howard","secondary":"Product Manager"}}}]}}}},{"type":"element","module":"@mui/material","name":"ListItem","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"ListItemAvatar","props":{"type":"object","value":{"children":{"type":"element","module":"@mui/material","name":"Avatar","props":{"type":"raw","value":{"alt":"Cindy Baker","src":"https://mui.com/static/images/avatar/3.jpg"}}}}}},{"type":"element","module":"@mui/material","name":"ListItemText","props":{"type":"raw","value":{"primary":"Cindy Baker","secondary":"Designer"}}}]}}}}]}}}}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('gejetmwcdhvkxpgjdcqv')</script>
 </div>
 
 
