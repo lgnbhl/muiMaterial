@@ -69,3 +69,10 @@ Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 
 - children `node`  
   Default is NA The content of the component.
+
+## Note
+
+`TabContext` is part of
+[`@mui/lab`](https://mui.com/material-ui/about-the-lab/), which is
+published on the MUI beta channel. Lab APIs may change in future minor
+releases.

@@ -122,6 +122,18 @@ https://mui.com/material-ui/api/tab-panel/"><meta property="og:image" content="h
 <li><p>keepMounted <code>bool</code> <br> Default is FALSE Always keep the children in the DOM.</p></li>
 <li><p>sx <code>Array func| object| bool | func| object</code> <br> Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the <code>sx</code> page for more details.</p></li>
 </ul></div>
+    <div class="section level2">
+    <h2 id="note">Note<a class="anchor" aria-label="anchor" href="#note"></a></h2>
+    <p><code>TabPanel</code> is part of <a href="https://mui.com/material-ui/about-the-lab/" class="external-link"><code>@mui/lab</code></a>,
+  which is published on the MUI beta channel. Lab APIs may change in future minor
+  releases.</p>
+<p><code>TabPanel</code> is a display-only component: it shows or hides its
+  content based on the active tab value held by the surrounding
+  <code>TabContext</code>, but never fires <code>onChange</code> from user interaction.
+  As a result <code>input$&lt;inputId&gt;</code> will always remain <code>NULL</code>. To
+  react to tab changes on the server, read <code>input$&lt;inputId&gt;</code> from the
+  <code>TabList.shinyInput</code> instead.</p>
+    </div>
 
   </main><aside class="col-md-3"><nav id="toc" aria-label="Table of contents"><h2>On this page</h2>
     </nav></aside></div>

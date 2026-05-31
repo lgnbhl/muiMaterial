@@ -110,3 +110,15 @@ Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 - value `any`  
   Default is - The value of the component. The DOM API casts this to a
   string.
+
+## Note
+
+A standalone `Radio.shinyInput` reports a boolean (`checked`) to the
+server, not the selected option string. For mutually-exclusive option
+groups use
+[`RadioGroup.shinyInput`](https://felixluginbuhl.com/muiMaterial/reference/RadioGroup.md)
+instead, which reports the string `value` of the selected radio.
+
+## See also
+
+[`RadioGroup.shinyInput`](https://felixluginbuhl.com/muiMaterial/reference/RadioGroup.md)

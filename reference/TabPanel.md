@@ -62,3 +62,17 @@ Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 - sx `Array func| object| bool | func| object`  
   Default is - The system prop that allows defining system overrides as
   well as additional CSS styles.See the `sx` page for more details.
+
+## Note
+
+`TabPanel` is part of
+[`@mui/lab`](https://mui.com/material-ui/about-the-lab/), which is
+published on the MUI beta channel. Lab APIs may change in future minor
+releases.
+
+`TabPanel` is a display-only component: it shows or hides its content
+based on the active tab value held by the surrounding `TabContext`, but
+never fires `onChange` from user interaction. As a result
+`input$<inputId>` will always remain `NULL`. To react to tab changes on
+the server, read `input$<inputId>` from the `TabList.shinyInput`
+instead.
