@@ -117,12 +117,11 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
+  CssBaseline(),
   Autocomplete.shinyInput(
-    "auto",
-    options = list("Apple", "Banana", "Cherry"),
-    renderInput = JS("function(params){
-      return React.createElement(MuiMaterial.TextField, params);
-    }")
+    inputId = "auto",
+    options = c("Apple", "Banana", "Cherry"),
+    TextField(label = "Fruit")
   ),
   verbatimTextOutput("out")
 )

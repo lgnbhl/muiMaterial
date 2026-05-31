@@ -73,14 +73,22 @@ muiMaterialPage <- function(
 
   htmltools::browsable(htmltools::tags$html(
     htmltools::tags$head(
+      htmltools::tags$meta(charset = "UTF-8"),
       htmltools::tags$meta(
         name = "viewport",
         content = "initial-scale=1, width=device-width"
       ),
       if (useGoogleFonts) {
-        htmltools::tags$link(
-          rel = "preconnect",
-          href = "https://fonts.googleapis.com"
+        htmltools::tagList(
+          htmltools::tags$link(
+            rel = "preconnect",
+            href = "https://fonts.googleapis.com"
+          ),
+          htmltools::tags$link(
+            rel = "preconnect",
+            href = "https://fonts.gstatic.com",
+            crossorigin = NA
+          )
         )
       },
       if (useFontRoboto) {

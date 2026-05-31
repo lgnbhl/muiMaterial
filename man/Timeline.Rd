@@ -24,3 +24,9 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }
+\note{
+\code{Timeline} and its sub-components (\code{TimelineItem}, \code{TimelineDot},
+  etc.) are part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
+  which is published on the MUI beta channel. Lab APIs may change in future minor
+  releases.
+}

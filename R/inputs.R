@@ -170,12 +170,11 @@ input <- function(name, defaultValue = NULL, module = "@/muiMaterial") {
 #' library(muiMaterial)
 #'
 #' ui <- muiMaterialPage(
+#'   CssBaseline(),
 #'   Autocomplete.shinyInput(
-#'     "auto",
-#'     options = list("Apple", "Banana", "Cherry"),
-#'     renderInput = JS("function(params){
-#'       return React.createElement(MuiMaterial.TextField, params);
-#'     }")
+#'     inputId = "auto",
+#'     options = c("Apple", "Banana", "Cherry"),
+#'     TextField(label = "Fruit")
 #'   ),
 #'   verbatimTextOutput("out")
 #' )
@@ -294,6 +293,11 @@ updatePagination.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Radio
 #' @inherit shinyInput params return
+#' @note A standalone \code{Radio.shinyInput} reports a boolean (\code{checked}) to
+#'   the server, not the selected option string. For mutually-exclusive option groups
+#'   use \code{\link{RadioGroup.shinyInput}} instead, which reports the string
+#'   \code{value} of the selected radio.
+#' @seealso \code{\link{RadioGroup.shinyInput}}
 #' @export
 Radio.shinyInput <- input("Radio")
 
@@ -408,6 +412,12 @@ updateTabList.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname TabPanel
 #' @inherit shinyInput params return
+#' @note \code{TabPanel} is a display-only component: it shows or hides its
+#'   content based on the active tab value held by the surrounding
+#'   \code{TabContext}, but never fires \code{onChange} from user interaction.
+#'   As a result \code{input$<inputId>} will always remain \code{NULL}. To
+#'   react to tab changes on the server, read \code{input$<inputId>} from the
+#'   \code{TabList.shinyInput} instead.
 #' @export
 TabPanel.shinyInput <- input("TabPanel")
 

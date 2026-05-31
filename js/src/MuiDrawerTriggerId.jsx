@@ -10,12 +10,17 @@ export default function MuiDrawerTriggerId({ triggerId, width = 280, closeOnLink
     <Drawer
       open={open}
       onClose={() => setOpen(false)}
-      slotProps={{ paper: { sx: { width, ...sx } } }}
+      slotProps={{
+        paper: {
+          sx: { width, ...sx },
+          onClick: closeOnLinkClick !== false
+            ? (e) => { if (e.target.closest('a')) setOpen(false); }
+            : undefined,
+        },
+      }}
       {...props}
     >
-      <div onClick={(e) => { if (closeOnLinkClick !== false && e.target.closest('a')) setOpen(false); }}>
-        {children}
-      </div>
+      {children}
     </Drawer>
   );
 }

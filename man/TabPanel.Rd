@@ -45,3 +45,15 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }
+\note{
+\code{TabPanel} is part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
+  which is published on the MUI beta channel. Lab APIs may change in future minor
+  releases.
+
+\code{TabPanel} is a display-only component: it shows or hides its
+  content based on the active tab value held by the surrounding
+  \code{TabContext}, but never fires \code{onChange} from user interaction.
+  As a result \code{input$<inputId>} will always remain \code{NULL}. To
+  react to tab changes on the server, read \code{input$<inputId>} from the
+  \code{TabList.shinyInput} instead.
+}

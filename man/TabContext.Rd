@@ -59,3 +59,8 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item children \code{node} \cr Default is NA The content of the component.
 }
 }
+\note{
+\code{TabContext} is part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
+  which is published on the MUI beta channel. Lab APIs may change in future minor
+  releases.
+}

@@ -16,6 +16,7 @@ export function useTriggerBind(triggerId, handler, eventType = 'click') {
     const listener = (e) => handlerRef.current(e);
     let boundEl = null;   // tracks the element we attached to, for cleanup
     let observer = null;  // tracks the MutationObserver, for cleanup
+    let warnTimer = null; // fires a console.warn if the element never appears
 
     const bind = (el) => {
       boundEl = el;
@@ -29,9 +30,19 @@ export function useTriggerBind(triggerId, handler, eventType = 'click') {
     } else {
       // Element not yet in the DOM (e.g. rendered later by Shiny).
       // Watch for DOM changes and bind as soon as it appears.
+      warnTimer = setTimeout(() => {
+        // eslint-disable-next-line no-console
+        console.warn(
+          `useTriggerBind: no element with id "${triggerId}" found after 5 s. ` +
+          'Check that triggerId matches an existing DOM element id.'
+        );
+      }, 5000);
+
       observer = new MutationObserver(() => {
         const found = document.getElementById(triggerId);
         if (found) {
+          clearTimeout(warnTimer);
+          warnTimer = null;
           observer.disconnect(); // stop watching once the element is found
           observer = null;
           bind(found);
@@ -42,6 +53,7 @@ export function useTriggerBind(triggerId, handler, eventType = 'click') {
 
     // Cleanup runs when triggerId/eventType change or the component unmounts.
     return () => {
+      clearTimeout(warnTimer);
       if (observer) observer.disconnect();
       if (boundEl) boundEl.removeEventListener(eventType, listener);
     };

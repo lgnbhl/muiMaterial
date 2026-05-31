@@ -9,7 +9,10 @@ Drawer.triggerId(triggerId, ...)
 \arguments{
 \item{triggerId}{HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Drawer.}
 
-\item{...}{Named arguments forwarded as React props, plus children to render inside the component.}
+\item{...}{Named arguments forwarded as React props, plus children to render inside the component.
+Pass \code{closeOnLinkClick = FALSE} to keep the Drawer open when any link inside it is
+clicked. The default (\code{TRUE}) closes the Drawer on any \code{<a>} click, including
+external links with \code{target = "_blank"}.}
 }
 \value{
 Object with `shiny.tag` class suitable for use in the UI of a Shiny app.

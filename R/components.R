@@ -454,6 +454,9 @@ Switch <- component('Switch')
 Tab <- component('Tab')
 
 #' @rdname TabContext
+#' @note \code{TabContext} is part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
+#'   which is published on the MUI beta channel. Lab APIs may change in future minor
+#'   releases.
 #' @export
 TabContext <- component('TabContext', module = '@mui/lab')
 
@@ -498,10 +501,16 @@ TableSortLabel <- component('TableSortLabel')
 Tabs <- component('Tabs')
 
 #' @rdname TabList
+#' @note \code{TabList} is part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
+#'   which is published on the MUI beta channel. Lab APIs may change in future minor
+#'   releases.
 #' @export
 TabList <- component('TabList', module = '@mui/lab')
 
 #' @rdname TabPanel
+#' @note \code{TabPanel} is part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
+#'   which is published on the MUI beta channel. Lab APIs may change in future minor
+#'   releases.
 #' @export
 TabPanel <- component('TabPanel', module = '@mui/lab')
 
@@ -523,6 +532,10 @@ TextareaAutosize <- component('TextareaAutosize')
 TextField <- component('TextField')
 
 #' @rdname Timeline
+#' @note \code{Timeline} and its sub-components (\code{TimelineItem}, \code{TimelineDot},
+#'   etc.) are part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
+#'   which is published on the MUI beta channel. Lab APIs may change in future minor
+#'   releases.
 #' @export
 Timeline <- component('Timeline', module = '@mui/lab')
 

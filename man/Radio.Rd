@@ -53,3 +53,12 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item value \code{any} \cr Default is - The value of the component. The DOM API casts this to a string.
 }
 }
+\note{
+A standalone \code{Radio.shinyInput} reports a boolean (\code{checked}) to
+  the server, not the selected option string. For mutually-exclusive option groups
+  use \code{\link{RadioGroup.shinyInput}} instead, which reports the string
+  \code{value} of the selected radio.
+}
+\seealso{
+\code{\link{RadioGroup.shinyInput}}
+}

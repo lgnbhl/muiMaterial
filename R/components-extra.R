@@ -8,6 +8,9 @@
 #'
 #' @param ... Props to pass to the component.
 #' @return Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
+#' @note \code{LoadingButton} is part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
+#'   which is published on the MUI beta channel. Lab APIs may change in future minor
+#'   releases.
 #' @name LoadingButton
 NULL
 
