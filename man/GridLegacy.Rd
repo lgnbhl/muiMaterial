@@ -13,7 +13,7 @@ GridLegacy(...)
 Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \description{
-\url{https://mui.com/material-ui/api/grid-legacy/}
+\url{https://mui.com/material-ui/migration/upgrade-to-grid-v2/}
 }
 \details{
 \itemize{

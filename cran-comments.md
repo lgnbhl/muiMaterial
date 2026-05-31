@@ -1,19 +1,18 @@
 ## R CMD check results
 
-0 errors | 0 warnings | 1 note
+0 errors | 0 warnings | 0 notes
 
 * This is a feature release (0.1.3 -> 0.2.0). User-visible changes are
   documented in `NEWS.md`.
 
-* Possibly NOTE: installed size. The package bundles a pre-built minified
-  JavaScript file (`inst/www/muiMaterial/mui-material.js`, ~580 KB) which
-  contains the Material UI library wrapped by this package. The bundle is
-  required at runtime; `react` and `react-dom` are externalised and provided
-  by `shiny.react`. Third-party copyright and MIT license texts for the
-  bundled code are preserved in `inst/www/muiMaterial/mui-material.js.LICENSE.txt`
-  and summarised in the top-level `LICENSE.note`. Copyright holders of the
-  bundled JavaScript are declared in `DESCRIPTION` (MUI, Emotion team, Meta
-  Platforms).
+* Note for reviewers: the package bundles a pre-built minified JavaScript
+  file (`inst/www/muiMaterial/mui-material.js`, ~580 KB) which contains the
+  Material UI library wrapped by this package. The bundle is required at
+  runtime; `react` and `react-dom` are externalised and provided by
+  `shiny.react`. Third-party copyright and MIT license texts for the bundled
+  code are preserved in `inst/www/muiMaterial/mui-material.js.LICENSE.txt` and
+  summarised in the top-level `LICENSE.note`. Copyright holders of the bundled
+  JavaScript are declared in `DESCRIPTION` (MUI, Emotion team, Meta Platforms).
 
 ## Test environments
 

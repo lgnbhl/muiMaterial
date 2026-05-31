@@ -27,7 +27,7 @@ updateLoadingButton.shinyInput(
 Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 }
 \description{
-\url{https://mui.com/material-ui/api/loading-button/}
+\url{https://mui.com/material-ui/react-button/}
 }
 \note{
 \code{LoadingButton} is part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},

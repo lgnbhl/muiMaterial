@@ -4,7 +4,7 @@
 
 #' LoadingButton
 #'
-#' @description \url{https://mui.com/material-ui/api/loading-button/}
+#' @description \url{https://mui.com/material-ui/react-button/}
 #'
 #' @param ... Props to pass to the component.
 #' @return Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
