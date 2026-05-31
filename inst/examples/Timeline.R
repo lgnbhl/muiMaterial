@@ -4,6 +4,7 @@ library(muiMaterial)
 # https://mui.com/material-ui/react-timeline/#customized-timeline
 
 ui_Timeline <- muiMaterialPage(
+  CssBaseline(),
   Timeline(
     position = "alternate",
     TimelineItem(

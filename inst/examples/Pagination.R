@@ -1,7 +1,8 @@
 library(shiny)
 library(muiMaterial)
 
-ui_Pagination <- CssBaseline(
+ui_Pagination <- muiMaterialPage(
+  CssBaseline(),
   Box(
     sx = list(p = 2),
     Pagination.shinyInput(

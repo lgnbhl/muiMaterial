@@ -30,9 +30,8 @@ FloatingActionButtons <- Box(
 )
 
 ui_Fab <- muiMaterialPage(
-  CssBaseline(
-    FloatingActionButtons
-  )
+  CssBaseline(),
+  FloatingActionButtons
 )
 
 server_Fab <- function(input, output, session) {}

@@ -120,7 +120,8 @@ ColorButtons <- Stack(
   )
 )
 
-ui_Button <- CssBaseline(
+ui_Button <- muiMaterialPage(
+  CssBaseline(),
   Box(
     sx = list(flexDirection = 'row', p = 1, gap = "500px"),
     BasicButtons,

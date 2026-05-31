@@ -63,17 +63,16 @@ ui_ThemeProvider <- ThemeProvider(
       )
     )
   ),
-  CssBaseline(
-    Box(
-      p = 3,
-      Button("2rem button", variant = "outlined"),
-      Typography(gutterBottom = TRUE, "pretto.fr"),
-      Slider.shinyInput(
-        inputId = "DiscreteSliderLabel",
-        value = 20,
-        valueLabelDisplay = "auto",
-        'aria-label' = "pretto slider"
-      )
+  CssBaseline(),
+  Box(
+    p = 3,
+    Button("2rem button", variant = "outlined"),
+    Typography(gutterBottom = TRUE, "pretto.fr"),
+    Slider.shinyInput(
+      inputId = "DiscreteSliderLabel",
+      value = 20,
+      valueLabelDisplay = "auto",
+      'aria-label' = "pretto slider"
     )
   )
 )

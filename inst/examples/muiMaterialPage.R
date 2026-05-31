@@ -5,6 +5,7 @@ ui_muiMaterialPage <- muiMaterialPage(
   useFontRoboto = TRUE,
   useMaterialIconsFilled = TRUE,
   useMaterialIconsOutlined = TRUE,
+  CssBaseline(),
   Box(
     sx = list(m = 1),
     Typography("Roboto font and Google icons from Google Font API"),

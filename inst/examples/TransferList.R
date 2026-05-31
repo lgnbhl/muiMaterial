@@ -2,78 +2,77 @@ library(shiny)
 library(muiMaterial)
 
 ui_TransferList <- muiMaterialPage(
-  CssBaseline(
-    Container(
-      sx = list(py = 4),
-      Typography("Transfer List", variant = "h4", sx = list(mb = 3)),
+  CssBaseline(),
+  Container(
+    sx = list(py = 4),
+    Typography("Transfer List", variant = "h4", sx = list(mb = 3)),
 
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      justifyContent = "center",
+      alignItems = "center",
+
+      # Left list
       Grid(
-        container = TRUE,
-        spacing = 2,
-        justifyContent = "center",
-        alignItems = "center",
-
-        # Left list
-        Grid(
-          item = TRUE,
-          xs = 5,
-          Card(
-            sx = list(height = 400, overflow = "auto"),
-            CardHeader(title = "Available"),
-            List(
-              dense = TRUE,
-              id = "left_list",
-              reactOutput("left_list_items")
-            )
+        item = TRUE,
+        xs = 5,
+        Card(
+          sx = list(height = 400, overflow = "auto"),
+          CardHeader(title = "Available"),
+          List(
+            dense = TRUE,
+            id = "left_list",
+            reactOutput("left_list_items")
           )
-        ),
+        )
+      ),
 
-        # Control buttons
-        Grid(
-          item = TRUE,
-          xs = 2,
-          Stack(
-            spacing = 2,
-            alignItems = "center",
-            Button.shinyInput(
-              "move_right",
-              variant = "outlined",
-              sx = list(minWidth = 100),
-              ">"
-            ),
-            Button.shinyInput(
-              "move_left",
-              variant = "outlined",
-              sx = list(minWidth = 100),
-              "<"
-            ),
-            Button.shinyInput(
-              "move_all_right",
-              variant = "outlined",
-              sx = list(minWidth = 100),
-              ">>"
-            ),
-            Button.shinyInput(
-              "move_all_left",
-              variant = "outlined",
-              sx = list(minWidth = 100),
-              "<<"
-            )
+      # Control buttons
+      Grid(
+        item = TRUE,
+        xs = 2,
+        Stack(
+          spacing = 2,
+          alignItems = "center",
+          Button.shinyInput(
+            "move_right",
+            variant = "outlined",
+            sx = list(minWidth = 100),
+            ">"
+          ),
+          Button.shinyInput(
+            "move_left",
+            variant = "outlined",
+            sx = list(minWidth = 100),
+            "<"
+          ),
+          Button.shinyInput(
+            "move_all_right",
+            variant = "outlined",
+            sx = list(minWidth = 100),
+            ">>"
+          ),
+          Button.shinyInput(
+            "move_all_left",
+            variant = "outlined",
+            sx = list(minWidth = 100),
+            "<<"
           )
-        ),
+        )
+      ),
 
-        # Right list
-        Grid(
-          item = TRUE,
-          xs = 5,
-          Card(
-            sx = list(height = 400, overflow = "auto"),
-            CardHeader(title = "Selected"),
-            List(
-              dense = TRUE,
-              id = "right_list",
-              reactOutput("right_list_items")
-            )
+      # Right list
+      Grid(
+        item = TRUE,
+        xs = 5,
+        Card(
+          sx = list(height = 400, overflow = "auto"),
+          CardHeader(title = "Selected"),
+          List(
+            dense = TRUE,
+            id = "right_list",
+            reactOutput("right_list_items")
           )
         )
       )

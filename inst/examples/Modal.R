@@ -1,7 +1,8 @@
 library(shiny)
 library(muiMaterial)
 
-ui_Modal <- CssBaseline(
+ui_Modal <- muiMaterialPage(
+  CssBaseline(),
   Box(
     sx = list(p = 2),
     Button.shinyInput(

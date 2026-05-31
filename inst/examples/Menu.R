@@ -52,9 +52,8 @@ OptionsMenu <- Box(
 )
 
 ui_Menu <- muiMaterialPage(
-  CssBaseline(
-    OptionsMenu
-  )
+  CssBaseline(),
+  OptionsMenu
 )
 
 server_Menu <- function(input, output, session) {}

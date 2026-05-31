@@ -1,6 +1,7 @@
 # custom SwipeableDrawer.triggerId() function built in js/src/SwipeableDrawerTriggerId.jsx
 
 ui_SwipeableDrawer.triggerId <- muiMaterialPage(
+  CssBaseline(),
   # In the AppBar, user adds a trigger with any id (mobile only)
   Box(
     IconButton(

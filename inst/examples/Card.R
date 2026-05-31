@@ -2,7 +2,8 @@ library(muiMaterial)
 library(shiny)
 
 # original React code here: https://mui.com/material-ui/react-card/#media
-ui_Card <- CssBaseline(
+ui_Card <- muiMaterialPage(
+  CssBaseline(),
   Card(sx = list(maxWidth = 345),
        CardMedia(
          sx = list(height = 140),

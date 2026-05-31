@@ -2,7 +2,8 @@
 library(muiMaterial)
 library(shiny)
 
-ui_Drawer <- div(
+ui_Drawer <- muiMaterialPage(
+  CssBaseline(),
   Button.shinyInput(
     inputId = "showDrawer",
     "Open drawer"

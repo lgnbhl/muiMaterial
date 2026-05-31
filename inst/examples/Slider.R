@@ -20,7 +20,8 @@ DiscreteSliderLabel <- Box(
   verbatimTextOutput("SliderValue1")
 )
 
-ui_Slider <- CssBaseline(
+ui_Slider <- muiMaterialPage(
+  CssBaseline(),
   Stack(
     sx = list(flexDirection = 'row', p = 6, gap = "500px"),
     DiscreteSliderLabel

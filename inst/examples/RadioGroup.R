@@ -16,12 +16,11 @@ RadioButtonsGroup <- FormControl(
 )
 
 ui_RadioGroup <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      RadioButtonsGroup,
-      verbatimTextOutput("selected")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    RadioButtonsGroup,
+    verbatimTextOutput("selected")
   )
 )
 

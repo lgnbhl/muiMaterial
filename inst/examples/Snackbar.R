@@ -1,7 +1,8 @@
 library(shiny)
 library(muiMaterial)
 
-ui_Snackbar <- CssBaseline(
+ui_Snackbar <- muiMaterialPage(
+  CssBaseline(),
   Box(
     sx = list(p = 2, display = "flex", gap = 2),
     Button.shinyInput(

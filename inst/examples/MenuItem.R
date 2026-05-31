@@ -1,7 +1,8 @@
 library(shiny)
 library(muiMaterial)
 
-ui_MenuItem <- CssBaseline(
+ui_MenuItem <- muiMaterialPage(
+  CssBaseline(),
   Box(
     sx = list(p = 2),
     IconButton(

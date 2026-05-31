@@ -11,12 +11,11 @@ BasicButtonGroup <- ButtonGroup(
 )
 
 ui_ButtonGroup <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      BasicButtonGroup,
-      verbatimTextOutput("clicked")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    BasicButtonGroup,
+    verbatimTextOutput("clicked")
   )
 )
 

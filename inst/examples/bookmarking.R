@@ -2,19 +2,18 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(p = 2),
-      TextField.shinyInput(
-        "txt_mui",
-        label = "Enter text:",
-        value = "initial"
-      ),
-      verbatimTextOutput("show_txt") #,
-      # Bookmark control button (NEED fluidPage() or Bootstrap), 
-      # which conflicts with Material UI
-      #bookmarkButton()
-    )
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    TextField.shinyInput(
+      "txt_mui",
+      label = "Enter text:",
+      value = "initial"
+    ),
+    verbatimTextOutput("show_txt") #,
+    # Bookmark control button (NEED fluidPage() or Bootstrap), 
+    # which conflicts with Material UI
+    #bookmarkButton()
   )
 )
 

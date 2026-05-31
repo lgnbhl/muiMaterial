@@ -2,16 +2,19 @@ library(muiMaterial)
 library(shiny)
 
 # https://mui.com/material-ui/react-stepper/#horizontal-stepper
-ui_Stepper <- Box(
-  sx = list(width = '100%'),
+ui_Stepper <- muiMaterialPage(
+  CssBaseline(),
   Box(
-    uiOutput(outputId = "basicStepper")
-  ),
-  Box(
-    sx = list(display = "flex", flexDirection = 'row', pt = 2),
-    Button.shinyInput(inputId = "backStep", "Back"),
-    Button.shinyInput(inputId = "nextStep", "Next"),
-    Button.shinyInput(inputId = "reset", "Reset")
+    sx = list(width = '100%'),
+    Box(
+      uiOutput(outputId = "basicStepper")
+    ),
+    Box(
+      sx = list(display = "flex", flexDirection = 'row', pt = 2),
+      Button.shinyInput(inputId = "backStep", "Back"),
+      Button.shinyInput(inputId = "nextStep", "Next"),
+      Button.shinyInput(inputId = "reset", "Reset")
+    )
   )
 )
 
@@ -20,22 +23,26 @@ server_Stepper <- function(input, output, session) {
 
   # 'Next' button not disabled if value is 3
   observe({
-    if(stepIndex$value != 3) updateButton.shinyInput(inputId = "nextStep", disabled = FALSE)
+    if (stepIndex$value != 3) {
+      updateButton.shinyInput(inputId = "nextStep", disabled = FALSE)
+    }
   })
   # 'Next' button disabled if value is 3
   observeEvent(input$nextStep, {
     stepIndex$value <- stepIndex$value + 1
-    if(stepIndex$value == 3) updateButton.shinyInput(inputId = "nextStep", disabled = TRUE)
+    if (stepIndex$value == 3) {
+      updateButton.shinyInput(inputId = "nextStep", disabled = TRUE)
+    }
   })
   observeEvent(input$backStep, {
     stepIndex$value <- stepIndex$value - 1
-    if(stepIndex$value <= 0) stepIndex$value <- 0
+    if (stepIndex$value <= 0) stepIndex$value <- 0
   })
   observeEvent(input$reset, {
     stepIndex$value <- 0
     updateButton.shinyInput(inputId = "nextStep", disabled = FALSE)
   })
-  
+
   output$basicStepper <- renderUI({
     Stepper(
       activeStep = stepIndex$value,

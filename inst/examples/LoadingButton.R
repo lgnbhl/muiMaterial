@@ -1,7 +1,8 @@
 library(shiny)
 library(muiMaterial)
 
-ui_LoadingButton <- CssBaseline(
+ui_LoadingButton <- muiMaterialPage(
+  CssBaseline(),
   Box(
     sx = list(p = 2, display = "flex", gap = 2, alignItems = "center"),
     LoadingButton.shinyInput(

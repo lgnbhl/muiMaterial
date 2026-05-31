@@ -10,7 +10,8 @@ toggleButtonGroupWidget <- ToggleButtonGroup.shinyInput(
   ToggleButton.shinyInput(inputId = "ToggleButton3", value = 3, "Three")
 )
 
-ui_ToggleButtonGroup <- CssBaseline(
+ui_ToggleButtonGroup <- muiMaterialPage(
+  CssBaseline(),
   Box(
     sx = list(flexDirection = 'row', p = 1, gap = "500px"),
     toggleButtonGroupWidget

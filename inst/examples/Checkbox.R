@@ -133,16 +133,15 @@ FormControlLabelPosition <- div(
 # TODO
 
 ui_Checkbox <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(flexDirection = 'row', p = 1),
-      Checkboxes,
-      CheckboxLabels,
-      SizeCheckboxes,
-      ColorCheckboxes,
-      IconCheckboxes,
-      FormControlLabelPosition
-    )
+  CssBaseline(),
+  Box(
+    sx = list(flexDirection = 'row', p = 1),
+    Checkboxes,
+    CheckboxLabels,
+    SizeCheckboxes,
+    ColorCheckboxes,
+    IconCheckboxes,
+    FormControlLabelPosition
   )
 )
 

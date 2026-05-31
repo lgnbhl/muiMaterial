@@ -163,96 +163,95 @@ create_panel <- function(component_name) {
 
 # ── UI ────────────────────────────────────────────────────────────────────────
 ui <- muiMaterialPage(
-  CssBaseline(
-    TabContext.shinyInput(
-      inputId = "context",
-      value = initial_tab,
+  CssBaseline(),
+  TabContext.shinyInput(
+    inputId = "context",
+    value = initial_tab,
 
+    Box(
+      sx = list(display = "flex"),
+
+      # AppBar ---------------------------------------------------------------
+      AppBar(
+        position = "fixed",
+        sx = list(zIndex = 1300),
+        Toolbar(
+          IconButton(
+            id = "mobile-nav-trigger",
+            color = "inherit",
+            edge = "start",
+            sx = list(mr = 2, display = list(sm = "none")),
+            shiny::icon("bars")
+          ),
+          Typography(
+            "muiMaterial",
+            variant = "h6",
+            component = "div",
+            sx = list(fontWeight = 700, letterSpacing = "0.3px")
+          ),
+          Typography(
+            "\u00b7 Showcase",
+            variant = "body1",
+            sx = list(
+              ml = 1,
+              opacity = 0.75,
+              display = list(xs = "none", sm = "block")
+            )
+          )
+        )
+      ),
+
+      # Sidebar nav ----------------------------------------------------------
       Box(
-        sx = list(display = "flex"),
+        component = "nav",
+        sx = list(width = list(sm = drawer_width), flexShrink = list(sm = 0)),
 
-        # AppBar ---------------------------------------------------------------
-        AppBar(
-          position = "fixed",
-          sx = list(zIndex = 1300),
-          Toolbar(
-            IconButton(
-              id = "mobile-nav-trigger",
-              color = "inherit",
-              edge = "start",
-              sx = list(mr = 2, display = list(sm = "none")),
-              shiny::icon("bars")
-            ),
-            Typography(
-              "muiMaterial",
-              variant = "h6",
-              component = "div",
-              sx = list(fontWeight = 700, letterSpacing = "0.3px")
-            ),
-            Typography(
-              "\u00b7 Showcase",
-              variant = "body1",
-              sx = list(
-                ml = 1,
-                opacity = 0.75,
-                display = list(xs = "none", sm = "block")
-              )
-            )
-          )
-        ),
-
-        # Sidebar nav ----------------------------------------------------------
-        Box(
-          component = "nav",
-          sx = list(width = list(sm = drawer_width), flexShrink = list(sm = 0)),
-
-          # Mobile: Drawer.triggerId (no server logic needed)
-          Drawer.triggerId(
-            triggerId = "mobile-nav-trigger",
-            anchor = "left",
-            width = drawer_width,
-            sx = list(
-              display = list(xs = "block", sm = "none"),
-              "& .MuiDrawer-paper" = list(
-                boxSizing = "border-box",
-                width = drawer_width
-              )
-            ),
-            create_nav_content("tabListMobile")
-          ),
-
-          # Desktop: permanent drawer
-          Drawer(
-            variant = "permanent",
-            open = TRUE,
-            sx = list(
-              display = list(xs = "none", sm = "block"),
-              "& .MuiDrawer-paper" = list(
-                boxSizing = "border-box",
-                width = drawer_width
-              )
-            ),
-            create_nav_content("tabListDesktop")
-          )
-        ),
-
-        # Main content ---------------------------------------------------------
-        Box(
-          component = "main",
+        # Mobile: Drawer.triggerId (no server logic needed)
+        Drawer.triggerId(
+          triggerId = "mobile-nav-trigger",
+          anchor = "left",
+          width = drawer_width,
           sx = list(
-            flexGrow = 1,
-            p = 3,
-            width = list(sm = sprintf("calc(100%% - %dpx)", drawer_width)),
-            minHeight = "100vh",
-            bgcolor = "background.default"
-          ),
-          Toolbar(), # spacer for fixed AppBar
-          do.call(
-            Container,
-            c(
-              list(maxWidth = "md"),
-              unname(lapply(components, create_panel))
+            display = list(xs = "block", sm = "none"),
+            "& .MuiDrawer-paper" = list(
+              boxSizing = "border-box",
+              width = drawer_width
             )
+          ),
+          create_nav_content("tabListMobile")
+        ),
+
+        # Desktop: permanent drawer
+        Drawer(
+          variant = "permanent",
+          open = TRUE,
+          sx = list(
+            display = list(xs = "none", sm = "block"),
+            "& .MuiDrawer-paper" = list(
+              boxSizing = "border-box",
+              width = drawer_width
+            )
+          ),
+          create_nav_content("tabListDesktop")
+        )
+      ),
+
+      # Main content ---------------------------------------------------------
+      Box(
+        component = "main",
+        sx = list(
+          flexGrow = 1,
+          p = 3,
+          width = list(sm = sprintf("calc(100%% - %dpx)", drawer_width)),
+          minHeight = "100vh",
+          bgcolor = "background.default"
+        ),
+        Toolbar(), # spacer for fixed AppBar
+        do.call(
+          Container,
+          c(
+            list(maxWidth = "md"),
+            unname(lapply(components, create_panel))
           )
         )
       )

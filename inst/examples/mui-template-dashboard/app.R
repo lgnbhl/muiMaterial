@@ -35,8 +35,7 @@ ui <- muiMaterialPage(
   fct_AppTheme(
     theme_dark = TRUE, # FALSE to use "light" theme, if so change all reactRouter::NavLink() text color
     reactRouter::HashRouter(
-      CssBaseline(
-        enableColorScheme = TRUE,
+      CssBaseline(enableColorScheme = TRUE),
         Box(
           sx = list(display = "flex"),
           mod_SideMenu_ui(id = "SideMenu_1"),
@@ -177,7 +176,6 @@ ui <- muiMaterialPage(
             )
           )
         )
-      )
     )
   )
 )

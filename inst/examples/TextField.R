@@ -2,77 +2,76 @@ library(shiny)
 library(muiMaterial)
 
 ui_TextField <- muiMaterialPage(
-  CssBaseline(
-    # https://mui.com/material-ui/react-text-field/#basic-textfield
-    Box(
-      component = "form",
-      sx = list('& > :not(style)' = list(m = 1, width = '25ch')),
-      noValidate = TRUE,
-      autoComplete = "off",
-      TextField.shinyInput(
-        inputId = "BasicTextFields1",
-        value = "Hello World",
-        id = "outlined-basic",
-        label = "Outlined",
-        variant = "outlined"
-      ),
-      TextField.shinyInput(
-        inputId = "BasicTextFields2",
-        id = "filled-basic",
-        label = "Filled",
-        variant = "filled"
-      ),
-      TextField.shinyInput(
-        inputId = "BasicTextFields3",
-        id = "standard-basic",
-        label = "Standard",
-        variant = "standard"
-      ),
-      Stack(
-        spacing = 2,
-        direction = "row",
-        verbatimTextOutput("BasicTextFieldsValue1"),
-        verbatimTextOutput("BasicTextFieldsValue2"),
-        verbatimTextOutput("BasicTextFieldsValue3")
-      )
+  CssBaseline(),
+  # https://mui.com/material-ui/react-text-field/#basic-textfield
+  Box(
+    component = "form",
+    sx = list('& > :not(style)' = list(m = 1, width = '25ch')),
+    noValidate = TRUE,
+    autoComplete = "off",
+    TextField.shinyInput(
+      inputId = "BasicTextFields1",
+      value = "Hello World",
+      id = "outlined-basic",
+      label = "Outlined",
+      variant = "outlined"
     ),
-    # https://mui.com/material-ui/react-text-field/#icons
-    Box(
+    TextField.shinyInput(
+      inputId = "BasicTextFields2",
+      id = "filled-basic",
+      label = "Filled",
+      variant = "filled"
+    ),
+    TextField.shinyInput(
+      inputId = "BasicTextFields3",
+      id = "standard-basic",
+      label = "Standard",
+      variant = "standard"
+    ),
+    Stack(
       spacing = 2,
       direction = "row",
-      sx = list('& > :not(style)' = list(m = 1)),
-      TextField.shinyInput(
-        inputId = "inputWithIcon1",
-        id = "input-with-icon-textfield",
-        label = "TextField",
-        slotProps = list(
-          input = list(
-            startAdornment = list(
-              InputAdornment(
-                position = "start",
-                shiny::icon("circle-user")
-              )
+      verbatimTextOutput("BasicTextFieldsValue1"),
+      verbatimTextOutput("BasicTextFieldsValue2"),
+      verbatimTextOutput("BasicTextFieldsValue3")
+    )
+  ),
+  # https://mui.com/material-ui/react-text-field/#icons
+  Box(
+    spacing = 2,
+    direction = "row",
+    sx = list('& > :not(style)' = list(m = 1)),
+    TextField.shinyInput(
+      inputId = "inputWithIcon1",
+      id = "input-with-icon-textfield",
+      label = "TextField",
+      slotProps = list(
+        input = list(
+          startAdornment = list(
+            InputAdornment(
+              position = "start",
+              shiny::icon("circle-user")
             )
           )
-        ),
-        variant = "standard"
-      ),
-      verbatimTextOutput("inputWithIconValue1"),
-      Box(
-        sx = list(display = 'flex', alignItems = 'flex-end'),
-        Box(
-          sx = list(mr = 1, my = 0.5),
-          shiny::icon("circle-user")
-        ),
-        TextField.shinyInput(
-          inputId = "inputWithIcon2",
-          id = "input-with-sx",
-          label = "With sx",
-          variant = "standard"
         )
       ),
-      verbatimTextOutput("inputWithIconValue2")
-    )
+      variant = "standard"
+    ),
+    verbatimTextOutput("inputWithIconValue1"),
+    Box(
+      sx = list(display = 'flex', alignItems = 'flex-end'),
+      Box(
+        sx = list(mr = 1, my = 0.5),
+        shiny::icon("circle-user")
+      ),
+      TextField.shinyInput(
+        inputId = "inputWithIcon2",
+        id = "input-with-sx",
+        label = "With sx",
+        variant = "standard"
+      )
+    ),
+    verbatimTextOutput("inputWithIconValue2")
   )
 )
 
