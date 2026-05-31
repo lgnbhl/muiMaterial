@@ -27,21 +27,20 @@ A simple list with text items:
 
 ```{r}
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
-      List(
-        ListItem(
-          ListItemButton(
-            ListItemIcon(shiny::icon("inbox")),
-            ListItemText(primary = "Inbox")
-          )
-        ),
-        ListItem(
-          ListItemButton(
-            ListItemIcon(shiny::icon("paper-plane")),
-            ListItemText(primary = "Drafts")
-          )
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+    List(
+      ListItem(
+        ListItemButton(
+          ListItemIcon(shiny::icon("inbox")),
+          ListItemText(primary = "Inbox")
+        )
+      ),
+      ListItem(
+        ListItemButton(
+          ListItemIcon(shiny::icon("paper-plane")),
+          ListItemText(primary = "Drafts")
         )
       )
     )
@@ -58,50 +57,49 @@ library(shiny)
 library(muiMaterial)
 
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
-      List(
-        component = "nav",
-        ListItemButton(
-          ListItemIcon(shiny::icon("home")),
-          ListItemText(primary = "Home")
-        ),
-        ListItemButton(
-          ListItemIcon(shiny::icon("envelope")),
-          ListItemText(primary = "Inbox"),
-          shiny::icon("chevron-down"),
-          onClick = JS("() => {
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+    List(
+      component = "nav",
+      ListItemButton(
+        ListItemIcon(shiny::icon("home")),
+        ListItemText(primary = "Home")
+      ),
+      ListItemButton(
+        ListItemIcon(shiny::icon("envelope")),
+        ListItemText(primary = "Inbox"),
+        shiny::icon("chevron-down"),
+        onClick = JS("() => {
             const el = document.getElementById('inbox-collapse');
             if (el) {
               el.style.display = el.style.display === 'none' ? 'block' : 'none';
             }
           }")
-        ),
-        Collapse(
-          `in` = TRUE,
-          timeout = "auto",
-          unmountOnExit = TRUE,
-          id = "inbox-collapse",
-          List(
-            component = "div",
-            disablePadding = TRUE,
-            ListItemButton(
-              sx = list(pl = 4),
-              ListItemIcon(shiny::icon("star")),
-              ListItemText(primary = "Starred")
-            ),
-            ListItemButton(
-              sx = list(pl = 4),
-              ListItemIcon(shiny::icon("clock")),
-              ListItemText(primary = "Snoozed")
-            )
+      ),
+      Collapse(
+        `in` = TRUE,
+        timeout = "auto",
+        unmountOnExit = TRUE,
+        id = "inbox-collapse",
+        List(
+          component = "div",
+          disablePadding = TRUE,
+          ListItemButton(
+            sx = list(pl = 4),
+            ListItemIcon(shiny::icon("star")),
+            ListItemText(primary = "Starred")
+          ),
+          ListItemButton(
+            sx = list(pl = 4),
+            ListItemIcon(shiny::icon("clock")),
+            ListItemText(primary = "Snoozed")
           )
-        ),
-        ListItemButton(
-          ListItemIcon(shiny::icon("paper-plane")),
-          ListItemText(primary = "Drafts")
         )
+      ),
+      ListItemButton(
+        ListItemIcon(shiny::icon("paper-plane")),
+        ListItemText(primary = "Drafts")
       )
     )
   )
@@ -114,30 +112,29 @@ Use `Divider()` to separate list items:
 
 ```{r}
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
-      List(
-        component = "nav",
-        ListItem(
-          ListItemButton(
-            ListItemIcon(shiny::icon("inbox")),
-            ListItemText(primary = "Inbox")
-          )
-        ),
-        Divider(),
-        ListItem(
-          ListItemButton(
-            ListItemIcon(shiny::icon("paper-plane")),
-            ListItemText(primary = "Drafts")
-          )
-        ),
-        Divider(),
-        ListItem(
-          ListItemButton(
-            ListItemIcon(shiny::icon("trash")),
-            ListItemText(primary = "Trash")
-          )
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+    List(
+      component = "nav",
+      ListItem(
+        ListItemButton(
+          ListItemIcon(shiny::icon("inbox")),
+          ListItemText(primary = "Inbox")
+        )
+      ),
+      Divider(),
+      ListItem(
+        ListItemButton(
+          ListItemIcon(shiny::icon("paper-plane")),
+          ListItemText(primary = "Drafts")
+        )
+      ),
+      Divider(),
+      ListItem(
+        ListItemButton(
+          ListItemIcon(shiny::icon("trash")),
+          ListItemText(primary = "Trash")
         )
       )
     )
@@ -151,45 +148,44 @@ Combine lists with Avatar() components:
 
 ```{r}
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
-      List(
-        ListItem(
-          ListItemAvatar(
-            Avatar(
-              alt = "Remy Sharp",
-              src = "https://mui.com/static/images/avatar/1.jpg"
-            )
-          ),
-          ListItemText(
-            primary = "Remy Sharp",
-            secondary = "Available for chat"
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+    List(
+      ListItem(
+        ListItemAvatar(
+          Avatar(
+            alt = "Remy Sharp",
+            src = "https://mui.com/static/images/avatar/1.jpg"
           )
         ),
-        ListItem(
-          ListItemAvatar(
-            Avatar(
-              alt = "Travis Howard",
-              src = "https://mui.com/static/images/avatar/2.jpg"
-            )
-          ),
-          ListItemText(
-            primary = "Travis Howard",
-            secondary = "Busy - Do not disturb"
+        ListItemText(
+          primary = "Remy Sharp",
+          secondary = "Available for chat"
+        )
+      ),
+      ListItem(
+        ListItemAvatar(
+          Avatar(
+            alt = "Travis Howard",
+            src = "https://mui.com/static/images/avatar/2.jpg"
           )
         ),
-        ListItem(
-          ListItemAvatar(
-            Avatar(
-              alt = "Cindy Baker",
-              src = "https://mui.com/static/images/avatar/3.jpg"
-            )
-          ),
-          ListItemText(
-            primary = "Cindy Baker",
-            secondary = "Away"
+        ListItemText(
+          primary = "Travis Howard",
+          secondary = "Busy - Do not disturb"
+        )
+      ),
+      ListItem(
+        ListItemAvatar(
+          Avatar(
+            alt = "Cindy Baker",
+            src = "https://mui.com/static/images/avatar/3.jpg"
           )
+        ),
+        ListItemText(
+          primary = "Cindy Baker",
+          secondary = "Away"
         )
       )
     )
@@ -203,41 +199,40 @@ Add secondary actions to list items using ListItemSecondaryAction():
 
 ```{r}
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
-      List(
-        ListItem(
-          secondaryAction = IconButton(
-            edge = "end",
-            shiny::icon("comment")
-          ),
-          ListItemAvatar(
-            Avatar(
-              alt = "Remy Sharp",
-              src = "https://mui.com/static/images/avatar/1.jpg"
-            )
-          ),
-          ListItemText(
-            primary = "Remy Sharp",
-            secondary = "Jan 9, 2024"
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+    List(
+      ListItem(
+        secondaryAction = IconButton(
+          edge = "end",
+          shiny::icon("comment")
+        ),
+        ListItemAvatar(
+          Avatar(
+            alt = "Remy Sharp",
+            src = "https://mui.com/static/images/avatar/1.jpg"
           )
         ),
-        ListItem(
-          secondaryAction = IconButton(
-            edge = "end",
-            shiny::icon("comment")
-          ),
-          ListItemAvatar(
-            Avatar(
-              alt = "Travis Howard",
-              src = "https://mui.com/static/images/avatar/2.jpg"
-            )
-          ),
-          ListItemText(
-            primary = "Travis Howard",
-            secondary = "Jan 7, 2024"
+        ListItemText(
+          primary = "Remy Sharp",
+          secondary = "Jan 9, 2024"
+        )
+      ),
+      ListItem(
+        secondaryAction = IconButton(
+          edge = "end",
+          shiny::icon("comment")
+        ),
+        ListItemAvatar(
+          Avatar(
+            alt = "Travis Howard",
+            src = "https://mui.com/static/images/avatar/2.jpg"
           )
+        ),
+        ListItemText(
+          primary = "Travis Howard",
+          secondary = "Jan 7, 2024"
         )
       )
     )
@@ -254,73 +249,72 @@ library(muiMaterial)
 library(reactRouter)
 
 muiMaterialPage(
-  CssBaseline(
-    HashRouter(
-        Box(
-        sx = list(display = "flex", height = "100vh"),
-        Box(
-            sx = list(width = 240, bgcolor = "background.paper", borderRight = "1px solid #e0e0e0"),
-            List(
-                component = "nav",
-                NavLink(
-                    to = "/",
-                    style = "text-decoration: none; color: black",
-                    ListItemButton(
-                        ListItemIcon(shiny::icon("home")),
-                        ListItemText(primary = "Home")
-                    )
-                ),
-                NavLink(
-                    to = "/inbox",
-                    style = "text-decoration: none; color: black",
-                    ListItemButton(
-                        onClick = Navigate("/inbox"),
-                        ListItemIcon(shiny::icon("inbox")),
-                        ListItemText(primary = "Inbox")
-                    )
-                ),
-                NavLink(
-                    to = "/starred",
-                    style = "text-decoration: none; color: black",
-                    ListItemButton(
-                        onClick = Navigate("/starred"),
-                        ListItemIcon(shiny::icon("star")),
-                        ListItemText(primary = "Starred")
-                    )
-                ),
-                NavLink(
-                    to = "/drafts",
-                    style = "text-decoration: none; color: black",
-                    ListItemButton(
-                        ListItemIcon(shiny::icon("paper-plane")),
-                        ListItemText(primary = "Drafts")
-                    )
-                )
-            )
-        ),
-        Box(
-            sx = list(flex = 1, p = 3),
-            Routes(
-            Route(
-                path = "/",
-                element = Typography("Home Page", variant = "h4")
-            ),
-            Route(
-                path = "/inbox",
-                element = Typography("Inbox", variant = "h4")
-            ),
-            Route(
-                path = "/starred",
-                element = Typography("Starred", variant = "h4")
-            ),
-            Route(
-                path = "/drafts",
-                element = Typography("Drafts", variant = "h4")
-            )
-            )
-        )
-        )
-    )
+  CssBaseline(),
+  HashRouter(
+      Box(
+      sx = list(display = "flex", height = "100vh"),
+      Box(
+          sx = list(width = 240, bgcolor = "background.paper", borderRight = "1px solid #e0e0e0"),
+          List(
+              component = "nav",
+              NavLink(
+                  to = "/",
+                  style = "text-decoration: none; color: black",
+                  ListItemButton(
+                      ListItemIcon(shiny::icon("home")),
+                      ListItemText(primary = "Home")
+                  )
+              ),
+              NavLink(
+                  to = "/inbox",
+                  style = "text-decoration: none; color: black",
+                  ListItemButton(
+                      onClick = Navigate("/inbox"),
+                      ListItemIcon(shiny::icon("inbox")),
+                      ListItemText(primary = "Inbox")
+                  )
+              ),
+              NavLink(
+                  to = "/starred",
+                  style = "text-decoration: none; color: black",
+                  ListItemButton(
+                      onClick = Navigate("/starred"),
+                      ListItemIcon(shiny::icon("star")),
+                      ListItemText(primary = "Starred")
+                  )
+              ),
+              NavLink(
+                  to = "/drafts",
+                  style = "text-decoration: none; color: black",
+                  ListItemButton(
+                      ListItemIcon(shiny::icon("paper-plane")),
+                      ListItemText(primary = "Drafts")
+                  )
+              )
+          )
+      ),
+      Box(
+          sx = list(flex = 1, p = 3),
+          Routes(
+          Route(
+              path = "/",
+              element = Typography("Home Page", variant = "h4")
+          ),
+          Route(
+              path = "/inbox",
+              element = Typography("Inbox", variant = "h4")
+          ),
+          Route(
+              path = "/starred",
+              element = Typography("Starred", variant = "h4")
+          ),
+          Route(
+              path = "/drafts",
+              element = Typography("Drafts", variant = "h4")
+          )
+          )
+      )
+      )
   )
 )
 ```
@@ -334,16 +328,15 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
-      Typography("Select items:", variant = "h6", sx = list(mb = 2)),
-      uiOutput("selectable_list"),
-      Typography(
-        uiOutput("selected_message"),
-        variant = "body2",
-        sx = list(mt = 2)
-      )
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
+    Typography("Select items:", variant = "h6", sx = list(mb = 2)),
+    uiOutput("selectable_list"),
+    Typography(
+      uiOutput("selected_message"),
+      variant = "body2",
+      sx = list(mt = 2)
     )
   )
 )
@@ -402,12 +395,11 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
-      Typography("To-do list:", variant = "h6", sx = list(mb = 2)),
-      uiOutput("checkbox_list")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
+    Typography("To-do list:", variant = "h6", sx = list(mb = 2)),
+    uiOutput("checkbox_list")
   )
 )
 
@@ -474,12 +466,11 @@ library(shiny)
 library(muiMaterial)
 
 ui <- muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
-      Typography("Notifications:", variant = "h6", sx = list(mb = 2)),
-      uiOutput("settings_list")
-    )
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper", p = 2),
+    Typography("Notifications:", variant = "h6", sx = list(mb = 2)),
+    uiOutput("settings_list")
   )
 )
 
@@ -535,46 +526,45 @@ Use the dense prop for more compact lists:
 
 ```{r}
 muiMaterialPage(
-  CssBaseline(
-    Box(
-      sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
-      List(
-        dense = TRUE,
-        ListItem(
-          ListItemAvatar(
-            Avatar(
-              alt = "Remy Sharp",
-              src = "https://mui.com/static/images/avatar/1.jpg"
-            )
-          ),
-          ListItemText(
-            primary = "Remy Sharp",
-            secondary = "Software Engineer"
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 360, bgcolor = "background.paper"),
+    List(
+      dense = TRUE,
+      ListItem(
+        ListItemAvatar(
+          Avatar(
+            alt = "Remy Sharp",
+            src = "https://mui.com/static/images/avatar/1.jpg"
           )
         ),
-        ListItem(
-          ListItemAvatar(
-            Avatar(
-              alt = "Travis Howard",
-              src = "https://mui.com/static/images/avatar/2.jpg"
-            )
-          ),
-          ListItemText(
-            primary = "Travis Howard",
-            secondary = "Product Manager"
+        ListItemText(
+          primary = "Remy Sharp",
+          secondary = "Software Engineer"
+        )
+      ),
+      ListItem(
+        ListItemAvatar(
+          Avatar(
+            alt = "Travis Howard",
+            src = "https://mui.com/static/images/avatar/2.jpg"
           )
         ),
-        ListItem(
-          ListItemAvatar(
-            Avatar(
-              alt = "Cindy Baker",
-              src = "https://mui.com/static/images/avatar/3.jpg"
-            )
-          ),
-          ListItemText(
-            primary = "Cindy Baker",
-            secondary = "Designer"
+        ListItemText(
+          primary = "Travis Howard",
+          secondary = "Product Manager"
+        )
+      ),
+      ListItem(
+        ListItemAvatar(
+          Avatar(
+            alt = "Cindy Baker",
+            src = "https://mui.com/static/images/avatar/3.jpg"
           )
+        ),
+        ListItemText(
+          primary = "Cindy Baker",
+          secondary = "Designer"
         )
       )
     )

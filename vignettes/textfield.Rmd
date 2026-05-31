@@ -248,7 +248,8 @@ Use slotProps.htmlInput to pass attributes to the underlying `<input>` element.
 library(shiny)
 
 ControlledInput <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     TextField.shinyInput(
       inputId = "controlled-input",
       value = "",
@@ -719,7 +720,8 @@ export default function TextFieldSizes() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       p = 3,
       TextField.shinyInput(
@@ -789,7 +791,8 @@ export default function LayoutTextFields() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       component = "form",
       sx = list('& .MuiTextField-root' = list(m = 1, width = '25ch')),
@@ -852,7 +855,8 @@ export default function FullWidthTextField() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       sx = list(width = 500, maxWidth = '100%', p = 3),
       TextField.shinyInput(
@@ -998,7 +1002,8 @@ export default function InputWithIcon() {
 library(shiny)
 
 InputWithIcon <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       sx = list('& > :not(style)' = list(m = 1)),
       FormControl(
@@ -1067,7 +1072,8 @@ export default function ColorTextFields() {
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       component = "form",
       sx = list('& > :not(style)' = list(m = 1, width = '25ch')),
@@ -1186,7 +1192,8 @@ export default function CustomizedInputsStyled() {
 library(shiny)
 
 CustomizedInputsStyled <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     ThemeProvider(
       theme = list(
         components = list(
@@ -1293,7 +1300,8 @@ or
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     Box(
       p = 3,
       TextField.shinyInput(
@@ -1369,7 +1377,8 @@ This can be fixed by passing a space character to the helperText prop:
 library(shiny)
 
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     div(
       h4("Misaligned:"),
       TextField.shinyInput(
@@ -1483,7 +1492,8 @@ In order for the text field to be accessible, the input should be linked to the 
 
 ```{r eval=FALSE}
 ui <- function() {
-  CssBaseline(
+  tagList(
+    CssBaseline(),
     FormControl(
       InputLabel(htmlFor = "my-input", "Email address"),
       Input(
