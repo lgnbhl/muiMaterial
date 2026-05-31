@@ -1,6 +1,6 @@
 # LoadingButton
 
-<https://mui.com/material-ui/api/loading-button/>
+<https://mui.com/material-ui/react-button/>
 
 ## Usage
 

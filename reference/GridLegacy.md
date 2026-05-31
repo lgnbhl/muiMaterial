@@ -1,6 +1,6 @@
 # GridLegacy
 
-<https://mui.com/material-ui/api/grid-legacy/>
+<https://mui.com/material-ui/migration/upgrade-to-grid-v2/>
 
 ## Usage
 

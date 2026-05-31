@@ -87,8 +87,8 @@ muiMaterial::muiMaterialExample("showcase")
 
 `muiMaterial` is built on top of
 [shiny.react](https://github.com/Appsilon/shiny.react), the R package by
-[Appsilon](https://appsilon.com) that makes it possible to use React
-components in Shiny and Quarto.
+[Appsilon](https://www.appsilon.com/) that makes it possible to use
+React components in Shiny and Quarto.
 
 ### Contributing
 
