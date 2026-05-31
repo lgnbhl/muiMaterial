@@ -109,6 +109,15 @@ packages.</p>
 <div class="section level3">
 <h3 id="examples-using-reactrouter">Examples using {reactRouter}<a class="anchor" aria-label="anchor" href="#examples-using-reactrouter"></a>
 </h3>
+<p><a href="https://github.com/lgnbhl/reactRouter" class="external-link">reactRouter</a> wraps
+React Router v7. The entry point is
+<code>RouterProvider(router = ...)</code>, where the router is built
+with <code><a href="https://felixluginbuhl.com/reactRouter/reference/createHashRouter.html" class="external-link">createHashRouter()</a></code>. Routes are declared with nested
+<code><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route()</a></code> calls and the active child route is rendered
+wherever you place <code><a href="https://felixluginbuhl.com/reactRouter/reference/Outlet.html" class="external-link">Outlet()</a></code> in the parent’s
+<code>element</code>. The hash strategy
+(<code><a href="https://felixluginbuhl.com/reactRouter/reference/createHashRouter.html" class="external-link">createHashRouter()</a></code>) works in Shiny, Quarto and from a
+local <code>file://</code> page.</p>
 <p>An example using <a href="https://github.com/lgnbhl/reactRouter" class="external-link">reactRouter</a> client
 routing (no server):</p>
 <div class="sourceCode" id="cb1"><pre class="downlit sourceCode r">
@@ -117,38 +126,45 @@ routing (no server):</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/muiMaterial/">muiMaterial</a></span><span class="op">)</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span></span>
-<span><span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/HashRouter.html" class="external-link">HashRouter</a></span><span class="op">(</span></span>
-<span>  <span class="fu"><a href="../reference/AppBar.html">AppBar</a></span><span class="op">(</span></span>
-<span>    position <span class="op">=</span> <span class="st">"static"</span>,</span>
-<span>    <span class="fu"><a href="../reference/Toolbar.html">Toolbar</a></span><span class="op">(</span></span>
-<span>      <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
-<span>        variant <span class="op">=</span> <span class="st">"h6"</span>,</span>
-<span>        component <span class="op">=</span> <span class="st">"div"</span>,</span>
-<span>        <span class="st">"muiMaterial"</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
-<span>        to <span class="op">=</span> <span class="st">"/"</span>,</span>
-<span>        style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({isActive}) =&gt; { return isActive ? {color: "white"} : {color: "white"}; }'</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Button.html">Button</a></span><span class="op">(</span></span>
-<span>          color <span class="op">=</span> <span class="st">"inherit"</span>,</span>
-<span>          <span class="st">"Home"</span></span>
+<span><span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/RouterProvider.html" class="external-link">RouterProvider</a></span><span class="op">(</span></span>
+<span>  router <span class="op">=</span> <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/createHashRouter.html" class="external-link">createHashRouter</a></span><span class="op">(</span></span>
+<span>    <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>      path <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>      element <span class="op">=</span> <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>        sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>flexGrow <span class="op">=</span> <span class="fl">1</span><span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/AppBar.html">AppBar</a></span><span class="op">(</span></span>
+<span>          position <span class="op">=</span> <span class="st">"static"</span>,</span>
+<span>          <span class="fu"><a href="../reference/Toolbar.html">Toolbar</a></span><span class="op">(</span></span>
+<span>            <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span></span>
+<span>              variant <span class="op">=</span> <span class="st">"h6"</span>,</span>
+<span>              component <span class="op">=</span> <span class="st">"div"</span>,</span>
+<span>              <span class="st">"muiMaterial"</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>            <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>              to <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>              style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({isActive}) =&gt; { return isActive ? {color: "white"} : {color: "white"}; }'</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="../reference/Button.html">Button</a></span><span class="op">(</span></span>
+<span>                color <span class="op">=</span> <span class="st">"inherit"</span>,</span>
+<span>                <span class="st">"Home"</span></span>
+<span>              <span class="op">)</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>            <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>              to <span class="op">=</span> <span class="st">"/analysis"</span>,</span>
+<span>              style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({isActive}) =&gt; { return isActive ? {color: "white"} : {color: "white"}; }'</span><span class="op">)</span>,</span>
+<span>              <span class="fu"><a href="../reference/Button.html">Button</a></span><span class="op">(</span></span>
+<span>                color <span class="op">=</span> <span class="st">"inherit"</span>,</span>
+<span>                <span class="st">"Analysis"</span></span>
+<span>              <span class="op">)</span></span>
+<span>            <span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>          sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
+<span>          <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Outlet.html" class="external-link">Outlet</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span>,</span>
-<span>      <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
-<span>        to <span class="op">=</span> <span class="st">"/analysis"</span>,</span>
-<span>        style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({isActive}) =&gt; { return isActive ? {color: "white"} : {color: "white"}; }'</span><span class="op">)</span>,</span>
-<span>        <span class="fu"><a href="../reference/Button.html">Button</a></span><span class="op">(</span></span>
-<span>          color <span class="op">=</span> <span class="st">"inherit"</span>,</span>
-<span>          <span class="st">"Analysis"</span></span>
-<span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
-<span>  <span class="op">)</span>,</span>
-<span>  <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>    sx <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/r/base/list.html" class="external-link">list</a></span><span class="op">(</span>p <span class="op">=</span> <span class="fl">3</span><span class="op">)</span>,</span>
-<span>    <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Routes.html" class="external-link">Routes</a></span><span class="op">(</span></span>
 <span>      <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>        path <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>        index <span class="op">=</span> <span class="cn">TRUE</span>,</span>
 <span>        element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
 <span>          <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="st">"Home page"</span><span class="op">)</span>,</span>
 <span>          <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"A basic example of reactRouter with muiMaterial."</span><span class="op">)</span>,</span>
@@ -156,21 +172,24 @@ routing (no server):</p>
 <span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span>,</span>
 <span>      <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>        path <span class="op">=</span> <span class="st">"/analysis"</span>,</span>
+<span>        path <span class="op">=</span> <span class="st">"analysis"</span>,</span>
 <span>        element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
 <span>          <span class="va">tags</span><span class="op">$</span><span class="fu">h3</span><span class="op">(</span><span class="st">"Analysis"</span><span class="op">)</span>,</span>
 <span>          <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"Content analysis"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span></span>
 <span>      <span class="op">)</span>,</span>
 <span>      <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"*"</span>, element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Error 404"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span></code></pre></div>
-<div class="react-container" data-react-id="rfovdghawktsnzjeuaue">
-<script class="react-data" type="application/json">{"type":"element","module":"react-router-dom","name":"HashRouter","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"AppBar","props":{"type":"object","value":{"position":{"type":"raw","value":"static"},"children":{"type":"element","module":"@mui/material","name":"Toolbar","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h6","component":"div","children":"muiMaterial"}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/"},"style":{"type":"expr","value":"({isActive}) => { return isActive ? {color: \"white\"} : {color: \"white\"}; }"},"children":{"type":"element","module":"@mui/material","name":"Button","props":{"type":"raw","value":{"color":"inherit","children":"Home"}}}}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/analysis"},"style":{"type":"expr","value":"({isActive}) => { return isActive ? {color: \"white\"} : {color: \"white\"}; }"},"children":{"type":"element","module":"@mui/material","name":"Button","props":{"type":"raw","value":{"color":"inherit","children":"Analysis"}}}}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"p":3}},"children":{"type":"element","module":"react-router-dom","name":"Routes","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"oyhm3xhtibg9ckz0"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h3","props":{"type":"raw","value":{"children":"Home page"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"A basic example of reactRouter with muiMaterial."}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Content home"}}}]}}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/analysis"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"ehks92zd14h3igmu"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h3","props":{"type":"raw","value":{"children":"Analysis"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Content analysis"}}}]}}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"*"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"iosemua6rb2f7b16"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Error 404"}}}}}}}}}}}}]}}}}}}}]}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('rfovdghawktsnzjeuaue')</script>
+<div class="react-container" data-react-id="wwiafyhwyaofqswjxvsa">
+<script class="react-data" type="application/json">{"type":"element","module":"@/reactRouter","name":"RouterProvider","props":{"type":"object","value":{"router":{"type":"element","module":"@/reactRouter","name":"CreateHashRouter","props":{"type":"object","value":{"children":{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"/"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"hv4awz6mnx78oyhm"},"children":{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"flexGrow":1}},"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"AppBar","props":{"type":"object","value":{"position":{"type":"raw","value":"static"},"children":{"type":"element","module":"@mui/material","name":"Toolbar","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","module":"@mui/material","name":"Typography","props":{"type":"raw","value":{"variant":"h6","component":"div","children":"muiMaterial"}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/"},"style":{"type":"expr","value":"({isActive}) => { return isActive ? {color: \"white\"} : {color: \"white\"}; }"},"children":{"type":"element","module":"@mui/material","name":"Button","props":{"type":"raw","value":{"color":"inherit","children":"Home"}}}}}},{"type":"element","module":"react-router-dom","name":"NavLink","props":{"type":"object","value":{"to":{"type":"raw","value":"/analysis"},"style":{"type":"expr","value":"({isActive}) => { return isActive ? {color: \"white\"} : {color: \"white\"}; }"},"children":{"type":"element","module":"@mui/material","name":"Button","props":{"type":"raw","value":{"color":"inherit","children":"Analysis"}}}}}}]}}}}}}},{"type":"element","module":"@mui/material","name":"Box","props":{"type":"object","value":{"sx":{"type":"raw","value":{"p":3}},"children":{"type":"element","module":"react-router-dom","name":"Outlet","props":{"type":"raw","value":[]}}}}}]}}}}}}},"children":{"type":"array","value":[{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"index":{"type":"raw","value":true},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"mbu3844nec14kx53"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h3","props":{"type":"raw","value":{"children":"Home page"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"A basic example of reactRouter with muiMaterial."}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Content home"}}}]}}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"analysis"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"v58l9vxglu05x0o7"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"array","value":[{"type":"element","name":"h3","props":{"type":"raw","value":{"children":"Analysis"}}},{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Content analysis"}}}]}}}}}}}}}},{"type":"element","module":"react-router-dom","name":"Route","props":{"type":"object","value":{"path":{"type":"raw","value":"*"},"loader":{"type":"raw","value":null},"action":{"type":"raw","value":null},"errorElement":{"type":"raw","value":null},"element":{"type":"element","module":"@/reactRouter","name":"Keyed","props":{"type":"object","value":{"key":{"type":"raw","value":"305li10rw6b1pd4b"},"children":{"type":"element","name":"div","props":{"type":"object","value":{"children":{"type":"element","name":"p","props":{"type":"raw","value":{"children":"Error 404"}}}}}}}}}}}}]}}}}}}},"fallbackElement":{"type":"raw","value":null}}}}</script><script>jsmodule['@/shiny.react'].findAndRenderReactData('wwiafyhwyaofqswjxvsa')</script>
 </div>
 <p>An example with <a href="https://github.com/lgnbhl/reactRouter" class="external-link">reactRouter</a> in an R
-Shiny app (with server):</p>
+Shiny app (with server). Each route’s <code>element</code> holds a
+<code><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput()</a></code> that the server fills with
+<code><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI()</a></code>; client-side navigation mounts the matched route
+and Shiny renders its content automatically:</p>
 <div class="sourceCode" id="cb2"><pre class="downlit sourceCode r">
 <code class="sourceCode R"><span><span class="co"># install.packages("reactRouter")</span></span>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://felixluginbuhl.com/reactRouter/" class="external-link">reactRouter</a></span><span class="op">)</span></span>
@@ -178,92 +197,89 @@ Shiny app (with server):</p>
 <span><span class="kw"><a href="https://rdrr.io/r/base/library.html" class="external-link">library</a></span><span class="op">(</span><span class="va"><a href="https://shiny.posit.co/" class="external-link">shiny</a></span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">ui</span> <span class="op">&lt;-</span> <span class="fu"><a href="../reference/muiMaterialPage.html">muiMaterialPage</a></span><span class="op">(</span></span>
-<span>  <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/HashRouter.html" class="external-link">HashRouter</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span></span>
-<span>    <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"reactRouter with muiMaterial"</span>, variant <span class="op">=</span> <span class="st">"h5"</span>, m <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
-<span>    <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
-<span>      direction <span class="op">=</span> <span class="st">"row"</span>, spacing <span class="op">=</span> <span class="fl">2</span>, p <span class="op">=</span> <span class="fl">2</span>,</span>
-<span>      <span class="fu"><a href="../reference/Paper.html">Paper</a></span><span class="op">(</span></span>
-<span>        <span class="fu"><a href="../reference/MenuList.html">MenuList</a></span><span class="op">(</span></span>
-<span>          <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink.shinyInput</a></span><span class="op">(</span></span>
-<span>            inputId <span class="op">=</span> <span class="st">"page_home"</span>,</span>
-<span>            to <span class="op">=</span> <span class="st">"/"</span>,</span>
-<span>            style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({isActive}) =&gt; { return isActive ? {color: "red", textDecoration:"none"} : { textDecoration: "none" }; }'</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
-<span>              <span class="st">"home"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">br</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>          <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink.shinyInput</a></span><span class="op">(</span></span>
-<span>            inputId <span class="op">=</span> <span class="st">"page_analysis"</span>,</span>
-<span>            to <span class="op">=</span> <span class="st">"/analysis"</span>,</span>
-<span>            style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({isActive}) =&gt; { return isActive ? {color: "red", textDecoration: "none"} : { textDecoration: "none" }; }'</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
-<span>              <span class="st">"Analysis"</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">br</a></span><span class="op">(</span><span class="op">)</span>,</span>
-<span>          <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink.shinyInput</a></span><span class="op">(</span></span>
-<span>            inputId <span class="op">=</span> <span class="st">"page_about"</span>,</span>
-<span>            to <span class="op">=</span> <span class="st">"/about"</span>,</span>
-<span>            style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({ isActive }) =&gt; { return isActive ? { color: "red", textDecoration: "none" } : { textDecoration: "none" }; }'</span><span class="op">)</span>,</span>
-<span>            <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
-<span>              <span class="st">"About"</span></span>
+<span>  <span class="fu"><a href="../reference/CssBaseline.html">CssBaseline</a></span><span class="op">(</span><span class="op">)</span>,</span>
+<span>  <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/RouterProvider.html" class="external-link">RouterProvider</a></span><span class="op">(</span></span>
+<span>    router <span class="op">=</span> <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/createHashRouter.html" class="external-link">createHashRouter</a></span><span class="op">(</span></span>
+<span>      <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>        path <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>        element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
+<span>          <span class="fu"><a href="../reference/Typography.html">Typography</a></span><span class="op">(</span><span class="st">"reactRouter with muiMaterial"</span>, variant <span class="op">=</span> <span class="st">"h5"</span>, m <span class="op">=</span> <span class="fl">2</span><span class="op">)</span>,</span>
+<span>          <span class="fu"><a href="../reference/Stack.html">Stack</a></span><span class="op">(</span></span>
+<span>            direction <span class="op">=</span> <span class="st">"row"</span>, spacing <span class="op">=</span> <span class="fl">2</span>, p <span class="op">=</span> <span class="fl">2</span>,</span>
+<span>            <span class="fu"><a href="../reference/Paper.html">Paper</a></span><span class="op">(</span></span>
+<span>              <span class="fu"><a href="../reference/MenuList.html">MenuList</a></span><span class="op">(</span></span>
+<span>                <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>                  to <span class="op">=</span> <span class="st">"/"</span>,</span>
+<span>                  style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({isActive}) =&gt; { return isActive ? {color: "red", textDecoration:"none"} : { textDecoration: "none" }; }'</span><span class="op">)</span>,</span>
+<span>                  <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
+<span>                    <span class="st">"Home"</span></span>
+<span>                  <span class="op">)</span></span>
+<span>                <span class="op">)</span>,</span>
+<span>                <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>                  to <span class="op">=</span> <span class="st">"/analysis"</span>,</span>
+<span>                  style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({isActive}) =&gt; { return isActive ? {color: "red", textDecoration: "none"} : { textDecoration: "none" }; }'</span><span class="op">)</span>,</span>
+<span>                  <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
+<span>                    <span class="st">"Analysis"</span></span>
+<span>                  <span class="op">)</span></span>
+<span>                <span class="op">)</span>,</span>
+<span>                <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/NavLink.html" class="external-link">NavLink</a></span><span class="op">(</span></span>
+<span>                  to <span class="op">=</span> <span class="st">"/about"</span>,</span>
+<span>                  style <span class="op">=</span> <span class="fu"><a href="https://appsilon.github.io/shiny.react/reference/JS.html" class="external-link">JS</a></span><span class="op">(</span><span class="st">'({ isActive }) =&gt; { return isActive ? { color: "red", textDecoration: "none" } : { textDecoration: "none" }; }'</span><span class="op">)</span>,</span>
+<span>                  <span class="fu"><a href="../reference/MenuItem.html">MenuItem</a></span><span class="op">(</span></span>
+<span>                    <span class="st">"About"</span></span>
+<span>                  <span class="op">)</span></span>
+<span>                <span class="op">)</span></span>
+<span>              <span class="op">)</span></span>
+<span>            <span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
+<span>              <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Outlet.html" class="external-link">Outlet</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>            <span class="op">)</span></span>
 <span>          <span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
-<span>      <span class="op">)</span>,</span>
-<span>      <span class="fu"><a href="../reference/Box.html">Box</a></span><span class="op">(</span></span>
-<span>        <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Routes.html" class="external-link">Routes</a></span><span class="op">(</span></span>
-<span>          <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>            path <span class="op">=</span> <span class="st">"/"</span>,</span>
-<span>            element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
-<span>              <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Home page"</span><span class="op">)</span>,</span>
-<span>              <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"A basic example of reactRouter with muiMaterial."</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"contentHome"</span><span class="op">)</span></span>
-<span>            <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>            path <span class="op">=</span> <span class="st">"/analysis"</span>,</span>
-<span>            element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
-<span>              <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Analysis"</span><span class="op">)</span>,</span>
-<span>              <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"contentAnalysis"</span><span class="op">)</span></span>
-<span>              <span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
-<span>            path <span class="op">=</span> <span class="st">"/about"</span>,</span>
-<span>            element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"contentAbout"</span><span class="op">)</span></span>
-<span>          <span class="op">)</span>,</span>
-<span>          <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"*"</span>, element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Error 404"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
-<span>        <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>          index <span class="op">=</span> <span class="cn">TRUE</span>,</span>
+<span>          element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
+<span>            <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Home page"</span><span class="op">)</span>,</span>
+<span>            <span class="va">tags</span><span class="op">$</span><span class="fu">h4</span><span class="op">(</span><span class="st">"A basic example of reactRouter with muiMaterial."</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"contentHome"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>          path <span class="op">=</span> <span class="st">"analysis"</span>,</span>
+<span>          element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
+<span>            <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"Analysis"</span><span class="op">)</span>,</span>
+<span>            <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"contentAnalysis"</span><span class="op">)</span></span>
+<span>          <span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span></span>
+<span>          path <span class="op">=</span> <span class="st">"about"</span>,</span>
+<span>          element <span class="op">=</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/htmlOutput.html" class="external-link">uiOutput</a></span><span class="op">(</span>outputId <span class="op">=</span> <span class="st">"contentAbout"</span><span class="op">)</span></span>
+<span>        <span class="op">)</span>,</span>
+<span>        <span class="fu">reactRouter</span><span class="fu">::</span><span class="fu"><a href="https://felixluginbuhl.com/reactRouter/reference/Route.html" class="external-link">Route</a></span><span class="op">(</span>path <span class="op">=</span> <span class="st">"*"</span>, element <span class="op">=</span> <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span><span class="va">tags</span><span class="op">$</span><span class="fu">p</span><span class="op">(</span><span class="st">"Error 404"</span><span class="op">)</span><span class="op">)</span><span class="op">)</span></span>
 <span>      <span class="op">)</span></span>
-<span>    <span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
 <span>  <span class="op">)</span></span>
 <span><span class="op">)</span></span>
 <span></span>
 <span><span class="va">server</span> <span class="op">&lt;-</span> <span class="kw">function</span><span class="op">(</span><span class="va">input</span>, <span class="va">output</span>, <span class="va">session</span><span class="op">)</span> <span class="op">{</span></span>
-<span>  </span>
+<span></span>
 <span>  <span class="co"># Content for Home page</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">contentHome</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"Content home"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/bindEvent.html" class="external-link">bindEvent</a></span><span class="op">(</span><span class="st">"page_home"</span><span class="op">)</span></span>
-<span>  </span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
 <span>  <span class="co"># Content for Analysis page</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">contentAnalysis</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"Content analysis"</span><span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/bindEvent.html" class="external-link">bindEvent</a></span><span class="op">(</span><span class="st">"page_analysis"</span><span class="op">)</span></span>
-<span>  </span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
+<span></span>
 <span>  <span class="co"># Content for About page</span></span>
 <span>  <span class="va">output</span><span class="op">$</span><span class="va">contentAbout</span> <span class="op">&lt;-</span> <span class="fu"><a href="https://rdrr.io/pkg/shiny/man/renderUI.html" class="external-link">renderUI</a></span><span class="op">(</span><span class="op">{</span></span>
 <span>    <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">div</a></span><span class="op">(</span></span>
 <span>      <span class="va">tags</span><span class="op">$</span><span class="fu">h1</span><span class="op">(</span><span class="st">"About"</span><span class="op">)</span>,</span>
 <span>      <span class="fu"><a href="https://rstudio.github.io/htmltools/reference/builder.html" class="external-link">p</a></span><span class="op">(</span><span class="st">"Content about"</span><span class="op">)</span></span>
 <span>    <span class="op">)</span></span>
-<span>  <span class="op">}</span><span class="op">)</span> <span class="op">|&gt;</span> </span>
-<span>    <span class="fu">shiny</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/pkg/shiny/man/bindEvent.html" class="external-link">bindEvent</a></span><span class="op">(</span><span class="st">"page_about"</span><span class="op">)</span></span>
+<span>  <span class="op">}</span><span class="op">)</span></span>
 <span></span>
 <span><span class="op">}</span></span>
 <span></span>

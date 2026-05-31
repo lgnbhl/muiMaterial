@@ -42,7 +42,7 @@ The AI could generate:
 Card(
   sx = list(p = 3),
   Typography("Material UI weekly downloads", variant = "h6", gutterBottom = TRUE),
-  Typography("5.8M", variant = "h3", fontWeight = "bold")
+  Typography("5.8M", variant = "h3", sx = list(fontWeight = "bold"))
 )
 ```
 

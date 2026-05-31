@@ -9,6 +9,18 @@ service. This document shows examples using the
 
 ### Examples using {reactRouter}
 
+[reactRouter](https://github.com/lgnbhl/reactRouter) wraps React Router
+v7. The entry point is `RouterProvider(router = ...)`, where the router
+is built with
+[`createHashRouter()`](https://felixluginbuhl.com/reactRouter/reference/createHashRouter.html).
+Routes are declared with nested
+[`Route()`](https://felixluginbuhl.com/reactRouter/reference/Route.html)
+calls and the active child route is rendered wherever you place
+[`Outlet()`](https://felixluginbuhl.com/reactRouter/reference/Outlet.html)
+in the parent’s `element`. The hash strategy
+([`createHashRouter()`](https://felixluginbuhl.com/reactRouter/reference/createHashRouter.html))
+works in Shiny, Quarto and from a local `file://` page.
+
 An example using [reactRouter](https://github.com/lgnbhl/reactRouter)
 client routing (no server):
 
@@ -19,38 +31,45 @@ library(reactRouter)
 library(muiMaterial)
 library(shiny)
 
-reactRouter::HashRouter(
-  AppBar(
-    position = "static",
-    Toolbar(
-      Typography(
-        variant = "h6",
-        component = "div",
-        "muiMaterial"
-      ),
-      reactRouter::NavLink(
-        to = "/",
-        style = JS('({isActive}) => { return isActive ? {color: "white"} : {color: "white"}; }'),
-        Button(
-          color = "inherit",
-          "Home"
+reactRouter::RouterProvider(
+  router = reactRouter::createHashRouter(
+    reactRouter::Route(
+      path = "/",
+      element = Box(
+        sx = list(flexGrow = 1),
+        AppBar(
+          position = "static",
+          Toolbar(
+            Typography(
+              variant = "h6",
+              component = "div",
+              "muiMaterial"
+            ),
+            reactRouter::NavLink(
+              to = "/",
+              style = JS('({isActive}) => { return isActive ? {color: "white"} : {color: "white"}; }'),
+              Button(
+                color = "inherit",
+                "Home"
+              )
+            ),
+            reactRouter::NavLink(
+              to = "/analysis",
+              style = JS('({isActive}) => { return isActive ? {color: "white"} : {color: "white"}; }'),
+              Button(
+                color = "inherit",
+                "Analysis"
+              )
+            )
+          )
+        ),
+        Box(
+          sx = list(p = 3),
+          reactRouter::Outlet()
         )
       ),
-      reactRouter::NavLink(
-        to = "/analysis",
-        style = JS('({isActive}) => { return isActive ? {color: "white"} : {color: "white"}; }'),
-        Button(
-          color = "inherit",
-          "Analysis"
-        )
-      )
-    )
-  ),
-  Box(
-    sx = list(p = 3),
-    reactRouter::Routes(
       reactRouter::Route(
-        path = "/",
+        index = TRUE,
         element = div(
           tags$h3("Home page"),
           p("A basic example of reactRouter with muiMaterial."),
@@ -58,11 +77,11 @@ reactRouter::HashRouter(
         )
       ),
       reactRouter::Route(
-        path = "/analysis",
+        path = "analysis",
         element = div(
           tags$h3("Analysis"),
           p("Content analysis")
-          )
+        )
       ),
       reactRouter::Route(path = "*", element = div(tags$p("Error 404")))
     )
@@ -71,7 +90,12 @@ reactRouter::HashRouter(
 ```
 
 An example with [reactRouter](https://github.com/lgnbhl/reactRouter) in
-an R Shiny app (with server):
+an R Shiny app (with server). Each route’s `element` holds a
+[`uiOutput()`](https://rdrr.io/pkg/shiny/man/htmlOutput.html) that the
+server fills with
+[`renderUI()`](https://rdrr.io/pkg/shiny/man/renderUI.html); client-side
+navigation mounts the matched route and Shiny renders its content
+automatically:
 
 ``` r
 
@@ -81,92 +105,89 @@ library(muiMaterial)
 library(shiny)
 
 ui <- muiMaterialPage(
-  reactRouter::HashRouter(
-    CssBaseline(
-    Typography("reactRouter with muiMaterial", variant = "h5", m = 2),
-    Stack(
-      direction = "row", spacing = 2, p = 2,
-      Paper(
-        MenuList(
-          reactRouter::NavLink.shinyInput(
-            inputId = "page_home",
-            to = "/",
-            style = JS('({isActive}) => { return isActive ? {color: "red", textDecoration:"none"} : { textDecoration: "none" }; }'),
-            MenuItem(
-              "home"
-            )
-          ),
-          br(),
-          reactRouter::NavLink.shinyInput(
-            inputId = "page_analysis",
-            to = "/analysis",
-            style = JS('({isActive}) => { return isActive ? {color: "red", textDecoration: "none"} : { textDecoration: "none" }; }'),
-            MenuItem(
-              "Analysis"
-            )
-          ),
-          br(),
-          reactRouter::NavLink.shinyInput(
-            inputId = "page_about",
-            to = "/about",
-            style = JS('({ isActive }) => { return isActive ? { color: "red", textDecoration: "none" } : { textDecoration: "none" }; }'),
-            MenuItem(
-              "About"
+  CssBaseline(),
+  reactRouter::RouterProvider(
+    router = reactRouter::createHashRouter(
+      reactRouter::Route(
+        path = "/",
+        element = div(
+          Typography("reactRouter with muiMaterial", variant = "h5", m = 2),
+          Stack(
+            direction = "row", spacing = 2, p = 2,
+            Paper(
+              MenuList(
+                reactRouter::NavLink(
+                  to = "/",
+                  style = JS('({isActive}) => { return isActive ? {color: "red", textDecoration:"none"} : { textDecoration: "none" }; }'),
+                  MenuItem(
+                    "Home"
+                  )
+                ),
+                reactRouter::NavLink(
+                  to = "/analysis",
+                  style = JS('({isActive}) => { return isActive ? {color: "red", textDecoration: "none"} : { textDecoration: "none" }; }'),
+                  MenuItem(
+                    "Analysis"
+                  )
+                ),
+                reactRouter::NavLink(
+                  to = "/about",
+                  style = JS('({ isActive }) => { return isActive ? { color: "red", textDecoration: "none" } : { textDecoration: "none" }; }'),
+                  MenuItem(
+                    "About"
+                  )
+                )
+              )
+            ),
+            Box(
+              reactRouter::Outlet()
             )
           )
-        )
-      ),
-      Box(
-        reactRouter::Routes(
-          reactRouter::Route(
-            path = "/",
-            element = div(
-              tags$h1("Home page"),
-              tags$h4("A basic example of reactRouter with muiMaterial."),
-              uiOutput(outputId = "contentHome")
-            )
-          ),
-          reactRouter::Route(
-            path = "/analysis",
-            element = div(
-              tags$h1("Analysis"),
-              uiOutput(outputId = "contentAnalysis")
-              )
-          ),
-          reactRouter::Route(
-            path = "/about",
-            element = uiOutput(outputId = "contentAbout")
-          ),
-          reactRouter::Route(path = "*", element = div(tags$p("Error 404")))
-        )
+        ),
+        reactRouter::Route(
+          index = TRUE,
+          element = div(
+            tags$h1("Home page"),
+            tags$h4("A basic example of reactRouter with muiMaterial."),
+            uiOutput(outputId = "contentHome")
+          )
+        ),
+        reactRouter::Route(
+          path = "analysis",
+          element = div(
+            tags$h1("Analysis"),
+            uiOutput(outputId = "contentAnalysis")
+          )
+        ),
+        reactRouter::Route(
+          path = "about",
+          element = uiOutput(outputId = "contentAbout")
+        ),
+        reactRouter::Route(path = "*", element = div(tags$p("Error 404")))
       )
-    )
     )
   )
 )
 
 server <- function(input, output, session) {
-  
+
   # Content for Home page
   output$contentHome <- renderUI({
     p("Content home")
-  }) |> 
-    shiny::bindEvent("page_home")
-  
+  })
+
   # Content for Analysis page
   output$contentAnalysis <- renderUI({
     p("Content analysis")
-  }) |> 
-    shiny::bindEvent("page_analysis")
-  
+  })
+
   # Content for About page
   output$contentAbout <- renderUI({
     div(
       tags$h1("About"),
       p("Content about")
     )
-  }) |> 
-    shiny::bindEvent("page_about")
+  })
 
 }
 
