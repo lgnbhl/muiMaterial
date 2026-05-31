@@ -4,7 +4,7 @@
 # (= https://lgnbhl.github.io/muiMaterial/).
 on:
   push:
-    branches: [main, master]
+    branches: [main]
   pull_request:
   release:
     types: [published]
@@ -19,8 +19,6 @@ jobs:
     runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
-    permissions:
-      contents: write
     steps:
       - uses: actions/checkout@v6
         # persist-credentials: false stops checkout from leaving the
@@ -46,8 +44,9 @@ jobs:
         # is fine because the previous step already installed the package.
         # NOTE: deliberately using build_site() rather than
         # build_site_github_pages() to avoid auto-writing a CNAME from the
-        # `url:` in _pkgdown.yml (set to felixluginbuhl.com, which redirects
-        # to the canonical lgnbhl.github.io/muiMaterial Pages deployment).
+        # `url:` in _pkgdown.yml; the site is deployed into a subfolder of the
+        # lgnbhl.github.io user site, whose own CNAME must not be touched
+        # (the deploy step also excludes CNAME for good measure).
         run: pkgdown::build_site(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
