@@ -1,8 +1,8 @@
 # Run muiMaterial example
 
 Launch a Shiny example app or list the available examples. Use
-\`muiMaterial::runExample("showcase")\` to run a showcase app with all
-the components.
+\`muiMaterial::muiMaterialExample("showcase")\` to run a showcase app
+with all the components.
 
 ## Usage
 
@@ -23,9 +23,11 @@ muiMaterialExample(example = NULL, ...)
 
 ## Value
 
-This function normally does not return; interrupt R to stop the
-application (usually by pressing Ctrl+C or Esc).
+When \`example\` is \`NULL\`, a character vector of the available
+example names. Otherwise the function launches a Shiny app and does not
+return; interrupt R to stop it (usually by pressing Ctrl+C or Esc).
 
-## See also
+## Details
 
-\[shiny.blueprint::runExample()\] which this function is an adaptation.
+This function is adapted from \`runExample()\` in the shiny.blueprint
+package.

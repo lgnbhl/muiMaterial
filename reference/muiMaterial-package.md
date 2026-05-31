@@ -40,7 +40,7 @@ regular R functions, \*\*not\*\* S3 methods.
 
 Wrap your UI in \[muiMaterialPage()\] (or include a
 \[muiMaterialDependency()\] manually) and start composing components.
-See \`vignette("getting-started", package = "muiMaterial")\` for a full
+See https://felixluginbuhl.com/muiMaterial/articles/ for a full
 walkthrough.
 
 ## See also
