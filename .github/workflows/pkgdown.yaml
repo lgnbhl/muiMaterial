@@ -1,6 +1,7 @@
 # Workflow derived from https://github.com/r-lib/actions/tree/v2/examples
-# Deploys the pkgdown site to https://lgnbhl.github.io/muiMaterial/
-# (https://felixluginbuhl.com/muiMaterial/ redirects there).
+# Builds the pkgdown site and deploys it into the muiMaterial/ subfolder of the
+# lgnbhl/lgnbhl.github.io user site, served at https://felixluginbuhl.com/muiMaterial/
+# (= https://lgnbhl.github.io/muiMaterial/).
 on:
   push:
     branches: [main, master]
@@ -44,10 +45,21 @@ jobs:
         run: pkgdown::build_site(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Deploy to GitHub Pages
+      - name: Deploy to user site repo
+        # Pushes the built site into the muiMaterial/ subfolder of the
+        # lgnbhl/lgnbhl.github.io user site (served at felixluginbuhl.com/muiMaterial,
+        # which is the canonical URL set in _pkgdown.yml).
+        # Cross-repo push needs a PAT (with contents:write on lgnbhl.github.io)
+        # stored as the DEPLOY_PAT secret -- the default GITHUB_TOKEN is
+        # scoped to this repo only and cannot write to another repo.
+        # clean is scoped to target-folder, so sibling project folders
+        # (muiCharts, reactRouter, the Quarto site, ...) are left untouched.
         if: github.event_name != 'pull_request'
         uses: JamesIves/github-pages-deploy-action@v4.5.0
         with:
-          clean: false
-          branch: gh-pages
+          token: ${{ secrets.DEPLOY_PAT }}
+          repository-name: lgnbhl/lgnbhl.github.io
+          branch: main
           folder: docs
+          target-folder: muiMaterial
+          clean: true
