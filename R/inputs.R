@@ -256,6 +256,20 @@ Autocomplete.shinyInput <- function(inputId, ..., value = NULL) {
 #' @export
 updateAutocomplete.shinyInput <- shiny.react::updateReactInput
 
+#' @rdname BottomNavigation
+#' @inherit shinyInput params return
+#' @note Give each child \code{BottomNavigationAction} a \code{value}; the
+#'   selected action's \code{value} is reported to \code{input[[inputId]]}. Pass
+#'   an initial \code{value} matching one of them to pre-select it; when omitted,
+#'   the component mounts with nothing selected (\code{value = FALSE}).
+#' @export
+BottomNavigation.shinyInput <- input("BottomNavigation")
+
+#' @rdname BottomNavigation
+#' @inherit shinyInput params return
+#' @export
+updateBottomNavigation.shinyInput <- shiny.react::updateReactInput
+
 #' @rdname Checkbox
 #' @inherit shinyInput params return
 #' @export
@@ -275,6 +289,16 @@ Input.shinyInput <- input("Input")
 #' @inherit shinyInput params return
 #' @export
 updateInput.shinyInput <- shiny.react::updateReactInput
+
+#' @rdname FilledInput
+#' @inherit shinyInput params return
+#' @export
+FilledInput.shinyInput <- input("FilledInput")
+
+#' @rdname FilledInput
+#' @inherit shinyInput params return
+#' @export
+updateFilledInput.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname FormControlLabel
 #' @inherit shinyInput params return
@@ -351,6 +375,16 @@ Select.shinyInput <- input("Select")
 #' @export
 updateSelect.shinyInput <- shiny.react::updateReactInput
 
+#' @rdname NativeSelect
+#' @inherit shinyInput params return
+#' @export
+NativeSelect.shinyInput <- input("NativeSelect")
+
+#' @rdname NativeSelect
+#' @inherit shinyInput params return
+#' @export
+updateNativeSelect.shinyInput <- shiny.react::updateReactInput
+
 #' @rdname Slider
 #' @inherit shinyInput params return
 #' @examplesIf interactive()
@@ -387,6 +421,10 @@ updateSwitch.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Tabs
 #' @inherit shinyInput params return
+#' @note Pass an initial \code{value} matching one of the child \code{Tab} values
+#'   to pre-select that tab. When omitted, the component mounts with no tab selected
+#'   (\code{value = FALSE}) rather than uncontrolled, so a later server-driven update
+#'   does not trigger MUI's controlled/uncontrolled warning.
 #' @export
 Tabs.shinyInput <- input("Tabs")
 
@@ -395,18 +433,15 @@ Tabs.shinyInput <- input("Tabs")
 #' @export
 updateTabs.shinyInput <- shiny.react::updateReactInput
 
-#' @rdname Tab
-#' @inherit shinyInput params return
-#' @export
-Tab.shinyInput <- input("Tab")
-
-#' @rdname Tab
-#' @inherit shinyInput params return
-#' @export
-updateTab.shinyInput <- shiny.react::updateReactInput
-
 #' @rdname TabContext
 #' @inherit shinyInput params return
+#' @note Pass an initial \code{value} matching one of the \code{TabPanel} values
+#'   to pre-select that panel; when omitted, the component mounts with no panel
+#'   selected (\code{value = ""}) rather than uncontrolled, so a later
+#'   server-driven update does not trigger MUI's controlled/uncontrolled warning.
+#'   \code{TabContext} itself has no change event, so \code{input[[inputId]]}
+#'   reports only this initial value. To react to tab clicks on the server, read
+#'   \code{input[[inputId]]} from the \code{\link{TabList.shinyInput}} instead.
 #' @export
 TabContext.shinyInput <- input("TabContext")
 

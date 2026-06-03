@@ -41,7 +41,9 @@ export const AutocompleteStatic = ({ inputProps, renderInput, children, ...props
   const inputEl = React.Children.toArray(children).find(React.isValidElement);
   const resolvedRenderInput = renderInput
     ?? (inputEl
-      ? (params) => React.cloneElement(inputEl, { ...inputEl.props, ...params })
+      // cloneElement already carries inputEl's own props; we only merge in
+      // the Autocomplete-supplied `params` (id, InputProps, inputProps, ...).
+      ? (params) => React.cloneElement(inputEl, params)
       : (params) => <Material.TextField {...params} {...inputProps} />);
   return <Material.Autocomplete renderInput={resolvedRenderInput} {...props} />;
 };
@@ -50,6 +52,13 @@ export const Autocomplete = InputAdapter(AutocompleteStatic, (value, setValue, p
   // Match MUI's documented defaults: `[]` when multiple, `null` otherwise.
   // Using `??` (not `||`) so a legitimately falsy option value (0, "") is preserved.
   value: value ?? (props.multiple ? [] : null),
+  onChange: (e, v) => setValue(v),
+}));
+
+// `value ?? false`: MUI treats `false` as "no action selected", so an initial
+// NULL mounts controlled (no warning) instead of uncontrolled, as with Tabs.
+export const BottomNavigation = InputAdapter(Material.BottomNavigation, (value, setValue) => ({
+  value: value ?? false,
   onChange: (e, v) => setValue(v),
 }));
 
@@ -67,6 +76,11 @@ export const FormControlLabel = InputAdapter(Material.FormControlLabel, (value, 
 }));
 
 export const Input = InputAdapter(Material.Input, (value, setValue) => ({
+  value: value ?? '',
+  onChange: (e) => setValue(e.target.value),
+}), { policy: debounce, delay: 250 });
+
+export const FilledInput = InputAdapter(Material.FilledInput, (value, setValue) => ({
   value: value ?? '',
   onChange: (e) => setValue(e.target.value),
 }), { policy: debounce, delay: 250 });
@@ -102,6 +116,11 @@ export const Select = InputAdapter(Material.Select, (value, setValue, props) => 
   onChange: (e) => setValue(e.target.value),
 }));
 
+export const NativeSelect = InputAdapter(Material.NativeSelect, (value, setValue) => ({
+  value: value ?? '',
+  onChange: (e) => setValue(e.target.value),
+}));
+
 export const Slider = InputAdapter(Material.Slider, (value, setValue) => ({
   value: value ?? 0,
   onChange: (e, v) => setValue(v),
@@ -113,7 +132,9 @@ export const Switch = InputAdapter(Material.Switch, (value, setValue) => ({
 }));
 
 export const Tabs = InputAdapter(Material.Tabs, (value, setValue) => ({
-  value: value,
+  // `value ?? false`: MUI Tabs treats `false` as "no tab selected", so an
+  // initial NULL mounts controlled (no warning) instead of uncontrolled.
+  value: value ?? false,
   onChange: (e, v) => { if (isTabValue(v)) setValue(v); },
 }));
 
@@ -122,19 +143,30 @@ export const TextField = InputAdapter(Material.TextField, (value, setValue) => (
   onChange: (e) => setValue(e.target.value),
 }), { policy: debounce, delay: 250 });
 
-export const TabContext = InputAdapter(MaterialLab.TabContext, (value, setValue) => ({
-  value: value,
-  onChange: (e, v) => { if (isTabValue(v)) setValue(v); },
+// @mui/lab's TabContext has no onChange prop and marks `value` as required, so
+// (a) there is no change event to relay to Shiny -- TabList below is the wrapper
+// that reports tab clicks -- and (b) `value ?? ''` mounts it controlled with no
+// selection instead of uncontrolled, avoiding both the required-prop and the
+// controlled/uncontrolled console warnings on the first server-driven update.
+export const TabContext = InputAdapter(MaterialLab.TabContext, (value) => ({
+  value: value ?? '',
 }));
 
+// @mui/lab's TabList derives its displayed value from the surrounding TabContext
+// (it reads context.value, ignoring its own `value` prop), so only `onChange`
+// carries signal here -- it fires with the clicked Tab's `value`. We still pass
+// `value` for API symmetry, but lab TabList does not use it for display.
 export const TabList = InputAdapter(MaterialLab.TabList, (value, setValue) => ({
   value: value,
   onChange: (e, v) => { if (isTabValue(v)) setValue(v); },
 }));
 
-export const TabPanel = InputAdapter(MaterialLab.TabPanel, (value, setValue) => ({
+// TabPanel is display-only: it reads the active value from the surrounding
+// TabContext and never fires onChange, so there is nothing to report to Shiny.
+// We keep the adapter only so `TabPanel.shinyInput` resolves and the panel's
+// own `value` prop is forwarded; no onChange wiring (it would never fire).
+export const TabPanel = InputAdapter(MaterialLab.TabPanel, (value) => ({
   value: value,
-  onChange: (e, v) => { if (isTabValue(v)) setValue(v); },
 }));
 
 export const ToggleButtonGroup = InputAdapter(Material.ToggleButtonGroup, (value, setValue, props) => ({

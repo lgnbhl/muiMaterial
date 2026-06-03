@@ -63,4 +63,12 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \code{TabContext} is part of \href{https://mui.com/material-ui/about-the-lab/}{\code{@mui/lab}},
   which is published on the MUI beta channel. Lab APIs may change in future minor
   releases.
+
+Pass an initial \code{value} matching one of the \code{TabPanel} values
+  to pre-select that panel; when omitted, the component mounts with no panel
+  selected (\code{value = ""}) rather than uncontrolled, so a later
+  server-driven update does not trigger MUI's controlled/uncontrolled warning.
+  \code{TabContext} itself has no change event, so \code{input[[inputId]]}
+  reports only this initial value. To react to tab clicks on the server, read
+  \code{input[[inputId]]} from the \code{\link{TabList.shinyInput}} instead.
 }

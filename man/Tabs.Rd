@@ -58,3 +58,9 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item visibleScrollbar \code{bool} \cr Default is FALSE If true, the scrollbar is visible. It can be useful when displaying a long vertical list of tabs.
 }
 }
+\note{
+Pass an initial \code{value} matching one of the child \code{Tab} values
+  to pre-select that tab. When omitted, the component mounts with no tab selected
+  (\code{value = FALSE}) rather than uncontrolled, so a later server-driven update
+  does not trigger MUI's controlled/uncontrolled warning.
+}

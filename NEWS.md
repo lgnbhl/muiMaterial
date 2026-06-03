@@ -33,12 +33,12 @@
   handler -- pointing you to either add an `onChange` or switch to `defaultValue`.
 
 - new `*.shinyInput()` family of Shiny-wired input wrappers covering the most
-  commonly bound components (Autocomplete, Button, Checkbox, Dialog, Drawer,
-  IconButton, Input, Fab, FormControlLabel, LoadingButton, Menu, MenuItem,
-  Modal, OutlinedInput, Pagination, Radio, RadioGroup, Rating, Select, Slider,
-  Snackbar, StepButton, Switch, Tab, TabContext, TabList, TabPanel, Tabs,
-  TextField, ToggleButton, ToggleButtonGroup) and matching `update*.shinyInput()`
-  helpers.
+  commonly bound components (Autocomplete, BottomNavigation, Button, Checkbox,
+  Dialog, Drawer, IconButton, Input, FilledInput, Fab, FormControlLabel,
+  LoadingButton, Menu, MenuItem, Modal, NativeSelect, OutlinedInput, Pagination,
+  Radio, RadioGroup, Rating, Select, Slider, Snackbar, StepButton, Switch,
+  TabContext, TabList, TabPanel, Tabs, TextField, ToggleButton,
+  ToggleButtonGroup) and matching `update*.shinyInput()` helpers.
 - new `*.triggerId()` family for binding overlay components to an existing DOM
   element by id, with no server logic required: `Dialog.triggerId()`,
   `Drawer.triggerId()`, `Menu.triggerId()`, `Modal.triggerId()`,
