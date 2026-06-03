@@ -36,6 +36,14 @@ export function useTriggerBind(triggerId, handler, eventType = 'click') {
           `useTriggerBind: no element with id "${triggerId}" found after 5 s. ` +
           'Check that triggerId matches an existing DOM element id.'
         );
+        // Stop watching the DOM: if the element hasn't appeared in 5 s it
+        // almost certainly never will (typo'd id), and a live observer on
+        // document.body would otherwise run on every mutation for the rest
+        // of the component's life.
+        if (observer) {
+          observer.disconnect();
+          observer = null;
+        }
       }, 5000);
 
       observer = new MutationObserver(() => {
