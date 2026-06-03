@@ -57,3 +57,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item sx \verb{Array func| object| bool | func| object} \cr Default is - The system prop that allows defining system overrides as well as additional CSS styles.See the \code{sx} page for more details.
 }
 }
+\note{
+This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
+  holds a click count, and the wrapper does \strong{not} manage the \code{open}
+  state. Render it with \code{open = TRUE/FALSE} and toggle visibility from the
+  server with \code{updateModal.shinyInput(session, inputId, open = TRUE)}. For
+  the common "open on click of a button" pattern, \code{\link{Modal.triggerId}}
+  is simpler (open/close handled entirely client-side, no server logic).
+}

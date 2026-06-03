@@ -48,3 +48,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item variant \code{'permanent'| 'persistent'| 'temporary'} \cr Default is 'temporary' The variant to use.
 }
 }
+\note{
+This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
+  holds a click count, and the wrapper does \strong{not} manage the \code{open}
+  state. Render it with \code{open = TRUE/FALSE} and toggle visibility from the
+  server with \code{updateDrawer.shinyInput(session, inputId, open = TRUE)}. For
+  the common "open on click of a button" pattern, \code{\link{Drawer.triggerId}}
+  is simpler (open/close handled entirely client-side, no server logic).
+}

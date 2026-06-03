@@ -33,6 +33,13 @@ updateButton.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Dialog
 #' @inherit shinyInput params return
+#' @note This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
+#'   holds a click count (incremented on every click inside the surface), and the
+#'   wrapper does \strong{not} manage the \code{open} state. Render it with
+#'   \code{open = TRUE/FALSE} and toggle visibility from the server with
+#'   \code{updateDialog.shinyInput(session, inputId, open = TRUE)}. For the common
+#'   "open on click of a button" pattern, \code{\link{Dialog.triggerId}} is simpler
+#'   (open/close handled entirely client-side, no server logic).
 #' @export
 Dialog.shinyInput <- button("Dialog")
 
@@ -43,6 +50,12 @@ updateDialog.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Drawer
 #' @inherit shinyInput params return
+#' @note This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
+#'   holds a click count, and the wrapper does \strong{not} manage the \code{open}
+#'   state. Render it with \code{open = TRUE/FALSE} and toggle visibility from the
+#'   server with \code{updateDrawer.shinyInput(session, inputId, open = TRUE)}. For
+#'   the common "open on click of a button" pattern, \code{\link{Drawer.triggerId}}
+#'   is simpler (open/close handled entirely client-side, no server logic).
 #' @export
 Drawer.shinyInput <- button("Drawer")
 
@@ -83,6 +96,13 @@ updateLoadingButton.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Menu
 #' @inherit shinyInput params return
+#' @note This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
+#'   holds a click count (it does not tell you \emph{which} \code{MenuItem} was
+#'   clicked), and the wrapper does \strong{not} manage the \code{open} state.
+#'   Render it with \code{open = TRUE/FALSE} and toggle visibility from the server
+#'   with \code{updateMenu.shinyInput(session, inputId, open = TRUE)}. For the common
+#'   "open on click of a button" pattern, \code{\link{Menu.triggerId}} is simpler
+#'   (open/close handled entirely client-side, no server logic).
 #' @export
 Menu.shinyInput <- button("Menu")
 
@@ -103,6 +123,12 @@ updateMenuItem.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Modal
 #' @inherit shinyInput params return
+#' @note This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
+#'   holds a click count, and the wrapper does \strong{not} manage the \code{open}
+#'   state. Render it with \code{open = TRUE/FALSE} and toggle visibility from the
+#'   server with \code{updateModal.shinyInput(session, inputId, open = TRUE)}. For
+#'   the common "open on click of a button" pattern, \code{\link{Modal.triggerId}}
+#'   is simpler (open/close handled entirely client-side, no server logic).
 #' @export
 Modal.shinyInput <- button("Modal")
 
@@ -113,6 +139,12 @@ updateModal.shinyInput <- shiny.react::updateReactInput
 
 #' @rdname Snackbar
 #' @inherit shinyInput params return
+#' @note This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
+#'   holds a click count, and the wrapper does \strong{not} manage the \code{open}
+#'   state. Render it with \code{open = TRUE/FALSE} and toggle visibility from the
+#'   server with \code{updateSnackbar.shinyInput(session, inputId, open = TRUE)}
+#'   (e.g. open it in response to another event, then close it from the Snackbar's
+#'   \code{autoHideDuration}/\code{onClose}).
 #' @export
 Snackbar.shinyInput <- button("Snackbar")
 

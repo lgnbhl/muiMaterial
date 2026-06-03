@@ -52,3 +52,11 @@ Object with \code{shiny.tag} class suitable for use in the UI of a Shiny app.
 \item TransitionProps \code{object} \cr Default is Props applied to the transition element. By default, the element is based on this Transition component.Deprecated Use slotProps.transition instead. This prop will be removed in a future major release. See Migrating from deprecated APIs for more details.
 }
 }
+\note{
+This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
+  holds a click count, and the wrapper does \strong{not} manage the \code{open}
+  state. Render it with \code{open = TRUE/FALSE} and toggle visibility from the
+  server with \code{updateSnackbar.shinyInput(session, inputId, open = TRUE)}
+  (e.g. open it in response to another event, then close it from the Snackbar's
+  \code{autoHideDuration}/\code{onClose}).
+}
