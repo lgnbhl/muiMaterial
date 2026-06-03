@@ -1,14 +1,7 @@
 trigger <- function(name, module = "@/muiMaterial") {
   function(triggerId, ...) {
     checkmate::assert_string(triggerId)
-    tag <- shiny.react::reactElement(
-      module = module,
-      name = name,
-      props = shiny.react::asProps(triggerId = triggerId, ...),
-      deps = muiMaterialDependency()
-    )
-    class(tag) <- c("muiMaterial", class(tag))
-    tag
+    muiElement(name, module, shiny.react::asProps(triggerId = triggerId, ...))
   }
 }
 

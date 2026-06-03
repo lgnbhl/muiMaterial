@@ -3,14 +3,7 @@
 button <- function(name, module = "@/muiMaterial") {
   function(inputId, ...) {
     checkmate::assert_string(inputId)
-    tag <- shiny.react::reactElement(
-      module = module,
-      name = name,
-      props = shiny.react::asProps(inputId = inputId, ...),
-      deps = muiMaterialDependency()
-    )
-    class(tag) <- c("muiMaterial", class(tag))
-    tag
+    muiElement(name, module, shiny.react::asProps(inputId = inputId, ...))
   }
 }
 
@@ -152,14 +145,7 @@ updateToggleButton.shinyInput <- shiny.react::updateReactInput
 input <- function(name, defaultValue = NULL, module = "@/muiMaterial") {
   function(inputId, ..., value = defaultValue) {
     checkmate::assert_string(inputId)
-    tag <- shiny.react::reactElement(
-      module = module,
-      name = name,
-      props = shiny.react::asProps(inputId = inputId, ..., value = value),
-      deps = muiMaterialDependency()
-    )
-    class(tag) <- c("muiMaterial", class(tag))
-    tag
+    muiElement(name, module, shiny.react::asProps(inputId = inputId, ..., value = value))
   }
 }
 
@@ -226,14 +212,11 @@ Autocomplete.shinyInput <- function(inputId, ..., value = NULL) {
     )
   }
 
-  tag <- shiny.react::reactElement(
-    module = "@/muiMaterial",
-    name = "Autocomplete",
-    props = shiny.react::asProps(inputId = inputId, ..., value = value),
-    deps = muiMaterialDependency()
+  muiElement(
+    "Autocomplete",
+    "@/muiMaterial",
+    shiny.react::asProps(inputId = inputId, ..., value = value)
   )
-  class(tag) <- c("muiMaterial", class(tag))
-  tag
 }
 
 #' @rdname Autocomplete

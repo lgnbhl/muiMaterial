@@ -27,26 +27,16 @@ TabContext.static <- function(..., value = NULL, defaultValue = NULL) {
   named <- list()
   if (!is.null(value)) named$value <- value
   if (!is.null(defaultValue)) named$defaultValue <- defaultValue
-  tag <- shiny.react::reactElement(
-    module = "@/muiMaterial",
-    name = "MuiStaticTabContext",
-    props = do.call(shiny.react::asProps, c(named, list(...))),
-    deps = muiMaterialDependency()
+  muiElement(
+    "MuiStaticTabContext",
+    "@/muiMaterial",
+    do.call(shiny.react::asProps, c(named, list(...)))
   )
-  class(tag) <- c("muiMaterial", class(tag))
-  tag
 }
 
 #' @rdname TabList
 #' @param ... Child \code{Tab} elements and other props.
 #' @export
 TabList.static <- function(...) {
-  tag <- shiny.react::reactElement(
-    module = "@/muiMaterial",
-    name = "MuiStaticTabList",
-    props = shiny.react::asProps(...),
-    deps = muiMaterialDependency()
-  )
-  class(tag) <- c("muiMaterial", class(tag))
-  tag
+  muiElement("MuiStaticTabList", "@/muiMaterial", shiny.react::asProps(...))
 }
