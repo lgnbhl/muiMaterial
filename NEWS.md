@@ -19,6 +19,11 @@
   first tab (clicks fire but the wrapper no longer updates state) unless an
   `onChange` writes the value back.
 
+- removed the deprecated `GridLegacy()`, `PigmentContainer()`, `PigmentGrid()`
+  and `PigmentStack()` wrappers. These mapped to MUI APIs that are no longer
+  part of the supported `@mui/material` surface; use `Grid()` (and `Stack()` /
+  `Container()`) instead.
+
 ## New features
 
 - `TabContext.static()` gains a *controlled* mode: pass `value` together with a
