@@ -61,14 +61,15 @@ licence file stays in sync with the bundle.
 `muiMaterial` mirrors the upstream MUI API by design. To add a new
 component:
 
-1. Add an entry to `inst/helpers/generate-components-docs-tests.R`
-   (the canonical list).
-2. Re-run the helper script to regenerate
-   `R/components.R`, `R/documentation.R` and the matching
-   `tests/testthat/test-<Name>.R` stubs.
-3. If the component is meant to be Shiny-wired, add a
+1. Add a `<Name> <- component('<Name>')` entry to `R/components.R`
+   (use `module = '@mui/lab'` for lab components), and a matching
+   roxygen doc block in `R/documentation.R`.
+2. If the component is meant to be Shiny-wired, add a
    `<Component>.shinyInput()` and `update<Component>.shinyInput()`
    pair to `R/inputs.R`.
+3. Add a `tests/testthat/test-<Name>.R` test, and confirm the name is
+   actually exported by the bundled MUI version (a wrapper pointing at a
+   non-existent export renders to an "Element type is invalid" error).
 4. Run `devtools::document()` and `devtools::test()`.
 
 ## Naming convention

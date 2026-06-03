@@ -1,6 +1,5 @@
-# Additional MUI components not covered by the auto-generated 'components.R'.
-# Keep hand-written entries here so re-running 'inst/helpers/generate-components-docs-tests.R'
-# (which scrapes the @mui/material docs only) does not overwrite them.
+# Additional MUI components not listed in 'components.R' (e.g. @mui/lab
+# components that don't appear in the @mui/material component index).
 
 #' LoadingButton
 #'

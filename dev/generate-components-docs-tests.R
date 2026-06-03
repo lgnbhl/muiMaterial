@@ -1,4 +1,6 @@
-# Generate 'R/components.R', 'R/documentation.R'
+# Generate 'R/components.R', 'R/documentation.R' and the per-component tests by
+# scraping the MUI Material UI API docs. Dev-only tool: run from the package
+# root after a MUI upgrade. Not shipped in the build (see .Rbuildignore).
 library(rvest)
 library(dplyr)
 library(purrr)
@@ -44,7 +46,7 @@ create_component <- function(component) {
 components_text <- purrr::map(.x = df_components$components, .f = create_component) |>
   unlist()
 
-components_text_header <- paste0("# Script generated automatically from 'inst/helpers'
+components_text_header <- paste0("# Script generated automatically from 'dev/generate-components-docs-tests.R'
 # The `component()` factory used below lives in R/aaa-utils.R.
 
 ")
