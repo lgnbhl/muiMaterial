@@ -197,10 +197,6 @@ GlobalStyles <- component('GlobalStyles')
 #' @export
 Grid <- component('Grid')
 
-#' @rdname GridLegacy
-#' @export
-GridLegacy <- component('GridLegacy')
-
 #' @rdname Grow
 #' @export
 Grow <- component('Grow')
@@ -328,18 +324,6 @@ PaginationItem <- component('PaginationItem')
 #' @rdname Paper
 #' @export
 Paper <- component('Paper')
-
-#' @rdname PigmentContainer
-#' @export
-PigmentContainer <- component('PigmentContainer')
-
-#' @rdname PigmentGrid
-#' @export
-PigmentGrid <- component('PigmentGrid')
-
-#' @rdname PigmentStack
-#' @export
-PigmentStack <- component('PigmentStack')
 
 #' @rdname Popover
 #' @export

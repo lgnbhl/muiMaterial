@@ -268,14 +268,10 @@ reference:
   - Box
   - Container
   - Grid
-  - GridLegacy
   - ImageList
   - ImageListItem
   - ImageListItemBar
   - Masonry
-  - PigmentContainer
-  - PigmentGrid
-  - PigmentStack
   - Stack
 
 - title: Utils and transitions
