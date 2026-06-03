@@ -110,16 +110,14 @@ muiMaterialPage <- function(
         htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons+Two+Tone"))
       }
     ),
-    htmltools::tagList(
-      htmltools::tags$body(
-        style = styleBody,
-        if (suppressBootstrap) {
-          htmltools::suppressDependencies("bootstrap")
-        } else {
-          shiny::bootstrapLib()
-        },
-        ...
-      )
+    htmltools::tags$body(
+      style = styleBody,
+      if (suppressBootstrap) {
+        htmltools::suppressDependencies("bootstrap")
+      } else {
+        shiny::bootstrapLib()
+      },
+      ...
     )
   ))
 }
