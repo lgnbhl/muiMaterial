@@ -6,14 +6,14 @@ test_that("muiMaterialPage() returns an html tag with body and head", {
   head <- page$children[[1]]
   expect_equal(head$name, "head")
 
-  body <- page$children[[2]][[1]]
+  body <- page$children[[2]]
   expect_equal(body$name, "body")
   expect_equal(body$attribs$style, "margin:0")
 })
 
 test_that("muiMaterialPage() respects styleBody and suppressBootstrap", {
   page <- muiMaterialPage(styleBody = "margin:8px;background:red")
-  body <- page$children[[2]][[1]]
+  body <- page$children[[2]]
   expect_equal(body$attribs$style, "margin:8px;background:red")
 })
 
@@ -71,7 +71,7 @@ test_that("muiMaterialPage() suppresses or includes Bootstrap as requested", {
 test_that("muiMaterialPage() does not inject debug code into the DOM", {
   # debugReact must run as a side effect, never end up as a body child.
   page <- muiMaterialPage(debugReact = FALSE)
-  body <- page$children[[2]][[1]]
+  body <- page$children[[2]]
   classes <- unlist(lapply(body$children, function(x) class(x)))
   # The previous (buggy) implementation passed the return value of
   # enableReactDebugMode() as a positional child of `tags$body(...)`.
