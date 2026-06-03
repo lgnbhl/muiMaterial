@@ -3,8 +3,6 @@
 
 [![CRAN
 status](https://www.r-pkg.org/badges/version/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
-[![Lifecycle:
-stable](https://img.shields.io/badge/lifecycle-stable-brightgreen.svg)](https://lifecycle.r-lib.org/articles/stages.html#stable)
 [![R-CMD-check](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/lgnbhl/muiMaterial/actions/workflows/R-CMD-check.yaml)
 [![CRAN
 downloads](https://cranlogs.r-pkg.org/badges/grand-total/muiMaterial)](https://CRAN.R-project.org/package=muiMaterial)
@@ -97,8 +95,8 @@ muiMaterial::muiMaterialExample("showcase")
 
 `muiMaterial` is built on top of
 [shiny.react](https://github.com/Appsilon/shiny.react), the R package by
-[Appsilon](https://www.appsilon.com/) that makes it possible to use React
-components in Shiny and Quarto.
+[Appsilon](https://www.appsilon.com/) that makes it possible to use
+React components in Shiny and Quarto.
 
 ### Contributing
 
