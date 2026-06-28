@@ -35,6 +35,8 @@ const config = {
         { name: '@mui/system', directory: path.resolve(__dirname, 'node_modules/@mui/system') },
         { name: '@mui/utils', directory: path.resolve(__dirname, 'node_modules/@mui/utils') },
         { name: '@mui/lab', directory: path.resolve(__dirname, 'node_modules/@mui/lab') },
+        { name: '@mui/private-theming', directory: path.resolve(__dirname, 'node_modules/@mui/private-theming') },
+        { name: '@mui/styled-engine', directory: path.resolve(__dirname, 'node_modules/@mui/styled-engine') },
       ],
     }),
   ],
