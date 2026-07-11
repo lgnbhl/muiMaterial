@@ -2,6 +2,7 @@ test_that(".triggerId factories validate their triggerId argument", {
   expect_error(Drawer.triggerId(123), "triggerId")
   expect_error(Dialog.triggerId(NULL), "triggerId")
   expect_error(Menu.triggerId(c("a", "b")), "triggerId")
+  expect_error(Drawer.triggerId(""), "triggerId")
 })
 
 test_that(".triggerId factories return a shiny.tag with the muiMaterial class", {

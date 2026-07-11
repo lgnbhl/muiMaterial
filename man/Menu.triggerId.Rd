@@ -10,7 +10,10 @@ Menu.triggerId(triggerId, ...)
 \item{triggerId}{HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Menu.}
 
 \item{...}{Named arguments forwarded as React props, plus children to render inside the component.
-Pass `closeOnItemClick = FALSE` to keep the menu open after a click.}
+Pass `closeOnItemClick = FALSE` to keep the menu open after a click.
+`anchorEl`/`open` are owned by the wrapper; caller-supplied `onClick`
+and `onClose` are composed with (called after) the wrapper's own
+handlers rather than replacing them.}
 }
 \value{
 Object with `shiny.tag` class suitable for use in the UI of a Shiny app.

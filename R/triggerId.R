@@ -1,6 +1,6 @@
 trigger <- function(name, module = "@/muiMaterial") {
   function(triggerId, ...) {
-    checkmate::assert_string(triggerId)
+    checkmate::assert_string(triggerId, min.chars = 1)
     muiElement(name, module, shiny.react::asProps(triggerId = triggerId, ...))
   }
 }
@@ -14,6 +14,13 @@ trigger <- function(name, module = "@/muiMaterial") {
 #'   Pass \code{closeOnLinkClick = FALSE} to keep the Drawer open when any link inside it is
 #'   clicked. The default (\code{TRUE}) closes the Drawer on any \code{<a>} click, including
 #'   external links with \code{target = "_blank"}.
+#'
+#'   \code{sx} styles the Drawer root, as on any other component. Size the
+#'   drawer paper with \code{width} (280 by default) or style it via
+#'   \code{slotProps = list(paper = list(sx = list(...)))}. The \code{open}
+#'   prop is owned by the wrapper (that is the point of \code{.triggerId});
+#'   a caller-supplied \code{onClose} is called after the wrapper closes
+#'   itself.
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 #' @examplesIf interactive()
 #' library(shiny)
@@ -38,6 +45,9 @@ Drawer.triggerId <- trigger("MuiDrawerTriggerId")
 #' @param triggerId HTML id of an existing DOM element that acts as the trigger (button, link, etc.) to open the Menu.
 #' @param ... Named arguments forwarded as React props, plus children to render inside the component.
 #'   Pass `closeOnItemClick = FALSE` to keep the menu open after a click.
+#'   `anchorEl`/`open` are owned by the wrapper; caller-supplied `onClick`
+#'   and `onClose` are composed with (called after) the wrapper's own
+#'   handlers rather than replacing them.
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 #' @export
 Menu.triggerId <- trigger("MuiMenuTriggerId")
@@ -51,6 +61,12 @@ Menu.triggerId <- trigger("MuiMenuTriggerId")
 #'   Pass \code{closeOnLinkClick = FALSE} to keep the Drawer open when any link inside it is
 #'   clicked. The default (\code{TRUE}) closes the Drawer on any \code{<a>} click, including
 #'   external links with \code{target = "_blank"}.
+#'
+#'   \code{sx} styles the SwipeableDrawer root, as on any other component.
+#'   Size the drawer paper with \code{width} (280 by default) or style it via
+#'   \code{slotProps = list(paper = list(sx = list(...)))}. The \code{open}
+#'   prop is owned by the wrapper; caller-supplied \code{onClose}/\code{onOpen}
+#'   are called after the wrapper updates its own state.
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 #' @export
 SwipeableDrawer.triggerId <- trigger("MuiSwipeableDrawerTriggerId")

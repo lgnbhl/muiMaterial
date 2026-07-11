@@ -2,7 +2,20 @@ import { useEffect, useRef } from 'react';
 
 // Attaches an event handler to a DOM element identified by triggerId.
 // The element may live outside the React tree (e.g. a plain Shiny actionButton),
-// which is why we look it up by ID rather than receiving a ref.
+// which is why we look it up by id rather than receiving a ref.
+//
+// The listener is delegated: it sits on `document` and matches the trigger with
+// Element.closest() at event time. Unlike a direct addEventListener on the
+// node, this survives the trigger element being replaced by a Shiny re-render
+// (renderUI/uiOutput) — the listener would otherwise die with the replaced
+// node. It also needs no MutationObserver for triggers that appear late.
+// Because delegated events keep `currentTarget = document`, the matched
+// trigger element is passed to the handler as a second argument.
+//
+// The listener is registered in the CAPTURE phase: a bubble-phase delegated
+// listener never fires if anything between the trigger and `document` calls
+// e.stopPropagation(), which silently kills the binding. Capture runs on the
+// way down, before any bubbling handler can stop the event.
 export function useTriggerBind(triggerId, handler, eventType = 'click') {
   // Store handler in a ref so the listener always calls the latest version
   // without needing to be re-registered when handler identity changes.
@@ -10,60 +23,31 @@ export function useTriggerBind(triggerId, handler, eventType = 'click') {
   handlerRef.current = handler;
 
   useEffect(() => {
-    if (!triggerId) return;
+    if (!triggerId) return undefined;
 
-    // Wrap the ref call so we can pass a stable function reference to addEventListener.
-    const listener = (e) => handlerRef.current(e);
-    let boundEl = null;   // tracks the element we attached to, for cleanup
-    let observer = null;  // tracks the MutationObserver, for cleanup
-    let warnTimer = null; // fires a console.warn if the element never appears
-
-    const bind = (el) => {
-      boundEl = el;
-      el.addEventListener(eventType, listener);
+    const listener = (e) => {
+      if (!(e.target instanceof Element)) return;
+      const el = e.target.closest(`#${CSS.escape(triggerId)}`);
+      if (el) handlerRef.current(e, el);
     };
+    document.addEventListener(eventType, listener, true);
 
-    const el = document.getElementById(triggerId);
-    if (el) {
-      // Element already exists in the DOM — bind immediately.
-      bind(el);
-    } else {
-      // Element not yet in the DOM (e.g. rendered later by Shiny).
-      // Watch for DOM changes and bind as soon as it appears.
-      warnTimer = setTimeout(() => {
+    // Purely diagnostic: flag a probably typo'd id. Binding is delegated, so
+    // it still works if the element appears later than this check.
+    const warnTimer = setTimeout(() => {
+      if (!document.getElementById(triggerId)) {
         // eslint-disable-next-line no-console
         console.warn(
           `useTriggerBind: no element with id "${triggerId}" found after 5 s. ` +
-          'Check that triggerId matches an existing DOM element id.'
+          'Check that triggerId matches an existing DOM element id. ' +
+          '(The trigger will still work if the element is added later.)'
         );
-        // Stop watching the DOM: if the element hasn't appeared in 5 s it
-        // almost certainly never will (typo'd id), and a live observer on
-        // document.body would otherwise run on every mutation for the rest
-        // of the component's life.
-        if (observer) {
-          observer.disconnect();
-          observer = null;
-        }
-      }, 5000);
+      }
+    }, 5000);
 
-      observer = new MutationObserver(() => {
-        const found = document.getElementById(triggerId);
-        if (found) {
-          clearTimeout(warnTimer);
-          warnTimer = null;
-          observer.disconnect(); // stop watching once the element is found
-          observer = null;
-          bind(found);
-        }
-      });
-      observer.observe(document.body, { childList: true, subtree: true });
-    }
-
-    // Cleanup runs when triggerId/eventType change or the component unmounts.
     return () => {
       clearTimeout(warnTimer);
-      if (observer) observer.disconnect();
-      if (boundEl) boundEl.removeEventListener(eventType, listener);
+      document.removeEventListener(eventType, listener, true);
     };
   }, [triggerId, eventType]);
 }
