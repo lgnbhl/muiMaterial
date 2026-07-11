@@ -20,12 +20,21 @@ muiMaterialExample <- function(example = NULL, ...) {
     package = utils::packageName(),
     mustWork = TRUE
   )
+  available <- sub("\\.R$", "", list.files(examples))
   if (is.null(example)) {
-    sub("\\.R$", "", list.files(examples))
+    available
   } else {
+    checkmate::assert_string(example)
     path <- file.path(examples, example)
     if (!grepl("\\.R$", path) && !file.exists(path)) {
       path <- paste0(path, ".R")
+    }
+    if (!file.exists(path)) {
+      stop(
+        "Unknown example '", example, "'. Available examples: ",
+        paste(available, collapse = ", "), ".",
+        call. = FALSE
+      )
     }
     shiny::runApp(path, ...)
   }
