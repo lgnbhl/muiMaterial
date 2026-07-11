@@ -2,7 +2,12 @@
 
 button <- function(name, module = "@/muiMaterial") {
   function(inputId, ...) {
-    checkmate::assert_string(inputId)
+    checkmate::assert_string(inputId, min.chars = 1)
+    warnIfReservedProps(
+      paste0(name, ".shinyInput"),
+      reserved = "onClick",
+      argNames = names(list(...))
+    )
     muiElement(name, module, shiny.react::asProps(inputId = inputId, ...))
   }
 }
@@ -94,6 +99,41 @@ LoadingButton.shinyInput <- button("LoadingButton")
 #' @export
 updateLoadingButton.shinyInput <- shiny.react::updateReactInput
 
+#' @rdname ListItemButton
+#' @inherit shinyInput params return
+#' @note \code{input[[inputId]]} is a click counter (like
+#'   \code{shiny::actionButton()}), incremented each time the row is clicked.
+#'   For lists generated dynamically with \code{lapply()}, an alternative to
+#'   one input per row is a single custom event carrying the clicked row as
+#'   payload: \code{onClick = JS("() => Shiny.setInputValue('rowClicked',
+#'   'row-1', {priority: 'event'})")}.
+#' @examplesIf interactive()
+#' library(shiny)
+#' library(muiMaterial)
+#'
+#' ui <- muiMaterialPage(
+#'   List(
+#'     ListItemButton.shinyInput(
+#'       inputId = "item1",
+#'       ListItemText(primary = "Click me")
+#'     )
+#'   ),
+#'   verbatimTextOutput("count")
+#' )
+#'
+#' server <- function(input, output, session) {
+#'   output$count <- renderPrint(input$item1)
+#' }
+#'
+#' shinyApp(ui, server)
+#' @export
+ListItemButton.shinyInput <- button("ListItemButton")
+
+#' @rdname ListItemButton
+#' @inherit shinyInput params return
+#' @export
+updateListItemButton.shinyInput <- shiny.react::updateReactInput
+
 #' @rdname Menu
 #' @inherit shinyInput params return
 #' @note This is an overlay surface wired as a click-reporter: \code{input[[inputId]]}
@@ -176,7 +216,12 @@ updateToggleButton.shinyInput <- shiny.react::updateReactInput
 
 input <- function(name, defaultValue = NULL, module = "@/muiMaterial") {
   function(inputId, ..., value = defaultValue) {
-    checkmate::assert_string(inputId)
+    checkmate::assert_string(inputId, min.chars = 1)
+    warnIfReservedProps(
+      paste0(name, ".shinyInput"),
+      reserved = c("checked", "onChange"),
+      argNames = names(list(...))
+    )
     muiElement(name, module, shiny.react::asProps(inputId = inputId, ..., value = value))
   }
 }
@@ -204,7 +249,12 @@ input <- function(name, defaultValue = NULL, module = "@/muiMaterial") {
 #' shinyApp(ui, server)
 #' @export
 Autocomplete.shinyInput <- function(inputId, ..., value = NULL) {
-  checkmate::assert_string(inputId)
+  checkmate::assert_string(inputId, min.chars = 1)
+  warnIfReservedProps(
+    "Autocomplete.shinyInput",
+    reserved = "onChange",
+    argNames = names(list(...))
+  )
   args <- list(...)
   arg_names <- names(args)
   if (is.null(arg_names)) {

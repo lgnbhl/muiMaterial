@@ -29,12 +29,31 @@ test_that("button() factory validates inputId", {
   expect_error(Button.shinyInput(123), "inputId")
   expect_error(Button.shinyInput(NULL), "inputId")
   expect_error(Button.shinyInput(c("a", "b")), "inputId")
+  expect_error(Button.shinyInput(""), "inputId")
+})
+
+test_that("button() factory warns when the reserved onClick prop is supplied", {
+  expect_warning(
+    Button.shinyInput("btn", onClick = JS("() => {}")),
+    "onClick.*reserved"
+  )
+  # Non-reserved callback props pass through silently.
+  expect_no_warning(Drawer.shinyInput("d", onClose = triggerEvent("closed")))
 })
 
 test_that("button() factory wires several overlay surfaces to their components", {
   expect_equal(react_name(Dialog.shinyInput("d")), "Dialog")
   expect_equal(react_name(Menu.shinyInput("m")), "Menu")
   expect_equal(react_name(Snackbar.shinyInput("s")), "Snackbar")
+})
+
+test_that("ListItemButton.shinyInput is wired as a click-counter input", {
+  tag <- ListItemButton.shinyInput("row", ListItemText(primary = "Row"))
+  expect_true(inherits(tag, "muiMaterial"))
+  expect_equal(react_name(tag), "ListItemButton")
+  expect_equal(unwrap(react_props(tag)[["inputId"]]), "row")
+  expect_error(ListItemButton.shinyInput(123), "inputId")
+  expect_true(is.function(updateListItemButton.shinyInput))
 })
 
 # --- input() factory (Slider.shinyInput, Checkbox.shinyInput, ...) -----------
@@ -69,6 +88,31 @@ test_that("input() factory applies its defaultValue when value is omitted", {
 test_that("input() factory validates inputId", {
   expect_error(Slider.shinyInput(123), "inputId")
   expect_error(Checkbox.shinyInput(NULL), "inputId")
+  expect_error(Slider.shinyInput(""), "inputId")
+})
+
+test_that("input() factory warns when reserved props are supplied", {
+  expect_warning(
+    Checkbox.shinyInput("a", checked = TRUE),
+    "checked.*reserved"
+  )
+  expect_warning(
+    Slider.shinyInput("s", onChange = JS("() => {}")),
+    "onChange.*reserved"
+  )
+  expect_warning(
+    Autocomplete.shinyInput("ac", options = c("x"), onChange = JS("() => {}")),
+    "onChange.*reserved"
+  )
+  # The `value` argument is the supported way in -- no warning.
+  expect_no_warning(Checkbox.shinyInput("a", value = TRUE))
+})
+
+test_that("reserved-prop warning can be silenced for deliberate overrides", {
+  old <- options(muiMaterial.warnReservedProps = FALSE)
+  on.exit(options(old), add = TRUE)
+  expect_no_warning(Checkbox.shinyInput("a", checked = TRUE))
+  expect_no_warning(Button.shinyInput("btn", onClick = JS("() => {}")))
 })
 
 # --- input-surface completeness (BottomNavigation, FilledInput, NativeSelect) -

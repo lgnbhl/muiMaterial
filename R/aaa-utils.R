@@ -21,3 +21,31 @@ component <- function(name, module = "@mui/material") {
     muiElement(name, module, shiny.react::asProps(...))
   }
 }
+
+# Warn when a caller passes a prop that the `.shinyInput` wiring owns
+# (`checked`/`onChange` on value inputs, `onClick` on action inputs): the
+# caller's prop overrides the adapter's and `input[[inputId]]` silently stops
+# updating -- the single most common muiMaterial mistake. A warning rather
+# than an error because overriding the wiring deliberately (server state as
+# the single source of truth, pushed down via renderReact()) is a legitimate
+# advanced pattern; those callers can set
+# options(muiMaterial.warnReservedProps = FALSE).
+warnIfReservedProps <- function(fn, reserved, argNames) {
+  if (!isTRUE(getOption("muiMaterial.warnReservedProps", TRUE))) {
+    return(invisible(NULL))
+  }
+  hit <- intersect(reserved, argNames)
+  if (length(hit) > 0) {
+    warning(
+      fn, "(): ", paste0("`", hit, "`", collapse = ", "),
+      if (length(hit) > 1) " are reserved props" else " is a reserved prop",
+      " -- a caller-supplied value overrides the .shinyInput wiring and ",
+      "`input[[inputId]]` may stop updating. Set the initial state with the ",
+      "`value` argument instead; see the 'Reserved props' section in ",
+      "?shinyInput. Suppress this warning with ",
+      "options(muiMaterial.warnReservedProps = FALSE).",
+      call. = FALSE
+    )
+  }
+  invisible(NULL)
+}

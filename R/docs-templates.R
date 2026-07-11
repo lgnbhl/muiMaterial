@@ -30,6 +30,19 @@ NULL
 #' value with the `value` argument and react to changes server-side via
 #' `input[[inputId]]` (or push new values with the matching `update*` function).
 #'
+#' Action inputs (`Button`, `IconButton`, `Fab`, `ListItemButton`, `MenuItem`,
+#' ... -- anything whose `input[[inputId]]` is a click counter) own the
+#' `onClick` prop the same way: passing your own `onClick` through `...`
+#' replaces the click-counter wiring and `input[[inputId]]` stops updating.
+#' Use `onClick = triggerEvent("name")` on a static component instead if you
+#' need a custom browser-to-server signal.
+#'
+#' Passing a reserved prop (`checked`/`onChange` on value inputs, `onClick`
+#' on action inputs) raises a warning. Overriding the wiring on purpose --
+#' e.g. pushing server-owned state down with `checked` inside `renderReact()`
+#' -- is a legitimate advanced pattern; silence the warning with
+#' `options(muiMaterial.warnReservedProps = FALSE)`.
+#'
 #' @keywords internal
 #' @name shinyInput
 NULL
