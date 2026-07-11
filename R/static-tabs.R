@@ -20,10 +20,11 @@
 #'   positionally into \code{value} / \code{defaultValue}.
 #' @export
 TabContext.static <- function(..., value = NULL, defaultValue = NULL) {
-  # Only forward `value` / `defaultValue` when actually supplied. Passing a
-  # NULL named arg alongside unnamed children makes shiny.react::asProps()
-  # bind the first child positionally into the NULL slot, which puts the
-  # JS wrapper into spurious controlled mode and produces a blank UI.
+  # Only forward `value` / `defaultValue` when actually supplied.
+  # shiny.react::asProps() keeps a named NULL prop (it does not drop it), and
+  # a NULL that crosses the R -> JS bridge can arrive as a defined value,
+  # flipping the JS wrapper into spurious controlled mode and producing a
+  # blank UI. Omitting the props entirely keeps the wire format unambiguous.
   named <- list()
   if (!is.null(value)) named$value <- value
   if (!is.null(defaultValue)) named$defaultValue <- defaultValue

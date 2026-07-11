@@ -32,6 +32,10 @@ jobs:
         working-directory: js
         run: yarn install --frozen-lockfile
 
+      - name: Run JS tests
+        working-directory: js
+        run: yarn test
+
       - name: Rebuild JS bundle
         working-directory: js
         run: yarn build

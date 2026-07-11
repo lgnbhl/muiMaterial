@@ -2,9 +2,12 @@ const webpack = require('webpack');
 const path = require('path');
 const { LicenseWebpackPlugin } = require('license-webpack-plugin');
 
-const config = {
+module.exports = (env, argv) => {
+  const mode = argv.mode || 'production';
+
+  return {
   entry: './src/index.js',
-  mode: 'production',
+  mode,
   output: {
     path: path.join(__dirname, '..', 'inst', 'www', 'muiMaterial'),
     filename: 'mui-material.js',
@@ -26,8 +29,16 @@ const config = {
     'react-dom': 'jsmodule["react-dom"]',
     '@/shiny.react': 'jsmodule["@/shiny.react"]',
   },
+  // NODE_ENV is owned explicitly by the DefinePlugin below (instead of
+  // webpack's implicit mode-based define) so the dev-vs-production choice is
+  // visible here: production strips MUI's dev-mode warning code from the
+  // bundle.
+  optimization: { nodeEnv: false },
   plugins: [
-    new webpack.DefinePlugin({ 'process.env': '{}' }),
+    new webpack.DefinePlugin({
+      'process.env': '{}',
+      'process.env.NODE_ENV': JSON.stringify(mode),
+    }),
     new LicenseWebpackPlugin({
       outputFilename: 'mui-material.js.LICENSE.txt',
       additionalModules: [
@@ -44,6 +55,5 @@ const config = {
     maxAssetSize: 2097152, // 2 MiB
     maxEntrypointSize: 2097152, // 2 MiB
   },
+  };
 };
-
-module.exports = config;
