@@ -31,12 +31,17 @@ muiMaterialPage(
 
 \item{suppressBootstrap}{Whether to suppress Bootstrap. TRUE by default.}
 
-\item{styleBody}{CSS style in body, using `margin:0` by default.}
+\item{styleBody}{CSS declarations applied to the document body via a
+`body { ... }` style rule, `"margin:0"` by default.}
 
 \item{debugReact}{Whether to enable react debug mode. FALSE by default.}
 }
 \value{
-html object with 'margin:0' which can be passed as the UI of a Shiny app.
+A browsable `htmltools` tag list which can be passed as the UI of a
+  Shiny app or rendered standalone (e.g. with `htmltools::save_html()`).
+  Head content (meta tags, font links, the body style rule) is emitted via
+  `htmltools::tags$head()` and hoisted into the document head at render
+  time.
 }
 \description{
 Creates a Material UI page without Bootstrap and with 0 margin in body by default.

@@ -15,9 +15,14 @@
 #' @param useMaterialIconsRounded Use Google icons CDN in head to use `Icon()` component, FALSE by default.
 #' @param useMaterialIconsTwoTones Use Google icons CDN in head to use `Icon()` component, FALSE by default.
 #' @param suppressBootstrap Whether to suppress Bootstrap. TRUE by default.
-#' @param styleBody CSS style in body, using `margin:0` by default.
+#' @param styleBody CSS declarations applied to the document body via a
+#'   `body { ... }` style rule, `"margin:0"` by default.
 #' @param debugReact Whether to enable react debug mode. FALSE by default.
-#' @return html object with 'margin:0' which can be passed as the UI of a Shiny app.
+#' @return A browsable `htmltools` tag list which can be passed as the UI of a
+#'   Shiny app or rendered standalone (e.g. with `htmltools::save_html()`).
+#'   Head content (meta tags, font links, the body style rule) is emitted via
+#'   `htmltools::tags$head()` and hoisted into the document head at render
+#'   time.
 #'
 #' @examplesIf interactive()
 #' library(shiny)
@@ -71,13 +76,21 @@ muiMaterialPage <- function(
     paste0("https://fonts.googleapis.com/icon?family=", family)
   }
 
-  htmltools::browsable(htmltools::tags$html(
+  # A tagList with a tags$head() rather than a full tags$html()/tags$body()
+  # document: Shiny inserts the UI into its own document body, and a nested
+  # <html>/<body> only renders correctly because browsers merge the stray
+  # tags. Head content is hoisted by htmltools/Shiny at render time, and the
+  # body style is applied with a CSS rule instead of a <body> attribute.
+  htmltools::browsable(htmltools::tagList(
     htmltools::tags$head(
       htmltools::tags$meta(charset = "UTF-8"),
       htmltools::tags$meta(
         name = "viewport",
         content = "initial-scale=1, width=device-width"
       ),
+      htmltools::tags$style(htmltools::HTML(
+        sprintf("body{%s}", styleBody)
+      )),
       if (useGoogleFonts) {
         htmltools::tagList(
           htmltools::tags$link(
@@ -110,14 +123,11 @@ muiMaterialPage <- function(
         htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons+Two+Tone"))
       }
     ),
-    htmltools::tags$body(
-      style = styleBody,
-      if (suppressBootstrap) {
-        htmltools::suppressDependencies("bootstrap")
-      } else {
-        shiny::bootstrapLib()
-      },
-      ...
-    )
+    if (suppressBootstrap) {
+      htmltools::suppressDependencies("bootstrap")
+    } else {
+      shiny::bootstrapLib()
+    },
+    ...
   ))
 }
