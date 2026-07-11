@@ -37,13 +37,40 @@ export const ToggleButton = ButtonAdapter(Material.ToggleButton);
  *      wrapper changes.
  *   3. Default TextField + `inputProps` — kept for backward compatibility.
  */
+// MUI v9's Autocomplete hands renderInput its input wiring as
+// `params.slotProps` ({ inputLabel, input, htmlInput }). cloneElement would
+// let the child's own `slotProps` replace that object wholesale (breaking the
+// wiring: input.ref, the popup/clear endAdornment) or vice versa, so merge
+// slot-by-slot: params first, the child's entries win per key. A child slot
+// value that is not a mergeable object (e.g. a `JS()` callback taking
+// ownerState) replaces the params slot entirely.
+const mergeSlotProps = (paramsSlotProps, childSlotProps) => {
+  if (!childSlotProps) return paramsSlotProps;
+  const isMergeable = (v) => typeof v === 'object' && v !== null && !Array.isArray(v);
+  const merged = { ...paramsSlotProps };
+  Object.entries(childSlotProps).forEach(([slot, value]) => {
+    merged[slot] = (isMergeable(value) && isMergeable(merged[slot]))
+      ? { ...merged[slot], ...value }
+      : value;
+  });
+  return merged;
+};
+
 export const AutocompleteStatic = ({ inputProps, renderInput, children, ...props }) => {
   const inputEl = React.Children.toArray(children).find(React.isValidElement);
   const resolvedRenderInput = renderInput
     ?? (inputEl
-      // cloneElement already carries inputEl's own props; we only merge in
-      // the Autocomplete-supplied `params` (id, InputProps, inputProps, ...).
-      ? (params) => React.cloneElement(inputEl, params)
+      // cloneElement keeps inputEl's own props and lets `params` win on
+      // conflicts — the reverse of MUI's `<TextField {...params} {...yours}/>`
+      // idiom, but params carry wiring (id, slotProps.input.ref) that must
+      // survive. `slotProps` is the one key both sides legitimately set, so
+      // it is composed (see mergeSlotProps) instead of clobbered: a child
+      // TextField's `slotProps = list(input = list(startAdornment = ...))`
+      // now works.
+      ? (params) => React.cloneElement(inputEl, {
+        ...params,
+        slotProps: mergeSlotProps(params.slotProps, inputEl.props.slotProps),
+      })
       : (params) => <Material.TextField {...params} {...inputProps} />);
   return <Material.Autocomplete renderInput={resolvedRenderInput} {...props} />;
 };
