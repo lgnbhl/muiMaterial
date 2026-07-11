@@ -15,8 +15,7 @@ ui_TransferList <- muiMaterialPage(
 
       # Left list
       Grid(
-        item = TRUE,
-        xs = 5,
+        size = list(xs = 5),
         Card(
           sx = list(height = 400, overflow = "auto"),
           CardHeader(title = "Available"),
@@ -30,8 +29,7 @@ ui_TransferList <- muiMaterialPage(
 
       # Control buttons
       Grid(
-        item = TRUE,
-        xs = 2,
+        size = list(xs = 2),
         Stack(
           spacing = 2,
           alignItems = "center",
@@ -64,8 +62,7 @@ ui_TransferList <- muiMaterialPage(
 
       # Right list
       Grid(
-        item = TRUE,
-        xs = 5,
+        size = list(xs = 5),
         Card(
           sx = list(height = 400, overflow = "auto"),
           CardHeader(title = "Selected"),
@@ -88,52 +85,47 @@ server_TransferList <- function(input, output, session) {
   left_checked <- reactiveVal(character(0))
   right_checked <- reactiveVal(character(0))
 
+  # Serialize an R string into a JS string literal, so item labels containing
+  # quotes or backslashes cannot break the onClick handler below.
+  js_str <- function(x) {
+    paste0('"', gsub('"', '\\\\"', gsub("\\\\", "\\\\\\\\", x)), '"')
+  }
+
+  # One clickable row per item. Row clicks fire a single custom event
+  # carrying the item as payload (rather than one .shinyInput per row)
+  # because the rows are re-generated on every move. The server state is the
+  # single source of truth: the plain Checkbox is controlled by `checked`
+  # and each renderReact() pushes the state back down; the noop `onChange`
+  # marks it controlled for React while the row's onClick does the toggling
+  # (a click on the checkbox bubbles up to the row).
+  transfer_row <- function(item, checked, event) {
+    ListItemButton(
+      key = item,
+      onClick = JS(sprintf(
+        "() => Shiny.setInputValue('%s', %s, {priority: 'event'})",
+        event, js_str(item)
+      )),
+      ListItemIcon(
+        Checkbox(
+          checked = item %in% checked,
+          onChange = JS("() => {}"),
+          edge = "start",
+          tabIndex = -1,
+          disableRipple = TRUE
+        )
+      ),
+      ListItemText(primary = item)
+    )
+  }
+
   # Render left list
   output$left_list_items <- renderReact({
-    items <- left_items()
-    checked <- left_checked()
-
-    lapply(items, function(item) {
-      ListItemButton(
-        onClick = JS(paste0(
-          "() => Shiny.setInputValue('left_toggle', '",
-          item,
-          "', {priority: 'event'})"
-        )),
-        ListItemIcon(
-          Checkbox.shinyInput(
-            paste0("left_check_", gsub(" ", "_", item)),
-            checked = item %in% checked,
-            edge = "start"
-          )
-        ),
-        ListItemText(primary = item)
-      )
-    })
+    lapply(left_items(), transfer_row, checked = left_checked(), event = "left_toggle")
   })
 
   # Render right list
   output$right_list_items <- renderReact({
-    items <- right_items()
-    checked <- right_checked()
-
-    lapply(items, function(item) {
-      ListItemButton(
-        onClick = JS(paste0(
-          "() => Shiny.setInputValue('right_toggle', '",
-          item,
-          "', {priority: 'event'})"
-        )),
-        ListItemIcon(
-          Checkbox.shinyInput(
-            paste0("right_check_", gsub(" ", "_", item)),
-            checked = item %in% checked,
-            edge = "start"
-          )
-        ),
-        ListItemText(primary = item)
-      )
-    })
+    lapply(right_items(), transfer_row, checked = right_checked(), event = "right_toggle")
   })
 
   # Toggle left checkboxes

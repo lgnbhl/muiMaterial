@@ -7,7 +7,7 @@ Checkboxes <- div(
   Checkbox.shinyInput(inputId = "Checkboxes1", value = TRUE),
   Checkbox.shinyInput(inputId = "Checkboxes2", value = FALSE),
   Checkbox.shinyInput(inputId = "Checkboxes3", disabled = TRUE),
-  Checkbox.shinyInput(inputId = "Checkboxes4", disabled = TRUE, checked = TRUE),
+  Checkbox.shinyInput(inputId = "Checkboxes4", disabled = TRUE, value = TRUE),
   Stack(
     spacing = 2,
     direction = "row",
@@ -94,7 +94,7 @@ IconCheckboxes <- div(
     checkedIcon = shiny::icon("heart", class = "fa-solid")
   ),
   Checkbox.shinyInput(
-    inputId = "IconCheckboxe2",
+    inputId = "IconCheckboxes2",
     icon = shiny::icon("bookmark", class = "fa-regular"),
     checkedIcon = shiny::icon("bookmark", class = "fa-solid")
   )

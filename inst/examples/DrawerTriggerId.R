@@ -1,6 +1,7 @@
-# custom SwipeableDrawer.triggerId() function built in js/src/SwipeableDrawerTriggerId.jsx
+# custom Drawer.triggerId() function built in js/src/MuiDrawerTriggerId.jsx
+# (SwipeableDrawer.triggerId() works the same; see js/src/MuiSwipeableDrawerTriggerId.jsx)
 
-ui_SwipeableDrawer.triggerId <- muiMaterialPage(
+ui_Drawer.triggerId <- muiMaterialPage(
   CssBaseline(),
   # In the AppBar, user adds a trigger with any id (mobile only)
   Box(
@@ -79,4 +80,4 @@ ui_SwipeableDrawer.triggerId <- muiMaterialPage(
   )
 )
 
-htmltools::browsable(ui_SwipeableDrawer.triggerId)
+htmltools::browsable(ui_Drawer.triggerId)

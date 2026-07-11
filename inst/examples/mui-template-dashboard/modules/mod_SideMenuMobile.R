@@ -6,11 +6,11 @@ mod_SideMenuMobile_ui <- function(id, triggerId) {
     triggerId = triggerId,
     anchor = "right",
     sx = list(
-      zIndex = "(theme) => theme.zIndex.drawer + 1,
-      [`& .${drawerClasses.paper}`]: {
-        backgroundImage: 'none',
-        backgroundColor: 'background.paper'
-      "
+      zIndex = JS("(theme) => theme.zIndex.drawer + 1"),
+      "& .MuiDrawer-paper" = list(
+        backgroundImage = "none",
+        backgroundColor = "background.paper"
+      )
     ),
     Stack(
       sx = list(
