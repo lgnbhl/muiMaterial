@@ -21,6 +21,8 @@ navbar:
       href: articles/getting-started.html
     - text: AI-Assisted Development
       href: articles/ai-assisted-development.html
+    - text: llms.txt
+      href: llms.txt
   - text: Reference
     href: reference/index.html
   - text: Inputs
