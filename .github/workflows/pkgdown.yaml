@@ -14,6 +14,10 @@ name: pkgdown.yaml
 
 permissions: read-all
 
+concurrency:
+  group: pkgdown-${{ github.event_name }}
+  cancel-in-progress: true
+
 jobs:
   pkgdown:
     runs-on: ubuntu-latest
@@ -21,12 +25,6 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
       - uses: actions/checkout@v7
-        # persist-credentials: false stops checkout from leaving the
-        # github-actions[bot] GITHUB_TOKEN as a git auth header, which would
-        # otherwise hijack the cross-repo deploy push and cause a 403
-        # ("denied to github-actions[bot]") instead of using DEPLOY_PAT.
-        with:
-          persist-credentials: false
 
       - uses: r-lib/actions/setup-pandoc@v2.12.1
 
@@ -45,35 +43,47 @@ jobs:
         # NOTE: deliberately using build_site() rather than
         # build_site_github_pages() to avoid auto-writing a CNAME from the
         # `url:` in _pkgdown.yml; the site is deployed into a subfolder of the
-        # lgnbhl.github.io user site, whose own CNAME must not be touched
-        # (the deploy step also excludes CNAME for good measure).
+        # lgnbhl.github.io user site, whose own CNAME must not be touched.
         run: pkgdown::build_site(new_process = FALSE, install = FALSE)
         shell: Rscript {0}
 
-      - name: Detach HEAD to free the 'main' branch name for deploy
-        # The deploy action below creates a git worktree and checks out the
-        # target branch (main on lgnbhl.github.io). Git refuses because this
-        # runner's source checkout is also on a branch named 'main'. Detaching
-        # HEAD frees the name so the deploy worktree can use it.
+      # Write access comes from the deploy key on lgnbhl/lgnbhl.github.io, held
+      # here as DEPLOY_PAT (an SSH private key, despite the name). GITHUB_TOKEN
+      # is scoped to this repo only and cannot write to another repo.
+      - name: Check out the site repository
         if: github.event_name != 'pull_request'
-        run: git checkout --detach
-        shell: bash
-
-      - name: Deploy to user site repo
-        # Pushes the built site into the muiMaterial/ subfolder of the
-        # lgnbhl/lgnbhl.github.io user site (served at felixluginbuhl.com/muiMaterial,
-        # which is the canonical URL set in _pkgdown.yml).
-        # Cross-repo push needs a PAT (with contents:write on lgnbhl.github.io)
-        # stored as the DEPLOY_PAT secret -- the default GITHUB_TOKEN is
-        # scoped to this repo only and cannot write to another repo.
-        # clean is scoped to target-folder, so sibling project folders
-        # (muiCharts, reactRouter, the Quarto site, ...) are left untouched.
-        if: github.event_name != 'pull_request'
-        uses: JamesIves/github-pages-deploy-action@v4.5.0
+        uses: actions/checkout@v7
         with:
-          token: ${{ secrets.DEPLOY_PAT }}
-          repository-name: lgnbhl/lgnbhl.github.io
-          branch: main
-          folder: docs
-          target-folder: muiMaterial
-          clean: true
+          repository: lgnbhl/lgnbhl.github.io
+          ssh-key: ${{ secrets.DEPLOY_PAT }}
+          path: _target
+
+      # Delete then copy, so a page removed from the site is removed from the
+      # target. Only the muiMaterial/ folder is touched; sibling project folders
+      # (muiCharts, reactRouter, the personal site, ...) are left untouched.
+      - name: Replace the reference
+        if: github.event_name != 'pull_request'
+        run: |
+          rm -rf _target/muiMaterial
+          cp -a docs _target/muiMaterial
+
+      # Other pipelines push to the same branch, so a push can lose the race.
+      # They write disjoint folders, so rebasing and pushing again is safe.
+      - name: Publish
+        if: github.event_name != 'pull_request'
+        working-directory: _target
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -A muiMaterial
+          if git diff --staged --quiet; then
+            echo "the built site is unchanged"
+            exit 0
+          fi
+          git commit -m "Publish muiMaterial reference [skip ci]"
+          for attempt in 1 2 3 4 5; do
+            git push && exit 0
+            sleep $((attempt * 5))
+            git pull --rebase
+          done
+          exit 1
