@@ -16,7 +16,7 @@
 #' @param useMaterialIconsTwoTones Use Google icons CDN in head to use `Icon()` component, FALSE by default.
 #' @param suppressBootstrap Whether to suppress Bootstrap. TRUE by default.
 #' @param styleBody CSS declarations applied to the document body via a
-#'   `body { ... }` style rule, `"margin:0"` by default.
+#'   \code{body \{ ... \}} style rule, \code{"margin:0"} by default.
 #' @param debugReact Whether to enable react debug mode. FALSE by default.
 #' @return A browsable `htmltools` tag list which can be passed as the UI of a
 #'   Shiny app or rendered standalone (e.g. with `htmltools::save_html()`).

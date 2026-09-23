@@ -32,7 +32,7 @@ muiMaterialPage(
 \item{suppressBootstrap}{Whether to suppress Bootstrap. TRUE by default.}
 
 \item{styleBody}{CSS declarations applied to the document body via a
-`body { ... }` style rule, `"margin:0"` by default.}
+\code{body \{ ... \}} style rule, \code{"margin:0"} by default.}
 
 \item{debugReact}{Whether to enable react debug mode. FALSE by default.}
 }
