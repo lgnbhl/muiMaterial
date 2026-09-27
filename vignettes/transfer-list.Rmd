@@ -1,0 +1,552 @@
+---
+title: "Transfer List"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Transfer List}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-transfer-list/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Transfer List
+
+A Transfer List (or "shuttle") enables the user to move one or more list items between lists.
+
+A transfer list has a lot of state: which items are checked, and in which list
+each item is. In a Shiny app, that state naturally lives on the server. The
+demos below show the layout; the [complete Shiny app](#transfer-lists-in-shiny-apps)
+is at the end of the page.
+
+## Basic transfer list
+
+For completeness, this example includes buttons for "move all", but not every transfer list needs these.
+
+```{r}
+customList <- function(items, checked = integer()) {
+  Paper(
+    sx = list(width = 200, height = 230, overflow = "auto"),
+    List(
+      dense = TRUE,
+      component = "div",
+      role = "list",
+      lapply(items, function(value) {
+        labelId <- sprintf("transfer-list-item-%s-label", value)
+        ListItemButton(
+          role = "listitem",
+          ListItemIcon(
+            Checkbox(
+              defaultChecked = value %in% checked,
+              tabIndex = -1,
+              disableRipple = TRUE,
+              slotProps = list(input = list(`aria-labelledby` = labelId))
+            )
+          ),
+          ListItemText(id = labelId, primary = paste("List item", value + 1))
+        )
+      })
+    )
+  )
+}
+moveButton <- function(label, ariaLabel, disabled = FALSE) {
+  Button(sx = list(my = 0.5), variant = "outlined", size = "small", disabled = disabled, `aria-label` = ariaLabel, label)
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  Grid(
+    container = TRUE,
+    spacing = 2,
+    sx = list(justifyContent = "center", alignItems = "center"),
+    Grid(customList(0:3)),
+    Stack(
+      moveButton("≫", "move all right"),
+      moveButton(">", "move selected right", disabled = TRUE),
+      moveButton("<", "move selected left", disabled = TRUE),
+      moveButton("≪", "move all left")
+    ),
+    Grid(customList(4:7))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Stack from '@mui/material/Stack';
+
+function not(a, b) {
+  return a.filter((value) => !b.includes(value));
+}
+
+function intersection(a, b) {
+  return a.filter((value) => b.includes(value));
+}
+
+export default function TransferList() {
+  const [checked, setChecked] = React.useState([]);
+  const [left, setLeft] = React.useState([0, 1, 2, 3]);
+  const [right, setRight] = React.useState([4, 5, 6, 7]);
+
+  const leftChecked = intersection(checked, left);
+  const rightChecked = intersection(checked, right);
+
+  const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
+  const handleAllRight = () => {
+    setRight(right.concat(left));
+    setLeft([]);
+  };
+
+  const handleCheckedRight = () => {
+    setRight(right.concat(leftChecked));
+    setLeft(not(left, leftChecked));
+    setChecked(not(checked, leftChecked));
+  };
+
+  const handleCheckedLeft = () => {
+    setLeft(left.concat(rightChecked));
+    setRight(not(right, rightChecked));
+    setChecked(not(checked, rightChecked));
+  };
+
+  const handleAllLeft = () => {
+    setLeft(left.concat(right));
+    setRight([]);
+  };
+
+  const customList = (items) => (
+    <Paper sx={{ width: 200, height: 230, overflow: 'auto' }}>
+      <List dense component="div" role="list">
+        {items.map((value) => {
+          const labelId = `transfer-list-item-${value}-label`;
+
+          return (
+            <ListItemButton
+              key={value}
+              role="listitem"
+              onClick={handleToggle(value)}
+            >
+              <ListItemIcon>
+                <Checkbox
+                  checked={checked.includes(value)}
+                  tabIndex={-1}
+                  disableRipple
+                  slotProps={{
+                    input: { 'aria-labelledby': labelId },
+                  }}
+                />
+              </ListItemIcon>
+              <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+            </ListItemButton>
+          );
+        })}
+      </List>
+    </Paper>
+  );
+
+  return (
+    <Grid
+      container
+      spacing={2}
+      sx={{ justifyContent: 'center', alignItems: 'center' }}
+    >
+      <Grid>{customList(left)}</Grid>
+      <Stack>
+        <Button
+          sx={{ my: 0.5 }}
+          variant="outlined"
+          size="small"
+          onClick={handleAllRight}
+          disabled={left.length === 0}
+          aria-label="move all right"
+        >
+          ≫
+        </Button>
+        <Button
+          sx={{ my: 0.5 }}
+          variant="outlined"
+          size="small"
+          onClick={handleCheckedRight}
+          disabled={leftChecked.length === 0}
+          aria-label="move selected right"
+        >
+          &gt;
+        </Button>
+        <Button
+          sx={{ my: 0.5 }}
+          variant="outlined"
+          size="small"
+          onClick={handleCheckedLeft}
+          disabled={rightChecked.length === 0}
+          aria-label="move selected left"
+        >
+          &lt;
+        </Button>
+        <Button
+          sx={{ my: 0.5 }}
+          variant="outlined"
+          size="small"
+          onClick={handleAllLeft}
+          disabled={right.length === 0}
+          aria-label="move all left"
+        >
+          ≪
+        </Button>
+      </Stack>
+      <Grid>{customList(right)}</Grid>
+    </Grid>
+  );
+}
+```
+</details>
+
+## Enhanced transfer list
+
+This example exchanges the "move all" buttons for a "select all / select none" checkbox and adds a counter.
+
+```{r}
+enhancedList <- function(title, items, checked = integer()) {
+  Card(
+    CardHeader(
+      sx = list(px = 2, py = 1),
+      avatar = Checkbox(
+        checked = length(checked) == length(items) && length(items) > 0,
+        indeterminate = length(checked) > 0 && length(checked) < length(items),
+        disabled = length(items) == 0,
+        onChange = JS("() => {}"),
+        slotProps = list(input = list(`aria-label` = "all items selected"))
+      ),
+      title = title,
+      subheader = sprintf("%s/%s selected", length(checked), length(items))
+    ),
+    Divider(),
+    List(
+      sx = list(width = 200, height = 230, bgcolor = "background.paper", overflow = "auto"),
+      dense = TRUE,
+      component = "div",
+      role = "list",
+      lapply(items, function(value) {
+        ListItemButton(
+          role = "listitem",
+          ListItemIcon(Checkbox(checked = value %in% checked, onChange = JS("() => {}"), tabIndex = -1, disableRipple = TRUE)),
+          ListItemText(primary = paste("List item", value + 1))
+        )
+      })
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  Grid(
+    container = TRUE,
+    spacing = 2,
+    sx = list(justifyContent = "center", alignItems = "center"),
+    Grid(enhancedList("Choices", 0:3, checked = c(0, 2))),
+    Stack(
+      moveButton(">", "move selected right"),
+      moveButton("<", "move selected left", disabled = TRUE)
+    ),
+    Grid(enhancedList("Chosen", 4:7))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import List from '@mui/material/List';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemText from '@mui/material/ListItemText';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import Checkbox from '@mui/material/Checkbox';
+import Button from '@mui/material/Button';
+import Divider from '@mui/material/Divider';
+import Stack from '@mui/material/Stack';
+
+function not(a, b) {
+  return a.filter((value) => !b.includes(value));
+}
+
+function intersection(a, b) {
+  return a.filter((value) => b.includes(value));
+}
+
+function union(a, b) {
+  return [...a, ...not(b, a)];
+}
+
+export default function SelectAllTransferList() {
+  const [checked, setChecked] = React.useState([]);
+  const [left, setLeft] = React.useState([0, 1, 2, 3]);
+  const [right, setRight] = React.useState([4, 5, 6, 7]);
+
+  const leftChecked = intersection(checked, left);
+  const rightChecked = intersection(checked, right);
+
+  const handleToggle = (value) => () => {
+    const currentIndex = checked.indexOf(value);
+    const newChecked = [...checked];
+
+    if (currentIndex === -1) {
+      newChecked.push(value);
+    } else {
+      newChecked.splice(currentIndex, 1);
+    }
+
+    setChecked(newChecked);
+  };
+
+  const numberOfChecked = (items) => intersection(checked, items).length;
+
+  const handleToggleAll = (items) => () => {
+    if (numberOfChecked(items) === items.length) {
+      setChecked(not(checked, items));
+    } else {
+      setChecked(union(checked, items));
+    }
+  };
+
+  const handleCheckedRight = () => {
+    setRight(right.concat(leftChecked));
+    setLeft(not(left, leftChecked));
+    setChecked(not(checked, leftChecked));
+  };
+
+  const handleCheckedLeft = () => {
+    setLeft(left.concat(rightChecked));
+    setRight(not(right, rightChecked));
+    setChecked(not(checked, rightChecked));
+  };
+
+  const customList = (title, items) => (
+    <Card>
+      <CardHeader
+        sx={{ px: 2, py: 1 }}
+        avatar={
+          <Checkbox
+            onClick={handleToggleAll(items)}
+            checked={numberOfChecked(items) === items.length && items.length !== 0}
+            indeterminate={
+              numberOfChecked(items) !== items.length && numberOfChecked(items) !== 0
+            }
+            disabled={items.length === 0}
+            slotProps={{
+              input: { 'aria-label': 'all items selected' },
+            }}
+          />
+        }
+        title={title}
+        subheader={`${numberOfChecked(items)}/${items.length} selected`}
+      />
+      <Divider />
+      <List
+        sx={{
+          width: 200,
+          height: 230,
+          bgcolor: 'background.paper',
+          overflow: 'auto',
+        }}
+        dense
+        component="div"
+        role="list"
+      >
+        {items.map((value) => {
+          const labelId = `transfer-list-all-item-${value}-label`;
+
+          return (
+            <ListItemButton
+              key={value}
+              role="listitem"
+              onClick={handleToggle(value)}
+            >
+              <ListItemIcon>
+                <Checkbox
+                  checked={checked.includes(value)}
+                  tabIndex={-1}
+                  disableRipple
+                  slotProps={{
+                    input: { 'aria-labelledby': labelId },
+                  }}
+                />
+              </ListItemIcon>
+              <ListItemText id={labelId} primary={`List item ${value + 1}`} />
+            </ListItemButton>
+          );
+        })}
+      </List>
+    </Card>
+  );
+
+  return (
+    <Grid
+      container
+      spacing={2}
+      sx={{ justifyContent: 'center', alignItems: 'center' }}
+    >
+      <Grid>{customList('Choices', left)}</Grid>
+      <Stack>
+        <Button
+          sx={{ my: 0.5 }}
+          variant="outlined"
+          size="small"
+          onClick={handleCheckedRight}
+          disabled={leftChecked.length === 0}
+          aria-label="move selected right"
+        >
+          &gt;
+        </Button>
+        <Button
+          sx={{ my: 0.5 }}
+          variant="outlined"
+          size="small"
+          onClick={handleCheckedLeft}
+          disabled={rightChecked.length === 0}
+          aria-label="move selected left"
+        >
+          &lt;
+        </Button>
+      </Stack>
+      <Grid>{customList('Chosen', right)}</Grid>
+    </Grid>
+  );
+}
+```
+</details>
+
+## Limitations
+
+The component comes with a couple of limitations:
+
+- It only works on desktop.
+  If you have a limited amount of options to select, prefer the [Autocomplete](autocomplete.html) component.
+  If mobile support is important for you, have a look at [#27579](https://github.com/mui/material-ui/issues/27579).
+- There are no high-level components exported from npm. The demos are based on composition.
+  If this is important for you, have a look at [#27579](https://github.com/mui/material-ui/issues/27579).
+
+## Transfer lists in Shiny apps
+
+The server keeps the items of each list and the checked items in
+`reactiveVal()`s. The lists are rendered with `renderReact()`, so they update
+when the state changes:
+
+- A click on a row sends a single custom event with the clicked item as payload
+  (`Shiny.setInputValue(..., {priority: 'event'})`). This is lighter than one
+  `.shinyInput()` per row, as the rows are re-generated on every move.
+- The checkboxes are plain `Checkbox()` controlled by `checked`. The no-op
+  `onChange` marks them as controlled for React; the row's click does the
+  toggling.
+- The move buttons are `Button.shinyInput()`s. Their `disabled` state is
+  updated from the server with `updateButton.shinyInput()`.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+transferRow <- function(value, checked, event) {
+  ListItemButton(
+    role = "listitem",
+    onClick = JS(sprintf("() => Shiny.setInputValue('%s', %s, {priority: 'event'})", event, value)),
+    ListItemIcon(Checkbox(checked = value %in% checked, onChange = JS("() => {}"), tabIndex = -1, disableRipple = TRUE)),
+    ListItemText(primary = paste("List item", value + 1))
+  )
+}
+listPaper <- function(outputId) {
+  Paper(sx = list(width = 200, height = 230, overflow = "auto"), List(dense = TRUE, component = "div", role = "list", reactOutput(outputId)))
+}
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Grid(
+    container = TRUE,
+    spacing = 2,
+    sx = list(justifyContent = "center", alignItems = "center", p = 2),
+    Grid(listPaper("left")),
+    Stack(
+      Button.shinyInput("all_right", "≫", sx = list(my = 0.5), variant = "outlined", size = "small"),
+      Button.shinyInput("checked_right", ">", sx = list(my = 0.5), variant = "outlined", size = "small"),
+      Button.shinyInput("checked_left", "<", sx = list(my = 0.5), variant = "outlined", size = "small"),
+      Button.shinyInput("all_left", "≪", sx = list(my = 0.5), variant = "outlined", size = "small")
+    ),
+    Grid(listPaper("right"))
+  )
+)
+
+server <- function(input, output, session) {
+  left <- reactiveVal(0:3)
+  right <- reactiveVal(4:7)
+  checked <- reactiveVal(integer())
+
+  toggle <- function(value) {
+    checked(if (value %in% checked()) setdiff(checked(), value) else c(checked(), value))
+  }
+  observeEvent(input$left_toggle, toggle(input$left_toggle))
+  observeEvent(input$right_toggle, toggle(input$right_toggle))
+
+  observeEvent(input$all_right, {
+    right(c(right(), left()))
+    left(integer())
+  })
+  observeEvent(input$all_left, {
+    left(c(left(), right()))
+    right(integer())
+  })
+  observeEvent(input$checked_right, {
+    moved <- intersect(checked(), left())
+    right(c(right(), moved))
+    left(setdiff(left(), moved))
+    checked(setdiff(checked(), moved))
+  })
+  observeEvent(input$checked_left, {
+    moved <- intersect(checked(), right())
+    left(c(left(), moved))
+    right(setdiff(right(), moved))
+    checked(setdiff(checked(), moved))
+  })
+
+  # Disable the buttons that would do nothing
+  observe({
+    updateButton.shinyInput(inputId = "all_right", disabled = length(left()) == 0)
+    updateButton.shinyInput(inputId = "all_left", disabled = length(right()) == 0)
+    updateButton.shinyInput(inputId = "checked_right", disabled = length(intersect(checked(), left())) == 0)
+    updateButton.shinyInput(inputId = "checked_left", disabled = length(intersect(checked(), right())) == 0)
+  })
+
+  output$left <- renderReact(lapply(left(), transferRow, checked = checked(), event = "left_toggle"))
+  output$right <- renderReact(lapply(right(), transferRow, checked = checked(), event = "right_toggle"))
+}
+
+shinyApp(ui, server)
+```
+
+Run another version with `muiMaterialExample("TransferList")`.

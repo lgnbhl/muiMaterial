@@ -1,0 +1,792 @@
+---
+title: "Timeline"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Timeline}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-timeline/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+```
+
+# Timeline
+
+The timeline displays a list of events in chronological order.
+
+<div class="alert alert-info">
+This component is not documented in the [Material Design guidelines](https://m2.material.io/), but it is available in Material UI.
+The Timeline components come from [`@mui/lab`](https://mui.com/material-ui/about-the-lab/), which is published on the MUI beta channel.
+</div>
+
+The demos use this helper to build one `TimelineItem()` per event, with a
+connector after every dot but the last:
+
+```{r}
+timelineItems <- function(labels, dot = function(i) TimelineDot(), opposite = NULL) {
+  lapply(seq_along(labels), function(i) {
+    TimelineItem(
+      if (!is.null(opposite)) opposite(i),
+      TimelineSeparator(dot(i), if (i < length(labels)) TimelineConnector()),
+      TimelineContent(labels[i])
+    )
+  })
+}
+```
+
+## Basic timeline
+
+A basic timeline showing list of events.
+
+```{r}
+muiMaterialPage(CssBaseline(), Timeline(timelineItems(c("Eat", "Code", "Sleep"))))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+export default function BasicTimeline() {
+  return (
+    <Timeline>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Sleep</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Left-positioned timeline
+
+The main content of the timeline can be positioned on the left side relative to the time axis.
+
+```{r}
+muiMaterialPage(CssBaseline(), Timeline(position = "left", timelineItems(c("Eat", "Code", "Sleep", "Repeat"))))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+export default function LeftPositionedTimeline() {
+  return (
+    <Timeline position="left">
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Sleep</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Repeat</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Alternating timeline
+
+The timeline can display the events on alternating sides.
+
+```{r}
+muiMaterialPage(CssBaseline(), Timeline(position = "alternate", timelineItems(c("Eat", "Code", "Sleep", "Repeat"))))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+export default function AlternateTimeline() {
+  return (
+    <Timeline position="alternate">
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Sleep</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Repeat</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Reverse Alternating timeline
+
+The timeline can display the events on alternating sides in reverse order.
+
+```{r}
+muiMaterialPage(CssBaseline(), Timeline(position = "alternate-reverse", timelineItems(c("Eat", "Code", "Sleep", "Repeat"))))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+export default function AlternateReverseTimeline() {
+  return (
+    <Timeline position="alternate-reverse">
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Sleep</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Repeat</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Color
+
+The `TimelineDot` can appear in different colors from theme palette.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Timeline(
+    position = "alternate",
+    timelineItems(c("Secondary", "Success"), dot = function(i) TimelineDot(color = c("secondary", "success")[i]))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+export default function ColorsTimeline() {
+  return (
+    <Timeline position="alternate">
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot color="secondary" />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Secondary</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot color="success" />
+        </TimelineSeparator>
+        <TimelineContent>Success</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Outlined
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Timeline(
+    position = "alternate",
+    timelineItems(
+      c("Eat", "Code", "Sleep", "Repeat"),
+      dot = function(i) TimelineDot(variant = "outlined", color = c("grey", "primary", "secondary", "grey")[i])
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+export default function OutlinedTimeline() {
+  return (
+    <Timeline position="alternate">
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot variant="outlined" />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot variant="outlined" color="primary" />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot variant="outlined" color="secondary" />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Sleep</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot variant="outlined" />
+        </TimelineSeparator>
+        <TimelineContent>Repeat</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Opposite content
+
+The timeline can display content on opposite sides.
+
+```{r}
+times <- c("09:30 am", "10:00 am", "12:00 am", "9:00 am")
+
+muiMaterialPage(
+  CssBaseline(),
+  Timeline(
+    position = "alternate",
+    timelineItems(
+      c("Eat", "Code", "Sleep", "Repeat"),
+      opposite = function(i) TimelineOppositeContent(sx = list(color = "text.secondary"), times[i])
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+
+export default function OppositeContentTimeline() {
+  return (
+    <Timeline position="alternate">
+      <TimelineItem>
+        <TimelineOppositeContent
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
+          09:30 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineOppositeContent
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
+          10:00 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineOppositeContent
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
+          12:00 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Sleep</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineOppositeContent
+          sx={{
+            color: 'text.secondary',
+          }}
+        >
+          9:00 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Repeat</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Customization
+
+Here is an example of customizing the component.
+You can learn more about this in the [overrides documentation page](https://mui.com/material-ui/customization/how-to-customize/).
+
+```{r}
+events <- list(
+  list(time = "9:30 am", title = "Eat", text = "Because you need strength", icon = "fastfood", dot = list()),
+  list(time = "10:00 am", title = "Code", text = "Because it's awesome!", icon = "laptop_mac", dot = list(color = "primary")),
+  list(title = "Sleep", text = "Because you need rest", icon = "hotel", dot = list(color = "primary", variant = "outlined")),
+  list(title = "Repeat", text = "Because this is the life you love!", icon = "repeat", dot = list(color = "secondary"))
+)
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Timeline(
+    position = "alternate",
+    lapply(seq_along(events), function(i) {
+      e <- events[[i]]
+      TimelineItem(
+        if (!is.null(e$time)) {
+          TimelineOppositeContent(
+            sx = list(m = "auto 0"),
+            align = if (i == 1) "right" else "left",
+            variant = "body2",
+            color = "text.secondary",
+            e$time
+          )
+        },
+        TimelineSeparator(
+          TimelineConnector(sx = if (i == 4) list(bgcolor = "secondary.main")),
+          do.call(TimelineDot, c(e$dot, list(Icon(e$icon)))),
+          TimelineConnector(sx = if (i == 3) list(bgcolor = "secondary.main"))
+        ),
+        TimelineContent(
+          sx = list(py = "12px", px = 2),
+          Typography(variant = "h6", component = "span", e$title),
+          Typography(e$text)
+        )
+      )
+    })
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+import FastfoodIcon from '@mui/icons-material/Fastfood';
+import LaptopMacIcon from '@mui/icons-material/LaptopMac';
+import HotelIcon from '@mui/icons-material/Hotel';
+import RepeatIcon from '@mui/icons-material/Repeat';
+import Typography from '@mui/material/Typography';
+
+export default function CustomizedTimeline() {
+  return (
+    <Timeline position="alternate">
+      <TimelineItem>
+        <TimelineOppositeContent
+          align="right"
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+            m: 'auto 0',
+          }}
+        >
+          9:30 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineConnector />
+          <TimelineDot>
+            <FastfoodIcon />
+          </TimelineDot>
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent sx={{ py: '12px', px: 2 }}>
+          <Typography variant="h6" component="span">
+            Eat
+          </Typography>
+          <Typography>Because you need strength</Typography>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineOppositeContent
+          variant="body2"
+          sx={{
+            color: 'text.secondary',
+            m: 'auto 0',
+          }}
+        >
+          10:00 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineConnector />
+          <TimelineDot color="primary">
+            <LaptopMacIcon />
+          </TimelineDot>
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent sx={{ py: '12px', px: 2 }}>
+          <Typography variant="h6" component="span">
+            Code
+          </Typography>
+          <Typography>Because it&apos;s awesome!</Typography>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineConnector />
+          <TimelineDot color="primary" variant="outlined">
+            <HotelIcon />
+          </TimelineDot>
+          <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+        </TimelineSeparator>
+        <TimelineContent sx={{ py: '12px', px: 2 }}>
+          <Typography variant="h6" component="span">
+            Sleep
+          </Typography>
+          <Typography>Because you need rest</Typography>
+        </TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+          <TimelineDot color="secondary">
+            <RepeatIcon />
+          </TimelineDot>
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent sx={{ py: '12px', px: 2 }}>
+          <Typography variant="h6" component="span">
+            Repeat
+          </Typography>
+          <Typography>Because this is the life you love!</Typography>
+        </TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Alignment
+
+There are different ways in which a Timeline can be placed within the container.
+
+You can do it by overriding the styles.
+
+A Timeline centers itself in the container by default.
+
+The demos below show how to adjust the relative width of the left and right sides of a Timeline:
+
+### Left-aligned
+
+```{r}
+twoTimes <- function(i) TimelineOppositeContent(color = "textSecondary", times[i])
+
+muiMaterialPage(
+  CssBaseline(),
+  Timeline(
+    sx = list("& .MuiTimelineOppositeContent-root" = list(flex = 0.2)),
+    timelineItems(c("Eat", "Code"), opposite = twoTimes)
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+import TimelineOppositeContent, {
+  timelineOppositeContentClasses,
+} from '@mui/lab/TimelineOppositeContent';
+
+export default function LeftAlignedTimeline() {
+  return (
+    <Timeline
+      sx={{
+        [`& .${timelineOppositeContentClasses.root}`]: {
+          flex: 0.2,
+        },
+      }}
+    >
+      <TimelineItem>
+        <TimelineOppositeContent color="textSecondary">
+          09:30 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineOppositeContent color="textSecondary">
+          10:00 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+### Right-aligned
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Timeline(
+    sx = list("& .MuiTimelineContent-root" = list(flex = 0.2)),
+    timelineItems(c("Eat", "Code"), opposite = twoTimes)
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent, { timelineContentClasses } from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
+
+export default function RightAlignedTimeline() {
+  return (
+    <Timeline
+      sx={{
+        [`& .${timelineContentClasses.root}`]: {
+          flex: 0.2,
+        },
+      }}
+    >
+      <TimelineItem>
+        <TimelineOppositeContent color="textSecondary">
+          09:30 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineOppositeContent color="textSecondary">
+          10:00 am
+        </TimelineOppositeContent>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+### Left-aligned with no opposite content
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Timeline(
+    sx = list("& .MuiTimelineItem-root:before" = list(flex = 0, padding = 0)),
+    timelineItems(c("Eat", "Code"))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Timeline from '@mui/lab/Timeline';
+import TimelineItem, { timelineItemClasses } from '@mui/lab/TimelineItem';
+import TimelineSeparator from '@mui/lab/TimelineSeparator';
+import TimelineConnector from '@mui/lab/TimelineConnector';
+import TimelineContent from '@mui/lab/TimelineContent';
+import TimelineDot from '@mui/lab/TimelineDot';
+
+export default function NoOppositeContent() {
+  return (
+    <Timeline
+      sx={{
+        [`& .${timelineItemClasses.root}:before`]: {
+          flex: 0,
+          padding: 0,
+        },
+      }}
+    >
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+          <TimelineConnector />
+        </TimelineSeparator>
+        <TimelineContent>Eat</TimelineContent>
+      </TimelineItem>
+      <TimelineItem>
+        <TimelineSeparator>
+          <TimelineDot />
+        </TimelineSeparator>
+        <TimelineContent>Code</TimelineContent>
+      </TimelineItem>
+    </Timeline>
+  );
+}
+```
+</details>
+
+## Timelines from data
+
+In R, a timeline is often built from a data frame of events:
+
+```{r}
+milestones <- data.frame(
+  date = c("2026-01-15", "2026-03-02", "2026-05-20"),
+  event = c("Project kick-off", "First prototype", "Public release")
+)
+
+muiMaterialPage(
+  CssBaseline(),
+  Timeline(
+    sx = list("& .MuiTimelineOppositeContent-root" = list(flex = 0.3)),
+    timelineItems(
+      milestones$event,
+      dot = function(i) TimelineDot(color = if (i == nrow(milestones)) "primary" else "grey"),
+      opposite = function(i) TimelineOppositeContent(color = "textSecondary", milestones$date[i])
+    )
+  )
+)
+```

@@ -1,0 +1,886 @@
+---
+title: "Tooltip"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Tooltip}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-tooltip/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Tooltip
+
+Tooltips display informative text when users hover over, focus on, or tap an element.
+
+When activated, Tooltips display a text label identifying an element, such as a description of its function.
+
+## Basic tooltip
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Tooltip(title = "Delete", IconButton(Icon("delete")))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import DeleteIcon from '@mui/icons-material/Delete';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function BasicTooltip() {
+  return (
+    <Tooltip title="Delete">
+      <IconButton>
+        <DeleteIcon />
+      </IconButton>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+## Labels and descriptions
+
+By default, the tooltip only labels its child element.
+This is notably different from `title` which can either label or describe its child depending on whether the child already has a label.
+For example, in the element below, the `title` acts as an accessible description:
+
+```html
+<button title="some more information">A button</button>
+```
+
+If you want the tooltip to act as an accessible description, you can pass the `describeChild` prop.
+You shouldn't use `describeChild` if the tooltip provides the only visual label.
+In that case, the child would have no accessible name and the tooltip would violate [WCAG 2.2 Success Criterion 2.5.3](https://www.w3.org/WAI/WCAG22/Understanding/label-in-name.html).
+
+If the trigger already has either visible text or an `aria-label`, use the tooltip as a description and pass the `describeChild` prop.
+Otherwise, you can use the default behavior and let the tooltip label the trigger.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    Tooltip(title = "Delete", IconButton(Icon("delete"))),
+    Tooltip(describeChild = TRUE, title = "Does not add if it already exists.", Button("Add"))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import DeleteIcon from '@mui/icons-material/Delete';
+import Button from '@mui/material/Button';
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function AccessibilityTooltips() {
+  return (
+    <div>
+      <Tooltip title="Delete">
+        <IconButton>
+          <DeleteIcon />
+        </IconButton>
+      </Tooltip>
+      <Tooltip describeChild title="Does not add if it already exists.">
+        <Button>Add</Button>
+      </Tooltip>
+    </div>
+  );
+}
+```
+</details>
+
+## Positioned tooltips
+
+The `Tooltip` has 12 **placement** choices.
+They don't have directional arrows; instead, they rely on motion emanating from the source to convey direction.
+
+```{r}
+placed <- function(placement) Tooltip(describeChild = TRUE, title = "Add", placement = placement, Button(placement))
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(width = 500, maxWidth = "100%"),
+    Stack(direction = "row", sx = list(justifyContent = "center"), lapply(c("top-start", "top", "top-end"), placed)),
+    Box(
+      sx = list(display = "flex", justifyContent = "space-between"),
+      Stack(direction = "column", sx = list(alignItems = "flex-start"), lapply(c("left-start", "left", "left-end"), placed)),
+      Stack(direction = "column", sx = list(alignItems = "flex-end"), lapply(c("right-start", "right", "right-end"), placed))
+    ),
+    Stack(direction = "row", sx = list(justifyContent = "center"), lapply(c("bottom-start", "bottom", "bottom-end"), placed))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function PositionedTooltips() {
+  return (
+    <Box sx={{ width: 500 }}>
+      <Stack direction="row" sx={{ justifyContent: 'center' }}>
+        <Tooltip describeChild title="Add" placement="top-start">
+          <Button>top-start</Button>
+        </Tooltip>
+        <Tooltip describeChild title="Add" placement="top">
+          <Button>top</Button>
+        </Tooltip>
+        <Tooltip describeChild title="Add" placement="top-end">
+          <Button>top-end</Button>
+        </Tooltip>
+      </Stack>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Stack direction="column" sx={{ alignItems: 'flex-start' }}>
+          <Tooltip describeChild title="Add" placement="left-start">
+            <Button>left-start</Button>
+          </Tooltip>
+          <Tooltip describeChild title="Add" placement="left">
+            <Button>left</Button>
+          </Tooltip>
+          <Tooltip describeChild title="Add" placement="left-end">
+            <Button>left-end</Button>
+          </Tooltip>
+        </Stack>
+        <Stack direction="column" sx={{ alignItems: 'flex-end' }}>
+          <Tooltip describeChild title="Add" placement="right-start">
+            <Button>right-start</Button>
+          </Tooltip>
+          <Tooltip describeChild title="Add" placement="right">
+            <Button>right</Button>
+          </Tooltip>
+          <Tooltip describeChild title="Add" placement="right-end">
+            <Button>right-end</Button>
+          </Tooltip>
+        </Stack>
+      </Box>
+      <Stack direction="row" sx={{ justifyContent: 'center' }}>
+        <Tooltip title="Add" placement="bottom-start">
+          <Button>bottom-start</Button>
+        </Tooltip>
+        <Tooltip title="Add" placement="bottom">
+          <Button>bottom</Button>
+        </Tooltip>
+        <Tooltip title="Add" placement="bottom-end">
+          <Button>bottom-end</Button>
+        </Tooltip>
+      </Stack>
+    </Box>
+  );
+}
+```
+</details>
+
+## Customization
+
+Here are some examples of customizing the component.
+You can learn more about this in the [overrides documentation page](https://mui.com/material-ui/customization/how-to-customize/).
+
+The `styled()` tooltips of the original demo style the popper with nested
+selectors. In R, pass these selectors to `slotProps$popper$sx`:
+
+```{r}
+popperSx <- function(...) list(popper = list(sx = list(...)))
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    Tooltip(
+      describeChild = TRUE,
+      title = "Add",
+      slotProps = popperSx("& .MuiTooltip-tooltip" = list(
+        backgroundColor = "common.white", color = "rgba(0, 0, 0, 0.87)", boxShadow = 1, fontSize = 11
+      )),
+      Button("Light")
+    ),
+    Tooltip(
+      describeChild = TRUE,
+      title = "Add",
+      arrow = TRUE,
+      slotProps = popperSx(
+        "& .MuiTooltip-arrow" = list(color = "common.black"),
+        "& .MuiTooltip-tooltip" = list(backgroundColor = "common.black")
+      ),
+      Button("Bootstrap")
+    ),
+    Tooltip(
+      describeChild = TRUE,
+      title = tagList(
+        Typography(sx = list(color = "inherit"), "Tooltip with HTML"),
+        tags$em("And here's"), " ", tags$b("some"), " ", tags$u("amazing content"), ". ",
+        "It's very engaging. Right?"
+      ),
+      slotProps = popperSx("& .MuiTooltip-tooltip" = list(
+        backgroundColor = "#f5f5f9", color = "rgba(0, 0, 0, 0.87)", maxWidth = 220,
+        fontSize = "0.75rem", border = "1px solid #dadde9"
+      )),
+      Button("HTML")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+import Typography from '@mui/material/Typography';
+
+const LightTooltip = styled(({ className, ...props }) => (
+  <Tooltip describeChild {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.white,
+    color: 'rgba(0, 0, 0, 0.87)',
+    boxShadow: theme.shadows[1],
+    fontSize: 11,
+  },
+}));
+
+const BootstrapTooltip = styled(({ className, ...props }) => (
+  <Tooltip describeChild {...props} arrow classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.arrow}`]: {
+    color: theme.palette.common.black,
+  },
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: theme.palette.common.black,
+  },
+}));
+
+const HtmlTooltip = styled(({ className, ...props }) => (
+  <Tooltip describeChild {...props} classes={{ popper: className }} />
+))(({ theme }) => ({
+  [`& .${tooltipClasses.tooltip}`]: {
+    backgroundColor: '#f5f5f9',
+    color: 'rgba(0, 0, 0, 0.87)',
+    maxWidth: 220,
+    fontSize: theme.typography.pxToRem(12),
+    border: '1px solid #dadde9',
+  },
+}));
+
+export default function CustomizedTooltips() {
+  return (
+    <div>
+      <LightTooltip title="Add">
+        <Button>Light</Button>
+      </LightTooltip>
+      <BootstrapTooltip title="Add">
+        <Button>Bootstrap</Button>
+      </BootstrapTooltip>
+      <HtmlTooltip
+        title={
+          <React.Fragment>
+            <Typography
+              sx={{
+                color: 'inherit',
+              }}
+            >
+              Tooltip with HTML
+            </Typography>
+            <em>{"And here's"}</em> <b>{'some'}</b> <u>{'amazing content'}</u>.{' '}
+            {"It's very engaging. Right?"}
+          </React.Fragment>
+        }
+      >
+        <Button>HTML</Button>
+      </HtmlTooltip>
+    </div>
+  );
+}
+```
+</details>
+
+## Arrow tooltips
+
+You can use the `arrow` prop to give your tooltip an arrow indicating which element it refers to.
+
+```{r}
+muiMaterialPage(CssBaseline(), Tooltip(describeChild = TRUE, title = "Add", arrow = TRUE, Button("Arrow")))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function ArrowTooltips() {
+  return (
+    <Tooltip describeChild title="Add" arrow>
+      <Button>Arrow</Button>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+## Distance from anchor
+
+To adjust the distance between the tooltip and its anchor, you can use the `slotProps` prop to modify the [offset](https://popper.js.org/docs/v2/modifiers/offset/) of the popper.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Tooltip(
+    describeChild = TRUE,
+    title = "Add",
+    slotProps = list(popper = list(modifiers = list(list(name = "offset", options = list(offset = c(0, -14)))))),
+    Button("Offset")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function TooltipOffset() {
+  return (
+    <Tooltip
+      describeChild
+      title="Add"
+      slotProps={{
+        popper: {
+          modifiers: [
+            {
+              name: 'offset',
+              options: {
+                offset: [0, -14],
+              },
+            },
+          ],
+        },
+      }}
+    >
+      <Button>Offset</Button>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+Alternatively, you can use the `slotProps` prop to customize the margin of the popper.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Tooltip(
+    title = "Add",
+    describeChild = TRUE,
+    slotProps = popperSx(
+      '&.MuiTooltip-popper[data-popper-placement*="bottom"] .MuiTooltip-tooltip' = list(marginTop = "0px"),
+      '&.MuiTooltip-popper[data-popper-placement*="top"] .MuiTooltip-tooltip' = list(marginBottom = "0px"),
+      '&.MuiTooltip-popper[data-popper-placement*="right"] .MuiTooltip-tooltip' = list(marginLeft = "0px"),
+      '&.MuiTooltip-popper[data-popper-placement*="left"] .MuiTooltip-tooltip' = list(marginRight = "0px")
+    ),
+    Button("Margin")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Button from '@mui/material/Button';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+
+export default function TooltipMargin() {
+  return (
+    <Tooltip
+      title="Add"
+      describeChild
+      slotProps={{
+        popper: {
+          sx: {
+            [`&.${tooltipClasses.popper}[data-popper-placement*="bottom"] .${tooltipClasses.tooltip}`]:
+              {
+                marginTop: '0px',
+              },
+            [`&.${tooltipClasses.popper}[data-popper-placement*="top"] .${tooltipClasses.tooltip}`]:
+              {
+                marginBottom: '0px',
+              },
+            [`&.${tooltipClasses.popper}[data-popper-placement*="right"] .${tooltipClasses.tooltip}`]:
+              {
+                marginLeft: '0px',
+              },
+            [`&.${tooltipClasses.popper}[data-popper-placement*="left"] .${tooltipClasses.tooltip}`]:
+              {
+                marginRight: '0px',
+              },
+          },
+        },
+      }}
+    >
+      <Button>Margin</Button>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+## Custom child element
+
+The tooltip needs to apply DOM event listeners to its child element, and to
+hold a ref to it. All muiMaterial components and HTML tags can be children.
+A plain text or several children must be wrapped, for example in a
+`tags$span()` or a `Box()`.
+
+## Triggers
+
+You can define the types of events that cause a tooltip to show.
+
+The touch action requires a long press due to the `enterTouchDelay` prop being set to `700`ms by default.
+
+The "Click" tooltip keeps its open state in the URL with
+[reactRouter](https://felixluginbuhl.com/reactRouter/): the button links to
+`#/tooltip-click`, and a `ClickAwayListener()` navigates back to `#/`.
+
+```{r, message = FALSE}
+library(reactRouter)
+
+clickTooltip <- function(open) {
+  ClickAwayListener(
+    onClickAway = JS("() => { if (window.location.hash === '#/tooltip-click') window.location.hash = '/'; }"),
+    Box(
+      Tooltip(
+        describeChild = TRUE,
+        open = open,
+        disableFocusListener = TRUE,
+        disableHoverListener = TRUE,
+        disableTouchListener = TRUE,
+        title = "Add",
+        slotProps = list(popper = list(disablePortal = TRUE)),
+        Button(href = "#/tooltip-click", "Click")
+      )
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  Grid(
+    container = TRUE,
+    sx = list(justifyContent = "center"),
+    Grid(Tooltip(describeChild = TRUE, disableFocusListener = TRUE, title = "Add", Button("Hover or touch"))),
+    Grid(Tooltip(describeChild = TRUE, disableHoverListener = TRUE, title = "Add", Button("Focus or touch"))),
+    Grid(Tooltip(describeChild = TRUE, disableFocusListener = TRUE, disableTouchListener = TRUE, title = "Add", Button("Hover"))),
+    Grid(
+      RouterProvider(
+        router = createHashRouter(
+          Route(path = "tooltip-click", element = clickTooltip(TRUE)),
+          Route(path = "*", element = clickTooltip(FALSE))
+        )
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import ClickAwayListener from '@mui/material/ClickAwayListener';
+
+export default function TriggersTooltips() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleTooltipClose = () => {
+    setOpen(false);
+  };
+
+  const handleTooltipOpen = () => {
+    setOpen(true);
+  };
+
+  return (
+    <div>
+      <Grid container sx={{ justifyContent: 'center' }}>
+        <Grid>
+          <Tooltip describeChild disableFocusListener title="Add">
+            <Button>Hover or touch</Button>
+          </Tooltip>
+        </Grid>
+        <Grid>
+          <Tooltip describeChild disableHoverListener title="Add">
+            <Button>Focus or touch</Button>
+          </Tooltip>
+        </Grid>
+        <Grid>
+          <Tooltip
+            describeChild
+            disableFocusListener
+            disableTouchListener
+            title="Add"
+          >
+            <Button>Hover</Button>
+          </Tooltip>
+        </Grid>
+        <Grid>
+          <ClickAwayListener onClickAway={handleTooltipClose}>
+            <div>
+              <Tooltip
+                describeChild
+                onClose={handleTooltipClose}
+                open={open}
+                disableFocusListener
+                disableHoverListener
+                disableTouchListener
+                title="Add"
+                slotProps={{
+                  popper: {
+                    disablePortal: true,
+                  },
+                }}
+              >
+                <Button onClick={handleTooltipOpen}>Click</Button>
+              </Tooltip>
+            </div>
+          </ClickAwayListener>
+        </Grid>
+      </Grid>
+    </div>
+  );
+}
+```
+</details>
+
+## Controlled tooltips
+
+You can use the `open`, `onOpen` and `onClose` props to control the behavior of the tooltip.
+The "Click" tooltip above is controlled with `open`. In a Shiny app, render the
+tooltip with `renderReact()` to set `open` from the server, and send the
+`onOpen`/`onClose` events with `triggerEvent()`:
+
+```r
+Tooltip(
+  describeChild = TRUE,
+  title = "Add",
+  onOpen = triggerEvent("tooltip_open"),
+  onClose = triggerEvent("tooltip_close"),
+  Button("Controlled")
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function ControlledTooltips() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  return (
+    <Tooltip
+      describeChild
+      open={open}
+      onClose={handleClose}
+      onOpen={handleOpen}
+      title="Add"
+    >
+      <Button>Controlled</Button>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+## Variable width
+
+The `Tooltip` wraps long text by default to make it readable.
+
+```{r}
+longText <- "Aliquam eget finibus ante, non facilisis lectus. Sed vitae dignissim est, vel aliquam tellus.
+Praesent non nunc mollis, fermentum neque at, semper arcu.
+Nullam eget est sed sem iaculis gravida eget vitae justo."
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    Tooltip(describeChild = TRUE, title = longText, Button(sx = list(m = 1), "Default Width [300px]")),
+    Tooltip(
+      describeChild = TRUE,
+      title = longText,
+      slotProps = popperSx("& .MuiTooltip-tooltip" = list(maxWidth = 500)),
+      Button(sx = list(m = 1), "Custom Width [500px]")
+    ),
+    Tooltip(
+      describeChild = TRUE,
+      title = longText,
+      slotProps = popperSx("& .MuiTooltip-tooltip" = list(maxWidth = "none")),
+      Button(sx = list(m = 1), "No wrapping")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Tooltip, { tooltipClasses } from '@mui/material/Tooltip';
+
+const CustomWidthTooltip = styled(({ className, ...props }) => (
+  <Tooltip describeChild {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 500,
+  },
+});
+
+const NoMaxWidthTooltip = styled(({ className, ...props }) => (
+  <Tooltip describeChild {...props} classes={{ popper: className }} />
+))({
+  [`& .${tooltipClasses.tooltip}`]: {
+    maxWidth: 'none',
+  },
+});
+
+const longText = `
+Aliquam eget finibus ante, non facilisis lectus. Sed vitae dignissim est, vel aliquam tellus.
+Praesent non nunc mollis, fermentum neque at, semper arcu.
+Nullam eget est sed sem iaculis gravida eget vitae justo.
+`;
+
+export default function VariableWidth() {
+  return (
+    <div>
+      <Tooltip describeChild title={longText}>
+        <Button sx={{ m: 1 }}>Default Width [300px]</Button>
+      </Tooltip>
+      <CustomWidthTooltip title={longText}>
+        <Button sx={{ m: 1 }}>Custom Width [500px]</Button>
+      </CustomWidthTooltip>
+      <NoMaxWidthTooltip title={longText}>
+        <Button sx={{ m: 1 }}>No wrapping</Button>
+      </NoMaxWidthTooltip>
+    </div>
+  );
+}
+```
+</details>
+
+## Interactive
+
+Tooltips are interactive by default (to pass [WCAG 2.2 Success Criterion 1.4.13](https://www.w3.org/WAI/WCAG22/Understanding/content-on-hover-or-focus.html)).
+It won't close when the user hovers over the tooltip before the `leaveDelay` is expired.
+You can disable this behavior (thus failing the success criterion which is required to reach Level AA) by passing `disableInteractive`.
+
+```{r}
+muiMaterialPage(CssBaseline(), Tooltip(describeChild = TRUE, title = "Add", disableInteractive = TRUE, Button("Not interactive")))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function NonInteractiveTooltips() {
+  return (
+    <Tooltip describeChild title="Add" disableInteractive>
+      <Button>Not interactive</Button>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+## Disabled elements
+
+By default disabled elements like `<button>` do not trigger user interactions so a `Tooltip` will not activate on normal events like hover. To accommodate disabled elements, add a simple wrapper element, such as a `span`.
+
+<div class="alert alert-warning">
+In order to work with Safari, you need at least one display block or flex item below the tooltip wrapper.
+</div>
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Tooltip(describeChild = TRUE, title = "You don't have permission to do this", tags$span(Button(disabled = TRUE, "A Disabled Button")))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function DisabledTooltips() {
+  return (
+    <Tooltip describeChild title="You don't have permission to do this">
+      <span>
+        <Button disabled>A Disabled Button</Button>
+      </span>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+<div class="alert alert-warning">
+If you're not wrapping a Material UI component that inherits from `ButtonBase`, for instance, a native `<button>` element, you should also add the CSS property `pointer-events: none;` to your element when disabled.
+</div>
+
+## Transitions
+
+Use `slots$transition` and `slotProps$transition` to use a different transition.
+A component is expected, so it is passed as a JavaScript reference with `JS()`.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    Tooltip(describeChild = TRUE, title = "Add", Button("Grow")),
+    Tooltip(
+      describeChild = TRUE,
+      title = "Add",
+      slots = list(transition = JS("jsmodule['@mui/material'].Fade")),
+      slotProps = list(transition = list(timeout = 600)),
+      Button("Fade")
+    ),
+    Tooltip(describeChild = TRUE, title = "Add", slots = list(transition = JS("jsmodule['@mui/material'].Zoom")), Button("Zoom"))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+import Fade from '@mui/material/Fade';
+import Zoom from '@mui/material/Zoom';
+
+export default function TransitionsTooltips() {
+  return (
+    <div>
+      <Tooltip describeChild title="Add">
+        <Button>Grow</Button>
+      </Tooltip>
+      <Tooltip
+        describeChild
+        title="Add"
+        slots={{
+          transition: Fade,
+        }}
+        slotProps={{
+          transition: { timeout: 600 },
+        }}
+      >
+        <Button>Fade</Button>
+      </Tooltip>
+      <Tooltip
+        describeChild
+        title="Add"
+        slots={{
+          transition: Zoom,
+        }}
+      >
+        <Button>Zoom</Button>
+      </Tooltip>
+    </div>
+  );
+}
+```
+</details>
+
+## Follow cursor
+
+You can enable the tooltip to follow the cursor by setting `followCursor = TRUE`.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Tooltip(
+    describeChild = TRUE,
+    title = "You don't have permission to do this",
+    followCursor = TRUE,
+    Box(sx = list(bgcolor = "text.disabled", color = "background.paper", p = 2), "Disabled Action")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function FollowCursorTooltips() {
+  return (
+    <Tooltip describeChild title="You don't have permission to do this" followCursor>
+      <Box sx={{ bgcolor: 'text.disabled', color: 'background.paper', p: 2 }}>
+        Disabled Action
+      </Box>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+## Virtual element
+
+In React, you can implement a custom placement with the `anchorEl` prop of the
+popper, set to a fake DOM element that follows the mouse. This needs custom
+JavaScript and React refs, and has no R equivalent. `followCursor = TRUE`
+(above) covers the most common case.
+
+## Showing and hiding
+
+The tooltip is normally shown immediately when the user's mouse hovers over the element, and hides immediately when the user's mouse leaves. A delay in showing or hiding the tooltip can be added through the `enterDelay` and `leaveDelay` props.
+
+On mobile, the tooltip is displayed when the user longpresses the element and hides after a delay of 1500ms. You can disable this feature with the `disableTouchListener` prop.
+
+```{r}
+muiMaterialPage(CssBaseline(), Tooltip(describeChild = TRUE, title = "Add", enterDelay = 500, leaveDelay = 200, Button("[500ms, 200ms]")))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Button from '@mui/material/Button';
+import Tooltip from '@mui/material/Tooltip';
+
+export default function DelayTooltips() {
+  return (
+    <Tooltip describeChild title="Add" enterDelay={500} leaveDelay={200}>
+      <Button>[500ms, 200ms]</Button>
+    </Tooltip>
+  );
+}
+```
+</details>
+
+## Accessibility
+
+(WAI-ARIA: <https://www.w3.org/WAI/ARIA/apg/patterns/tooltip/>)
+
+Tooltips should wrap triggers that are focusable and hoverable (for example, buttons) so that all users can activate them. When tooltips are displayed, the tooltip content is announced as the accessible label or description of the trigger, depending on `describeChild`.

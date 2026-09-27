@@ -1,0 +1,923 @@
+---
+title: "Accordion"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Accordion}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-accordion/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Accordion
+
+The Accordion component lets users show and hide sections of related content on a page.
+
+## Introduction
+
+The Material UI Accordion component includes several complementary utility components to handle various use cases:
+
+- `Accordion()`: the wrapper for grouping related components.
+- `AccordionSummary()`: the wrapper for the Accordion header, which expands or collapses the content when clicked.
+- `AccordionDetails()`: the wrapper for the Accordion content.
+- `AccordionActions()`: an optional wrapper that groups a set of buttons.
+
+```{r}
+lorem <- "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+malesuada lacus ex, sit amet blandit leo lobortis eget."
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    Accordion(
+      AccordionSummary(
+        expandIcon = Icon("expand_more"),
+        `aria-controls` = "panel1-content",
+        id = "panel1-header",
+        Typography(component = "span", "Accordion 1")
+      ),
+      AccordionDetails(lorem)
+    ),
+    Accordion(
+      AccordionSummary(
+        expandIcon = Icon("expand_more"),
+        `aria-controls` = "panel2-content",
+        id = "panel2-header",
+        Typography(component = "span", "Accordion 2")
+      ),
+      AccordionDetails(lorem)
+    ),
+    Accordion(
+      defaultExpanded = TRUE,
+      AccordionSummary(
+        expandIcon = Icon("expand_more"),
+        `aria-controls` = "panel3-content",
+        id = "panel3-header",
+        Typography(component = "span", "Accordion Actions")
+      ),
+      AccordionDetails(lorem),
+      AccordionActions(Button("Cancel"), Button("Agree"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionActions from '@mui/material/AccordionActions';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Button from '@mui/material/Button';
+
+export default function AccordionUsage() {
+  const id = React.useId();
+  return (
+    <div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel1-content`}
+          id={`${id}-panel1-header`}
+        >
+          <Typography component="span">Accordion 1</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          malesuada lacus ex, sit amet blandit leo lobortis eget.
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel2-content`}
+          id={`${id}-panel2-header`}
+        >
+          <Typography component="span">Accordion 2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          malesuada lacus ex, sit amet blandit leo lobortis eget.
+        </AccordionDetails>
+      </Accordion>
+      <Accordion defaultExpanded>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel3-content`}
+          id={`${id}-panel3-header`}
+        >
+          <Typography component="span">Accordion Actions</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+          malesuada lacus ex, sit amet blandit leo lobortis eget.
+        </AccordionDetails>
+        <AccordionActions>
+          <Button>Cancel</Button>
+          <Button>Agree</Button>
+        </AccordionActions>
+      </Accordion>
+    </div>
+  );
+}
+```
+</details>
+
+<div class="alert alert-info">
+This component is no longer documented in the [Material Design guidelines](https://m2.material.io/), but Material UI will continue to support it.
+</div>
+
+## Basics
+
+### Expand icon
+
+Use the `expandIcon` prop on the Accordion Summary component to change the expand indicator icon.
+The component handles the turning upside-down transition automatically.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    Accordion(
+      AccordionSummary(
+        expandIcon = Icon("arrow_downward"),
+        `aria-controls` = "icon-panel1-content",
+        id = "icon-panel1-header",
+        Typography(component = "span", "Accordion 1")
+      ),
+      AccordionDetails(Typography(lorem))
+    ),
+    Accordion(
+      AccordionSummary(
+        expandIcon = Icon("arrow_drop_down"),
+        `aria-controls` = "icon-panel2-content",
+        id = "icon-panel2-header",
+        Typography(component = "span", "Accordion 2")
+      ),
+      AccordionDetails(Typography(lorem))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ArrowDownwardIcon from '@mui/icons-material/ArrowDownward';
+import ArrowDropDownIcon from '@mui/icons-material/ArrowDropDown';
+
+export default function AccordionExpandIcon() {
+  const id = React.useId();
+  return (
+    <div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDownwardIcon />}
+          aria-controls={`${id}-panel1-content`}
+          id={`${id}-panel1-header`}
+        >
+          <Typography component="span">Accordion 1</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ArrowDropDownIcon />}
+          aria-controls={`${id}-panel2-content`}
+          id={`${id}-panel2-header`}
+        >
+          <Typography component="span">Accordion 2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+}
+```
+</details>
+
+### Expanded by default
+
+Use the `defaultExpanded` prop on the Accordion component to have it opened by default.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    Accordion(
+      defaultExpanded = TRUE,
+      AccordionSummary(expandIcon = Icon("expand_more"), Typography(component = "span", "Expanded by default")),
+      AccordionDetails(Typography(lorem))
+    ),
+    Accordion(
+      AccordionSummary(expandIcon = Icon("expand_more"), Typography(component = "span", "Header")),
+      AccordionDetails(Typography(lorem))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+export default function AccordionExpandDefault() {
+  const id = React.useId();
+  return (
+    <div>
+      <Accordion defaultExpanded>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel1-content`}
+          id={`${id}-panel1-header`}
+        >
+          <Typography component="span">Expanded by default</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel2-content`}
+          id={`${id}-panel2-header`}
+        >
+          <Typography component="span">Header</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+}
+```
+</details>
+
+### Transition
+
+Use the `slots$transition` and `slotProps$transition` props to change the Accordion's default transition.
+A component is expected, so it is passed as a JavaScript reference with `JS()`.
+
+The MUI demo switches the region height with React state. In R, the
+`&.Mui-expanded` class that MUI adds to an expanded Accordion does the same
+with CSS only, so the Accordion stays uncontrolled:
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    Accordion(
+      slots = list(transition = JS("jsmodule['@mui/material'].Fade")),
+      slotProps = list(transition = list(timeout = 400)),
+      sx = list(
+        "& .MuiAccordion-region" = list(height = 0),
+        "& .MuiAccordionDetails-root" = list(display = "none"),
+        "&.Mui-expanded .MuiAccordion-region" = list(height = "auto"),
+        "&.Mui-expanded .MuiAccordionDetails-root" = list(display = "block")
+      ),
+      AccordionSummary(expandIcon = Icon("expand_more"), Typography(component = "span", "Custom transition using Fade")),
+      AccordionDetails(Typography(lorem))
+    ),
+    Accordion(
+      AccordionSummary(expandIcon = Icon("expand_more"), Typography(component = "span", "Default transition using Collapse")),
+      AccordionDetails(Typography(lorem))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Accordion, { accordionClasses } from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails, {
+  accordionDetailsClasses,
+} from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import Fade from '@mui/material/Fade';
+
+export default function AccordionTransition() {
+  const id = React.useId();
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpansion = () => {
+    setExpanded((prevExpanded) => !prevExpanded);
+  };
+
+  return (
+    <div>
+      <Accordion
+        expanded={expanded}
+        onChange={handleExpansion}
+        slots={{ transition: Fade }}
+        slotProps={{ transition: { timeout: 400 } }}
+        sx={[
+          expanded
+            ? {
+                [`& .${accordionClasses.region}`]: {
+                  height: 'auto',
+                },
+                [`& .${accordionDetailsClasses.root}`]: {
+                  display: 'block',
+                },
+              }
+            : {
+                [`& .${accordionClasses.region}`]: {
+                  height: 0,
+                },
+                [`& .${accordionDetailsClasses.root}`]: {
+                  display: 'none',
+                },
+              },
+        ]}
+      >
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel1-content`}
+          id={`${id}-panel1-header`}
+        >
+          <Typography component="span">Custom transition using Fade</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel2-content`}
+          id={`${id}-panel2-header`}
+        >
+          <Typography component="span">Default transition using Collapse</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+}
+```
+</details>
+
+### Disabled item
+
+Use the `disabled` prop on the Accordion component to disable interaction and focus.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    Accordion(
+      AccordionSummary(expandIcon = Icon("expand_more"), Typography(component = "span", "Accordion 1")),
+      AccordionDetails(Typography(lorem))
+    ),
+    Accordion(
+      AccordionSummary(expandIcon = Icon("expand_more"), Typography(component = "span", "Accordion 2")),
+      AccordionDetails(Typography(lorem))
+    ),
+    Accordion(
+      disabled = TRUE,
+      AccordionSummary(expandIcon = Icon("expand_more"), Typography(component = "span", "Disabled Accordion"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+export default function DisabledAccordion() {
+  const id = React.useId();
+  return (
+    <div>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel1-content`}
+          id={`${id}-panel1-header`}
+        >
+          <Typography component="span">Accordion 1</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel2-content`}
+          id={`${id}-panel2-header`}
+        >
+          <Typography component="span">Accordion 2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion disabled>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls={`${id}-panel3-content`}
+          id={`${id}-panel3-header`}
+        >
+          <Typography component="span">Disabled Accordion</Typography>
+        </AccordionSummary>
+      </Accordion>
+    </div>
+  );
+}
+```
+</details>
+
+### Controlled Accordion
+
+The Accordion component can be controlled or uncontrolled.
+
+<div class="alert alert-info">
+
+- A component is **controlled** when it's managed by its parent using props.
+- A component is **uncontrolled** when it's managed by its own local state.
+
+Learn more about controlled and uncontrolled components in the [React documentation](https://react.dev/learn/sharing-state-between-components#controlled-and-uncontrolled-components).
+</div>
+
+The demos above are uncontrolled. To control which panel is expanded without
+React state, keep it in the URL with
+[reactRouter](https://felixluginbuhl.com/reactRouter/): each panel is a route
+(`#/panel/<name>`), `onChange` navigates to it (or back to `#/` when the panel
+is collapsed), and each route renders the accordions with `expanded` set
+accordingly. Only one panel can be expanded at a time. The expanded panel is
+also restored when the page is reloaded or shared.
+
+```{r, message = FALSE}
+library(reactRouter)
+
+settings <- list(
+  panel1 = list(
+    title = "General settings", subtitle = "I am an accordion",
+    body = "Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
+    Aliquam eget maximus est, id dignissim quam."
+  ),
+  panel2 = list(
+    title = "Users", subtitle = "You are currently not an owner",
+    body = "Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus,
+    varius pulvinar diam eros in elit. Pellentesque convallis laoreet laoreet."
+  ),
+  panel3 = list(
+    title = "Advanced settings", subtitle = "Filtering has been entirely disabled for whole web server",
+    body = "Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
+    amet egestas eros, vitae egestas augue. Duis vel est augue."
+  ),
+  panel4 = list(
+    title = "Personal data", subtitle = NULL,
+    body = "Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
+    amet egestas eros, vitae egestas augue. Duis vel est augue."
+  )
+)
+
+controlledAccordions <- function(expanded = NULL) {
+  Box(
+    lapply(names(settings), function(panel) {
+      Accordion(
+        expanded = identical(panel, expanded),
+        onChange = JS(sprintf(
+          "(event, isExpanded) => { window.location.hash = isExpanded ? '/panel/%s' : '/'; }",
+          panel
+        )),
+        AccordionSummary(
+          expandIcon = Icon("expand_more"),
+          `aria-controls` = paste0(panel, "bh-content"),
+          id = paste0(panel, "bh-header"),
+          Typography(component = "span", sx = list(width = "33%", flexShrink = 0), settings[[panel]]$title),
+          Typography(component = "span", sx = list(color = "text.secondary"), settings[[panel]]$subtitle)
+        ),
+        AccordionDetails(Typography(settings[[panel]]$body))
+      )
+    })
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(names(settings), function(panel) {
+        Route(path = paste0("panel/", panel), element = controlledAccordions(panel))
+      }),
+      Route(path = "*", element = controlledAccordions())
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Accordion from '@mui/material/Accordion';
+import AccordionDetails from '@mui/material/AccordionDetails';
+import AccordionSummary from '@mui/material/AccordionSummary';
+import Typography from '@mui/material/Typography';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+export default function ControlledAccordions() {
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleChange = (panel) => (event, isExpanded) => {
+    setExpanded(isExpanded ? panel : false);
+  };
+
+  return (
+    <div>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel1bh-content"
+          id="panel1bh-header"
+        >
+          <Typography component="span" sx={{ width: '33%', flexShrink: 0 }}>
+            General settings
+          </Typography>
+          <Typography component="span" sx={{ color: 'text.secondary' }}>
+            I am an accordion
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Nulla facilisi. Phasellus sollicitudin nulla et quam mattis feugiat.
+            Aliquam eget maximus est, id dignissim quam.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel2bh-content"
+          id="panel2bh-header"
+        >
+          <Typography component="span" sx={{ width: '33%', flexShrink: 0 }}>
+            Users
+          </Typography>
+          <Typography component="span" sx={{ color: 'text.secondary' }}>
+            You are currently not an owner
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Donec placerat, lectus sed mattis semper, neque lectus feugiat lectus,
+            varius pulvinar diam eros in elit. Pellentesque convallis laoreet
+            laoreet.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel3bh-content"
+          id="panel3bh-header"
+        >
+          <Typography component="span" sx={{ width: '33%', flexShrink: 0 }}>
+            Advanced settings
+          </Typography>
+          <Typography component="span" sx={{ color: 'text.secondary' }}>
+            Filtering has been entirely disabled for whole web server
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
+            amet egestas eros, vitae egestas augue. Duis vel est augue.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
+        <AccordionSummary
+          expandIcon={<ExpandMoreIcon />}
+          aria-controls="panel4bh-content"
+          id="panel4bh-header"
+        >
+          <Typography component="span" sx={{ width: '33%', flexShrink: 0 }}>
+            Personal data
+          </Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Nunc vitae orci ultricies, auctor nunc in, volutpat nisl. Integer sit
+            amet egestas eros, vitae egestas augue. Duis vel est augue.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+}
+```
+</details>
+
+## Customization
+
+### Only one expanded at a time
+
+In React, the `expanded` prop is combined with the `useState` hook to allow
+only one Accordion item to be expanded at a time, as in the
+[controlled demo](#controlled-accordion) above. The demo below shows the
+visual customization of the MUI example. The `styled()` wrappers of the
+original become `sx` values:
+
+```{r}
+customAccordion <- function(panel, ...) {
+  Accordion(
+    disableGutters = TRUE,
+    elevation = 0,
+    square = TRUE,
+    defaultExpanded = panel == 1,
+    sx = list(
+      border = 1,
+      borderColor = "divider",
+      "&:not(:last-child)" = list(borderBottom = 0),
+      "&::before" = list(display = "none")
+    ),
+    AccordionSummary(
+      expandIcon = Icon("arrow_forward_ios", sx = list(fontSize = "0.9rem")),
+      `aria-controls` = sprintf("panel%sd-content", panel),
+      id = sprintf("panel%sd-header", panel),
+      sx = list(
+        backgroundColor = "rgba(0, 0, 0, .03)",
+        flexDirection = "row-reverse",
+        "& .MuiAccordionSummary-expandIconWrapper.Mui-expanded" = list(transform = "rotate(90deg)"),
+        "& .MuiAccordionSummary-content" = list(marginLeft = 1)
+      ),
+      Typography(component = "span", paste0("Collapsible Group Item #", panel))
+    ),
+    AccordionDetails(
+      sx = list(padding = 2, borderTop = "1px solid rgba(0, 0, 0, .125)"),
+      Typography(paste(lorem, lorem))
+    )
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(lapply(1:3, customAccordion))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import ArrowForwardIosSharpIcon from '@mui/icons-material/ArrowForwardIosSharp';
+import MuiAccordion from '@mui/material/Accordion';
+import MuiAccordionSummary, {
+  accordionSummaryClasses,
+} from '@mui/material/AccordionSummary';
+import MuiAccordionDetails from '@mui/material/AccordionDetails';
+import Typography from '@mui/material/Typography';
+
+const Accordion = styled((props) => (
+  <MuiAccordion disableGutters elevation={0} square {...props} />
+))(({ theme }) => ({
+  border: `1px solid ${theme.palette.divider}`,
+  '&:not(:last-child)': {
+    borderBottom: 0,
+  },
+  '&::before': {
+    display: 'none',
+  },
+}));
+
+const AccordionSummary = styled((props) => (
+  <MuiAccordionSummary
+    expandIcon={<ArrowForwardIosSharpIcon sx={{ fontSize: '0.9rem' }} />}
+    {...props}
+  />
+))(({ theme }) => ({
+  backgroundColor: 'rgba(0, 0, 0, .03)',
+  flexDirection: 'row-reverse',
+  [`& .${accordionSummaryClasses.expandIconWrapper}.${accordionSummaryClasses.expanded}`]:
+    {
+      transform: 'rotate(90deg)',
+    },
+  [`& .${accordionSummaryClasses.content}`]: {
+    marginLeft: theme.spacing(1),
+  },
+  ...theme.applyStyles('dark', {
+    backgroundColor: 'rgba(255, 255, 255, .05)',
+  }),
+}));
+
+const AccordionDetails = styled(MuiAccordionDetails)(({ theme }) => ({
+  padding: theme.spacing(2),
+  borderTop: '1px solid rgba(0, 0, 0, .125)',
+}));
+
+export default function CustomizedAccordions() {
+  const [expanded, setExpanded] = React.useState('panel1');
+
+  const handleChange = (panel) => (event, newExpanded) => {
+    setExpanded(newExpanded ? panel : false);
+  };
+
+  return (
+    <div>
+      <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
+        <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
+          <Typography component="span">Collapsible Group Item #1</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
+        <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
+          <Typography component="span">Collapsible Group Item #2</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+      <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
+        <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
+          <Typography component="span">Collapsible Group Item #3</Typography>
+        </AccordionSummary>
+        <AccordionDetails>
+          <Typography>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse
+            malesuada lacus ex, sit amet blandit leo lobortis eget. Lorem ipsum dolor
+            sit amet, consectetur adipiscing elit. Suspendisse malesuada lacus ex,
+            sit amet blandit leo lobortis eget.
+          </Typography>
+        </AccordionDetails>
+      </Accordion>
+    </div>
+  );
+}
+```
+</details>
+
+### Changing heading level
+
+By default, the Accordion uses an `h3` element for the heading. You can change the heading element using the `slotProps$heading$component` prop to ensure the correct heading hierarchy in your document.
+
+```r
+Accordion(
+  slotProps = list(heading = list(component = "h4")),
+  AccordionSummary(
+    expandIcon = Icon("expand_more"),
+    `aria-controls` = "panel1-content",
+    id = "panel1-header",
+    "Accordion"
+  ),
+  AccordionDetails(
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse malesuada
+    lacus ex, sit amet blandit leo lobortis eget."
+  )
+)
+```
+
+## Performance
+
+The Accordion content is mounted by default even if it's not expanded.
+This default behavior has server-side rendering and SEO in mind.
+
+If you render the Accordion Details with a big component tree nested inside, or if you have many Accordions, you may want to change this behavior by setting `unmountOnExit` to `TRUE` inside the `slotProps$transition` prop to improve performance:
+
+```r
+Accordion(slotProps = list(transition = list(unmountOnExit = TRUE)))
+```
+
+## Accessibility
+
+The [WAI-ARIA guidelines for accordions](https://www.w3.org/WAI/ARIA/apg/patterns/accordion/) recommend setting an `id` and `aria-controls`, which in this case would apply to the Accordion Summary component.
+The Accordion component then derives the necessary `aria-labelledby` and `id` from its content.
+
+```r
+Accordion(
+  AccordionSummary(id = "panel-header", `aria-controls` = "panel-content", "Header"),
+  AccordionDetails("Lorem ipsum dolor sit amet, consectetur adipiscing elit.")
+)
+```
+
+## Anatomy
+
+The Accordion component consists of a root `<div>` that contains the Accordion Summary, Accordion Details, and optional Accordion Actions for action buttons.
+
+```html
+<div class="MuiAccordion-root">
+  <h3 class="MuiAccordion-heading">
+    <button class="MuiButtonBase-root MuiAccordionSummary-root" aria-expanded="">
+      <!-- Accordion summary goes here -->
+    </button>
+  </h3>
+  <div class="MuiAccordion-region" role="region">
+    <div class="MuiAccordionDetails-root">
+      <!-- Accordion content goes here -->
+    </div>
+  </div>
+</div>
+```
+
+## Accordions in Shiny apps
+
+There is no `Accordion.shinyInput()`. To tell the server when a panel is
+expanded or collapsed, send the value from `onChange` with
+`Shiny.setInputValue()`:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Accordion(
+    onChange = JS("(event, expanded) => Shiny.setInputValue('details_open', expanded)"),
+    AccordionSummary(expandIcon = Icon("expand_more"), "Details"),
+    AccordionDetails(uiOutput("details"))
+  ),
+  verbatimTextOutput("state")
+)
+
+server <- function(input, output, session) {
+  output$state <- renderPrint(input$details_open)
+  output$details <- renderUI({
+    req(isTRUE(input$details_open)) # compute only once the panel is opened
+    Typography(paste("Computed at", format(Sys.time(), "%H:%M:%S")))
+  })
+}
+
+shinyApp(ui, server)
+```

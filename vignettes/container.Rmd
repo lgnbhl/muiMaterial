@@ -1,0 +1,117 @@
+---
+title: "Container"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Container}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-container/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+```
+
+# Container
+
+The container centers your content horizontally. It's the most basic layout element.
+
+While containers can be nested, most layouts do not require a nested container.
+
+## Fluid
+
+A fluid container width is bounded by the `maxWidth` prop value.
+(The demos use a height of 200px instead of the full viewport height `100vh`.)
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Container(maxWidth = "sm", Box(sx = list(bgcolor = "#cfe8fc", height = 200)))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+
+export default function SimpleContainer() {
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <Container maxWidth="sm">
+        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
+      </Container>
+    </React.Fragment>
+  );
+}
+```
+</details>
+
+```r
+Container(maxWidth = "sm")
+```
+
+## Fixed
+
+If you prefer to design for a fixed set of sizes instead of trying to accommodate a fully fluid viewport, you can set the `fixed` prop.
+The max-width matches the min-width of the current breakpoint.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Container(fixed = TRUE, Box(sx = list(bgcolor = "#cfe8fc", height = 200)))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import CssBaseline from '@mui/material/CssBaseline';
+import Box from '@mui/material/Box';
+import Container from '@mui/material/Container';
+
+export default function FixedContainer() {
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <Container fixed>
+        <Box sx={{ bgcolor: '#cfe8fc', height: '100vh' }} />
+      </Container>
+    </React.Fragment>
+  );
+}
+```
+</details>
+
+```r
+Container(fixed = TRUE)
+```
+
+## Containers in Shiny apps
+
+`Container()` is the usual wrapper of a page's main content, below an
+[App Bar](app-bar.html):
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  AppBar(position = "static", Toolbar(Typography(variant = "h6", "My app"))),
+  Container(
+    maxWidth = "md",
+    sx = list(py = 3),
+    Typography(variant = "h4", gutterBottom = TRUE, "Welcome"),
+    Typography("The content is centered and at most 900px wide.")
+  )
+)
+
+shinyApp(ui, function(input, output, session) {})
+```

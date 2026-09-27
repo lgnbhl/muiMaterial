@@ -1,0 +1,180 @@
+---
+title: "Box"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Box}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-box/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+```
+
+# Box
+
+The Box component is a generic, theme-aware container with access to CSS utilities from MUI System.
+
+## Introduction
+
+The Box component is a generic container for grouping other components.
+It's a fundamental building block when working with Material UI. You can think of it as a `<div>` with extra built-in features, like access to your app's theme and the [`sx` prop](#the-sx-prop-in-r).
+
+### Usage
+
+The Box component differs from other containers available in Material UI in that its usage is intended to be multipurpose and open-ended, just like a `<div>`.
+Components like [Container](container.html), [Stack](stack.html) and [Paper](paper.html), by contrast, feature usage-specific props that make them ideal for certain use cases.
+
+## Basics
+
+The Box component renders as a `<div>` by default, but you can swap in any other valid HTML tag or React component using the `component` prop.
+The demo below replaces the `<div>` with a `<section>` element:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(component = "section", sx = list(p = 2, border = "1px dashed grey"), "This Box renders as an HTML section element.")
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+
+export default function BoxBasic() {
+  return (
+    <Box component="section" sx={{ p: 2, border: '1px dashed grey' }}>
+      This Box renders as an HTML section element.
+    </Box>
+  );
+}
+```
+</details>
+
+## Customization
+
+Use the [`sx` prop](https://mui.com/system/getting-started/the-sx-prop/) to quickly customize any Box instance using a superset of CSS that has access to all the style functions and theme-aware properties exposed in the MUI System package.
+The demo below shows how to apply colors from the theme using this prop:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(palette = list(primary = list(main = "#007FFF", dark = "#0066CC"))),
+    Box(
+      sx = list(
+        width = 100,
+        height = 100,
+        borderRadius = 1,
+        bgcolor = "primary.main",
+        "&:hover" = list(bgcolor = "primary.dark")
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import { ThemeProvider } from '@mui/material/styles';
+
+export default function BoxSx() {
+  return (
+    <ThemeProvider
+      theme={{
+        palette: {
+          primary: {
+            main: '#007FFF',
+            dark: '#0066CC',
+          },
+        },
+      }}
+    >
+      <Box
+        sx={{
+          width: 100,
+          height: 100,
+          borderRadius: 1,
+          bgcolor: 'primary.main',
+          '&:hover': {
+            bgcolor: 'primary.dark',
+          },
+        }}
+      />
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+## The `sx` prop in R
+
+Every muiMaterial component accepts `sx`. The JavaScript object becomes a named
+R `list()`, following a few rules:
+
+| JavaScript | R |
+|---|---|
+| `sx={{ p: 2, bgcolor: 'primary.main' }}` | `sx = list(p = 2, bgcolor = "primary.main")` |
+| `'&:hover': { color: 'red' }` | `"&:hover" = list(color = "red")` |
+| `'& .MuiChip-label': { ... }` | `"& .MuiChip-label" = list(...)` |
+| `width: { xs: '100%', md: 400 }` | `width = list(xs = "100%", md = 400)` |
+| `sx={(theme) => ({ ... })}` | `sx = JS("(theme) => ({ ... })")` |
+
+- **Spacing** values (`m`, `p`, `mx`, `pt`, `gap`, ...) are multiples of the
+  theme spacing (8px by default): `p = 2` is `16px`. Strings are used as is:
+  `p = "3px"`.
+- **Colors** can be theme paths such as `"primary.main"`, `"text.secondary"` or
+  `"grey.300"`, or any CSS color.
+- **Breakpoints** (`xs`, `sm`, `md`, `lg`, `xl`) make any value responsive:
+  `display = list(xs = "none", md = "flex")` hides an element on small screens.
+- Keys that are not valid R names (selectors, `z-index` style names) must be
+  quoted: `"&:hover"`, `"@media all"`.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(
+      display = "flex",
+      flexDirection = list(xs = "column", sm = "row"),
+      gap = 2,
+      p = 2,
+      bgcolor = "grey.100",
+      borderRadius = 2
+    ),
+    lapply(c("primary", "secondary", "success"), function(color) {
+      Box(
+        sx = list(
+          flex = 1,
+          p = 2,
+          color = "common.white",
+          bgcolor = paste0(color, ".main"),
+          borderRadius = 1,
+          textAlign = "center",
+          transition = "transform 150ms",
+          "&:hover" = list(transform = "scale(1.05)")
+        ),
+        color
+      )
+    })
+  )
+)
+```
+
+See the [MUI System documentation](https://mui.com/system/getting-started/the-sx-prop/)
+for all available properties.
+
+## Anatomy
+
+The Box component is composed of a single root `<div>` element:
+
+```html
+<div className="MuiBox-root">
+  <!-- contents of the Box -->
+</div>
+```

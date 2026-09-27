@@ -1,0 +1,1302 @@
+---
+title: "Progress"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Progress}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-progress/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Progress
+
+Progress indicators commonly known as spinners, express an unspecified wait time or display the length of a process.
+
+Progress indicators inform users about the status of ongoing processes, such as loading an app, submitting a form, or saving updates.
+
+- **Determinate** indicators display how long an operation will take.
+- **Indeterminate** indicators visualize an unspecified wait time.
+
+The animations of the components rely on CSS as much as possible to work even before the JavaScript is loaded.
+
+<div class="alert alert-secondary">
+In the MUI documentation, the determinate demos animate their `value` with a
+React timer. In R, the value usually comes from the server: see
+[Progress in Shiny apps](#progress-in-shiny-apps) for a live example. The
+demos below use fixed values.
+</div>
+
+## Circular
+
+### Circular indeterminate
+
+The default version of CircularProgress renders an indeterminate spinner.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(sx = list(display = "flex"), CircularProgress(`aria-label` = "Loading…"))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import CircularProgress from '@mui/material/CircularProgress';
+import Box from '@mui/material/Box';
+
+export default function CircularIndeterminate() {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CircularProgress aria-label="Loading…" />
+    </Box>
+  );
+}
+```
+</details>
+
+### Circular color
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    sx = list(color = "grey.500"),
+    spacing = 2,
+    direction = "row",
+    CircularProgress(color = "secondary", `aria-label` = "Loading…"),
+    CircularProgress(color = "success", `aria-label` = "Loading…"),
+    CircularProgress(color = "inherit", `aria-label` = "Loading…")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+
+export default function CircularColor() {
+  return (
+    <Stack sx={{ color: 'grey.500' }} spacing={2} direction="row">
+      <CircularProgress color="secondary" aria-label="Loading…" />
+      <CircularProgress color="success" aria-label="Loading…" />
+      <CircularProgress color="inherit" aria-label="Loading…" />
+    </Stack>
+  );
+}
+```
+</details>
+
+### Circular size
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    direction = "row",
+    sx = list(alignItems = "center"),
+    CircularProgress(size = "30px", `aria-label` = "Loading…"),
+    CircularProgress(size = 40, `aria-label` = "Loading…"),
+    CircularProgress(size = "3rem", `aria-label` = "Loading…")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+
+export default function CircularSize() {
+  return (
+    <Stack spacing={2} direction="row" sx={{ alignItems: 'center' }}>
+      <CircularProgress size="30px" aria-label="Loading…" />
+      <CircularProgress size={40} aria-label="Loading…" />
+      <CircularProgress size="3rem" aria-label="Loading…" />
+    </Stack>
+  );
+}
+```
+</details>
+
+### Circular determinate
+
+To specify the loading progress of an operation, use the `determinate` value for the `variant` prop. To show the actual progress, use the `value` prop to specify a value between 0 and 100.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    direction = "row",
+    lapply(c(25, 50, 75, 100), function(value) {
+      CircularProgress(variant = "determinate", value = value, `aria-label` = "Export data")
+    })
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+
+export default function CircularDeterminate() {
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+    }, 800);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <Stack spacing={2} direction="row">
+      <CircularProgress variant="determinate" value={25} aria-label="Export data" />
+      <CircularProgress variant="determinate" value={50} aria-label="Export data" />
+      <CircularProgress variant="determinate" value={75} aria-label="Export data" />
+      <CircularProgress variant="determinate" value={100} aria-label="Export data" />
+      <CircularProgress
+        variant="determinate"
+        value={progress}
+        aria-label="Export data"
+      />
+    </Stack>
+  );
+}
+```
+</details>
+
+### Circular custom scale
+
+By default, progress values are expected in the 0–100 range. You can customize this range by using the `min` and `max` props.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  CircularProgress(variant = "determinate", min = 10, max = 20, value = 16, `aria-label` = "Loading")
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import CircularProgress from '@mui/material/CircularProgress';
+
+export default function CircularCustomScale() {
+  const [progress, setProgress] = React.useState(10);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 20 ? 10 : prevProgress + 2));
+    }, 800);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <CircularProgress
+      variant="determinate"
+      min={10}
+      max={20}
+      value={progress}
+      aria-label="Loading"
+    />
+  );
+}
+```
+</details>
+
+### Circular track
+
+To have the circular track always visible, pass the `enableTrackSlot` prop.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    direction = "row",
+    CircularProgress(enableTrackSlot = TRUE, size = "30px", `aria-label` = "Loading…"),
+    CircularProgress(enableTrackSlot = TRUE, size = 40, `aria-label` = "Loading…"),
+    CircularProgress(enableTrackSlot = TRUE, size = "3rem", `aria-label` = "Loading…"),
+    CircularProgress(enableTrackSlot = TRUE, variant = "determinate", value = 70, `aria-label` = "Export data"),
+    CircularProgress(enableTrackSlot = TRUE, variant = "determinate", color = "secondary", value = 40, `aria-label` = "Upload photos")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Stack from '@mui/material/Stack';
+import CircularProgress from '@mui/material/CircularProgress';
+
+export default function CircularEnableTrack() {
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+    }, 800);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <Stack spacing={2} direction="row">
+      <CircularProgress enableTrackSlot size="30px" aria-label="Loading…" />
+      <CircularProgress enableTrackSlot size={40} aria-label="Loading…" />
+      <CircularProgress enableTrackSlot size="3rem" aria-label="Loading…" />
+      <CircularProgress
+        enableTrackSlot
+        variant="determinate"
+        value={70}
+        aria-label="Export data"
+      />
+      <CircularProgress
+        enableTrackSlot
+        variant="determinate"
+        color="secondary"
+        value={progress}
+        aria-label="Upload photos"
+      />
+    </Stack>
+  );
+}
+```
+</details>
+
+### Interactive integration
+
+The following examples show how to integrate the CircularProgress with the Button and FAB components, creating loading states that can be triggered by user interactions.
+
+The loading state is kept in the URL with
+[reactRouter](https://felixluginbuhl.com/reactRouter/): a click navigates to
+`#/save/loading`, and a timer moves on to `#/save/success` after 2 seconds (in
+a Shiny app, the server would set the result).
+
+```{r}
+green <- c("500" = "#4caf50", "700" = "#388e3c")
+startSaving <- JS(
+  "() => {
+    if (window.location.hash === '#/save/loading') return;
+    window.location.hash = '/save/loading';
+    setTimeout(() => { window.location.hash = '/save/success'; }, 2000);
+  }"
+)
+
+circularIntegration <- function(state = c("idle", "loading", "success")) {
+  state <- match.arg(state)
+  loading <- state == "loading"
+  buttonSx <- if (state == "success") list(bgcolor = green[["500"]], "&:hover" = list(bgcolor = green[["700"]])) else list()
+  Box(
+    sx = list(display = "flex", alignItems = "center"),
+    Box(
+      sx = list(m = 1, position = "relative"),
+      Fab(`aria-label` = "save", color = "primary", sx = buttonSx, onClick = startSaving,
+          Icon(if (state == "success") "check" else "save")),
+      if (loading) CircularProgress(
+        `aria-label` = "Loading…",
+        size = 68,
+        sx = list(color = green[["500"]], position = "absolute", top = -6, left = -6, zIndex = 1)
+      )
+    ),
+    Box(
+      sx = list(m = 1, position = "relative"),
+      Button(variant = "contained", sx = buttonSx, disabled = loading, onClick = startSaving, "Accept terms"),
+      if (loading) CircularProgress(
+        `aria-label` = "Loading…",
+        size = 24,
+        sx = list(
+          color = green[["500"]], position = "absolute", top = "50%", left = "50%",
+          marginTop = "-12px", marginLeft = "-12px"
+        )
+      )
+    )
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      Route(path = "save/loading", element = circularIntegration("loading")),
+      Route(path = "save/success", element = circularIntegration("success")),
+      Route(path = "*", element = circularIntegration("idle"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import CircularProgress from '@mui/material/CircularProgress';
+import { green } from '@mui/material/colors';
+import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
+import CheckIcon from '@mui/icons-material/Check';
+import SaveIcon from '@mui/icons-material/Save';
+
+export default function CircularIntegration() {
+  const [loading, setLoading] = React.useState(false);
+  const [success, setSuccess] = React.useState(false);
+  const timer = React.useRef(undefined);
+
+  const buttonSx = {
+    ...(success && {
+      bgcolor: green[500],
+      '&:hover': {
+        bgcolor: green[700],
+      },
+    }),
+  };
+
+  React.useEffect(() => {
+    return () => {
+      clearTimeout(timer.current);
+    };
+  }, []);
+
+  const handleButtonClick = () => {
+    if (!loading) {
+      setSuccess(false);
+      setLoading(true);
+      timer.current = setTimeout(() => {
+        setSuccess(true);
+        setLoading(false);
+      }, 2000);
+    }
+  };
+
+  return (
+    <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      <Box sx={{ m: 1, position: 'relative' }}>
+        <Fab
+          aria-label="save"
+          color="primary"
+          sx={buttonSx}
+          onClick={handleButtonClick}
+        >
+          {success ? <CheckIcon /> : <SaveIcon />}
+        </Fab>
+        {loading && (
+          <CircularProgress
+            aria-label="Loading…"
+            size={68}
+            sx={{
+              color: green[500],
+              position: 'absolute',
+              top: -6,
+              left: -6,
+              zIndex: 1,
+            }}
+          />
+        )}
+      </Box>
+      <Box sx={{ m: 1, position: 'relative' }}>
+        <Button
+          variant="contained"
+          sx={buttonSx}
+          disabled={loading}
+          onClick={handleButtonClick}
+        >
+          Accept terms
+        </Button>
+        {loading && (
+          <CircularProgress
+            aria-label="Loading…"
+            size={24}
+            sx={{
+              color: green[500],
+              position: 'absolute',
+              top: '50%',
+              left: '50%',
+              marginTop: '-12px',
+              marginLeft: '-12px',
+            }}
+          />
+        )}
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+### Circular with label
+
+The example shows how to integrate the visual progress value with the CircularProgress component.
+
+```{r}
+CircularProgressWithLabel <- function(value) {
+  Box(
+    sx = list(position = "relative", display = "inline-flex"),
+    CircularProgress(variant = "determinate", `aria-label` = "Upload photos", value = value),
+    Box(
+      sx = list(
+        top = 0, left = 0, bottom = 0, right = 0, position = "absolute",
+        display = "flex", alignItems = "center", justifyContent = "center"
+      ),
+      Typography(variant = "caption", component = "div", sx = list(color = "text.secondary"), sprintf("%s%%", round(value)))
+    )
+  )
+}
+
+muiMaterialPage(CssBaseline(), CircularProgressWithLabel(60))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+function CircularProgressWithLabel(props) {
+  return (
+    <Box sx={{ position: 'relative', display: 'inline-flex' }}>
+      <CircularProgress
+        variant="determinate"
+        aria-label="Upload photos"
+        {...props}
+      />
+      <Box
+        sx={{
+          top: 0,
+          left: 0,
+          bottom: 0,
+          right: 0,
+          position: 'absolute',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+      >
+        <Typography
+          variant="caption"
+          component="div"
+          sx={{ color: 'text.secondary' }}
+        >
+          {`${Math.round(props.value)}%`}
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+CircularProgressWithLabel.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate variant.
+   * Value between `min` and `max`.
+   * @default props.min ?? 0
+   */
+  value: PropTypes.number.isRequired,
+};
+
+export default function CircularWithValueLabel() {
+  const [progress, setProgress] = React.useState(10);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 100 ? 0 : prevProgress + 10));
+    }, 800);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return <CircularProgressWithLabel value={progress} />;
+}
+```
+</details>
+
+## Linear
+
+### Linear indeterminate
+
+LinearProgress shows an indeterminate progress bar by default.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(sx = list(width = "100%"), LinearProgress(`aria-label` = "Loading…"))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+
+export default function LinearIndeterminate() {
+  return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgress aria-label="Loading…" />
+    </Box>
+  );
+}
+```
+</details>
+
+### Linear query
+
+To reverse the direction of the indeterminate animation, use the `query` value for the `variant` prop.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(sx = list(width = "100%"), LinearProgress(`aria-label` = "Loading…", variant = "query"))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+
+export default function LinearQuery() {
+  return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgress aria-label="Loading…" variant="query" />
+    </Box>
+  );
+}
+```
+</details>
+
+### Linear color
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    sx = list(width = "100%", color = "grey.500"),
+    spacing = 2,
+    LinearProgress(color = "secondary", `aria-label` = "Loading…"),
+    LinearProgress(color = "success", `aria-label` = "Loading…"),
+    LinearProgress(color = "inherit", `aria-label` = "Loading…")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Stack from '@mui/material/Stack';
+import LinearProgress from '@mui/material/LinearProgress';
+
+export default function LinearColor() {
+  return (
+    <Stack sx={{ width: '100%', color: 'grey.500' }} spacing={2}>
+      <LinearProgress color="secondary" aria-label="Loading…" />
+      <LinearProgress color="success" aria-label="Loading…" />
+      <LinearProgress color="inherit" aria-label="Loading…" />
+    </Stack>
+  );
+}
+```
+</details>
+
+### Linear determinate
+
+To show the progress on the loading bar, use the `determinate` value for the `variant` prop, along with the `value` prop.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(sx = list(width = "100%"), LinearProgress(variant = "determinate", value = 40, `aria-label` = "Export data"))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+
+export default function LinearDeterminate() {
+  const [progress, setProgress] = React.useState(0);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((oldProgress) => {
+        if (oldProgress === 100) {
+          return 0;
+        }
+        const diff = Math.random() * 10;
+        return Math.min(oldProgress + diff, 100);
+      });
+    }, 500);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgress
+        variant="determinate"
+        value={progress}
+        aria-label="Export data"
+      />
+    </Box>
+  );
+}
+```
+</details>
+
+### Linear buffer
+
+Use the `buffer` value for the `variant` prop to show a buffer progress alongside the actual progress value. The `valueBuffer` prop should be greater than or equal to the `value` prop.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%"),
+    LinearProgress(variant = "buffer", value = 40, valueBuffer = 60, `aria-label` = "Loading…")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import LinearProgress from '@mui/material/LinearProgress';
+
+export default function LinearBuffer() {
+  const [progress, setProgress] = React.useState(0);
+  const [buffer, setBuffer] = React.useState(10);
+
+  const progressRef = React.useRef(() => {});
+  React.useEffect(() => {
+    progressRef.current = () => {
+      if (progress === 100) {
+        setProgress(0);
+        setBuffer(10);
+      } else {
+        setProgress(progress + 1);
+        if (buffer < 100 && progress % 5 === 0) {
+          const newBuffer = buffer + 1 + Math.random() * 10;
+          setBuffer(newBuffer > 100 ? 100 : newBuffer);
+        }
+      }
+    };
+  });
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      progressRef.current();
+    }, 100);
+
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgress
+        variant="buffer"
+        value={progress}
+        valueBuffer={buffer}
+        aria-label="Loading…"
+      />
+    </Box>
+  );
+}
+```
+</details>
+
+### Linear with label
+
+The progress `value` can also be displayed alongside the progress bar.
+
+```{r}
+LinearProgressWithLabel <- function(value, id) {
+  Box(
+    Typography(id = id, variant = "body2", color = "text.secondary", "Uploading photos…"),
+    Box(
+      sx = list(display = "flex", alignItems = "center"),
+      Box(sx = list(width = "100%", mr = 1), LinearProgress(variant = "determinate", `aria-labelledby` = id, value = value)),
+      Box(sx = list(minWidth = 35), Typography(variant = "body2", sx = list(color = "text.secondary"), sprintf("%s%%", round(value))))
+    )
+  )
+}
+
+muiMaterialPage(CssBaseline(), Box(sx = list(width = "100%"), LinearProgressWithLabel(30, id = "linear-label")))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import LinearProgress from '@mui/material/LinearProgress';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+function LinearProgressWithLabelAndValue(props) {
+  const progressId = React.useId();
+  return (
+    <div>
+      <Typography id={progressId} variant="body2" color="text.secondary">
+        Uploading photos…
+      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}>
+          <LinearProgress
+            variant="determinate"
+            aria-labelledby={progressId}
+            {...props}
+          />
+        </Box>
+        <Box sx={{ minWidth: 35 }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {`${Math.round(props.value)}%`}
+          </Typography>
+        </Box>
+      </Box>
+    </div>
+  );
+}
+
+LinearProgressWithLabelAndValue.propTypes = {
+  /**
+   * The value of the progress indicator for the determinate and buffer variants.
+   * Value between `min` and `max`.
+   */
+  value: PropTypes.number.isRequired,
+};
+
+export default function LinearWithValueLabel() {
+  const [progress, setProgress] = React.useState(10);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 100 ? 10 : prevProgress + 10));
+    }, 800);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgressWithLabelAndValue value={progress} />
+    </Box>
+  );
+}
+```
+</details>
+
+### Linear with custom value text
+
+By default, the progress value is read by assistive technology as percentages. Use `aria-valuetext` when the progress value does not involve percentages, for example, an elevator floor number.
+
+```{r}
+elevator <- function(value, min = 1, max = 10) {
+  progressText <- sprintf("Elevator at floor %s out of %s.", value, max)
+  Box(
+    Typography(id = "elevator-status", variant = "body2", color = "text.secondary", sx = list(mr = 1), "Elevator status"),
+    Box(
+      sx = list(display = "flex", alignItems = "center"),
+      Box(
+        sx = list(width = "100%", mr = 1),
+        LinearProgress(
+          variant = "determinate",
+          `aria-labelledby` = "elevator-status",
+          `aria-valuetext` = progressText,
+          min = min, max = max, value = value
+        )
+      ),
+      Box(sx = list(whiteSpace = "nowrap"), Typography(variant = "body2", sx = list(color = "text.secondary"), progressText))
+    )
+  )
+}
+
+muiMaterialPage(CssBaseline(), Box(sx = list(width = "100%"), elevator(4)))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import LinearProgress from '@mui/material/LinearProgress';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+function LinearProgressWithLabelAndValue({ max, min, value, ...rest }) {
+  const progressText = `Elevator at floor ${value} out of ${max}.`;
+  const progressId = React.useId();
+  return (
+    <div>
+      <Typography
+        id={progressId}
+        variant="body2"
+        color="text.secondary"
+        sx={{ mr: 1 }}
+      >
+        Elevator status
+      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box sx={{ width: '100%', mr: 1 }}>
+          <LinearProgress
+            variant="determinate"
+            aria-labelledby={progressId}
+            aria-valuetext={progressText}
+            min={min}
+            max={max}
+            value={value}
+            {...rest}
+          />
+        </Box>
+        <Box sx={{ whiteSpace: 'nowrap' }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            {progressText}
+          </Typography>
+        </Box>
+      </Box>
+    </div>
+  );
+}
+
+LinearProgressWithLabelAndValue.propTypes = {
+  /**
+   * The maximum value for the progress indicator for the determinate and buffer variants.
+   * @default 100
+   */
+  max: PropTypes.number.isRequired,
+  /**
+   * The minimum value for the progress indicator for the determinate and buffer variants.
+   * @default 0
+   */
+  min: PropTypes.number.isRequired,
+  /**
+   * The value of the progress indicator for the determinate and buffer variants.
+   * Value between `min` and `max`.
+   */
+  value: PropTypes.number.isRequired,
+};
+
+export default function LinearWithAriaValueText() {
+  const [progress, setProgress] = React.useState(1);
+
+  React.useEffect(() => {
+    const timer = setInterval(() => {
+      setProgress((prevProgress) => (prevProgress >= 10 ? 1 : prevProgress + 1));
+    }, 800);
+    return () => {
+      clearInterval(timer);
+    };
+  }, []);
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <LinearProgressWithLabelAndValue value={progress} min={1} max={10} />
+    </Box>
+  );
+}
+```
+</details>
+
+## Customization
+
+Here are some examples of customizing the component.
+You can learn more about this in the [overrides documentation page](https://mui.com/material-ui/customization/how-to-customize/).
+The `styled()` components of the original demo become `sx` values. The
+gradient is an SVG definition written with `htmltools::tag()`:
+
+```{r}
+BorderLinearProgress <- function(...) {
+  LinearProgress(
+    sx = list(
+      height = 10,
+      borderRadius = 5,
+      "&.MuiLinearProgress-colorPrimary" = list(backgroundColor = "grey.200"),
+      "& .MuiLinearProgress-bar" = list(borderRadius = 5, backgroundColor = "#1a90ff")
+    ),
+    ...
+  )
+}
+
+# Inspired by the former Facebook spinners.
+FacebookCircularProgress <- CircularProgress(
+  variant = "indeterminate",
+  disableShrink = TRUE,
+  enableTrackSlot = TRUE,
+  sx = list(
+    color = "#1a90ff",
+    animationDuration = "550ms",
+    "& .MuiCircularProgress-circle" = list(strokeLinecap = "round"),
+    "& .MuiCircularProgress-track" = list(opacity = 1, stroke = "#eeeeee") # grey[200]
+  ),
+  size = 40,
+  thickness = 4,
+  `aria-label` = "Loading…"
+)
+
+GradientCircularProgress <- tagList(
+  tags$svg(
+    width = 0,
+    height = 0,
+    tags$defs(
+      tag("linearGradient", list(
+        id = "my_gradient", x1 = "0%", y1 = "0%", x2 = "0%", y2 = "100%",
+        tag("stop", list(offset = "0%", stopColor = "#e01cd5")),
+        tag("stop", list(offset = "100%", stopColor = "#1CB5E0"))
+      ))
+    )
+  ),
+  CircularProgress(`aria-label` = "Loading…", sx = list("svg circle" = list(stroke = "url(#my_gradient)")))
+)
+
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    sx = list(flexGrow = 1),
+    FacebookCircularProgress,
+    GradientCircularProgress,
+    tags$br(),
+    BorderLinearProgress(variant = "determinate", value = 50, `aria-label` = "Export data")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import CircularProgress, {
+  circularProgressClasses,
+} from '@mui/material/CircularProgress';
+import LinearProgress, { linearProgressClasses } from '@mui/material/LinearProgress';
+
+const BorderLinearProgress = styled(LinearProgress)(({ theme }) => ({
+  height: 10,
+  borderRadius: 5,
+  [`&.${linearProgressClasses.colorPrimary}`]: {
+    backgroundColor: theme.palette.grey[200],
+    ...theme.applyStyles('dark', {
+      backgroundColor: theme.palette.grey[800],
+    }),
+  },
+  [`& .${linearProgressClasses.bar}`]: {
+    borderRadius: 5,
+    backgroundColor: '#1a90ff',
+    ...theme.applyStyles('dark', {
+      backgroundColor: '#308fe8',
+    }),
+  },
+}));
+
+// Inspired by the former Facebook spinners.
+function FacebookCircularProgress(props) {
+  return (
+    <CircularProgress
+      variant="indeterminate"
+      disableShrink
+      enableTrackSlot
+      sx={(theme) => ({
+        color: '#1a90ff',
+        animationDuration: '550ms',
+        [`& .${circularProgressClasses.circle}`]: {
+          strokeLinecap: 'round',
+        },
+        [`& .${circularProgressClasses.track}`]: {
+          opacity: 1,
+          stroke: (theme.vars || theme).palette.grey[200],
+          ...theme.applyStyles('dark', {
+            stroke: (theme.vars || theme).palette.grey[800],
+          }),
+        },
+        ...theme.applyStyles('dark', {
+          color: '#308fe8',
+        }),
+      })}
+      size={40}
+      thickness={4}
+      aria-label="Loading…"
+      {...props}
+    />
+  );
+}
+
+// From https://github.com/mui/material-ui/issues/9496#issuecomment-959408221
+
+function GradientCircularProgress() {
+  return (
+    <React.Fragment>
+      <svg width={0} height={0}>
+        <defs>
+          <linearGradient id="my_gradient" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stopColor="#e01cd5" />
+            <stop offset="100%" stopColor="#1CB5E0" />
+          </linearGradient>
+        </defs>
+      </svg>
+      <CircularProgress
+        aria-label="Loading…"
+        sx={{ 'svg circle': { stroke: 'url(#my_gradient)' } }}
+      />
+    </React.Fragment>
+  );
+}
+export default function CustomizedProgressBars() {
+  return (
+    <Stack spacing={2} sx={{ flexGrow: 1 }}>
+      <FacebookCircularProgress />
+      <GradientCircularProgress />
+      <br />
+      <BorderLinearProgress
+        variant="determinate"
+        value={50}
+        aria-label="Export data"
+      />
+    </Stack>
+  );
+}
+```
+</details>
+
+## Delaying appearance
+
+There are [3 important limits](https://www.nngroup.com/articles/response-times-3-important-limits/) to know around response time.
+The ripple effect of the `ButtonBase` component ensures that the user feels that the UI is reacting instantaneously.
+Normally, no special feedback is necessary during delays of more than 0.1 but less than 1.0 second.
+After 1.0 second, you can display a loader to keep user's flow of thought uninterrupted.
+
+The state is kept in the URL (`#/delay/loading`, `#/delay/progress`,
+`#/delay/success`). The spinner is wrapped in `Fade()` with a
+`transitionDelay` of 800ms, so it only appears if the wait lasts.
+
+```{r}
+delayedSpinner <- function(visible) {
+  Box(
+    sx = list(height = 40),
+    if (visible) Fade(
+      `in` = TRUE,
+      appear = TRUE,
+      style = list(transitionDelay = "800ms"),
+      CircularProgress(`aria-label` = "Loading…")
+    )
+  )
+}
+simulateLoad <- JS(
+  "() => {
+    window.location.hash = '/delay/progress';
+    setTimeout(() => {
+      if (window.location.hash === '#/delay/progress') window.location.hash = '/delay/success';
+    }, 2000);
+  }"
+)
+
+delayingAppearance <- function(state = "idle") {
+  loading <- state == "loading"
+  query <- if (state %in% c("progress", "success")) state else "idle"
+  Box(
+    sx = list(display = "flex", flexDirection = "column", alignItems = "center"),
+    delayedSpinner(loading),
+    Button(href = if (loading) "#/" else "#/delay/loading", sx = list(m = 2), if (loading) "Stop loading" else "Loading"),
+    if (query == "success") Box(sx = list(height = 40), Typography("Success!")) else delayedSpinner(query == "progress"),
+    if (query != "idle") Button(href = "#/", sx = list(m = 2), "Reset") else Button(onClick = simulateLoad, sx = list(m = 2), "Simulate a load")
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(c("loading", "progress", "success"), function(state) {
+        Route(path = paste0("delay/", state), element = delayingAppearance(state))
+      }),
+      Route(path = "*", element = delayingAppearance())
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import CircularProgress from '@mui/material/CircularProgress';
+import Typography from '@mui/material/Typography';
+
+export default function DelayingAppearance() {
+  const [loading, setLoading] = React.useState(false);
+  const [query, setQuery] = React.useState('idle');
+  const timerRef = React.useRef(undefined);
+
+  React.useEffect(
+    () => () => {
+      clearTimeout(timerRef.current);
+    },
+    [],
+  );
+
+  const handleClickLoading = () => {
+    setLoading((prevLoading) => !prevLoading);
+  };
+
+  const handleClickQuery = () => {
+    if (timerRef.current) {
+      clearTimeout(timerRef.current);
+    }
+
+    if (query !== 'idle') {
+      setQuery('idle');
+      return;
+    }
+
+    setQuery('progress');
+    timerRef.current = setTimeout(() => {
+      setQuery('success');
+    }, 2000);
+  };
+
+  return (
+    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+      <Box sx={{ height: 40 }}>
+        <Fade
+          in={loading}
+          style={{
+            transitionDelay: loading ? '800ms' : '0ms',
+          }}
+          unmountOnExit
+        >
+          <CircularProgress aria-label="Loading…" />
+        </Fade>
+      </Box>
+      <Button onClick={handleClickLoading} sx={{ m: 2 }}>
+        {loading ? 'Stop loading' : 'Loading'}
+      </Button>
+      <Box sx={{ height: 40 }}>
+        {query === 'success' ? (
+          <Typography>Success!</Typography>
+        ) : (
+          <Fade
+            in={query === 'progress'}
+            style={{
+              transitionDelay: query === 'progress' ? '800ms' : '0ms',
+            }}
+            unmountOnExit
+          >
+            <CircularProgress aria-label="Loading…" />
+          </Fade>
+        )}
+      </Box>
+      <Button onClick={handleClickQuery} sx={{ m: 2 }}>
+        {query !== 'idle' ? 'Reset' : 'Simulate a load'}
+      </Button>
+    </Box>
+  );
+}
+```
+</details>
+
+## Accessibility
+
+Progress bars must be given an accessible name by either setting `aria-labelledby` that points to the `id` of a visible text label, or using the `aria-label` attribute.
+
+## Limitations
+
+### High CPU load
+
+Under heavy load, you might lose the stroke dash animation or see random `CircularProgress` ring widths.
+You should run processor intensive operations in a web worker or by batch in order not to block the main rendering thread.
+
+When it's not possible, you can leverage the `disableShrink` prop to mitigate the issue.
+See [this issue](https://github.com/mui/material-ui/issues/10327).
+
+```{r}
+muiMaterialPage(CssBaseline(), CircularProgress(disableShrink = TRUE, `aria-label` = "Loading…"))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import CircularProgress from '@mui/material/CircularProgress';
+
+export default function CircularUnderLoad() {
+  return <CircularProgress disableShrink aria-label="Loading…" />;
+}
+```
+</details>
+
+### High frequency updates
+
+The `LinearProgress` uses a transition on the CSS transform property to provide a smooth update between different values.
+The default transition duration is 200ms.
+In the event a parent component updates the `value` prop too quickly, you will at least experience a 200ms delay between the re-render and the progress bar fully updated.
+
+If you need to perform 30 re-renders per second or more, we recommend disabling the transition:
+
+```css
+.MuiLinearProgress-bar {
+  transition: none;
+}
+```
+
+## Progress in Shiny apps
+
+In a Shiny app, the value of a determinate indicator comes from the server.
+Render the indicator with `renderReact()` in a `reactOutput()`:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, width = 400),
+    Button.shinyInput("start", "Start job", variant = "contained"),
+    Box(sx = list(mt = 2), reactOutput("progress"))
+  )
+)
+
+server <- function(input, output, session) {
+  progress <- reactiveVal(0)
+
+  observeEvent(input$start, progress(0))
+  observe({
+    req(input$start, progress() < 100)
+    invalidateLater(300)
+    isolate(progress(progress() + 5)) # stands for one step of a long job
+  })
+
+  output$progress <- renderReact({
+    LinearProgress(variant = "determinate", value = progress(), `aria-label` = "Job progress")
+  })
+}
+
+shinyApp(ui, server)
+```

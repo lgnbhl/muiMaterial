@@ -1,0 +1,569 @@
+---
+title: "Popover"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Popover}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-popover/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Popover
+
+A Popover can be used to display some content on top of another.
+
+Things to know when using the `Popover` component:
+
+- The component is built on top of the [`Modal`](modal.html) component.
+- `Popover` blocks scrolling and dismisses on click-away by default, unlike [`Popper`](popper.html).
+
+In React, the element a popover is anchored to is kept in a `useState()` hook.
+`Popover.triggerId()` does this for you: give the button an `id` and pass the
+same id as `triggerId`. The popover is anchored to that button, and closes on a
+click outside or on Escape. See [Overlays with `.triggerId`](triggerid.html).
+
+## Basic Popover
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(id = "simple-popover-button", `aria-describedby` = "simple-popover", variant = "contained", "Open Popover"),
+  Popover.triggerId(
+    triggerId = "simple-popover-button",
+    id = "simple-popover",
+    anchorOrigin = list(vertical = "bottom", horizontal = "left"),
+    Typography(sx = list(p = 2), "The content of the Popover.")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Popover from '@mui/material/Popover';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+export default function BasicPopover() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popover' : undefined;
+
+  return (
+    <div>
+      <Button aria-describedby={id} variant="contained" onClick={handleClick}>
+        Open Popover
+      </Button>
+      <Popover
+        id={id}
+        open={open}
+        anchorEl={anchorEl}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: 'bottom',
+          horizontal: 'left',
+        }}
+      >
+        <Typography sx={{ p: 2 }}>The content of the Popover.</Typography>
+      </Popover>
+    </div>
+  );
+}
+```
+</details>
+
+## Anchor playground
+
+`anchorOrigin` sets the point of the anchor (the button) where the popover
+attaches, and `transformOrigin` sets the point of the popover that is
+attached there. Each takes a `vertical` (`"top"`, `"center"`, `"bottom"`) and a
+`horizontal` (`"left"`, `"center"`, `"right"`) position.
+
+The MUI documentation has an interactive playground with radio buttons. Below,
+each button opens a popover with a different combination:
+
+```{r}
+origins <- list(
+  "below, aligned left" = list(
+    anchorOrigin = list(vertical = "bottom", horizontal = "left"),
+    transformOrigin = list(vertical = "top", horizontal = "left")
+  ),
+  "below, centered" = list(
+    anchorOrigin = list(vertical = "bottom", horizontal = "center"),
+    transformOrigin = list(vertical = "top", horizontal = "center")
+  ),
+  "on the right" = list(
+    anchorOrigin = list(vertical = "center", horizontal = "right"),
+    transformOrigin = list(vertical = "center", horizontal = "left")
+  ),
+  "above, aligned right" = list(
+    anchorOrigin = list(vertical = "top", horizontal = "right"),
+    transformOrigin = list(vertical = "bottom", horizontal = "right")
+  )
+)
+
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    direction = "row",
+    spacing = 2,
+    sx = list(py = 8, justifyContent = "center", flexWrap = "wrap"),
+    lapply(seq_along(origins), function(i) {
+      tagList(
+        Button(id = paste0("anchor-button-", i), variant = "outlined", names(origins)[i]),
+        Popover.triggerId(
+          triggerId = paste0("anchor-button-", i),
+          anchorOrigin = origins[[i]]$anchorOrigin,
+          transformOrigin = origins[[i]]$transformOrigin,
+          Typography(sx = list(p = 2), "The content of the Popover.")
+        )
+      )
+    })
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import Grid from '@mui/material/Grid';
+import { green } from '@mui/material/colors';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Popover from '@mui/material/Popover';
+import Input from '@mui/material/Input';
+import InputLabel from '@mui/material/InputLabel';
+import { HighlightedCode } from '@mui/internal-core-docs/HighlightedCode';
+
+const inlineStyles = {
+  anchorVertical: {
+    top: {
+      top: -5,
+    },
+    center: {
+      top: 'calc(50% - 5px)',
+    },
+    bottom: {
+      bottom: -5,
+    },
+  },
+  anchorHorizontal: {
+    left: {
+      left: -5,
+    },
+    center: {
+      left: 'calc(50% - 5px)',
+    },
+    right: {
+      right: -5,
+    },
+  },
+};
+
+function AnchorPlayground() {
+  const anchorRef = React.useRef();
+
+  const [state, setState] = React.useState({
+    open: false,
+    anchorOriginVertical: 'top',
+    anchorOriginHorizontal: 'left',
+    transformOriginVertical: 'top',
+    transformOriginHorizontal: 'left',
+    positionTop: 200, // Just so the popover can be spotted more easily
+    positionLeft: 400, // Same as above
+    anchorReference: 'anchorEl',
+  });
+
+  const {
+    open,
+    anchorOriginVertical,
+    anchorOriginHorizontal,
+    transformOriginVertical,
+    transformOriginHorizontal,
+    positionTop,
+    positionLeft,
+    anchorReference,
+  } = state;
+
+  const handleChange = (event) => {
+    setState({
+      ...state,
+      [event.target.name]: event.target.value,
+    });
+  };
+
+  const handleNumberInputChange = (key) => (event) => {
+    setState({
+      ...state,
+      [key]: parseInt(event.target.value, 10),
+    });
+  };
+
+  const handleClickButton = () => {
+    setState({
+      ...state,
+      open: true,
+    });
+  };
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
+
+  let mode = '';
+
+  if (anchorReference === 'anchorPosition') {
+    mode = `
+  anchorReference="${anchorReference}"
+  anchorPosition={{ top: ${positionTop}, left: ${positionLeft} }}`;
+  }
+
+  const jsx = `
+<Popover ${mode}
+  anchorOrigin={{
+    vertical: '${anchorOriginVertical}',
+    horizontal: '${anchorOriginHorizontal}',
+  }}
+  transformOrigin={{
+    vertical: '${transformOriginVertical}',
+    horizontal: '${transformOriginHorizontal}',
+  }}
+>
+  The content of the Popover.
+</Popover>
+`;
+
+  const radioAnchorClasses = {
+    color: green[600],
+    '&.Mui-checked': {
+      color: green[500],
+    },
+  };
+
+  return (
+    <div>
+      <Grid container sx={{ justifyContent: 'center' }}>
+        <Grid sx={{ position: 'relative', mb: 4 }}>
+          <Button ref={anchorRef} variant="contained" onClick={handleClickButton}>
+            Open Popover
+          </Button>
+          {anchorReference === 'anchorEl' && (
+            <Box
+              sx={{
+                bgcolor: green[500],
+                width: 10,
+                height: 10,
+                borderRadius: '50%',
+                position: 'absolute',
+              }}
+              style={{
+                ...inlineStyles.anchorVertical[anchorOriginVertical],
+                ...inlineStyles.anchorHorizontal[anchorOriginHorizontal],
+              }}
+            />
+          )}
+        </Grid>
+      </Grid>
+      <Popover
+        open={open}
+        anchorEl={anchorRef.current}
+        anchorReference={anchorReference}
+        anchorPosition={{
+          top: positionTop,
+          left: positionLeft,
+        }}
+        onClose={handleClose}
+        anchorOrigin={{
+          vertical: anchorOriginVertical,
+          horizontal: anchorOriginHorizontal,
+        }}
+        transformOrigin={{
+          vertical: transformOriginVertical,
+          horizontal: transformOriginHorizontal,
+        }}
+      >
+        <Typography sx={{ m: 2 }}>The content of the Popover.</Typography>
+      </Popover>
+      <Grid container spacing={2}>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
+          <FormControl component="fieldset">
+            <FormLabel component="legend">anchorReference</FormLabel>
+            <RadioGroup
+              row
+              aria-label="anchor reference"
+              name="anchorReference"
+              value={anchorReference}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="anchorEl"
+                control={<Radio />}
+                label="anchorEl"
+              />
+              <FormControlLabel
+                value="anchorPosition"
+                control={<Radio />}
+                label="anchorPosition"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
+          <FormControl variant="standard">
+            <InputLabel htmlFor="position-top">anchorPosition.top</InputLabel>
+            <Input
+              id="position-top"
+              type="number"
+              value={positionTop}
+              onChange={handleNumberInputChange('positionTop')}
+            />
+          </FormControl>
+          &nbsp;
+          <FormControl variant="standard">
+            <InputLabel htmlFor="position-left">anchorPosition.left</InputLabel>
+            <Input
+              id="position-left"
+              type="number"
+              value={positionLeft}
+              onChange={handleNumberInputChange('positionLeft')}
+            />
+          </FormControl>
+        </Grid>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
+          <FormControl component="fieldset">
+            <FormLabel component="legend">anchorOrigin.vertical</FormLabel>
+            <RadioGroup
+              aria-label="anchor origin vertical"
+              name="anchorOriginVertical"
+              value={anchorOriginVertical}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="top"
+                control={<Radio sx={radioAnchorClasses} />}
+                label="Top"
+              />
+              <FormControlLabel
+                value="center"
+                control={<Radio sx={radioAnchorClasses} />}
+                label="Center"
+              />
+              <FormControlLabel
+                value="bottom"
+                control={<Radio sx={radioAnchorClasses} />}
+                label="Bottom"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
+          <FormControl component="fieldset">
+            <FormLabel component="legend">transformOrigin.vertical</FormLabel>
+            <RadioGroup
+              aria-label="transform origin vertical"
+              name="transformOriginVertical"
+              value={transformOriginVertical}
+              onChange={handleChange}
+            >
+              <FormControlLabel value="top" control={<Radio />} label="Top" />
+              <FormControlLabel
+                value="center"
+                control={<Radio color="primary" />}
+                label="Center"
+              />
+              <FormControlLabel
+                value="bottom"
+                control={<Radio color="primary" />}
+                label="Bottom"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
+          <FormControl component="fieldset">
+            <FormLabel component="legend">anchorOrigin.horizontal</FormLabel>
+            <RadioGroup
+              row
+              aria-label="anchor origin horizontal"
+              name="anchorOriginHorizontal"
+              value={anchorOriginHorizontal}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="left"
+                control={<Radio sx={radioAnchorClasses} />}
+                label="Left"
+              />
+              <FormControlLabel
+                value="center"
+                control={<Radio sx={radioAnchorClasses} />}
+                label="Center"
+              />
+              <FormControlLabel
+                value="right"
+                control={<Radio sx={radioAnchorClasses} />}
+                label="Right"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+        <Grid
+          size={{
+            xs: 12,
+            sm: 6,
+          }}
+        >
+          <FormControl component="fieldset">
+            <FormLabel component="legend">transformOrigin.horizontal</FormLabel>
+            <RadioGroup
+              row
+              aria-label="transform origin horizontal"
+              name="transformOriginHorizontal"
+              value={transformOriginHorizontal}
+              onChange={handleChange}
+            >
+              <FormControlLabel
+                value="left"
+                control={<Radio color="primary" />}
+                label="Left"
+              />
+              <FormControlLabel
+                value="center"
+                control={<Radio color="primary" />}
+                label="Center"
+              />
+              <FormControlLabel
+                value="right"
+                control={<Radio color="primary" />}
+                label="Right"
+              />
+            </RadioGroup>
+          </FormControl>
+        </Grid>
+      </Grid>
+      <HighlightedCode code={jsx} language="jsx" />
+    </div>
+  );
+}
+
+export default AnchorPlayground;
+```
+</details>
+
+You can also set `anchorReference = "anchorPosition"`. The component then
+ignores the anchor element and uses the `anchorPosition` prop, which gives the
+position of the popover in pixels from the top left corner of the window. As
+nothing is anchored, a [reactRouter](https://felixluginbuhl.com/reactRouter/)
+route opens it:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(href = "#/anchor-position-popover", "Open at (top: 200, left: 400)"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "anchor-position-popover",
+        element = Popover(
+          open = TRUE,
+          onClose = JS("() => { window.location.hash = '/'; }"),
+          anchorReference = "anchorPosition",
+          anchorPosition = list(top = 200, left = 400),
+          Typography(sx = list(p = 2), "The content of the Popover.")
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+## Mouse hover interaction
+
+The MUI documentation shows a popover that opens with `mouseenter` and
+`mouseleave` events. `Popover.triggerId()` opens on click. For content shown on
+hover, use a [Tooltip](tooltip.html), which is designed for it.
+
+## Virtual element
+
+In React, the value of the `anchorEl` prop can be a reference to a fake DOM
+element, for example to show a popover next to selected text. This needs
+custom JavaScript and has no R equivalent.
+
+## Transitions
+
+Popover uses [Grow](transitions.html#grow) by default.
+Use `slots$transition` and `slotProps$transition` to replace it with another transition or to pass transition props.
+A component is expected, so it is passed as a JavaScript reference with `JS()`:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(id = "fade-popover-button", variant = "contained", "Open Popover with Fade"),
+  Popover.triggerId(
+    triggerId = "fade-popover-button",
+    anchorOrigin = list(vertical = "bottom", horizontal = "left"),
+    slots = list(transition = JS("jsmodule['@mui/material'].Fade")),
+    slotProps = list(transition = list(timeout = 600)),
+    Typography(sx = list(p = 2), "The content of the Popover.")
+  )
+)
+```
+
+## Popovers in Shiny apps
+
+`Popover.triggerId()` works unchanged in Shiny apps. A caller-supplied `onClose`
+runs after the popover has closed itself, for example
+`onClose = triggerEvent("popover_closed")` to notify the server.

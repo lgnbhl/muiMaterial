@@ -1,0 +1,870 @@
+---
+title: "Card"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Card}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-card/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Card
+
+Cards contain content and actions about a single subject.
+
+## Introduction
+
+Cards are surfaces that display content and actions on a single topic.
+The Material UI Card component includes several complementary utility components to handle various use cases:
+
+- `Card()`: a surface-level container for grouping related components.
+- `CardContent()`: the wrapper for the Card content.
+- `CardHeader()`: an optional wrapper for the Card header.
+- `CardMedia()`: an optional container for displaying images, videos, etc.
+- `CardActions()`: an optional wrapper that groups a set of buttons.
+- `CardActionArea()`: an optional wrapper that allows users to interact with the specified area of the Card.
+
+```{r}
+bull <- Box(component = "span", sx = list(display = "inline-block", mx = "2px", transform = "scale(0.8)"), "•")
+
+wordOfTheDay <- tagList(
+  CardContent(
+    Typography(gutterBottom = TRUE, sx = list(color = "text.secondary", fontSize = 14), "Word of the Day"),
+    Typography(variant = "h5", component = "div", "be", bull, "nev", bull, "o", bull, "lent"),
+    Typography(sx = list(color = "text.secondary", mb = 1.5), "adjective"),
+    Typography(variant = "body2", "well meaning and kindly.", tags$br(), '"a benevolent smile"')
+  ),
+  CardActions(Button(size = "small", "Learn More"))
+)
+
+muiMaterialPage(
+  CssBaseline(),
+  Card(sx = list(minWidth = 275), wordOfTheDay)
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+const bull = (
+  <Box
+    component="span"
+    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+  >
+    •
+  </Box>
+);
+
+export default function BasicCard() {
+  return (
+    <Card sx={{ minWidth: 275 }}>
+      <CardContent>
+        <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+          Word of the Day
+        </Typography>
+        <Typography variant="h5" component="div">
+          be{bull}nev{bull}o{bull}lent
+        </Typography>
+        <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>adjective</Typography>
+        <Typography variant="body2">
+          well meaning and kindly.
+          <br />
+          {'"a benevolent smile"'}
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+  );
+}
+```
+</details>
+
+## Basics
+
+<div class="alert alert-success">
+Although cards can support multiple actions, UI controls, and an overflow menu, use restraint and remember that cards are meant to be entry points to more complex and detailed information.
+</div>
+
+### Outlined Card
+
+Set `variant = "outlined"` to render an outlined card.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(sx = list(minWidth = 275), Card(variant = "outlined", wordOfTheDay))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+const bull = (
+  <Box
+    component="span"
+    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
+  >
+    •
+  </Box>
+);
+
+const card = (
+  <React.Fragment>
+    <CardContent>
+      <Typography gutterBottom sx={{ color: 'text.secondary', fontSize: 14 }}>
+        Word of the Day
+      </Typography>
+      <Typography variant="h5" component="div">
+        be{bull}nev{bull}o{bull}lent
+      </Typography>
+      <Typography sx={{ color: 'text.secondary', mb: 1.5 }}>adjective</Typography>
+      <Typography variant="body2">
+        well meaning and kindly.
+        <br />
+        {'"a benevolent smile"'}
+      </Typography>
+    </CardContent>
+    <CardActions>
+      <Button size="small">Learn More</Button>
+    </CardActions>
+  </React.Fragment>
+);
+
+export default function OutlinedCard() {
+  return (
+    <Box sx={{ minWidth: 275 }}>
+      <Card variant="outlined">{card}</Card>
+    </Box>
+  );
+}
+```
+</details>
+
+## Complex Interaction
+
+On desktop, card content can expand. (Click the downward chevron to view the recipe.)
+
+In React, the expanded state lives in a `useState()` hook. Here it is kept in
+the URL with [reactRouter](https://felixluginbuhl.com/reactRouter/): the
+chevron links to `#/recipe-expanded` (or back to `#/`), and the route decides
+whether the `Collapse()` is open and the chevron rotated.
+
+```{r, message = FALSE}
+library(reactRouter)
+
+recipeReviewCard <- function(expanded) {
+  Card(
+    sx = list(maxWidth = 345),
+    CardHeader(
+      avatar = Avatar(sx = list(bgcolor = "#f44336"), `aria-label` = "recipe", "R"), # red[500]
+      action = IconButton(`aria-label` = "settings", Icon("more_vert")),
+      title = "Shrimp and Chorizo Paella",
+      subheader = "September 14, 2016"
+    ),
+    CardMedia(
+      component = "img",
+      height = "194",
+      image = "https://mui.com/static/images/cards/paella.jpg",
+      alt = "Paella dish"
+    ),
+    CardContent(
+      Typography(
+        variant = "body2",
+        sx = list(color = "text.secondary"),
+        "This impressive paella is a perfect party dish and a fun meal to cook
+        together with your guests. Add 1 cup of frozen peas along with the mussels,
+        if you like."
+      )
+    ),
+    CardActions(
+      disableSpacing = TRUE,
+      IconButton(`aria-label` = "add to favorites", Icon("favorite")),
+      IconButton(`aria-label` = "share", Icon("share")),
+      IconButton(
+        href = if (expanded) "#/" else "#/recipe-expanded",
+        `aria-expanded` = expanded,
+        `aria-label` = "show more",
+        sx = list(marginLeft = "auto", transform = if (expanded) "rotate(180deg)" else "rotate(0deg)"),
+        Icon("expand_more")
+      )
+    ),
+    Collapse(
+      `in` = expanded,
+      appear = TRUE,
+      timeout = "auto",
+      unmountOnExit = TRUE,
+      CardContent(
+        Typography(sx = list(marginBottom = 2), "Method:"),
+        Typography(
+          sx = list(marginBottom = 2),
+          "Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
+          aside for 10 minutes."
+        ),
+        Typography(
+          sx = list(marginBottom = 2),
+          "Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
+          medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
+          occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
+          large plate and set aside, leaving chicken and chorizo in the pan. Add
+          pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
+          stirring often until thickened and fragrant, about 10 minutes. Add
+          saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil."
+        ),
+        Typography(
+          sx = list(marginBottom = 2),
+          "Add rice and stir very gently to distribute. Top with artichokes and
+          peppers, and cook without stirring, until most of the liquid is absorbed,
+          15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
+          mussels, tucking them down into the rice, and cook again without
+          stirring, until mussels have opened and rice is just tender, 5 to 7
+          minutes more. (Discard any mussels that don't open.)"
+        ),
+        Typography("Set aside off of the heat to let rest for 10 minutes, and then serve.")
+      )
+    )
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      Route(path = "recipe-expanded", element = recipeReviewCard(TRUE)),
+      Route(path = "*", element = recipeReviewCard(FALSE))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Card from '@mui/material/Card';
+import CardHeader from '@mui/material/CardHeader';
+import CardMedia from '@mui/material/CardMedia';
+import CardContent from '@mui/material/CardContent';
+import CardActions from '@mui/material/CardActions';
+import Collapse from '@mui/material/Collapse';
+import Avatar from '@mui/material/Avatar';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import { red } from '@mui/material/colors';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ShareIcon from '@mui/icons-material/Share';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import MoreVertIcon from '@mui/icons-material/MoreVert';
+
+const ExpandMore = styled((props) => {
+  const { expand, ...other } = props;
+  return <IconButton {...other} />;
+})(({ theme }) => ({
+  marginLeft: 'auto',
+  transition: theme.transitions.create('transform', {
+    duration: theme.transitions.duration.shortest,
+  }),
+  variants: [
+    {
+      props: ({ expand }) => !expand,
+      style: {
+        transform: 'rotate(0deg)',
+      },
+    },
+    {
+      props: ({ expand }) => !!expand,
+      style: {
+        transform: 'rotate(180deg)',
+      },
+    },
+  ],
+}));
+
+export default function RecipeReviewCard() {
+  const [expanded, setExpanded] = React.useState(false);
+
+  const handleExpandClick = () => {
+    setExpanded(!expanded);
+  };
+
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardHeader
+        avatar={
+          <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
+            R
+          </Avatar>
+        }
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title="Shrimp and Chorizo Paella"
+        subheader="September 14, 2016"
+      />
+      <CardMedia
+        component="img"
+        height="194"
+        image="/static/images/cards/paella.jpg"
+        alt="Paella dish"
+      />
+      <CardContent>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          This impressive paella is a perfect party dish and a fun meal to cook
+          together with your guests. Add 1 cup of frozen peas along with the mussels,
+          if you like.
+        </Typography>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="add to favorites">
+          <FavoriteIcon />
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <Typography sx={{ marginBottom: 2 }}>Method:</Typography>
+          <Typography sx={{ marginBottom: 2 }}>
+            Heat 1/2 cup of the broth in a pot until simmering, add saffron and set
+            aside for 10 minutes.
+          </Typography>
+          <Typography sx={{ marginBottom: 2 }}>
+            Heat oil in a (14- to 16-inch) paella pan or a large, deep skillet over
+            medium-high heat. Add chicken, shrimp and chorizo, and cook, stirring
+            occasionally until lightly browned, 6 to 8 minutes. Transfer shrimp to a
+            large plate and set aside, leaving chicken and chorizo in the pan. Add
+            pimentón, bay leaves, garlic, tomatoes, onion, salt and pepper, and cook,
+            stirring often until thickened and fragrant, about 10 minutes. Add
+            saffron broth and remaining 4 1/2 cups chicken broth; bring to a boil.
+          </Typography>
+          <Typography sx={{ marginBottom: 2 }}>
+            Add rice and stir very gently to distribute. Top with artichokes and
+            peppers, and cook without stirring, until most of the liquid is absorbed,
+            15 to 18 minutes. Reduce heat to medium-low, add reserved shrimp and
+            mussels, tucking them down into the rice, and cook again without
+            stirring, until mussels have opened and rice is just tender, 5 to 7
+            minutes more. (Discard any mussels that don&apos;t open.)
+          </Typography>
+          <Typography>
+            Set aside off of the heat to let rest for 10 minutes, and then serve.
+          </Typography>
+        </CardContent>
+      </Collapse>
+    </Card>
+  );
+}
+```
+</details>
+
+## Media
+
+Example of a card using an image to reinforce the content.
+
+```{r}
+lizardContent <- CardContent(
+  Typography(gutterBottom = TRUE, variant = "h5", component = "div", "Lizard"),
+  Typography(
+    variant = "body2",
+    sx = list(color = "text.secondary"),
+    "Lizards are a widespread group of squamate reptiles, with over 6,000
+    species, ranging across all continents except Antarctica"
+  )
+)
+lizardImage <- "https://mui.com/static/images/cards/contemplative-reptile.jpg"
+
+muiMaterialPage(
+  CssBaseline(),
+  Card(
+    sx = list(maxWidth = 345),
+    CardMedia(sx = list(height = 140), image = lizardImage, title = "green iguana"),
+    lizardContent,
+    CardActions(Button(size = "small", "Share"), Button(size = "small", "Learn More"))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+export default function MediaCard() {
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        sx={{ height: 140 }}
+        image="/static/images/cards/contemplative-reptile.jpg"
+        title="green iguana"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Lizard
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Lizards are a widespread group of squamate reptiles, with over 6,000
+          species, ranging across all continents except Antarctica
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+  );
+}
+```
+</details>
+
+By default, we use the combination of a `<div>` element and a _background image_ to display the media. It can be problematic in some situations, for example, you might want to display a video or a responsive image. Use the `component` prop for these use cases:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Card(
+    sx = list(maxWidth = 345),
+    CardMedia(component = "img", alt = "green iguana", height = "140", image = lizardImage),
+    lizardContent,
+    CardActions(Button(size = "small", "Share"), Button(size = "small", "Learn More"))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+export default function ImgMediaCard() {
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardMedia
+        component="img"
+        alt="green iguana"
+        height="140"
+        image="/static/images/cards/contemplative-reptile.jpg"
+      />
+      <CardContent>
+        <Typography gutterBottom variant="h5" component="div">
+          Lizard
+        </Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          Lizards are a widespread group of squamate reptiles, with over 6,000
+          species, ranging across all continents except Antarctica
+        </Typography>
+      </CardContent>
+      <CardActions>
+        <Button size="small">Share</Button>
+        <Button size="small">Learn More</Button>
+      </CardActions>
+    </Card>
+  );
+}
+```
+</details>
+
+## Primary action
+
+Often a card allow users to interact with the entirety of its surface to trigger its main action, be it an expansion, a link to another screen or some other behavior. The action area of the card can be specified by wrapping its contents in a `CardActionArea()` component.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Card(
+    sx = list(maxWidth = 345),
+    CardActionArea(
+      CardMedia(component = "img", height = "140", image = lizardImage, alt = "green iguana"),
+      lizardContent
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import CardActionArea from '@mui/material/CardActionArea';
+
+export default function ActionAreaCard() {
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image="/static/images/cards/contemplative-reptile.jpg"
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Lizard
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Lizards are a widespread group of squamate reptiles, with over 6,000
+            species, ranging across all continents except Antarctica
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+    </Card>
+  );
+}
+```
+</details>
+
+A card can also offer supplemental actions which should stand detached from the main action area in order to avoid event overlap.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Card(
+    sx = list(maxWidth = 345),
+    CardActionArea(
+      CardMedia(component = "img", height = "140", image = lizardImage, alt = "green iguana"),
+      lizardContent
+    ),
+    CardActions(Button(size = "small", color = "primary", "Share"))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import CardActionArea from '@mui/material/CardActionArea';
+import CardActions from '@mui/material/CardActions';
+
+export default function MultiActionAreaCard() {
+  return (
+    <Card sx={{ maxWidth: 345 }}>
+      <CardActionArea>
+        <CardMedia
+          component="img"
+          height="140"
+          image="/static/images/cards/contemplative-reptile.jpg"
+          alt="green iguana"
+        />
+        <CardContent>
+          <Typography gutterBottom variant="h5" component="div">
+            Lizard
+          </Typography>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+            Lizards are a widespread group of squamate reptiles, with over 6,000
+            species, ranging across all continents except Antarctica
+          </Typography>
+        </CardContent>
+      </CardActionArea>
+      <CardActions>
+        <Button size="small" color="primary">
+          Share
+        </Button>
+      </CardActions>
+    </Card>
+  );
+}
+```
+</details>
+
+## UI Controls
+
+Supplemental actions within the card are explicitly called out using icons, text, and UI controls, typically placed at the bottom of the card.
+
+Here's an example of a media control card.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Card(
+    sx = list(display = "flex"),
+    Box(
+      sx = list(display = "flex", flexDirection = "column"),
+      CardContent(
+        sx = list(flex = "1 0 auto"),
+        Typography(component = "div", variant = "h5", "Live From Space"),
+        Typography(variant = "subtitle1", component = "div", sx = list(color = "text.secondary"), "Mac Miller")
+      ),
+      Box(
+        sx = list(display = "flex", alignItems = "center", pl = 1, pb = 1),
+        IconButton(`aria-label` = "previous", Icon("skip_previous")),
+        IconButton(`aria-label` = "play/pause", Icon("play_arrow", sx = list(fontSize = 38))),
+        IconButton(`aria-label` = "next", Icon("skip_next"))
+      )
+    ),
+    CardMedia(
+      component = "img",
+      sx = list(width = 151),
+      image = "https://mui.com/static/images/cards/live-from-space.jpg",
+      alt = "Live from space album cover"
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import CardMedia from '@mui/material/CardMedia';
+import IconButton from '@mui/material/IconButton';
+import Typography from '@mui/material/Typography';
+import SkipPreviousIcon from '@mui/icons-material/SkipPrevious';
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import SkipNextIcon from '@mui/icons-material/SkipNext';
+
+export default function MediaControlCard() {
+  const theme = useTheme();
+
+  return (
+    <Card sx={{ display: 'flex' }}>
+      <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <CardContent sx={{ flex: '1 0 auto' }}>
+          <Typography component="div" variant="h5">
+            Live From Space
+          </Typography>
+          <Typography
+            variant="subtitle1"
+            component="div"
+            sx={{ color: 'text.secondary' }}
+          >
+            Mac Miller
+          </Typography>
+        </CardContent>
+        <Box sx={{ display: 'flex', alignItems: 'center', pl: 1, pb: 1 }}>
+          <IconButton aria-label="previous">
+            {theme.direction === 'rtl' ? <SkipNextIcon /> : <SkipPreviousIcon />}
+          </IconButton>
+          <IconButton aria-label="play/pause">
+            <PlayArrowIcon sx={{ height: 38, width: 38 }} />
+          </IconButton>
+          <IconButton aria-label="next">
+            {theme.direction === 'rtl' ? <SkipPreviousIcon /> : <SkipNextIcon />}
+          </IconButton>
+        </Box>
+      </Box>
+      <CardMedia
+        component="img"
+        sx={{ width: 151 }}
+        image="/static/images/cards/live-from-space.jpg"
+        alt="Live from space album cover"
+      />
+    </Card>
+  );
+}
+```
+</details>
+
+## Active state styles
+
+To customize a Card's styles when it's in an active state, you can attach a `data-active` attribute to the Card Action Area component and apply styles with the `&[data-active]` selector, as shown below.
+
+The selected card is kept in the URL (`#/select-card/<index>`) with
+reactRouter, and each route renders the cards with `data-active` on the
+selected one:
+
+```{r}
+cards <- list(
+  list(title = "Plants", description = "Plants are essential for all life."),
+  list(title = "Animals", description = "Animals are a part of nature."),
+  list(title = "Humans", description = "Humans depend on plants and animals for survival.")
+)
+
+selectActionCard <- function(selected) {
+  Box(
+    sx = list(
+      width = "100%",
+      display = "grid",
+      gridTemplateColumns = "repeat(auto-fill, minmax(min(200px, 100%), 1fr))",
+      gap = 2
+    ),
+    lapply(seq_along(cards), function(index) {
+      Card(
+        CardActionArea(
+          href = paste0("#/select-card/", index),
+          `data-active` = if (index == selected) "",
+          sx = list(
+            height = "100%",
+            "&[data-active]" = list(
+              backgroundColor = "action.selected",
+              "&:hover" = list(backgroundColor = "action.selectedHover")
+            )
+          ),
+          CardContent(
+            sx = list(height = "100%"),
+            Typography(variant = "h5", component = "div", cards[[index]]$title),
+            Typography(variant = "body2", sx = list(color = "text.secondary"), cards[[index]]$description)
+          )
+        )
+      )
+    })
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(seq_along(cards), function(index) {
+        Route(path = paste0("select-card/", index), element = selectActionCard(index))
+      }),
+      Route(path = "*", element = selectActionCard(1))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardContent from '@mui/material/CardContent';
+import Typography from '@mui/material/Typography';
+import CardActionArea from '@mui/material/CardActionArea';
+
+const cards = [
+  {
+    id: 1,
+    title: 'Plants',
+    description: 'Plants are essential for all life.',
+  },
+  {
+    id: 2,
+    title: 'Animals',
+    description: 'Animals are a part of nature.',
+  },
+  {
+    id: 3,
+    title: 'Humans',
+    description: 'Humans depend on plants and animals for survival.',
+  },
+];
+
+function SelectActionCard() {
+  const [selectedCard, setSelectedCard] = React.useState(0);
+  return (
+    <Box
+      sx={{
+        width: '100%',
+        display: 'grid',
+        gridTemplateColumns: 'repeat(auto-fill, minmax(min(200px, 100%), 1fr))',
+        gap: 2,
+      }}
+    >
+      {cards.map((card, index) => (
+        <Card key={card.id}>
+          <CardActionArea
+            onClick={() => setSelectedCard(index)}
+            data-active={selectedCard === index ? '' : undefined}
+            sx={{
+              height: '100%',
+              '&[data-active]': {
+                backgroundColor: 'action.selected',
+                '&:hover': {
+                  backgroundColor: 'action.selectedHover',
+                },
+              },
+            }}
+          >
+            <CardContent sx={{ height: '100%' }}>
+              <Typography variant="h5" component="div">
+                {card.title}
+              </Typography>
+              <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+                {card.description}
+              </Typography>
+            </CardContent>
+          </CardActionArea>
+        </Card>
+      ))}
+    </Box>
+  );
+}
+
+export default SelectActionCard;
+```
+</details>
+
+🎨 If you are looking for inspiration, you can check [MUI Treasury's customization examples](https://mui-treasury.com/primitive/card).
+
+## Cards in Shiny apps
+
+Cards work well as dashboard tiles. Fill them from the server with `uiOutput()`
+and `renderUI()`, and put `Button.shinyInput()` actions in `CardActions()`:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Card(
+    sx = list(maxWidth = 345, m = 2),
+    CardContent(
+      Typography(gutterBottom = TRUE, sx = list(color = "text.secondary", fontSize = 14), "Random number"),
+      uiOutput("value")
+    ),
+    CardActions(Button.shinyInput("refresh", "Refresh", size = "small"))
+  )
+)
+
+server <- function(input, output, session) {
+  output$value <- renderUI({
+    input$refresh
+    Typography(variant = "h3", round(runif(1, 0, 100)))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+Run the bundled example with `muiMaterialExample("Card")`.

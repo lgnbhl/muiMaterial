@@ -1,0 +1,507 @@
+---
+title: "Speed Dial"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Speed Dial}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-speed-dial/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Speed Dial
+
+When pressed, a floating action button can display three to six related actions in the form of a Speed Dial.
+
+If more than six actions are needed, something other than a FAB should be used to present them.
+
+## Basic speed dial
+
+The floating action button can display related actions.
+
+```{r}
+actions <- list(
+  list(icon = "file_copy", name = "Copy"),
+  list(icon = "save", name = "Save"),
+  list(icon = "print", name = "Print"),
+  list(icon = "share", name = "Share")
+)
+speedDialActions <- function(...) {
+  lapply(actions, function(action) {
+    SpeedDialAction(icon = Icon(action$icon), slotProps = list(tooltip = list(title = action$name, ...)))
+  })
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    sx = list(height = 320, transform = "translateZ(0px)", flexGrow = 1),
+    SpeedDial(
+      ariaLabel = "SpeedDial basic example",
+      sx = list(position = "absolute", bottom = 16, right = 16),
+      icon = SpeedDialIcon(),
+      speedDialActions()
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
+
+export default function BasicSpeedDial() {
+  return (
+    <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+      <SpeedDial
+        ariaLabel="SpeedDial basic example"
+        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            slotProps={{
+              tooltip: {
+                title: action.name,
+              },
+            }}
+          />
+        ))}
+      </SpeedDial>
+    </Box>
+  );
+}
+```
+</details>
+
+## Playground
+
+The `direction` prop sets where the actions appear, and `hidden` hides the
+speed dial. The settings are kept in the URL with
+[reactRouter](https://felixluginbuhl.com/reactRouter/)
+(`#/speed-dial/<direction>/<visible|hidden>`): the radio group and the switch
+navigate between the routes.
+
+```{r, message = FALSE}
+library(reactRouter)
+
+directions <- c("up", "right", "down", "left")
+playgroundHref <- function(direction, hidden) {
+  sprintf("/speed-dial/%s/%s", direction, if (hidden) "hidden" else "visible")
+}
+
+playgroundSpeedDial <- function(direction = "up", hidden = FALSE) {
+  Box(
+    sx = list(transform = "translateZ(0px)", flexGrow = 1),
+    FormControlLabel(
+      control = Switch(
+        checked = hidden,
+        onChange = JS(sprintf("() => { window.location.hash = '%s'; }", playgroundHref(direction, !hidden))),
+        color = "primary"
+      ),
+      label = "Hidden"
+    ),
+    FormControl(
+      component = "fieldset",
+      sx = list(mt = 1, display = "flex"),
+      FormLabel(component = "legend", "Direction"),
+      RadioGroup(
+        `aria-label` = "direction",
+        name = "direction",
+        value = direction,
+        row = TRUE,
+        onChange = JS(sprintf(
+          "(event) => { window.location.hash = '/speed-dial/' + event.target.value + '/%s'; }",
+          if (hidden) "hidden" else "visible"
+        )),
+        lapply(directions, function(d) FormControlLabel(value = d, control = Radio(), label = tools::toTitleCase(d)))
+      )
+    ),
+    Box(
+      sx = list(position = "relative", mt = 3, height = 320),
+      SpeedDial(
+        ariaLabel = "SpeedDial playground example",
+        hidden = hidden,
+        icon = SpeedDialIcon(),
+        direction = direction,
+        sx = list(
+          position = "absolute",
+          "&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft" = list(bottom = 16, right = 16),
+          "&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight" = list(top = 16, left = 16)
+        ),
+        speedDialActions()
+      )
+    )
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      unlist(lapply(directions, function(direction) {
+        lapply(c(FALSE, TRUE), function(hidden) {
+          Route(path = sub("^/", "", playgroundHref(direction, hidden)), element = playgroundSpeedDial(direction, hidden))
+        })
+      }), recursive = FALSE),
+      Route(path = "*", element = playgroundSpeedDial())
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import Switch from '@mui/material/Switch';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const StyledSpeedDial = styled(SpeedDial)(({ theme }) => ({
+  position: 'absolute',
+  '&.MuiSpeedDial-directionUp, &.MuiSpeedDial-directionLeft': {
+    bottom: theme.spacing(2),
+    right: theme.spacing(2),
+  },
+  '&.MuiSpeedDial-directionDown, &.MuiSpeedDial-directionRight': {
+    top: theme.spacing(2),
+    left: theme.spacing(2),
+  },
+}));
+
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
+
+export default function PlaygroundSpeedDial() {
+  const [direction, setDirection] = React.useState('up');
+  const [hidden, setHidden] = React.useState(false);
+
+  const handleDirectionChange = (event) => {
+    setDirection(event.target.value);
+  };
+
+  const handleHiddenChange = (event) => {
+    setHidden(event.target.checked);
+  };
+
+  return (
+    <Box sx={{ transform: 'translateZ(0px)', flexGrow: 1 }}>
+      <FormControlLabel
+        control={
+          <Switch checked={hidden} onChange={handleHiddenChange} color="primary" />
+        }
+        label="Hidden"
+      />
+      <FormControl component="fieldset" sx={{ mt: 1, display: 'flex' }}>
+        <FormLabel component="legend">Direction</FormLabel>
+        <RadioGroup
+          aria-label="direction"
+          name="direction"
+          value={direction}
+          onChange={handleDirectionChange}
+          row
+        >
+          <FormControlLabel value="up" control={<Radio />} label="Up" />
+          <FormControlLabel value="right" control={<Radio />} label="Right" />
+          <FormControlLabel value="down" control={<Radio />} label="Down" />
+          <FormControlLabel value="left" control={<Radio />} label="Left" />
+        </RadioGroup>
+      </FormControl>
+      <Box sx={{ position: 'relative', mt: 3, height: 320 }}>
+        <StyledSpeedDial
+          ariaLabel="SpeedDial playground example"
+          hidden={hidden}
+          icon={<SpeedDialIcon />}
+          direction={direction}
+        >
+          {actions.map((action) => (
+            <SpeedDialAction
+              key={action.name}
+              icon={action.icon}
+              slotProps={{
+                tooltip: {
+                  title: action.name,
+                },
+              }}
+            />
+          ))}
+        </StyledSpeedDial>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+## Controlled speed dial
+
+The open state of the component can be controlled with the `open`/`onOpen`/`onClose` props.
+In a Shiny app, render the speed dial with `renderReact()` to set `open` from
+the server, and send `onOpen`/`onClose` with `triggerEvent()`. Each action can
+report its clicks with `onClick = triggerEvent("copy")`.
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
+
+export default function ControlledOpenSpeedDial() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+      <SpeedDial
+        ariaLabel="SpeedDial controlled open example"
+        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon />}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        open={open}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            slotProps={{
+              tooltip: {
+                title: action.name,
+              },
+            }}
+            onClick={handleClose}
+          />
+        ))}
+      </SpeedDial>
+    </Box>
+  );
+}
+```
+</details>
+
+## Custom close icon
+
+You can provide an alternate icon for the closed and open states using the `icon` and `openIcon` props
+of the `SpeedDialIcon` component.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    sx = list(height = 320, transform = "translateZ(0px)", flexGrow = 1),
+    SpeedDial(
+      ariaLabel = "SpeedDial openIcon example",
+      sx = list(position = "absolute", bottom = 16, right = 16),
+      icon = SpeedDialIcon(openIcon = Icon("edit")),
+      speedDialActions()
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+import EditIcon from '@mui/icons-material/Edit';
+
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
+
+export default function OpenIconSpeedDial() {
+  return (
+    <Box sx={{ height: 320, transform: 'translateZ(0px)', flexGrow: 1 }}>
+      <SpeedDial
+        ariaLabel="SpeedDial openIcon example"
+        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon openIcon={<EditIcon />} />}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            slotProps={{
+              tooltip: {
+                title: action.name,
+              },
+            }}
+          />
+        ))}
+      </SpeedDial>
+    </Box>
+  );
+}
+```
+</details>
+
+## Persistent action tooltips
+
+The SpeedDialActions tooltips can be displayed persistently so that users don't have to long-press to see the tooltip on touch devices.
+
+It is enabled here across all devices for demo purposes, but in production it could be set only on touch devices.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    sx = list(height = 330, transform = "translateZ(0px)", flexGrow = 1),
+    SpeedDial(
+      ariaLabel = "SpeedDial tooltip example",
+      sx = list(position = "absolute", bottom = 16, right = 16),
+      icon = SpeedDialIcon(),
+      speedDialActions(open = TRUE)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Backdrop from '@mui/material/Backdrop';
+import SpeedDial from '@mui/material/SpeedDial';
+import SpeedDialIcon from '@mui/material/SpeedDialIcon';
+import SpeedDialAction from '@mui/material/SpeedDialAction';
+import FileCopyIcon from '@mui/icons-material/FileCopyOutlined';
+import SaveIcon from '@mui/icons-material/Save';
+import PrintIcon from '@mui/icons-material/Print';
+import ShareIcon from '@mui/icons-material/Share';
+
+const actions = [
+  { icon: <FileCopyIcon />, name: 'Copy' },
+  { icon: <SaveIcon />, name: 'Save' },
+  { icon: <PrintIcon />, name: 'Print' },
+  { icon: <ShareIcon />, name: 'Share' },
+];
+
+export default function SpeedDialTooltipOpen() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <Box sx={{ height: 330, transform: 'translateZ(0px)', flexGrow: 1 }}>
+      <Backdrop open={open} />
+      <SpeedDial
+        ariaLabel="SpeedDial tooltip example"
+        sx={{ position: 'absolute', bottom: 16, right: 16 }}
+        icon={<SpeedDialIcon />}
+        onClose={handleClose}
+        onOpen={handleOpen}
+        open={open}
+      >
+        {actions.map((action) => (
+          <SpeedDialAction
+            key={action.name}
+            icon={action.icon}
+            slotProps={{
+              tooltip: {
+                open: true,
+                title: action.name,
+              },
+            }}
+            onClick={handleClose}
+          />
+        ))}
+      </SpeedDial>
+    </Box>
+  );
+}
+```
+</details>
+
+## Transitions
+
+Speed Dial uses [Zoom](transitions.html#zoom) by default.
+Use `slots$transition` and `slotProps$transition` to replace it with another transition or to pass transition props.
+Use `transitionDuration` to control the timing.
+
+## Accessibility
+
+### ARIA
+
+#### Required
+
+- You should provide an `ariaLabel` for the speed dial component.
+- You should provide a tooltip title using `slotProps$tooltip$title` for each speed dial action.
+
+#### Provided
+
+- The Fab has `aria-haspopup`, `aria-expanded` and `aria-controls` attributes.
+- The speed dial actions container has `role="menu"` and `aria-orientation` set according to the direction.
+- The speed dial actions have `role="menuitem"`, and an `aria-describedby` attribute that references the associated tooltip.
+
+### Keyboard
+
+- The speed dial opens on focus.
+- The Space and Enter keys trigger the selected speed dial action, and toggle the speed dial open state.
+- The cursor keys move focus to the next or previous speed dial action. (Note that any cursor direction can be used initially to open the speed dial. This enables the expected behavior for the actual or perceived orientation of the speed dial, for example for a screen reader user who perceives the speed dial as a drop-down menu.)
+- The Escape key closes the speed dial and, if a speed dial action was focused, returns focus to the Fab.

@@ -1,0 +1,672 @@
+---
+title: "Modal"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Modal}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-modal/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Modal
+
+The modal component provides a solid foundation for creating dialogs, popovers, lightboxes, or whatever else.
+
+The component renders its `children` node in front of a backdrop component.
+The `Modal` offers important features:
+
+- 💄 Manages modal stacking when one-at-a-time just isn't enough.
+- 🔐 Creates a backdrop, for disabling interaction below the modal.
+- 🔐 It disables scrolling of the page content while open.
+- ♿️ It properly manages focus; moving to the modal content,
+  and keeping it there until the modal is closed.
+- ♿️ Adds the appropriate ARIA roles automatically.
+
+<div class="alert alert-info">
+The term "modal" is sometimes used to mean "dialog", but this is a misnomer.
+A modal window describes parts of a UI.
+An element is considered modal if [it blocks interaction with the rest of the application](https://en.wikipedia.org/wiki/Modal_window).
+</div>
+
+If you are creating a modal dialog, you probably want to use the [Dialog](dialog.html) component rather than directly using Modal.
+Modal is a lower-level construct that is leveraged by the following components:
+
+- [Dialog](dialog.html)
+- [Drawer](drawer.html)
+- [Menu](menu.html)
+- [Popover](popover.html)
+
+As on the [Dialog](dialog.html) page, the live demos keep the open state in the
+URL with [reactRouter](https://felixluginbuhl.com/reactRouter/): each modal is
+a route, a link opens it, and `onClose` navigates back to `#/`.
+
+```{r}
+closeModal <- JS("() => { window.location.hash = '/'; }")
+
+modalStyle <- list(
+  position = "absolute",
+  top = "50%",
+  left = "50%",
+  transform = "translate(-50%, -50%)",
+  width = 400,
+  bgcolor = "background.paper",
+  border = "2px solid #000",
+  boxShadow = 24,
+  p = 4
+)
+```
+
+## Basic modal
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(href = "#/basic-modal", "Open modal"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "basic-modal",
+        element = Modal(
+          open = TRUE,
+          onClose = closeModal,
+          `aria-labelledby` = "modal-modal-title",
+          `aria-describedby` = "modal-modal-description",
+          Box(
+            sx = modalStyle,
+            Typography(id = "modal-modal-title", variant = "h6", component = "h2", "Text in a modal"),
+            Typography(
+              id = "modal-modal-description",
+              sx = list(mt = 2),
+              "Duis mollis, est non commodo luctus, nisi erat porttitor ligula."
+            )
+          )
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import Modal from '@mui/material/Modal';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function BasicModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="modal-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+```
+</details>
+
+Notice that you can disable the outline (often blue or gold) with the `outline = 0` CSS property.
+
+## Nested modal
+
+Modals can be nested, for example a select within a dialog, but stacking of more than two modals, or any two modals with a backdrop is discouraged.
+
+If you need to nest modals, use the `hideBackdrop` prop on nested Modals to avoid stacking multiple backdrops, which can obscure the active modal or affect interactions.
+
+Nested routes map naturally onto nested modals: the child modal is the route
+`#/nested-modal/child`, rendered through `Outlet()` inside the parent modal.
+
+```{r}
+nestedStyle <- modifyList(modalStyle, list(p = NULL, pt = 2, px = 4, pb = 3))
+
+muiMaterialPage(
+  CssBaseline(),
+  Button(href = "#/nested-modal", "Open modal"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "nested-modal",
+        element = Modal(
+          open = TRUE,
+          onClose = closeModal,
+          `aria-labelledby` = "parent-modal-title",
+          `aria-describedby` = "parent-modal-description",
+          Box(
+            sx = modifyList(nestedStyle, list(width = 400)),
+            tags$h2(id = "parent-modal-title", "Text in a modal"),
+            tags$p(
+              id = "parent-modal-description",
+              "Duis mollis, est non commodo luctus, nisi erat porttitor ligula."
+            ),
+            Button(href = "#/nested-modal/child", "Open Child Modal"),
+            Outlet()
+          )
+        ),
+        Route(
+          path = "child",
+          element = Modal(
+            open = TRUE,
+            onClose = JS("() => { window.location.hash = '/nested-modal'; }"),
+            `aria-labelledby` = "child-modal-title",
+            `aria-describedby` = "child-modal-description",
+            Box(
+              sx = modifyList(nestedStyle, list(width = 200)),
+              tags$h2(id = "child-modal-title", "Text in a child modal"),
+              tags$p(
+                id = "child-modal-description",
+                "Lorem ipsum, dolor sit amet consectetur adipisicing elit."
+              ),
+              Button(href = "#/nested-modal", "Close Child Modal")
+            )
+          )
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  pt: 2,
+  px: 4,
+  pb: 3,
+};
+
+function ChildModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <React.Fragment>
+      <Button onClick={handleOpen}>Open Child Modal</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="child-modal-title"
+        aria-describedby="child-modal-description"
+      >
+        <Box sx={{ ...style, width: 200 }}>
+          <h2 id="child-modal-title">Text in a child modal</h2>
+          <p id="child-modal-description">
+            Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+          </p>
+          <Button onClick={handleClose}>Close Child Modal</Button>
+        </Box>
+      </Modal>
+    </React.Fragment>
+  );
+}
+
+export default function NestedModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => {
+    setOpen(true);
+  };
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="parent-modal-title"
+        aria-describedby="parent-modal-description"
+      >
+        <Box sx={{ ...style, width: 400 }}>
+          <h2 id="parent-modal-title">Text in a modal</h2>
+          <p id="parent-modal-description">
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </p>
+          <ChildModal />
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+```
+</details>
+
+## Transitions
+
+The open/close state of the modal can be animated with a transition component.
+This component should respect the following conditions:
+
+- Be a direct child descendent of the modal.
+- Have an `in` prop. This corresponds to the open/close state.
+- Call the `onEnter` callback prop when the enter transition starts.
+- Call the `onExited` callback prop when the exit transition is completed.
+  These two callbacks allow the modal to unmount the child content when closed and fully transitioned.
+
+Modal has built-in support for [react-transition-group](https://github.com/reactjs/react-transition-group).
+The transition components of muiMaterial (`Fade()`, `Grow()`, `Slide()`,
+`Zoom()`, see [Transitions](transitions.html)) satisfy these conditions.
+
+Leaving a route unmounts its element at once, so in these demos only the
+opening is animated.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(href = "#/transitions-modal", "Open modal"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "transitions-modal",
+        element = Modal(
+          `aria-labelledby` = "transition-modal-title",
+          `aria-describedby` = "transition-modal-description",
+          open = TRUE,
+          onClose = closeModal,
+          closeAfterTransition = TRUE,
+          slots = list(backdrop = JS("jsmodule['@mui/material'].Backdrop")),
+          slotProps = list(backdrop = list(timeout = 500)),
+          Fade(
+            `in` = TRUE,
+            Box(
+              sx = modalStyle,
+              Typography(id = "transition-modal-title", variant = "h6", component = "h2", "Text in a modal"),
+              Typography(
+                id = "transition-modal-description",
+                sx = list(mt = 2),
+                "Duis mollis, est non commodo luctus, nisi erat porttitor ligula."
+              )
+            )
+          )
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Fade from '@mui/material/Fade';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function TransitionsModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        open={open}
+        onClose={handleClose}
+        closeAfterTransition
+        slots={{ backdrop: Backdrop }}
+        slotProps={{
+          backdrop: {
+            timeout: 500,
+          },
+        }}
+      >
+        <Fade in={open}>
+          <Box sx={style}>
+            <Typography id="transition-modal-title" variant="h6" component="h2">
+              Text in a modal
+            </Typography>
+            <Typography id="transition-modal-description" sx={{ mt: 2 }}>
+              Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+            </Typography>
+          </Box>
+        </Fade>
+      </Modal>
+    </div>
+  );
+}
+```
+</details>
+
+The MUI documentation also shows an animation made with
+[react-spring](https://github.com/pmndrs/react-spring). That library is not
+bundled with muiMaterial.
+
+## Performance
+
+The content of modal is unmounted when closed.
+If you need to make the content available to search engines or render expensive component trees inside your modal while optimizing for interaction responsiveness
+it might be a good idea to change this default behavior by enabling the `keepMounted` prop:
+
+```r
+Modal(keepMounted = TRUE)
+```
+
+A route unmounts its element when you leave it, so `keepMounted` only helps
+when the Modal itself stays in the page. `Modal.triggerId()` does exactly that:
+it is always rendered and opens when the element with the matching `id` is
+clicked.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(id = "open-keep-mounted-modal", "Open modal"),
+  Modal.triggerId(
+    triggerId = "open-keep-mounted-modal",
+    keepMounted = TRUE,
+    `aria-labelledby` = "keep-mounted-modal-title",
+    `aria-describedby` = "keep-mounted-modal-description",
+    Box(
+      sx = modalStyle,
+      Typography(id = "keep-mounted-modal-title", variant = "h6", component = "h2", "Text in a modal"),
+      Typography(
+        id = "keep-mounted-modal-description",
+        sx = list(mt = 2),
+        "Duis mollis, est non commodo luctus, nisi erat porttitor ligula."
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Modal from '@mui/material/Modal';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+const style = {
+  position: 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
+
+export default function KeepMountedModal() {
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Open modal</Button>
+      <Modal
+        keepMounted
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="keep-mounted-modal-title"
+        aria-describedby="keep-mounted-modal-description"
+      >
+        <Box sx={style}>
+          <Typography id="keep-mounted-modal-title" variant="h6" component="h2">
+            Text in a modal
+          </Typography>
+          <Typography id="keep-mounted-modal-description" sx={{ mt: 2 }}>
+            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
+          </Typography>
+        </Box>
+      </Modal>
+    </div>
+  );
+}
+```
+</details>
+
+As with any performance optimization, this is not a silver bullet.
+Be sure to identify bottlenecks first, and then try out these optimization strategies.
+
+## Server-side modal
+
+React [doesn't support](https://github.com/facebook/react/issues/13097) the [`createPortal()`](https://react.dev/reference/react-dom/createPortal) API on the server.
+In order to display the modal, you need to disable the portal feature with the `disablePortal` prop.
+The modal is then rendered in place, inside its parent:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(height = 300, flexGrow = 1, minWidth = 300, transform = "translateZ(0)"),
+    Modal(
+      disablePortal = TRUE,
+      disableEnforceFocus = TRUE,
+      disableAutoFocus = TRUE,
+      open = TRUE,
+      `aria-labelledby` = "server-modal-title",
+      `aria-describedby` = "server-modal-description",
+      sx = list(display = "flex", p = 1, alignItems = "center", justifyContent = "center"),
+      Box(
+        sx = list(
+          position = "relative",
+          width = 400,
+          bgcolor = "background.paper",
+          border = "2px solid #000",
+          boxShadow = 5,
+          p = 4
+        ),
+        Typography(id = "server-modal-title", variant = "h6", component = "h2", "Server-side modal"),
+        Typography(
+          id = "server-modal-description",
+          sx = list(pt = 2),
+          "If you disable JavaScript, you will still see me."
+        )
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Modal from '@mui/material/Modal';
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
+
+export default function ServerModal() {
+  const rootRef = React.useRef(null);
+
+  return (
+    <Box
+      sx={{
+        height: 300,
+        flexGrow: 1,
+        minWidth: 300,
+        transform: 'translateZ(0)',
+      }}
+      ref={rootRef}
+    >
+      <Modal
+        disablePortal
+        disableEnforceFocus
+        disableAutoFocus
+        open
+        aria-labelledby="server-modal-title"
+        aria-describedby="server-modal-description"
+        sx={{
+          display: 'flex',
+          p: 1,
+          alignItems: 'center',
+          justifyContent: 'center',
+        }}
+        container={() => rootRef.current}
+      >
+        <Box
+          sx={(theme) => ({
+            position: 'relative',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: theme.shadows[5],
+            p: 4,
+          })}
+        >
+          <Typography id="server-modal-title" variant="h6" component="h2">
+            Server-side modal
+          </Typography>
+          <Typography id="server-modal-description" sx={{ pt: 2 }}>
+            If you disable JavaScript, you will still see me.
+          </Typography>
+        </Box>
+      </Modal>
+    </Box>
+  );
+}
+```
+</details>
+
+## Limitations
+
+### Focus trap
+
+The modal moves the focus back to the body of the component if the focus tries to escape it.
+
+This is done for accessibility purposes. However, it might create issues.
+In the event the users need to interact with another part of the page, for example with a chatbot window, you can disable the behavior:
+
+```r
+Modal(disableEnforceFocus = TRUE)
+```
+
+## Accessibility
+
+(WAI-ARIA: <https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/>)
+
+- Be sure to add `aria-labelledby = "id..."`, referencing the modal title, to the `Modal`.
+  Additionally, you may give a description of your modal with the `aria-describedby = "id..."` prop on the `Modal`.
+
+  ```r
+  Modal(
+    `aria-labelledby` = "modal-title",
+    `aria-describedby` = "modal-description",
+    tags$h2(id = "modal-title", "My Title"),
+    tags$p(id = "modal-description", "My Description")
+  )
+  ```
+
+- The [WAI-ARIA Authoring Practices](https://www.w3.org/WAI/ARIA/apg/patterns/dialog-modal/examples/dialog/) can help you set the initial focus on the most relevant element, based on your modal content.
+- Keep in mind that a "modal window" overlays on either the primary window or another modal window. Windows under a modal are **inert**. That is, users cannot interact with content outside an active modal window. This might create [conflicting behaviors](#focus-trap).
+
+## Modals in Shiny apps
+
+The router pattern above works unchanged in Shiny. muiMaterial also has:
+
+- `Modal.triggerId()`, shown in [Performance](#performance), where the browser
+  handles the open/close state. See [Overlays with `.triggerId`](triggerid.html).
+- `Modal.shinyInput()`, where the server opens and closes the modal with
+  `updateModal.shinyInput()`:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Button.shinyInput("open", "Open modal"),
+  Modal.shinyInput(
+    inputId = "modal",
+    open = FALSE,
+    onClose = triggerEvent("modal_close"),
+    Box(
+      sx = list(
+        position = "absolute", top = "50%", left = "50%",
+        transform = "translate(-50%, -50%)", width = 400,
+        bgcolor = "background.paper", boxShadow = 24, p = 4
+      ),
+      Typography("Text in a modal", variant = "h6", component = "h2")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$open, updateModal.shinyInput(inputId = "modal", open = TRUE))
+  observeEvent(input$modal_close, updateModal.shinyInput(inputId = "modal", open = FALSE))
+}
+
+shinyApp(ui, server)
+```
+
+Run the bundled version with `muiMaterialExample("Modal")`.
