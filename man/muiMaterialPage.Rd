@@ -39,9 +39,10 @@ muiMaterialPage(
 \value{
 A browsable `htmltools` tag list which can be passed as the UI of a
   Shiny app or rendered standalone (e.g. with `htmltools::save_html()`).
-  Head content (meta tags, font links, the body style rule) is emitted via
+  Head content (meta tags, the body style rule) is emitted via
   `htmltools::tags$head()` and hoisted into the document head at render
-  time.
+  time. The Google Fonts links are HTML dependencies, so they are also
+  included in R Markdown and Quarto documents.
 }
 \description{
 Creates a Material UI page without Bootstrap and with 0 margin in body by default.

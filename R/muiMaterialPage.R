@@ -20,9 +20,10 @@
 #' @param debugReact Whether to enable react debug mode. FALSE by default.
 #' @return A browsable `htmltools` tag list which can be passed as the UI of a
 #'   Shiny app or rendered standalone (e.g. with `htmltools::save_html()`).
-#'   Head content (meta tags, font links, the body style rule) is emitted via
+#'   Head content (meta tags, the body style rule) is emitted via
 #'   `htmltools::tags$head()` and hoisted into the document head at render
-#'   time.
+#'   time. The Google Fonts links are HTML dependencies, so they are also
+#'   included in R Markdown and Quarto documents.
 #'
 #' @examplesIf interactive()
 #' library(shiny)
@@ -76,6 +77,40 @@ muiMaterialPage <- function(
     paste0("https://fonts.googleapis.com/icon?family=", family)
   }
 
+  # The Google Fonts links are HTML dependencies rather than tags$head()
+  # children: knitr (R Markdown, Quarto, pkgdown) keeps dependencies but drops
+  # tags$head(), so the fonts would otherwise be missing from documents.
+  # Dependencies are also de-duplicated when several pages request a font.
+  fontDependencies <- Filter(Negate(is.null), list(
+    if (useGoogleFonts) {
+      googleFontDependency(
+        "google-fonts-preconnect",
+        paste0(
+          '<link rel="preconnect" href="https://fonts.googleapis.com">',
+          '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>'
+        )
+      )
+    },
+    if (useFontRoboto) {
+      googleFontDependency(
+        "font-roboto",
+        stylesheet = "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
+      )
+    },
+    if (useMaterialIconsFilled) {
+      googleFontDependency("material-icons", stylesheet = googleFontHref("Material+Icons"))
+    },
+    if (useMaterialIconsOutlined) {
+      googleFontDependency("material-icons-outlined", stylesheet = googleFontHref("Material+Icons+Outlined"))
+    },
+    if (useMaterialIconsRounded) {
+      googleFontDependency("material-icons-round", stylesheet = googleFontHref("Material+Icons+Round"))
+    },
+    if (useMaterialIconsTwoTones) {
+      googleFontDependency("material-icons-two-tone", stylesheet = googleFontHref("Material+Icons+Two+Tone"))
+    }
+  ))
+
   # A tagList with a tags$head() rather than a full tags$html()/tags$body()
   # document: Shiny inserts the UI into its own document body, and a nested
   # <html>/<body> only renders correctly because browsers merge the stray
@@ -90,39 +125,9 @@ muiMaterialPage <- function(
       ),
       htmltools::tags$style(htmltools::HTML(
         sprintf("body{%s}", styleBody)
-      )),
-      if (useGoogleFonts) {
-        htmltools::tagList(
-          htmltools::tags$link(
-            rel = "preconnect",
-            href = "https://fonts.googleapis.com"
-          ),
-          htmltools::tags$link(
-            rel = "preconnect",
-            href = "https://fonts.gstatic.com",
-            crossorigin = NA
-          )
-        )
-      },
-      if (useFontRoboto) {
-        htmltools::tags$link(
-          rel = "stylesheet",
-          href = "https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap"
-        )
-      },
-      if (useMaterialIconsFilled) {
-        htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons"))
-      },
-      if (useMaterialIconsOutlined) {
-        htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons+Outlined"))
-      },
-      if (useMaterialIconsRounded) {
-        htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons+Round"))
-      },
-      if (useMaterialIconsTwoTones) {
-        htmltools::tags$link(rel = "stylesheet", href = googleFontHref("Material+Icons+Two+Tone"))
-      }
+      ))
     ),
+    fontDependencies,
     if (suppressBootstrap) {
       htmltools::suppressDependencies("bootstrap")
     } else {
@@ -130,4 +135,28 @@ muiMaterialPage <- function(
     },
     ...
   ))
+}
+
+# An HTML dependency that only injects head markup: either raw `head` HTML or
+# a <link rel="stylesheet"> to an external (CDN) `stylesheet` URL.
+#
+# The dependency is disk-based (a `file` src) although it ships no file:
+# Quarto and non-self-contained R Markdown copy dependencies into a lib
+# folder and refuse href-only ones. `all_files = FALSE` with no script or
+# stylesheet listed means nothing is copied.
+googleFontDependency <- function(name, head = NULL, stylesheet = NULL) {
+  if (!is.null(stylesheet)) {
+    head <- sprintf(
+      '<link rel="stylesheet" href="%s">',
+      htmltools::htmlEscape(stylesheet, attribute = TRUE)
+    )
+  }
+  htmltools::htmlDependency(
+    name = paste0("muiMaterial-", name),
+    version = "1.0.0",
+    src = "www/muiMaterial",
+    package = "muiMaterial",
+    all_files = FALSE,
+    head = head
+  )
 }

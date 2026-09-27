@@ -1,5 +1,14 @@
 # muiMaterial (development version)
 
+## Bug fixes
+
+- `muiMaterialPage()`: the Google Fonts links requested with `useFontRoboto`
+  and `useMaterialIcons*` are now HTML dependencies instead of `tags$head()`
+  children. knitr drops `tags$head()` content, so the fonts (and therefore
+  `Icon()`) were missing from R Markdown and Quarto documents and from the
+  pkgdown website; they only worked in Shiny apps. The links are now also
+  de-duplicated when several pages request the same font.
+
 # muiMaterial 0.2.3
 
 ## New features

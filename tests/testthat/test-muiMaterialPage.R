@@ -22,21 +22,60 @@ test_that("muiMaterialPage() respects styleBody", {
   )
 })
 
+# The Google Fonts links are HTML dependencies (not tags$head() children), so
+# they are asserted against the rendered dependencies.
+renderedDependencies <- function(page) {
+  as.character(htmltools::renderDependencies(htmltools::renderTags(page)$dependencies))
+}
+
 test_that("muiMaterialPage() injects Roboto/Material Icons CDN links when requested", {
   page <- muiMaterialPage(
     useFontRoboto = TRUE,
     useMaterialIconsFilled = TRUE
   )
-  head <- as.character(htmltools::renderTags(page)$head)
-  expect_match(head, "Roboto")
-  expect_match(head, "Material\\+Icons")
+  deps <- renderedDependencies(page)
+  expect_match(deps, "Roboto")
+  expect_match(deps, "Material\\+Icons")
+  expect_match(deps, "preconnect")
 })
 
 test_that("muiMaterialPage() omits Google Fonts links by default", {
-  page <- muiMaterialPage()
-  head <- as.character(htmltools::renderTags(page)$head)
-  expect_no_match(head, "Roboto")
-  expect_no_match(head, "Material\\+Icons")
+  deps <- renderedDependencies(muiMaterialPage())
+  expect_no_match(deps, "Roboto")
+  expect_no_match(deps, "Material\\+Icons")
+  expect_no_match(deps, "preconnect")
+})
+
+test_that("muiMaterialPage() font links survive knitr (R Markdown / Quarto)", {
+  # knitr drops tags$head() content but keeps HTML dependencies as knit_meta.
+  printed <- knitr::knit_print(muiMaterialPage(useMaterialIconsFilled = TRUE))
+  heads <- vapply(
+    Filter(function(d) inherits(d, "html_dependency"), attr(printed, "knit_meta")),
+    function(d) paste(d$head, collapse = ""),
+    character(1)
+  )
+  expect_true(any(grepl("Material+Icons", heads, fixed = TRUE)))
+})
+
+test_that("muiMaterialPage() font dependencies are disk-based", {
+  # Quarto and non-self-contained R Markdown copy dependencies into a lib
+  # folder and fail on dependencies that only have an href src.
+  deps <- htmltools::renderTags(muiMaterialPage(useFontRoboto = TRUE))$dependencies
+  fontDeps <- Filter(function(d) startsWith(d$name, "muiMaterial-"), deps)
+  expect_gt(length(fontDeps), 0)
+  for (d in fontDeps) {
+    expect_false(is.null(d$src$file), info = d$name)
+    expect_true(dir.exists(d$src$file), info = d$name)
+  }
+})
+
+test_that("muiMaterialPage() de-duplicates font links across pages", {
+  page <- htmltools::tagList(
+    muiMaterialPage(useMaterialIconsFilled = TRUE),
+    muiMaterialPage(useMaterialIconsFilled = TRUE)
+  )
+  deps <- renderedDependencies(page)
+  expect_length(gregexpr("icon?family=Material+Icons", deps, fixed = TRUE)[[1]], 1)
 })
 
 test_that("muiMaterialPage() suppresses or includes Bootstrap as requested", {
