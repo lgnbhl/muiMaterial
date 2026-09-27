@@ -1,0 +1,822 @@
+---
+title: "Radio Group"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Radio Group}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-radio-button/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Radio Group
+
+The Radio Group allows the user to select one option from a set.
+
+Use radio buttons when the user needs to see all available options.
+If available options can be collapsed, consider using a [Select component](select.html) because it uses less space.
+
+Radio buttons should have the most commonly used option selected by default.
+
+## Radio group
+
+`RadioGroup` is a helpful wrapper used to group `Radio` components that provides an easier API, and proper keyboard accessibility to the group.
+
+```{r}
+genderOptions <- tagList(
+  FormControlLabel(value = "female", control = Radio(), label = "Female"),
+  FormControlLabel(value = "male", control = Radio(), label = "Male"),
+  FormControlLabel(value = "other", control = Radio(), label = "Other")
+)
+
+muiMaterialPage(
+  CssBaseline(),
+  FormControl(
+    FormLabel(id = "radio-buttons-group-label", "Gender"),
+    RadioGroup(
+      `aria-labelledby` = "radio-buttons-group-label",
+      defaultValue = "female",
+      name = "radio-buttons-group",
+      genderOptions
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+export default function RadioButtonsGroup() {
+  const id = React.useId();
+  return (
+    <FormControl>
+      <FormLabel id={`${id}-label`}>Gender</FormLabel>
+      <RadioGroup
+        aria-labelledby={`${id}-label`}
+        defaultValue="female"
+        name="radio-buttons-group"
+      >
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="other" control={<Radio />} label="Other" />
+      </RadioGroup>
+    </FormControl>
+  );
+}
+```
+</details>
+
+### Direction
+
+To lay out the buttons horizontally, set the `row` prop:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  FormControl(
+    FormLabel(id = "row-radio-buttons-group-label", "Gender"),
+    RadioGroup(
+      row = TRUE,
+      `aria-labelledby` = "row-radio-buttons-group-label",
+      name = "row-radio-buttons-group",
+      genderOptions,
+      FormControlLabel(value = "disabled", disabled = TRUE, control = Radio(), label = "other")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+export default function RowRadioButtonsGroup() {
+  const id = React.useId();
+  return (
+    <FormControl>
+      <FormLabel id={`${id}-label`}>Gender</FormLabel>
+      <RadioGroup row aria-labelledby={`${id}-label`} name="row-radio-buttons-group">
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+        <FormControlLabel value="other" control={<Radio />} label="Other" />
+        <FormControlLabel
+          value="disabled"
+          disabled
+          control={<Radio />}
+          label="other"
+        />
+      </RadioGroup>
+    </FormControl>
+  );
+}
+```
+</details>
+
+### Controlled
+
+In React, you control the radio group with the `value` and `onChange` props.
+In a Shiny app, use `RadioGroup.shinyInput()`: the selected `value` is sent to
+`input[[inputId]]`, and `updateRadioGroup.shinyInput()` changes it from the
+server.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    FormControl(
+      FormLabel(id = "controlled-radio-buttons-group", "Gender"),
+      RadioGroup.shinyInput(
+        inputId = "gender",
+        `aria-labelledby` = "controlled-radio-buttons-group",
+        name = "controlled-radio-buttons-group",
+        value = "female",
+        FormControlLabel(value = "female", control = Radio(), label = "Female"),
+        FormControlLabel(value = "male", control = Radio(), label = "Male")
+      )
+    ),
+    Button.shinyInput("reset", "Reset to female"),
+    verbatimTextOutput("selected")
+  )
+)
+
+server <- function(input, output, session) {
+  output$selected <- renderPrint(input$gender)
+  observeEvent(input$reset, updateRadioGroup.shinyInput(inputId = "gender", value = "female"))
+}
+
+shinyApp(ui, server)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+export default function ControlledRadioButtonsGroup() {
+  const id = React.useId();
+  const [value, setValue] = React.useState('female');
+
+  const handleChange = (event) => {
+    setValue(event.target.value);
+  };
+
+  return (
+    <FormControl>
+      <FormLabel id={`${id}-label`}>Gender</FormLabel>
+      <RadioGroup
+        aria-labelledby={`${id}-label`}
+        name="controlled-radio-buttons-group"
+        value={value}
+        onChange={handleChange}
+      >
+        <FormControlLabel value="female" control={<Radio />} label="Female" />
+        <FormControlLabel value="male" control={<Radio />} label="Male" />
+      </RadioGroup>
+    </FormControl>
+  );
+}
+```
+</details>
+
+Run the bundled version with `muiMaterialExample("RadioGroup")`.
+
+## Standalone radio buttons
+
+`Radio` can also be used standalone, without labels. In React, standalone radios
+are controlled with the `checked` prop. Without React state, keep them in a
+`RadioGroup()` (here with `row = TRUE`): the group keeps a single radio
+checked.
+
+A standalone `Radio.shinyInput()` reports a boolean (`checked`) to the server,
+not the selected value: prefer `RadioGroup.shinyInput()` for a set of options.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  RadioGroup(
+    row = TRUE,
+    name = "radio-buttons",
+    defaultValue = "a",
+    Radio(value = "a", slotProps = list(input = list(`aria-label` = "A"))),
+    Radio(value = "b", slotProps = list(input = list(`aria-label` = "B")))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Radio from '@mui/material/Radio';
+
+export default function RadioButtons() {
+  const [selectedValue, setSelectedValue] = React.useState('a');
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  return (
+    <div>
+      <Radio
+        checked={selectedValue === 'a'}
+        onChange={handleChange}
+        value="a"
+        name="radio-buttons"
+        slotProps={{ input: { 'aria-label': 'A' } }}
+      />
+      <Radio
+        checked={selectedValue === 'b'}
+        onChange={handleChange}
+        value="b"
+        name="radio-buttons"
+        slotProps={{ input: { 'aria-label': 'B' } }}
+      />
+    </div>
+  );
+}
+```
+</details>
+
+## Size
+
+Use the `size` prop or customize the font size of the svg icons to change the size of the radios.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  RadioGroup(
+    row = TRUE,
+    name = "size-radio-button-demo",
+    defaultValue = "a",
+    Radio(value = "a", size = "small", inputProps = list(`aria-label` = "a")),
+    Radio(value = "b", inputProps = list(`aria-label` = "b")),
+    Radio(value = "c", inputProps = list(`aria-label` = "c"), sx = list("& .MuiSvgIcon-root" = list(fontSize = 28)))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Radio from '@mui/material/Radio';
+
+export default function SizeRadioButtons() {
+  const [selectedValue, setSelectedValue] = React.useState('a');
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const controlProps = (item) => ({
+    checked: selectedValue === item,
+    onChange: handleChange,
+    value: item,
+    name: 'size-radio-button-demo',
+    inputProps: { 'aria-label': item },
+  });
+
+  return (
+    <div>
+      <Radio {...controlProps('a')} size="small" />
+      <Radio {...controlProps('b')} />
+      <Radio
+        {...controlProps('c')}
+        sx={{
+          '& .MuiSvgIcon-root': {
+            fontSize: 28,
+          },
+        }}
+      />
+    </div>
+  );
+}
+```
+</details>
+
+## Color
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  RadioGroup(
+    row = TRUE,
+    name = "color-radio-button-demo",
+    defaultValue = "a",
+    Radio(value = "a", inputProps = list(`aria-label` = "a")),
+    Radio(value = "b", color = "secondary", inputProps = list(`aria-label` = "b")),
+    Radio(value = "c", color = "success", inputProps = list(`aria-label` = "c")),
+    Radio(value = "d", color = "default", inputProps = list(`aria-label` = "d")),
+    Radio(
+      value = "e",
+      inputProps = list(`aria-label` = "e"),
+      # pink[800] and pink[600] from the MUI color palette
+      sx = list(color = "#ad1457", "&.Mui-checked" = list(color = "#d81b60"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { pink } from '@mui/material/colors';
+import Radio from '@mui/material/Radio';
+
+export default function ColorRadioButtons() {
+  const [selectedValue, setSelectedValue] = React.useState('a');
+
+  const handleChange = (event) => {
+    setSelectedValue(event.target.value);
+  };
+
+  const controlProps = (item) => ({
+    checked: selectedValue === item,
+    onChange: handleChange,
+    value: item,
+    name: 'color-radio-button-demo',
+    inputProps: { 'aria-label': item },
+  });
+
+  return (
+    <div>
+      <Radio {...controlProps('a')} />
+      <Radio {...controlProps('b')} color="secondary" />
+      <Radio {...controlProps('c')} color="success" />
+      <Radio {...controlProps('d')} color="default" />
+      <Radio
+        {...controlProps('e')}
+        sx={{
+          color: pink[800],
+          '&.Mui-checked': {
+            color: pink[600],
+          },
+        }}
+      />
+    </div>
+  );
+}
+```
+</details>
+
+## Label placement
+
+You can change the placement of the label with the `FormControlLabel` component's `labelPlacement` prop:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  FormControl(
+    FormLabel(id = "label-placement-label", "Label placement"),
+    RadioGroup(
+      row = TRUE,
+      `aria-labelledby` = "label-placement-label",
+      name = "position",
+      defaultValue = "top",
+      FormControlLabel(value = "bottom", control = Radio(), label = "Bottom", labelPlacement = "bottom"),
+      FormControlLabel(value = "end", control = Radio(), label = "End")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+export default function FormControlLabelPlacement() {
+  const id = React.useId();
+  return (
+    <FormControl>
+      <FormLabel id={`${id}-label`}>Label placement</FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby={`${id}-label`}
+        name="position"
+        defaultValue="top"
+      >
+        <FormControlLabel
+          value="bottom"
+          control={<Radio />}
+          label="Bottom"
+          labelPlacement="bottom"
+        />
+        <FormControlLabel value="end" control={<Radio />} label="End" />
+      </RadioGroup>
+    </FormControl>
+  );
+}
+```
+</details>
+
+## Show error
+
+In general, radio buttons should have a value selected by default. If this is not the case, you can display an error if no value is selected when the form is submitted:
+
+The answer is kept in the URL with [reactRouter](https://felixluginbuhl.com/reactRouter/):
+the form's `onSubmit` navigates to `#/quiz/<answer>`, and each route renders the
+form with the matching `error` state and helper text.
+
+```{r, message = FALSE}
+library(reactRouter)
+
+quizForm <- function(answer = NULL) {
+  checked <- !is.null(answer)
+  error <- checked && answer != "best"
+  helperText <- if (!checked) {
+    "Choose wisely"
+  } else if (answer == "best") {
+    "You got it!"
+  } else if (answer == "worst") {
+    "Sorry, wrong answer!"
+  } else {
+    "Please select an option."
+  }
+  Box(
+    component = "form",
+    onSubmit = JS(
+      "(event) => {
+        event.preventDefault();
+        const answer = new FormData(event.currentTarget).get('quiz') || 'none';
+        window.location.hash = '/quiz/' + answer;
+      }"
+    ),
+    FormControl(
+      sx = list(m = 3),
+      error = error,
+      variant = "standard",
+      FormLabel(id = "quiz-label", "Pop quiz: MUI is…"),
+      RadioGroup(
+        `aria-labelledby` = "quiz-label",
+        name = "quiz",
+        defaultValue = if (checked && answer != "none") answer else "",
+        FormControlLabel(value = "best", control = Radio(), label = "The best!"),
+        FormControlLabel(value = "worst", control = Radio(), label = "The worst.")
+      ),
+      FormHelperText(helperText),
+      Button(sx = list(mt = 1, mr = 1), type = "submit", variant = "outlined", "Check Answer")
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(c("best", "worst", "none"), function(answer) Route(path = paste0("quiz/", answer), element = quizForm(answer))),
+      Route(path = "*", element = quizForm())
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormHelperText from '@mui/material/FormHelperText';
+import FormLabel from '@mui/material/FormLabel';
+import Button from '@mui/material/Button';
+
+export default function ErrorRadios() {
+  const id = React.useId();
+  const [value, setValue] = React.useState('');
+  const [error, setError] = React.useState(false);
+  const [helperText, setHelperText] = React.useState('Choose wisely');
+
+  const handleRadioChange = (event) => {
+    setValue(event.target.value);
+    setError(false);
+    setHelperText('Choose wisely');
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    if (value === 'best') {
+      setHelperText('You got it!');
+      setError(false);
+    } else if (value === 'worst') {
+      setHelperText('Sorry, wrong answer!');
+      setError(true);
+    } else {
+      setHelperText('Please select an option.');
+      setError(true);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <FormControl sx={{ m: 3 }} error={error} variant="standard">
+        <FormLabel id={`${id}-label`}>Pop quiz: MUI is…</FormLabel>
+        <RadioGroup
+          aria-labelledby={`${id}-label`}
+          name="quiz"
+          value={value}
+          onChange={handleRadioChange}
+        >
+          <FormControlLabel value="best" control={<Radio />} label="The best!" />
+          <FormControlLabel value="worst" control={<Radio />} label="The worst." />
+        </RadioGroup>
+        <FormHelperText>{helperText}</FormHelperText>
+        <Button sx={{ mt: 1, mr: 1 }} type="submit" variant="outlined">
+          Check Answer
+        </Button>
+      </FormControl>
+    </form>
+  );
+}
+```
+</details>
+
+## Customization
+
+Here is an example of customizing the component.
+You can learn more about this in the [overrides documentation page](https://mui.com/material-ui/customization/how-to-customize/).
+The `styled()` icons of the original demo become `Box()` elements styled with
+`sx`, passed to the `icon` and `checkedIcon` props:
+
+```{r}
+bpIconSx <- list(
+  borderRadius = "50%",
+  width = 16,
+  height = 16,
+  boxShadow = "inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)",
+  backgroundColor = "#f5f8fa",
+  backgroundImage = "linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))",
+  ".Mui-focusVisible &" = list(outline = "2px auto rgba(19,124,189,.6)", outlineOffset = 2),
+  "input:hover ~ &" = list(backgroundColor = "#ebf1f5"),
+  "input:disabled ~ &" = list(boxShadow = "none", background = "rgba(206,217,224,.5)")
+)
+bpCheckedIconSx <- modifyList(bpIconSx, list(
+  backgroundColor = "#137cbd",
+  backgroundImage = "linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))",
+  "&::before" = list(
+    display = "block", width = 16, height = 16,
+    backgroundImage = "radial-gradient(#fff,#fff 28%,transparent 32%)", content = '""'
+  ),
+  "input:hover ~ &" = list(backgroundColor = "#106ba3")
+))
+
+# Inspired by blueprintjs
+BpRadio <- function(...) {
+  Radio(
+    disableRipple = TRUE,
+    color = "default",
+    checkedIcon = Box(component = "span", sx = bpCheckedIconSx),
+    icon = Box(component = "span", sx = bpIconSx),
+    ...
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  FormControl(
+    FormLabel(id = "customized-radios-label", "Gender"),
+    RadioGroup(
+      defaultValue = "female",
+      `aria-labelledby` = "customized-radios-label",
+      name = "customized-radios",
+      FormControlLabel(value = "female", control = BpRadio(), label = "Female"),
+      FormControlLabel(value = "male", control = BpRadio(), label = "Male"),
+      FormControlLabel(value = "other", control = BpRadio(), label = "Other"),
+      FormControlLabel(value = "disabled", disabled = TRUE, control = BpRadio(), label = "(Disabled option)")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import Radio from '@mui/material/Radio';
+import RadioGroup from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormControl from '@mui/material/FormControl';
+import FormLabel from '@mui/material/FormLabel';
+
+const BpIcon = styled('span')(({ theme }) => ({
+  borderRadius: '50%',
+  width: 16,
+  height: 16,
+  boxShadow: 'inset 0 0 0 1px rgba(16,22,26,.2), inset 0 -1px 0 rgba(16,22,26,.1)',
+  backgroundColor: '#f5f8fa',
+  backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.8),hsla(0,0%,100%,0))',
+  '.Mui-focusVisible &': {
+    outline: '2px auto rgba(19,124,189,.6)',
+    outlineOffset: 2,
+  },
+  'input:hover ~ &': {
+    backgroundColor: '#ebf1f5',
+    ...theme.applyStyles('dark', {
+      backgroundColor: '#30404d',
+    }),
+  },
+  'input:disabled ~ &': {
+    boxShadow: 'none',
+    background: 'rgba(206,217,224,.5)',
+    ...theme.applyStyles('dark', {
+      background: 'rgba(57,75,89,.5)',
+    }),
+    '@media (forced-colors: active)': {
+      outline: '1px solid GrayText',
+    },
+  },
+  '@media (forced-colors: active)': {
+    outline: '1px solid ButtonText',
+  },
+  ...theme.applyStyles('dark', {
+    boxShadow: '0 0 0 1px rgb(16 22 26 / 40%)',
+    backgroundColor: '#394b59',
+    backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.05),hsla(0,0%,100%,0))',
+  }),
+}));
+
+const BpCheckedIcon = styled(BpIcon)({
+  backgroundColor: '#137cbd',
+  backgroundImage: 'linear-gradient(180deg,hsla(0,0%,100%,.1),hsla(0,0%,100%,0))',
+  '&::before': {
+    display: 'block',
+    width: 16,
+    height: 16,
+    backgroundImage: 'radial-gradient(#fff,#fff 28%,transparent 32%)',
+    content: '""',
+    '@media (forced-colors: active)': {
+      backgroundImage: 'none',
+      backgroundColor: 'ButtonText',
+      borderRadius: '50%',
+      width: 8,
+      height: 8,
+      margin: 4,
+    },
+  },
+  'input:hover ~ &': {
+    backgroundColor: '#106ba3',
+  },
+  '@media (forced-colors: active)': {
+    outline: '2px solid ButtonText',
+  },
+});
+
+// Inspired by blueprintjs
+function BpRadio(props) {
+  return (
+    <Radio
+      disableRipple
+      color="default"
+      checkedIcon={<BpCheckedIcon />}
+      icon={<BpIcon />}
+      {...props}
+    />
+  );
+}
+
+export default function CustomizedRadios() {
+  const id = React.useId();
+  return (
+    <FormControl>
+      <FormLabel id={`${id}-label`}>Gender</FormLabel>
+      <RadioGroup
+        defaultValue="female"
+        aria-labelledby={`${id}-label`}
+        name="customized-radios"
+      >
+        <FormControlLabel value="female" control={<BpRadio />} label="Female" />
+        <FormControlLabel value="male" control={<BpRadio />} label="Male" />
+        <FormControlLabel value="other" control={<BpRadio />} label="Other" />
+        <FormControlLabel
+          value="disabled"
+          disabled
+          control={<BpRadio />}
+          label="(Disabled option)"
+        />
+      </RadioGroup>
+    </FormControl>
+  );
+}
+```
+</details>
+
+## `useRadioGroup`
+
+For advanced customization use cases, React exposes a `useRadioGroup()` hook
+that returns the context value of the parent radio group. Hooks are not
+available from R. The MUI demo uses it to color the label of the checked option,
+which a CSS `:has()` selector also does:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  RadioGroup(
+    name = "use-radio-group",
+    defaultValue = "first",
+    sx = list(
+      "& .MuiFormControlLabel-root:has(.Mui-checked) .MuiFormControlLabel-label" = list(color = "primary.main")
+    ),
+    FormControlLabel(value = "first", label = "First", control = Radio()),
+    FormControlLabel(value = "second", label = "Second", control = Radio())
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import RadioGroup, { useRadioGroup } from '@mui/material/RadioGroup';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import Radio from '@mui/material/Radio';
+
+const StyledFormControlLabel = styled((props) => <FormControlLabel {...props} />)(
+  ({ theme }) => ({
+    variants: [
+      {
+        props: { checked: true },
+        style: {
+          '.MuiFormControlLabel-label': {
+            color: theme.palette.primary.main,
+          },
+        },
+      },
+    ],
+  }),
+);
+
+function MyFormControlLabel(props) {
+  const radioGroup = useRadioGroup();
+
+  let checked = false;
+
+  if (radioGroup) {
+    checked = radioGroup.value === props.value;
+  }
+
+  return <StyledFormControlLabel checked={checked} {...props} />;
+}
+
+MyFormControlLabel.propTypes = {
+  /**
+   * The value of the component.
+   */
+  value: PropTypes.any,
+};
+
+export default function UseRadioGroup() {
+  return (
+    <RadioGroup name="use-radio-group" defaultValue="first">
+      <MyFormControlLabel value="first" label="First" control={<Radio />} />
+      <MyFormControlLabel value="second" label="Second" control={<Radio />} />
+    </RadioGroup>
+  );
+}
+```
+</details>
+
+## When to use
+
+- [Checkboxes vs. Radio Buttons](https://www.nngroup.com/articles/checkboxes-vs-radio-buttons/)
+
+## Accessibility
+
+(WAI-ARIA: <https://www.w3.org/WAI/ARIA/apg/patterns/radio/>)
+
+- All form controls should have labels, and this includes radio buttons, checkboxes, and switches. In most cases, this is done by using the `<label>` element ([FormControlLabel](https://mui.com/material-ui/api/form-control-label/)).
+- When a label can't be used, it's necessary to add an attribute directly to the input component.
+  In this case, you can apply the additional attribute (for example `aria-label`, `aria-labelledby`, `title`) via the `slotProps$input` property.
+
+```r
+Radio(value = "radioA", slotProps = list(input = list(`aria-label` = "Radio A")))
+```

@@ -18,3 +18,10 @@ Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 Custom Popover bound to a DOM element by id. See 'js/src/MuiPopoverTriggerId.jsx'.
 The trigger element acts as the anchor; the Popover opens on click and closes on clickaway.
 }
+\examples{
+htmltools::tagList(
+  Button(id = "open-popover", "Open popover"),
+  Popover.triggerId("open-popover", anchorOrigin = list(vertical = "bottom", horizontal = "left"),
+    Typography(sx = list(p = 2), "The content of the Popover."))
+)
+}

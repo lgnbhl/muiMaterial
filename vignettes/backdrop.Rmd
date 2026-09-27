@@ -1,0 +1,131 @@
+---
+title: "Backdrop"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Backdrop}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-backdrop/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Backdrop
+
+The Backdrop component narrows the user's focus to a particular element on the screen.
+
+The Backdrop signals a state change within the application and can be used for creating loaders, dialogs, and more.
+In its simplest form, the Backdrop component will add a dimmed layer over your application.
+
+## Example
+
+The demo below shows a basic Backdrop with a Circular Progress component in the foreground to indicate a loading state.
+After clicking **Show Backdrop**, you can click anywhere on the page to close it.
+
+The open state is kept in the URL with
+[reactRouter](https://felixluginbuhl.com/reactRouter/): the button links to
+`#/backdrop`, and a click on the backdrop navigates back to `#/`.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(href = "#/backdrop", "Show backdrop"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "backdrop",
+        element = Backdrop(
+          sx = list(color = "#fff", zIndex = 1201), # theme.zIndex.drawer + 1
+          open = TRUE,
+          onClick = JS("() => { window.location.hash = '/'; }"),
+          CircularProgress(color = "inherit")
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Backdrop from '@mui/material/Backdrop';
+import CircularProgress from '@mui/material/CircularProgress';
+import Button from '@mui/material/Button';
+
+export default function SimpleBackdrop() {
+  const [open, setOpen] = React.useState(false);
+  const handleClose = () => {
+    setOpen(false);
+  };
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  return (
+    <div>
+      <Button onClick={handleOpen}>Show backdrop</Button>
+      <Backdrop
+        sx={(theme) => ({ color: '#fff', zIndex: theme.zIndex.drawer + 1 })}
+        open={open}
+        onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </div>
+  );
+}
+```
+</details>
+
+## Transitions
+
+Backdrop uses [Fade](transitions.html#fade) by default.
+Use `slots$transition` and `slotProps$transition` to replace it with another transition or to pass transition props.
+
+## Backdrops in Shiny apps
+
+A backdrop is a simple way to block the page while the server works. Render it
+from the server with `renderReact()`:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Button.shinyInput("run", "Run long computation", variant = "contained"),
+  reactOutput("backdrop"),
+  verbatimTextOutput("result")
+)
+
+server <- function(input, output, session) {
+  busy <- reactiveVal(FALSE)
+  result <- reactiveVal(NULL)
+
+  observeEvent(input$run, {
+    busy(TRUE)
+    # Run the work after the backdrop has been sent to the browser
+    later::later(function() {
+      Sys.sleep(2) # the long computation
+      result(Sys.time())
+      busy(FALSE)
+    }, 0.1)
+  })
+
+  output$backdrop <- renderReact({
+    Backdrop(sx = list(color = "#fff", zIndex = 1201), open = busy(), CircularProgress(color = "inherit"))
+  })
+  output$result <- renderPrint(result())
+}
+
+shinyApp(ui, server)
+```

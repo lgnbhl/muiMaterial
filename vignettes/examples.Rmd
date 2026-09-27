@@ -1,0 +1,89 @@
+---
+title: "Examples gallery"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Examples gallery}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+muiMaterial ships complete Shiny apps. List them with `muiMaterialExample()`,
+and run one by name:
+
+```{r}
+library(muiMaterial)
+
+muiMaterialExample()           # the names of all the examples
+muiMaterialExample("showcase") # run one of them
+```
+
+To read or copy the code of an example, open its file:
+
+```{r}
+file.edit(system.file("examples", "Dialog.R", package = "muiMaterial"))
+```
+
+## Apps and dashboards
+
+| Example | What it shows |
+|---|---|
+| `showcase` | All the `.shinyInput()` components and their values, in one app ([live version](https://lgnbhl-muimaterial-showcase.share.connect.posit.cloud/)). |
+| `dashboard-simple` | A simple dashboard: app bar, drawer and content. See [Basic dashboarding](dashboard-basic.html). |
+| `dashboard-inset` | A dashboard with an inset drawer. |
+| `dashboard-icons` | A dashboard with a drawer of icons. |
+| `mui-template-dashboard` | A port of the MUI dashboard template, with Shiny modules. |
+| `bookmarking` | Restoring `.shinyInput()` values from a bookmarked URL. See [Shiny inputs and server updates](shiny-inputs.html#bookmarking). |
+| `muiMaterialPage` | `muiMaterialPage()` with the Roboto font and the Material icons. |
+
+## Inputs
+
+| Example | What it shows | Article |
+|---|---|---|
+| `Autocomplete` | `Autocomplete.shinyInput()` | [Autocomplete](autocomplete.html) |
+| `Button` | `Button.shinyInput()` click counter | [Button](button.html) |
+| `ButtonGroup` | Buttons grouped in a `ButtonGroup()` | [Button Group](button-group.html) |
+| `Checkbox` | `Checkbox.shinyInput()` | [Checkbox](checkbox.html) |
+| `Fab` | `Fab.shinyInput()` | [Floating Action Button](floating-action-button.html) |
+| `FilledInput` | `FilledInput.shinyInput()` | [Text Field](textfield.html) |
+| `LoadingButton` | A button with a loading state | [Button](button.html#loading) |
+| `NativeSelect` | `NativeSelect.shinyInput()` | [Select](select.html#native-select) |
+| `RadioGroup` | `RadioGroup.shinyInput()` | [Radio Group](radio.html) |
+| `Rating` | `Rating.shinyInput()` | [Rating](rating.html) |
+| `Slider` | `Slider.shinyInput()` with custom marks | [Slider](slider.html) |
+| `Switch` | `Switch.shinyInput()` | [Switch](switch.html) |
+| `TextField` | `TextField.shinyInput()` | [Text Field](textfield.html) |
+| `ToggleButtonGroup` | `ToggleButtonGroup.shinyInput()` | [Toggle Button Group](toggle-button-group.html) |
+| `TransferList` | A transfer list with server-side state | [Transfer List](transfer-list.html) |
+
+## Navigation and overlays
+
+| Example | What it shows | Article |
+|---|---|---|
+| `BottomNavigation` | `BottomNavigation.shinyInput()` switching pages | [Bottom Navigation](bottom-navigation.html) |
+| `Dialog` | `Dialog.shinyInput()` opened and closed by the server | [Dialog](dialog.html) |
+| `Drawer` | `Drawer.shinyInput()` opened and closed by the server | [Drawer](drawer.html) |
+| `DrawerTriggerId` | `Drawer.triggerId()`: a navigation drawer without server code | [Overlays with `.triggerId`](triggerid.html) |
+| `Menu` | `Menu.triggerId()`: an options menu | [Menu](menu.html) |
+| `MenuItem` | `MenuItem.shinyInput()` | [Menu](menu.html#menus-in-shiny-apps) |
+| `Modal` | `Modal.shinyInput()` | [Modal](modal.html) |
+| `Pagination` | `Pagination.shinyInput()` | [Pagination](pagination.html) |
+| `Snackbar` | `Snackbar.shinyInput()` opened by the server | [Snackbar](snackbar.html) |
+| `Stepper` | A stepper driven by the server | [Stepper](stepper.html) |
+| `Tabs` | Client-side tabs with `TabContext.static()` | [Tabs](tabs.html) |
+
+## Layout, display and customization
+
+| Example | What it shows | Article |
+|---|---|---|
+| `Card` | A media card | [Card](card.html) |
+| `Grid` | A responsive grid | [Grid](grid.html) |
+| `Timeline` | A customized timeline | [Timeline](timeline.html) |
+| `ThemeProvider` | A custom theme: palette, typography and component overrides | [Theming](theming.html) |
+| `CustomComponentShinyInput` | A custom Shiny input built with `InputAdapter` | [Custom components](custom-components.html) |
+| `CustomComponentShinyInputStyled` | A custom `styled()` slider input | [Custom components](custom-components.html) |

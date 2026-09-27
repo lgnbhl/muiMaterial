@@ -1,0 +1,2260 @@
+---
+title: "Drawer"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Drawer}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-drawer/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Drawer
+
+The navigation drawers (or "sidebars") provide ergonomic access to destinations in a site or app functionality such as switching accounts.
+
+A navigation drawer can either be permanently on-screen or controlled by a navigation menu icon.
+
+[Side sheets](https://m2.material.io/components/sheets-side) are supplementary surfaces primarily used on tablet and desktop.
+
+As on the [Dialog](dialog.html) page, the live demos keep the open state in the
+URL with [reactRouter](https://felixluginbuhl.com/reactRouter/): a link opens
+the drawer's route, and `onClose` navigates back to `#/`. The full-page layouts
+are rendered inside a framed box (`demoFrame()` below). Its
+`transform: translateZ(0)` makes the fixed-position app bars and drawers stay
+inside the frame instead of covering this page.
+
+```{r}
+closeDrawer <- JS("() => { window.location.hash = '/'; }")
+
+# The two mailbox lists used by most demos. `item` builds each row, so demos
+# can customize it (the mini variant hides the labels).
+mailboxLists <- function(item = mailboxItem) {
+  list(
+    List(unname(Map(item, c("Inbox", "Starred", "Send email", "Drafts"), c("inbox", "mail", "inbox", "mail")))),
+    Divider(),
+    List(unname(Map(item, c("All mail", "Trash", "Spam"), c("inbox", "mail", "inbox"))))
+  )
+}
+mailboxItem <- function(text, icon) {
+  ListItem(
+    disablePadding = TRUE,
+    ListItemButton(ListItemIcon(Icon(icon)), ListItemText(primary = text))
+  )
+}
+
+lorem <- list(
+  Typography(
+    sx = list(marginBottom = 2),
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+    tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+    enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+    imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+    Convallis convallis tellus id interdum velit laoreet id donec ultrices."
+  ),
+  Typography(
+    sx = list(marginBottom = 2),
+    "Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+    eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+    neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+    tellus. Purus sit amet volutpat consequat mauris."
+  )
+)
+
+# A bordered box that contains a full-page layout (only needed in this page)
+demoFrame <- function(..., height = 500) {
+  Box(
+    sx = list(
+      position = "relative", height = height, overflow = "hidden",
+      transform = "translateZ(0)", border = 1, borderColor = "divider", borderRadius = 1
+    ),
+    ...
+  )
+}
+```
+
+## Temporary drawer
+
+Temporary navigation drawers can toggle open or closed. Closed by default, the drawer opens temporarily above all other content until a section is selected.
+
+The Drawer can be cancelled by clicking the overlay or pressing the Esc key.
+It closes when an item is selected, here with an `onClick` on the drawer content
+that navigates back to `#/`.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Button(href = "#/temporary-drawer", "Open drawer"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "temporary-drawer",
+        element = Drawer(
+          open = TRUE,
+          onClose = closeDrawer,
+          Box(sx = list(width = 250), role = "presentation", onClick = closeDrawer, mailboxLists())
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+export default function TemporaryDrawer() {
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation" onClick={toggleDrawer(false)}>
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
+  return (
+    <div>
+      <Button onClick={toggleDrawer(true)}>Open drawer</Button>
+      <Drawer open={open} onClose={toggleDrawer(false)}>
+        {DrawerList}
+      </Drawer>
+    </div>
+  );
+}
+```
+</details>
+
+### Anchor
+
+Use the `anchor` prop to specify which side of the screen the Drawer should originate from.
+
+The default value is `left`.
+
+```{r}
+anchors <- c("left", "right", "top", "bottom")
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  lapply(anchors, function(anchor) Button(href = paste0("#/anchor-drawer-", anchor), anchor)),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(anchors, function(anchor) {
+        Route(
+          path = paste0("anchor-drawer-", anchor),
+          element = Drawer(
+            anchor = anchor,
+            open = TRUE,
+            onClose = closeDrawer,
+            Box(
+              sx = list(width = if (anchor %in% c("top", "bottom")) "auto" else 250),
+              role = "presentation",
+              onClick = closeDrawer,
+              mailboxLists()
+            )
+          )
+        )
+      }),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+export default function AnchorTemporaryDrawer() {
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (event.type === 'keydown' && (event.key === 'Tab' || event.key === 'Shift')) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
+  return (
+    <div>
+      {['left', 'right', 'top', 'bottom'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <Drawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+          >
+            {list(anchor)}
+          </Drawer>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+```
+</details>
+
+### Swipeable
+
+You can make the drawer swipeable with the `SwipeableDrawer` component.
+
+This component comes with a 2 kB gzipped payload overhead.
+Some low-end mobile devices won't be able to follow the fingers at 60 FPS.
+You can use the `disableBackdropTransition` prop to help.
+
+`SwipeableDrawer()` requires both `onClose` and `onOpen` callbacks.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  lapply(anchors, function(anchor) Button(href = paste0("#/swipeable-drawer-", anchor), anchor)),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(anchors, function(anchor) {
+        Route(
+          path = paste0("swipeable-drawer-", anchor),
+          element = SwipeableDrawer(
+            anchor = anchor,
+            open = TRUE,
+            onClose = closeDrawer,
+            onOpen = JS("() => {}"),
+            Box(
+              sx = list(width = if (anchor %in% c("top", "bottom")) "auto" else 250),
+              role = "presentation",
+              onClick = closeDrawer,
+              mailboxLists()
+            )
+          )
+        )
+      }),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+import Button from '@mui/material/Button';
+import List from '@mui/material/List';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+export default function SwipeableTemporaryDrawer() {
+  const [state, setState] = React.useState({
+    top: false,
+    left: false,
+    bottom: false,
+    right: false,
+  });
+
+  const toggleDrawer = (anchor, open) => (event) => {
+    if (
+      event &&
+      event.type === 'keydown' &&
+      (event.key === 'Tab' || event.key === 'Shift')
+    ) {
+      return;
+    }
+
+    setState({ ...state, [anchor]: open });
+  };
+
+  const list = (anchor) => (
+    <Box
+      sx={{ width: anchor === 'top' || anchor === 'bottom' ? 'auto' : 250 }}
+      role="presentation"
+      onClick={toggleDrawer(anchor, false)}
+      onKeyDown={toggleDrawer(anchor, false)}
+    >
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </Box>
+  );
+
+  return (
+    <div>
+      {['left', 'right', 'top', 'bottom'].map((anchor) => (
+        <React.Fragment key={anchor}>
+          <Button onClick={toggleDrawer(anchor, true)}>{anchor}</Button>
+          <SwipeableDrawer
+            anchor={anchor}
+            open={state[anchor]}
+            onClose={toggleDrawer(anchor, false)}
+            onOpen={toggleDrawer(anchor, true)}
+          >
+            {list(anchor)}
+          </SwipeableDrawer>
+        </React.Fragment>
+      ))}
+    </div>
+  );
+}
+```
+</details>
+
+The following properties are used in the MUI documentation website for optimal usability of the component:
+
+- iOS is hosted on high-end devices.
+  The backdrop transition can be enabled without dropping frames.
+  The performance will be good enough.
+- iOS has a "swipe to go back" feature that interferes
+  with the discovery feature, so discovery has to be disabled.
+
+```r
+SwipeableDrawer(disableBackdropTransition = TRUE, disableDiscovery = FALSE)
+```
+
+### Swipeable edge
+
+You can configure the `SwipeableDrawer` to have a visible edge when closed.
+
+If you are on a desktop, you can toggle the drawer with the "OPEN" button.
+If you are on mobile, you can swipe the edge up.
+
+The drawer must stay mounted to show its edge, so this demo uses
+`SwipeableDrawer.triggerId()`, which keeps its open state in the browser (see
+[Overlays with `.triggerId`](triggerid.html)). `ModalProps = list(disablePortal = TRUE)`
+renders the drawer inside the demo frame instead of at the end of the page.
+
+```{r}
+drawerBleeding <- 56
+
+muiMaterialPage(
+  CssBaseline(),
+  demoFrame(
+    height = 400,
+    Box(
+      sx = list(height = "100%", backgroundColor = "grey.100"),
+      Box(sx = list(textAlign = "center", pt = 1), Button(id = "open-swipeable-edge", "Open")),
+      SwipeableDrawer.triggerId(
+        triggerId = "open-swipeable-edge",
+        anchor = "bottom",
+        width = "auto",
+        swipeAreaWidth = drawerBleeding,
+        disableSwipeToOpen = FALSE,
+        keepMounted = TRUE,
+        ModalProps = list(disablePortal = TRUE),
+        sx = list(
+          "& > .MuiPaper-root" = list(
+            height = sprintf("calc(50%% - %spx)", drawerBleeding),
+            overflow = "visible"
+          )
+        ),
+        Box(
+          sx = list(
+            position = "absolute", top = -drawerBleeding, right = 0, left = 0,
+            visibility = "visible", backgroundColor = "#fff",
+            borderTopLeftRadius = 8, borderTopRightRadius = 8
+          ),
+          # The "puller" handle
+          Box(sx = list(
+            width = 30, height = 6, backgroundColor = "grey.300", borderRadius = 3,
+            position = "absolute", top = 8, left = "calc(50% - 15px)"
+          )),
+          Typography(sx = list(p = 2, color = "text.secondary"), "51 results")
+        ),
+        Box(
+          sx = list(px = 2, pb = 2, height = "100%", overflow = "auto", backgroundColor = "#fff"),
+          Skeleton(variant = "rectangular", height = "100%")
+        )
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { Global } from '@emotion/react';
+import { styled } from '@mui/material/styles';
+import CssBaseline from '@mui/material/CssBaseline';
+import { grey } from '@mui/material/colors';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Skeleton from '@mui/material/Skeleton';
+import Typography from '@mui/material/Typography';
+import SwipeableDrawer from '@mui/material/SwipeableDrawer';
+
+const drawerBleeding = 56;
+
+const Root = styled('div')(({ theme }) => ({
+  height: '100%',
+  backgroundColor: grey[100],
+  ...theme.applyStyles('dark', {
+    backgroundColor: (theme.vars || theme).palette.background.default,
+  }),
+}));
+
+const StyledBox = styled('div')(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.applyStyles('dark', {
+    backgroundColor: grey[800],
+  }),
+}));
+
+const Puller = styled('div')(({ theme }) => ({
+  width: 30,
+  height: 6,
+  backgroundColor: grey[300],
+  borderRadius: 3,
+  position: 'absolute',
+  top: 8,
+  left: 'calc(50% - 15px)',
+  ...theme.applyStyles('dark', {
+    backgroundColor: grey[900],
+  }),
+}));
+
+function SwipeableEdgeDrawer(props) {
+  const { window } = props;
+  const [open, setOpen] = React.useState(false);
+
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
+
+  // This is used only for the example
+  const container = window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <Root>
+      <CssBaseline />
+      <Global
+        styles={{
+          '.MuiDrawer-root > .MuiPaper-root': {
+            height: `calc(50% - ${drawerBleeding}px)`,
+            overflow: 'visible',
+          },
+        }}
+      />
+      <Box sx={{ textAlign: 'center', pt: 1 }}>
+        <Button onClick={toggleDrawer(true)}>Open</Button>
+      </Box>
+      <SwipeableDrawer
+        container={container}
+        anchor="bottom"
+        open={open}
+        onClose={toggleDrawer(false)}
+        onOpen={toggleDrawer(true)}
+        swipeAreaWidth={drawerBleeding}
+        disableSwipeToOpen={false}
+        keepMounted
+      >
+        <StyledBox
+          sx={{
+            position: 'absolute',
+            top: -drawerBleeding,
+            borderTopLeftRadius: 8,
+            borderTopRightRadius: 8,
+            visibility: 'visible',
+            right: 0,
+            left: 0,
+          }}
+        >
+          <Puller />
+          <Typography sx={{ p: 2, color: 'text.secondary' }}>51 results</Typography>
+        </StyledBox>
+        <StyledBox sx={{ px: 2, pb: 2, height: '100%', overflow: 'auto' }}>
+          <Skeleton variant="rectangular" height="100%" />
+        </StyledBox>
+      </SwipeableDrawer>
+    </Root>
+  );
+}
+
+SwipeableEdgeDrawer.propTypes = {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * You won't need it on your project.
+   */
+  window: PropTypes.func,
+};
+
+export default SwipeableEdgeDrawer;
+```
+</details>
+
+### Keep mounted
+
+The Modal used internally by the Swipeable Drawer has the `keepMounted` prop set by default.
+This means that the contents of the drawer are always present in the DOM.
+
+You can change this default behavior with the `ModalProps` prop, but you may encounter issues with `keepMounted: false` in React 18.
+
+```r
+Drawer(variant = "temporary", ModalProps = list(keepMounted = FALSE))
+```
+
+### Transition
+
+Temporary drawers use [Slide](transitions.html#slide) by default.
+Use `slots$transition` and `slotProps$transition` to replace it with another transition or to pass transition props.
+
+## Responsive drawer
+
+You can use the `temporary` variant to display a drawer for small screens and `permanent` for a drawer for wider screens.
+The `display` value in `sx` switches between the two at the `sm` breakpoint
+(600px). Make your browser window narrow to see the menu button that opens the
+temporary drawer.
+
+```{r}
+drawerWidth <- 240
+
+responsiveDrawerContent <- tagList(Toolbar(), Divider(), mailboxLists())
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  demoFrame(
+    Box(
+      sx = list(display = "flex"),
+      AppBar(
+        position = "fixed",
+        sx = list(
+          width = list(sm = sprintf("calc(100%% - %spx)", drawerWidth)),
+          ml = list(sm = paste0(drawerWidth, "px"))
+        ),
+        Toolbar(
+          IconButton(
+            color = "inherit",
+            `aria-label` = "open drawer",
+            edge = "start",
+            href = "#/responsive-drawer",
+            sx = list(mr = 2, display = list(sm = "none")),
+            Icon("menu")
+          ),
+          Typography(variant = "h6", noWrap = TRUE, component = "div", "Responsive drawer")
+        )
+      ),
+      Box(
+        component = "nav",
+        sx = list(width = list(sm = drawerWidth), flexShrink = list(sm = 0)),
+        `aria-label` = "mailbox folders",
+        RouterProvider(
+          router = createHashRouter(
+            Route(
+              path = "responsive-drawer",
+              element = Drawer(
+                variant = "temporary",
+                open = TRUE,
+                onClose = closeDrawer,
+                ModalProps = list(disablePortal = TRUE),
+                sx = list(
+                  display = list(xs = "block", sm = "none"),
+                  "& .MuiDrawer-paper" = list(boxSizing = "border-box", width = drawerWidth)
+                ),
+                responsiveDrawerContent
+              )
+            ),
+            Route(path = "*", element = NULL)
+          )
+        ),
+        Drawer(
+          variant = "permanent",
+          open = TRUE,
+          sx = list(
+            display = list(xs = "none", sm = "block"),
+            "& .MuiDrawer-paper" = list(boxSizing = "border-box", width = drawerWidth)
+          ),
+          responsiveDrawerContent
+        )
+      ),
+      Box(
+        component = "main",
+        sx = list(flexGrow = 1, p = 3, width = list(sm = sprintf("calc(100%% - %spx)", drawerWidth))),
+        Toolbar(),
+        lorem
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import AppBar from '@mui/material/AppBar';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import Divider from '@mui/material/Divider';
+import Drawer from '@mui/material/Drawer';
+import IconButton from '@mui/material/IconButton';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import MailIcon from '@mui/icons-material/Mail';
+import MenuIcon from '@mui/icons-material/Menu';
+import Toolbar from '@mui/material/Toolbar';
+import Typography from '@mui/material/Typography';
+
+const drawerWidth = 240;
+
+function ResponsiveDrawer(props) {
+  const { window } = props;
+  const [mobileOpen, setMobileOpen] = React.useState(false);
+  const [isClosing, setIsClosing] = React.useState(false);
+
+  const handleDrawerClose = () => {
+    setIsClosing(true);
+    setMobileOpen(false);
+  };
+
+  const handleDrawerTransitionEnd = () => {
+    setIsClosing(false);
+  };
+
+  const handleDrawerToggle = () => {
+    if (!isClosing) {
+      setMobileOpen(!mobileOpen);
+    }
+  };
+
+  const drawer = (
+    <div>
+      <Toolbar />
+      <Divider />
+      <List>
+        {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {['All mail', 'Trash', 'Spam'].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+    </div>
+  );
+
+  // Remove this const when copying and pasting into your project.
+  const container = window !== undefined ? () => window().document.body : undefined;
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{
+          width: { sm: `calc(100% - ${drawerWidth}px)` },
+          ml: { sm: `${drawerWidth}px` },
+        }}
+      >
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="start"
+            onClick={handleDrawerToggle}
+            sx={{ mr: 2, display: { sm: 'none' } }}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Responsive drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="nav"
+        sx={{ width: { sm: drawerWidth }, flexShrink: { sm: 0 } }}
+        aria-label="mailbox folders"
+      >
+        {/* The implementation can be swapped with js to avoid SEO duplication of links. */}
+        <Drawer
+          container={container}
+          variant="temporary"
+          open={mobileOpen}
+          onTransitionEnd={handleDrawerTransitionEnd}
+          onClose={handleDrawerClose}
+          sx={{
+            display: { xs: 'block', sm: 'none' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+          slotProps={{
+            root: {
+              keepMounted: true, // Better open performance on mobile.
+            },
+          }}
+        >
+          {drawer}
+        </Drawer>
+        <Drawer
+          variant="permanent"
+          sx={{
+            display: { xs: 'none', sm: 'block' },
+            '& .MuiDrawer-paper': { boxSizing: 'border-box', width: drawerWidth },
+          }}
+          open
+        >
+          {drawer}
+        </Drawer>
+      </Box>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, p: 3, width: { sm: `calc(100% - ${drawerWidth}px)` } }}
+      >
+        <Toolbar />
+        <Typography sx={{ marginBottom: 2 }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac.
+        </Typography>
+        <Typography sx={{ marginBottom: 2 }}>
+          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+          posuere sollicitudin aliquam ultrices sagittis orci a.
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+
+ResponsiveDrawer.propTypes = {
+  /**
+   * Injected by the documentation to work in an iframe.
+   * Remove this when copying and pasting into your project.
+   */
+  window: PropTypes.func,
+};
+
+export default ResponsiveDrawer;
+```
+</details>
+
+## Persistent drawer
+
+Persistent navigation drawers can toggle open or closed.
+The drawer sits on the same surface elevation as the content.
+It is closed by default and opens by selecting the menu icon, and stays open until closed by the user.
+The state of the drawer is remembered from action to action and session to session.
+
+When the drawer is outside of the page grid and opens, the drawer forces other content to change size and adapt to the smaller viewport.
+
+Persistent navigation drawers are acceptable for all sizes larger than mobile.
+They are not recommended for apps with multiple levels of hierarchy that require using an up arrow for navigation.
+
+`persistentLayout()` below builds the whole layout for one `open` state. The
+route `#/persistent-drawer-left` renders it open; every other URL renders it
+closed. The original demo's `styled()` components become `sx` values that
+depend on `open`.
+
+```{r}
+persistentLayout <- function(open, anchor = "left") {
+  side <- if (anchor == "left") "Left" else "Right"
+  openHref <- paste0("#/persistent-drawer-", anchor)
+  menuButton <- IconButton(
+    color = "inherit",
+    `aria-label` = "open drawer",
+    href = openHref,
+    edge = if (anchor == "left") "start" else "end",
+    sx = list(mr = if (anchor == "left") 2, display = if (open) "none"),
+    Icon("menu")
+  )
+  drawerHeader <- function(...) {
+    Box(
+      sx = list(
+        display = "flex", alignItems = "center", px = 1, minHeight = 64,
+        justifyContent = if (anchor == "left") "flex-end" else "flex-start"
+      ),
+      ...
+    )
+  }
+  transition <- "margin 225ms cubic-bezier(0, 0, 0.2, 1), width 225ms cubic-bezier(0, 0, 0.2, 1)"
+  Box(
+    sx = list(display = "flex"),
+    AppBar(
+      position = "fixed",
+      sx = c(
+        list(transition = transition),
+        if (open) setNames(
+          list(sprintf("calc(100%% - %spx)", drawerWidth), paste0(drawerWidth, "px")),
+          c("width", paste0("margin", side))
+        )
+      ),
+      Toolbar(
+        if (anchor == "left") menuButton,
+        Typography(
+          variant = "h6", noWrap = TRUE, component = "div",
+          sx = if (anchor == "right") list(flexGrow = 1),
+          "Persistent drawer"
+        ),
+        if (anchor == "right") menuButton
+      )
+    ),
+    if (anchor == "right") Box(
+      component = "main",
+      sx = list(flexGrow = 1, p = 3, transition = transition, marginRight = if (open) 0 else -drawerWidth),
+      drawerHeader(),
+      lorem
+    ),
+    Drawer(
+      sx = list(
+        width = drawerWidth, flexShrink = 0,
+        "& .MuiDrawer-paper" = list(width = drawerWidth, boxSizing = "border-box")
+      ),
+      variant = "persistent",
+      anchor = anchor,
+      open = open,
+      drawerHeader(
+        IconButton(href = "#/", Icon(if (anchor == "left") "chevron_left" else "chevron_right"))
+      ),
+      Divider(),
+      mailboxLists()
+    ),
+    if (anchor == "left") Box(
+      component = "main",
+      sx = list(flexGrow = 1, p = 3, transition = transition, marginLeft = if (open) 0 else -drawerWidth),
+      drawerHeader(),
+      lorem
+    )
+  )
+}
+
+persistentDemo <- function(anchor) {
+  muiMaterialPage(
+    useMaterialIconsFilled = TRUE,
+    CssBaseline(),
+    demoFrame(
+      RouterProvider(
+        router = createHashRouter(
+          Route(path = paste0("persistent-drawer-", anchor), element = persistentLayout(TRUE, anchor)),
+          Route(path = "*", element = persistentLayout(FALSE, anchor))
+        )
+      )
+    )
+  )
+}
+
+persistentDemo("left")
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+const drawerWidth = 240;
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginLeft: `-${drawerWidth}px`,
+    variants: [
+      {
+        props: ({ open }) => open,
+        style: {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          marginLeft: 0,
+        },
+      },
+    ],
+  }),
+);
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  variants: [
+    {
+      props: ({ open }) => open,
+      style: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        marginLeft: `${drawerWidth}px`,
+        transition: theme.transitions.create(['margin', 'width'], {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+    },
+  ],
+}));
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-end',
+}));
+
+export default function PersistentDrawerLeft() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={[
+              {
+                mr: 2,
+              },
+              open && { display: 'none' },
+            ]}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Persistent drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="persistent"
+        anchor="left"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'ltr' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Main open={open}>
+        <DrawerHeader />
+        <Typography sx={{ marginBottom: 2 }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac.
+        </Typography>
+        <Typography sx={{ marginBottom: 2 }}>
+          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+          posuere sollicitudin aliquam ultrices sagittis orci a.
+        </Typography>
+      </Main>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r}
+persistentDemo("right")
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import CssBaseline from '@mui/material/CssBaseline';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+const drawerWidth = 240;
+
+const Main = styled('main', { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme }) => ({
+    flexGrow: 1,
+    padding: theme.spacing(3),
+    transition: theme.transitions.create('margin', {
+      easing: theme.transitions.easing.sharp,
+      duration: theme.transitions.duration.leavingScreen,
+    }),
+    marginRight: -drawerWidth,
+    /**
+     * This is necessary to enable the selection of content. In the DOM, the stacking order is determined
+     * by the order of appearance. Following this rule, elements appearing later in the markup will overlay
+     * those that appear earlier. Since the Drawer comes after the Main content, this adjustment ensures
+     * proper interaction with the underlying content.
+     */
+    position: 'relative',
+    variants: [
+      {
+        props: ({ open }) => open,
+        style: {
+          transition: theme.transitions.create('margin', {
+            easing: theme.transitions.easing.easeOut,
+            duration: theme.transitions.duration.enteringScreen,
+          }),
+          marginRight: 0,
+        },
+      },
+    ],
+  }),
+);
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme }) => ({
+  transition: theme.transitions.create(['margin', 'width'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  variants: [
+    {
+      props: ({ open }) => open,
+      style: {
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['margin', 'width'], {
+          easing: theme.transitions.easing.easeOut,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+        marginRight: drawerWidth,
+      },
+    },
+  ],
+}));
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+  justifyContent: 'flex-start',
+}));
+
+export default function PersistentDrawerRight() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <Typography variant="h6" noWrap sx={{ flexGrow: 1 }} component="div">
+            Persistent drawer
+          </Typography>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            edge="end"
+            onClick={handleDrawerOpen}
+            sx={[open && { display: 'none' }]}
+          >
+            <MenuIcon />
+          </IconButton>
+        </Toolbar>
+      </AppBar>
+      <Main open={open}>
+        <DrawerHeader />
+        <Typography sx={{ marginBottom: 2 }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac.
+        </Typography>
+        <Typography sx={{ marginBottom: 2 }}>
+          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+          posuere sollicitudin aliquam ultrices sagittis orci a.
+        </Typography>
+      </Main>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+          },
+        }}
+        variant="persistent"
+        anchor="right"
+        open={open}
+      >
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronLeftIcon /> : <ChevronRightIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </Box>
+  );
+}
+```
+</details>
+
+## Mini variant drawer
+
+In this variation, the persistent navigation drawer changes its width.
+Its resting state is as a mini-drawer at the same elevation as the content, clipped by the app bar.
+When expanded, it appears as the standard persistent navigation drawer.
+
+The mini variant is recommended for apps sections that need quick selection access alongside content.
+
+```{r}
+miniLayout <- function(open) {
+  # 8 spacing units (64px) + 1px border when closed
+  width <- if (open) drawerWidth else "calc(64px + 1px)"
+  miniItem <- function(text, icon) {
+    ListItem(
+      disablePadding = TRUE,
+      sx = list(display = "block"),
+      ListItemButton(
+        sx = list(minHeight = 48, px = 2.5, justifyContent = if (open) "initial" else "center"),
+        ListItemIcon(
+          sx = list(minWidth = 0, justifyContent = "center", mr = if (open) 3 else "auto"),
+          Icon(icon)
+        ),
+        ListItemText(primary = text, sx = list(opacity = if (open) 1 else 0))
+      )
+    )
+  }
+  transition <- "width 225ms cubic-bezier(0.4, 0, 0.6, 1), margin 225ms cubic-bezier(0.4, 0, 0.6, 1)"
+  Box(
+    sx = list(display = "flex"),
+    AppBar(
+      position = "fixed",
+      sx = list(
+        zIndex = 1201, # theme.zIndex.drawer + 1
+        transition = transition,
+        marginLeft = if (open) paste0(drawerWidth, "px"),
+        width = if (open) sprintf("calc(100%% - %spx)", drawerWidth)
+      ),
+      Toolbar(
+        IconButton(
+          color = "inherit",
+          `aria-label` = "open drawer",
+          href = "#/mini-drawer",
+          edge = "start",
+          sx = list(marginRight = 5, display = if (open) "none"),
+          Icon("menu")
+        ),
+        Typography(variant = "h6", noWrap = TRUE, component = "div", "Mini variant drawer")
+      )
+    ),
+    Drawer(
+      variant = "permanent",
+      open = open,
+      sx = list(
+        width = width, flexShrink = 0, whiteSpace = "nowrap", boxSizing = "border-box",
+        transition = transition,
+        "& .MuiDrawer-paper" = list(width = width, overflowX = "hidden", transition = transition)
+      ),
+      Box(
+        sx = list(display = "flex", alignItems = "center", justifyContent = "flex-end", px = 1, minHeight = 64),
+        IconButton(href = "#/", Icon("chevron_left"))
+      ),
+      Divider(),
+      mailboxLists(item = miniItem)
+    ),
+    Box(component = "main", sx = list(flexGrow = 1, p = 3), Toolbar(), lorem)
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  demoFrame(
+    RouterProvider(
+      router = createHashRouter(
+        Route(path = "mini-drawer", element = miniLayout(TRUE)),
+        Route(path = "*", element = miniLayout(FALSE))
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { styled, useTheme } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import MuiDrawer from '@mui/material/Drawer';
+import MuiAppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import CssBaseline from '@mui/material/CssBaseline';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
+import ChevronRightIcon from '@mui/icons-material/ChevronRight';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+const drawerWidth = 240;
+
+const openedMixin = (theme) => ({
+  width: drawerWidth,
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.enteringScreen,
+  }),
+  overflowX: 'hidden',
+});
+
+const closedMixin = (theme) => ({
+  transition: theme.transitions.create('width', {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  overflowX: 'hidden',
+  width: `calc(${theme.spacing(7)} + 1px)`,
+  [theme.breakpoints.up('sm')]: {
+    width: `calc(${theme.spacing(8)} + 1px)`,
+  },
+});
+
+const DrawerHeader = styled('div')(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'flex-end',
+  padding: theme.spacing(0, 1),
+  // necessary for content to be below app bar
+  ...theme.mixins.toolbar,
+}));
+
+const AppBar = styled(MuiAppBar, {
+  shouldForwardProp: (prop) => prop !== 'open',
+})(({ theme }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(['width', 'margin'], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+  variants: [
+    {
+      props: ({ open }) => open,
+      style: {
+        marginLeft: drawerWidth,
+        width: `calc(100% - ${drawerWidth}px)`,
+        transition: theme.transitions.create(['width', 'margin'], {
+          easing: theme.transitions.easing.sharp,
+          duration: theme.transitions.duration.enteringScreen,
+        }),
+      },
+    },
+  ],
+}));
+
+const Drawer = styled(MuiDrawer, { shouldForwardProp: (prop) => prop !== 'open' })(
+  ({ theme }) => ({
+    width: drawerWidth,
+    flexShrink: 0,
+    whiteSpace: 'nowrap',
+    boxSizing: 'border-box',
+    variants: [
+      {
+        props: ({ open }) => open,
+        style: {
+          ...openedMixin(theme),
+          '& .MuiDrawer-paper': openedMixin(theme),
+        },
+      },
+      {
+        props: ({ open }) => !open,
+        style: {
+          ...closedMixin(theme),
+          '& .MuiDrawer-paper': closedMixin(theme),
+        },
+      },
+    ],
+  }),
+);
+
+export default function MiniDrawer() {
+  const theme = useTheme();
+  const [open, setOpen] = React.useState(false);
+
+  const handleDrawerOpen = () => {
+    setOpen(true);
+  };
+
+  const handleDrawerClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" open={open}>
+        <Toolbar>
+          <IconButton
+            color="inherit"
+            aria-label="open drawer"
+            onClick={handleDrawerOpen}
+            edge="start"
+            sx={[
+              {
+                marginRight: 5,
+              },
+              open && { display: 'none' },
+            ]}
+          >
+            <MenuIcon />
+          </IconButton>
+          <Typography variant="h6" noWrap component="div">
+            Mini variant drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer variant="permanent" open={open}>
+        <DrawerHeader>
+          <IconButton onClick={handleDrawerClose}>
+            {theme.direction === 'rtl' ? <ChevronRightIcon /> : <ChevronLeftIcon />}
+          </IconButton>
+        </DrawerHeader>
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={[
+                  {
+                    minHeight: 48,
+                    px: 2.5,
+                  },
+                  open
+                    ? {
+                        justifyContent: 'initial',
+                      }
+                    : {
+                        justifyContent: 'center',
+                      },
+                ]}
+              >
+                <ListItemIcon
+                  sx={[
+                    {
+                      minWidth: 0,
+                      justifyContent: 'center',
+                    },
+                    open
+                      ? {
+                          mr: 3,
+                        }
+                      : {
+                          mr: 'auto',
+                        },
+                  ]}
+                >
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText
+                  primary={text}
+                  sx={[
+                    open
+                      ? {
+                          opacity: 1,
+                        }
+                      : {
+                          opacity: 0,
+                        },
+                  ]}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding sx={{ display: 'block' }}>
+              <ListItemButton
+                sx={[
+                  {
+                    minHeight: 48,
+                    px: 2.5,
+                  },
+                  open
+                    ? {
+                        justifyContent: 'initial',
+                      }
+                    : {
+                        justifyContent: 'center',
+                      },
+                ]}
+              >
+                <ListItemIcon
+                  sx={[
+                    {
+                      minWidth: 0,
+                      justifyContent: 'center',
+                    },
+                    open
+                      ? {
+                          mr: 3,
+                        }
+                      : {
+                          mr: 'auto',
+                        },
+                  ]}
+                >
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText
+                  primary={text}
+                  sx={[
+                    open
+                      ? {
+                          opacity: 1,
+                        }
+                      : {
+                          opacity: 0,
+                        },
+                  ]}
+                />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <DrawerHeader />
+        <Typography sx={{ marginBottom: 2 }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac.
+        </Typography>
+        <Typography sx={{ marginBottom: 2 }}>
+          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+          posuere sollicitudin aliquam ultrices sagittis orci a.
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+## Permanent drawer
+
+Permanent navigation drawers are always visible and pinned to the left edge, at the same elevation as the content or background. They cannot be closed.
+
+Permanent navigation drawers are the **recommended default for desktop**.
+
+### Full-height navigation
+
+Apps focused on information consumption that use a left-to-right hierarchy.
+
+```{r}
+permanentLayout <- function(anchor) {
+  drawer <- Drawer(
+    sx = list(
+      width = drawerWidth, flexShrink = 0,
+      "& .MuiDrawer-paper" = list(width = drawerWidth, boxSizing = "border-box")
+    ),
+    variant = "permanent",
+    anchor = anchor,
+    Toolbar(),
+    Divider(),
+    mailboxLists()
+  )
+  Box(
+    sx = list(display = "flex"),
+    AppBar(
+      position = "fixed",
+      sx = setNames(
+        list(sprintf("calc(100%% - %spx)", drawerWidth), paste0(drawerWidth, "px")),
+        c("width", if (anchor == "left") "ml" else "mr")
+      ),
+      Toolbar(Typography(variant = "h6", noWrap = TRUE, component = "div", "Permanent drawer"))
+    ),
+    if (anchor == "left") drawer,
+    Box(component = "main", sx = list(flexGrow = 1, bgcolor = "background.default", p = 3), Toolbar(), lorem),
+    if (anchor == "right") drawer
+  )
+}
+
+muiMaterialPage(useMaterialIconsFilled = TRUE, CssBaseline(), demoFrame(permanentLayout("left")))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+const drawerWidth = 240;
+
+export default function PermanentDrawerLeft() {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, ml: `${drawerWidth}px` }}
+      >
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            Permanent drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="permanent"
+        anchor="left"
+      >
+        <Toolbar />
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+      >
+        <Toolbar />
+        <Typography sx={{ marginBottom: 2 }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac.
+        </Typography>
+        <Typography sx={{ marginBottom: 2 }}>
+          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+          posuere sollicitudin aliquam ultrices sagittis orci a.
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+```{r}
+muiMaterialPage(useMaterialIconsFilled = TRUE, CssBaseline(), demoFrame(permanentLayout("right")))
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import CssBaseline from '@mui/material/CssBaseline';
+import AppBar from '@mui/material/AppBar';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+const drawerWidth = 240;
+
+export default function PermanentDrawerRight() {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar
+        position="fixed"
+        sx={{ width: `calc(100% - ${drawerWidth}px)`, mr: `${drawerWidth}px` }}
+      >
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            Permanent drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Box
+        component="main"
+        sx={{ flexGrow: 1, bgcolor: 'background.default', p: 3 }}
+      >
+        <Toolbar />
+        <Typography sx={{ marginBottom: 2 }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac.
+        </Typography>
+        <Typography sx={{ marginBottom: 2 }}>
+          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+          posuere sollicitudin aliquam ultrices sagittis orci a.
+        </Typography>
+      </Box>
+      <Drawer
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          '& .MuiDrawer-paper': {
+            width: drawerWidth,
+            boxSizing: 'border-box',
+          },
+        }}
+        variant="permanent"
+        anchor="right"
+      >
+        <Toolbar />
+        <Divider />
+        <List>
+          {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+        <Divider />
+        <List>
+          {['All mail', 'Trash', 'Spam'].map((text, index) => (
+            <ListItem key={text} disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                </ListItemIcon>
+                <ListItemText primary={text} />
+              </ListItemButton>
+            </ListItem>
+          ))}
+        </List>
+      </Drawer>
+    </Box>
+  );
+}
+```
+</details>
+
+### Clipped under the app bar
+
+Apps focused on productivity that require balance across the screen.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  demoFrame(
+    Box(
+      sx = list(display = "flex"),
+      AppBar(
+        position = "fixed",
+        sx = list(zIndex = 1201), # theme.zIndex.drawer + 1
+        Toolbar(Typography(variant = "h6", noWrap = TRUE, component = "div", "Clipped drawer"))
+      ),
+      Drawer(
+        variant = "permanent",
+        sx = list(
+          width = drawerWidth, flexShrink = 0,
+          "& .MuiDrawer-paper" = list(width = drawerWidth, boxSizing = "border-box")
+        ),
+        Toolbar(),
+        Box(sx = list(overflow = "auto"), mailboxLists())
+      ),
+      Box(component = "main", sx = list(flexGrow = 1, p = 3), Toolbar(), lorem)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Drawer from '@mui/material/Drawer';
+import AppBar from '@mui/material/AppBar';
+import CssBaseline from '@mui/material/CssBaseline';
+import Toolbar from '@mui/material/Toolbar';
+import List from '@mui/material/List';
+import Typography from '@mui/material/Typography';
+import Divider from '@mui/material/Divider';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import InboxIcon from '@mui/icons-material/MoveToInbox';
+import MailIcon from '@mui/icons-material/Mail';
+
+const drawerWidth = 240;
+
+export default function ClippedDrawer() {
+  return (
+    <Box sx={{ display: 'flex' }}>
+      <CssBaseline />
+      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+        <Toolbar>
+          <Typography variant="h6" noWrap component="div">
+            Clipped drawer
+          </Typography>
+        </Toolbar>
+      </AppBar>
+      <Drawer
+        variant="permanent"
+        sx={{
+          width: drawerWidth,
+          flexShrink: 0,
+          [`& .MuiDrawer-paper`]: { width: drawerWidth, boxSizing: 'border-box' },
+        }}
+      >
+        <Toolbar />
+        <Box sx={{ overflow: 'auto' }}>
+          <List>
+            {['Inbox', 'Starred', 'Send email', 'Drafts'].map((text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {['All mail', 'Trash', 'Spam'].map((text, index) => (
+              <ListItem key={text} disablePadding>
+                <ListItemButton>
+                  <ListItemIcon>
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Box>
+      </Drawer>
+      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
+        <Toolbar />
+        <Typography sx={{ marginBottom: 2 }}>
+          Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
+          tempor incididunt ut labore et dolore magna aliqua. Rhoncus dolor purus non
+          enim praesent elementum facilisis leo vel. Risus at ultrices mi tempus
+          imperdiet. Semper risus in hendrerit gravida rutrum quisque non tellus.
+          Convallis convallis tellus id interdum velit laoreet id donec ultrices.
+          Odio morbi quis commodo odio aenean sed adipiscing. Amet nisl suscipit
+          adipiscing bibendum est ultricies integer quis. Cursus euismod quis viverra
+          nibh cras. Metus vulputate eu scelerisque felis imperdiet proin fermentum
+          leo. Mauris commodo quis imperdiet massa tincidunt. Cras tincidunt lobortis
+          feugiat vivamus at augue. At augue eget arcu dictum varius duis at
+          consectetur lorem. Velit sed ullamcorper morbi tincidunt. Lorem donec massa
+          sapien faucibus et molestie ac.
+        </Typography>
+        <Typography sx={{ marginBottom: 2 }}>
+          Consequat mauris nunc congue nisi vitae suscipit. Fringilla est ullamcorper
+          eget nulla facilisi etiam dignissim diam. Pulvinar elementum integer enim
+          neque volutpat ac tincidunt. Ornare suspendisse sed nisi lacus sed viverra
+          tellus. Purus sit amet volutpat consequat mauris. Elementum eu facilisis
+          sed odio morbi. Euismod lacinia at quis risus sed vulputate odio. Morbi
+          tincidunt ornare massa eget egestas purus viverra accumsan in. In hendrerit
+          gravida rutrum quisque non tellus orci ac. Pellentesque nec nam aliquam sem
+          et tortor. Habitant morbi tristique senectus et. Adipiscing elit duis
+          tristique sollicitudin nibh sit. Ornare aenean euismod elementum nisi quis
+          eleifend. Commodo viverra maecenas accumsan lacus vel facilisis. Nulla
+          posuere sollicitudin aliquam ultrices sagittis orci a.
+        </Typography>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+## Drawers in Shiny apps
+
+The router pattern above works unchanged in Shiny. muiMaterial also has two
+dedicated wrappers.
+
+### `Drawer.triggerId()`
+
+`Drawer.triggerId()` and `SwipeableDrawer.triggerId()` bind the drawer to any
+element by its `id`. The open/close state lives in the browser, so no server code
+is needed:
+
+- `width` sizes the drawer paper (280 by default).
+- `sx` styles the drawer **root**, like on any other component. Style the paper with
+  `slotProps = list(paper = list(sx = ...))`.
+- By default, the drawer closes when a link (`<a>`) inside it is clicked. Pass
+  `closeOnLinkClick = FALSE` to keep it open.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  IconButton(id = "open-trigger-drawer", `aria-label` = "open drawer", Icon("menu")),
+  Drawer.triggerId(
+    triggerId = "open-trigger-drawer",
+    anchor = "left",
+    width = 250,
+    List(
+      unname(Map(
+        function(text, icon, href) {
+          ListItem(
+            disablePadding = TRUE,
+            ListItemButton(
+              component = "a",
+              href = href,
+              ListItemIcon(Icon(icon)),
+              ListItemText(primary = text)
+            )
+          )
+        },
+        c("Dialog", "Modal", "Menu"),
+        c("chat_bubble", "web_asset", "menu"),
+        c("dialog.html", "modal.html", "menu.html")
+      ))
+    )
+  )
+)
+```
+
+Run a complete example with `muiMaterialExample("DrawerTriggerId")`.
+
+### `Drawer.shinyInput()`
+
+With `Drawer.shinyInput()`, the **server** opens and closes the drawer with
+`updateDrawer.shinyInput()`. Use it when the open state depends on server logic.
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Button.shinyInput("show", "Open drawer"),
+  Drawer.shinyInput(
+    inputId = "drawer",
+    open = FALSE,
+    onClose = triggerEvent("hide"),
+    Box(
+      sx = list(width = 250),
+      role = "presentation",
+      onClick = triggerEvent("hide"),
+      List(ListItem(disablePadding = TRUE, ListItemButton(ListItemText(primary = "Inbox"))))
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$show, updateDrawer.shinyInput(inputId = "drawer", open = TRUE))
+  observeEvent(input$hide, updateDrawer.shinyInput(inputId = "drawer", open = FALSE))
+}
+
+shinyApp(ui, server)
+```
+
+Run the bundled version with `muiMaterialExample("Drawer")`. For complete
+dashboard layouts built with drawers, see [Basic dashboarding](dashboard-basic.html).

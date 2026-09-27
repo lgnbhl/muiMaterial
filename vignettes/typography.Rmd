@@ -1,0 +1,210 @@
+---
+title: "Typography"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Typography}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-typography/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+```
+
+# Typography
+
+Use typography to present your design and content as clearly and efficiently as possible.
+
+## Roboto font
+
+Material UI uses the [Roboto](https://fonts.google.com/specimen/Roboto) font by default.
+In R, `muiMaterialPage(useFontRoboto = TRUE)` adds it from the Google Fonts CDN,
+with the 300, 400, 500 and 700 font weights used by the default typography
+configuration. It works in Shiny apps, R Markdown and Quarto documents:
+
+```r
+muiMaterialPage(
+  useFontRoboto = TRUE,
+  CssBaseline(),
+  Typography("Rendered in Roboto")
+)
+```
+
+Without it, the text falls back to the `Helvetica` and `Arial` fonts. All the
+demos on this page load Roboto.
+
+## Component
+
+### Usage
+
+The Typography component follows the [Material Design typographic scale](https://m2.material.io/design/typography/#type-scale) that provides a limited set of type sizes that work well together for a consistent layout.
+
+```{r}
+lorem <- "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos blanditiis tenetur"
+loremLong <- paste(lorem, "unde suscipit, quam beatae rerum inventore consectetur, neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum quasi quidem quibusdam.")
+
+muiMaterialPage(
+  useFontRoboto = TRUE,
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", maxWidth = 500),
+    lapply(paste0("h", 1:6), function(v) Typography(variant = v, gutterBottom = TRUE, paste0(v, ". Heading"))),
+    Typography(variant = "subtitle1", gutterBottom = TRUE, paste("subtitle1.", lorem)),
+    Typography(variant = "subtitle2", gutterBottom = TRUE, paste("subtitle2.", lorem)),
+    Typography(variant = "body1", gutterBottom = TRUE, paste("body1.", loremLong)),
+    Typography(variant = "body2", gutterBottom = TRUE, paste("body2.", loremLong)),
+    Typography(variant = "button", gutterBottom = TRUE, sx = list(display = "block"), "button text"),
+    Typography(variant = "caption", gutterBottom = TRUE, sx = list(display = "block"), "caption text"),
+    Typography(variant = "overline", gutterBottom = TRUE, sx = list(display = "block"), "overline text")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+export default function Types() {
+  return (
+    <Box sx={{ width: '100%', maxWidth: 500 }}>
+      <Typography variant="h1" gutterBottom>
+        h1. Heading
+      </Typography>
+      <Typography variant="h2" gutterBottom>
+        h2. Heading
+      </Typography>
+      <Typography variant="h3" gutterBottom>
+        h3. Heading
+      </Typography>
+      <Typography variant="h4" gutterBottom>
+        h4. Heading
+      </Typography>
+      <Typography variant="h5" gutterBottom>
+        h5. Heading
+      </Typography>
+      <Typography variant="h6" gutterBottom>
+        h6. Heading
+      </Typography>
+      <Typography variant="subtitle1" gutterBottom>
+        subtitle1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
+        blanditiis tenetur
+      </Typography>
+      <Typography variant="subtitle2" gutterBottom>
+        subtitle2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
+        blanditiis tenetur
+      </Typography>
+      <Typography variant="body1" gutterBottom>
+        body1. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
+        blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
+        neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
+        quasi quidem quibusdam.
+      </Typography>
+      <Typography variant="body2" gutterBottom>
+        body2. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quos
+        blanditiis tenetur unde suscipit, quam beatae rerum inventore consectetur,
+        neque doloribus, cupiditate numquam dignissimos laborum fugiat deleniti? Eum
+        quasi quidem quibusdam.
+      </Typography>
+      <Typography variant="button" gutterBottom sx={{ display: 'block' }}>
+        button text
+      </Typography>
+      <Typography variant="caption" gutterBottom sx={{ display: 'block' }}>
+        caption text
+      </Typography>
+      <Typography variant="overline" gutterBottom sx={{ display: 'block' }}>
+        overline text
+      </Typography>
+    </Box>
+  );
+}
+```
+</details>
+
+### Theme keys
+
+In some situations you might not be able to use the Typography component.
+Hopefully, you might be able to take advantage of the [`typography`](https://mui.com/material-ui/customization/default-theme/?expand-path=$.typography) keys of the theme.
+In `sx`, the `typography` key applies a theme variant to any element:
+
+```{r}
+muiMaterialPage(
+  useFontRoboto = TRUE,
+  CssBaseline(),
+  Box(sx = list(typography = "button", bgcolor = "background.paper", p = 1), "This div's text looks like that of a button.")
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+
+const Div = styled('div')(({ theme }) => ({
+  ...theme.typography.button,
+  backgroundColor: (theme.vars || theme).palette.background.paper,
+  padding: theme.spacing(1),
+}));
+
+export default function TypographyTheme() {
+  return <Div>{"This div's text looks like that of a button."}</Div>;
+}
+```
+</details>
+
+## Customization
+
+### Adding & disabling variants
+
+In addition to using the default typography variants, you can add custom ones, or disable any you don't need. See [Theming](theming.html#typography) for more info.
+
+### Changing the semantic element
+
+The Typography component uses the `variantMapping` prop to associate a UI variant with a semantic element.
+It's important to realize that the style of a typography component is independent from the semantic underlying element.
+
+To change the underlying element for a one-off situation, like avoiding two `h1` elements in your page, use the `component` prop:
+
+```r
+Typography(variant = "h1", component = "h2", "h1. Heading")
+```
+
+To change the typography element mapping globally, [use the theme](theming.html):
+
+```r
+ThemeProvider(
+  theme = list(
+    components = list(
+      MuiTypography = list(
+        defaultProps = list(
+          variantMapping = list(
+            h1 = "h2", h2 = "h2", h3 = "h2", h4 = "h2", h5 = "h2", h6 = "h2",
+            subtitle1 = "h2", subtitle2 = "h2", body1 = "span", body2 = "span"
+          )
+        )
+      )
+    )
+  ),
+  ...
+)
+```
+
+### sx prop
+
+Use the [`sx` prop](box.html#the-sx-prop-in-r) to quickly customize any Typography instance using a superset of CSS that has access to all the style functions and theme-aware properties exposed in the MUI System package.
+Below is an example of how to apply margin using this prop:
+
+```r
+Typography(sx = list(m = 2), "Text with a margin")
+```
+
+## Accessibility
+
+Key factors to follow for an accessible typography:
+
+- **Color**. Provide enough contrast between text and its background, check out the minimum recommended [WCAG 2.2 color contrast ratio](https://www.w3.org/WAI/WCAG22/Understanding/contrast-minimum.html) (4.5:1).
+- **Font size**. Use [relative units (rem)](https://mui.com/material-ui/customization/typography/#font-size), instead of pixels, to accommodate the user's browser settings.
+- **Heading hierarchy**. Based on [the W3 guidelines](https://www.w3.org/WAI/tutorials/page-structure/headings/), don't skip heading levels. Make sure to [separate the semantics from the style](#changing-the-semantic-element).

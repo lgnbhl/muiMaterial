@@ -1,0 +1,1329 @@
+---
+title: "Grid"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Grid}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-grid/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Grid
+
+The responsive layout grid adapts to screen size and orientation, ensuring consistency across layouts.
+
+The `Grid` component works well for a layout with a known number of columns.
+The columns can be configured with multiple breakpoints to specify the column span of each child.
+
+## How it works
+
+The grid system is implemented with the `Grid` component:
+
+- It uses [CSS Flexbox](https://www.w3.org/TR/css-flexbox-1/) (rather than CSS Grid) for high flexibility.
+- The grid is always a flex item. Use the `container` prop to add a flex container.
+- Item widths are set in percentages, so they're always fluid and sized relative to their parent element.
+- There are five default grid breakpoints: xs, sm, md, lg, and xl. If you need custom breakpoints, check out [custom breakpoints grid](#custom-breakpoints).
+- You can give integer values for each breakpoint, to indicate how many of the 12 available columns are occupied by the component when the viewport width satisfies the [breakpoint constraints](https://mui.com/material-ui/customization/breakpoints/#default-breakpoints).
+- It uses [the `gap` CSS property](https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/gap) to add spacing between items.
+- It does _not_ support row spanning. Children elements cannot span multiple rows. We recommend using [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout) if you need this functionality.
+- It does _not_ automatically place children. It will try to fit the children one by one, and if there is not enough space, the rest of the children will start on the next line, and so on. If you need auto-placement, we recommend using [CSS Grid](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_grid_layout/Auto-placement_in_grid_layout) instead.
+
+<div class="alert alert-warning">
+The `Grid` component is a _layout_ grid, not a _data_ grid.
+If you need a data grid, check out the [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/) R package, which wraps the MUI X `DataGrid` component.
+</div>
+
+The demos use this `Item()` helper, the R version of the `styled(Paper)` of
+the original demos:
+
+```{r}
+Item <- function(..., sx = list()) {
+  Paper(
+    sx = modifyList(
+      list(backgroundColor = "#fff", typography = "body2", p = 1, textAlign = "center", color = "text.secondary"),
+      sx
+    ),
+    ...
+  )
+}
+```
+
+## Fluid grids
+
+Fluid grids use columns that scale and resize content. A fluid grid's layout can use breakpoints to determine if the layout needs to change dramatically.
+
+### Basic grid
+
+In order to create a grid layout, you need a container.
+Use the `container` prop to create a grid container that wraps the grid items (the `Grid` is always an item).
+
+Column widths are integer values between 1 and 12.
+For example, an item with `size = 6` occupies half of the grid container's width.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      Grid(size = 8, Item("size=8")),
+      Grid(size = 4, Item("size=4")),
+      Grid(size = 4, Item("size=4")),
+      Grid(size = 8, Item("size=8"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function BasicGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid size={8}>
+          <Item>size=8</Item>
+        </Grid>
+        <Grid size={4}>
+          <Item>size=4</Item>
+        </Grid>
+        <Grid size={4}>
+          <Item>size=4</Item>
+        </Grid>
+        <Grid size={8}>
+          <Item>size=8</Item>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+### Multiple breakpoints
+
+Items may have multiple widths defined, causing the layout to change at the defined breakpoint.
+Width values apply to all wider breakpoints, and larger breakpoints override those given to smaller breakpoints.
+
+For example, a component with `size = list(xs = 12, sm = 6)` occupies the entire viewport width when the viewport is [less than 600 pixels wide](https://mui.com/material-ui/customization/breakpoints/#default-breakpoints).
+When the viewport grows beyond this size, the component occupies half of the total width: six columns rather than 12.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      Grid(size = list(xs = 6, md = 8), Item("xs=6 md=8")),
+      Grid(size = list(xs = 6, md = 4), Item("xs=6 md=4")),
+      Grid(size = list(xs = 6, md = 4), Item("xs=6 md=4")),
+      Grid(size = list(xs = 6, md = 8), Item("xs=6 md=8"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function FullWidthGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid size={{ xs: 6, md: 8 }}>
+          <Item>xs=6 md=8</Item>
+        </Grid>
+        <Grid size={{ xs: 6, md: 4 }}>
+          <Item>xs=6 md=4</Item>
+        </Grid>
+        <Grid size={{ xs: 6, md: 4 }}>
+          <Item>xs=6 md=4</Item>
+        </Grid>
+        <Grid size={{ xs: 6, md: 8 }}>
+          <Item>xs=6 md=8</Item>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+## Spacing
+
+Use the `spacing` prop to control the space between children.
+The spacing value can be any positive number (including decimals) or a string.
+The prop is converted into a CSS property using the [`theme.spacing()`](https://mui.com/material-ui/customization/spacing/) helper.
+
+The following demo illustrates the use of the `spacing` prop. The selected
+value is kept in the URL with [reactRouter](https://felixluginbuhl.com/reactRouter/):
+each value is a route (`#/grid-spacing/<value>`), and the radio group navigates
+between them.
+
+```{r, message = FALSE}
+library(reactRouter)
+
+spacings <- c(0, 0.5, 1, 2, 3, 4, 8, 12)
+
+spacingGrid <- function(spacing) {
+  Box(
+    sx = list(flexGrow = 1, display = "flex", flexDirection = "column", gap = 2, pt = 2),
+    Grid(
+      container = TRUE,
+      sx = list(justifyContent = "center"),
+      spacing = spacing,
+      lapply(1:3, function(i) Grid(Paper(sx = list(height = 140, width = 100, backgroundColor = "#fff"))))
+    ),
+    Paper(
+      sx = list(p = 2),
+      FormControl(
+        component = "fieldset",
+        FormLabel(component = "legend", "spacing"),
+        RadioGroup(
+          name = "spacing",
+          `aria-label` = "spacing",
+          value = as.character(spacing),
+          onChange = JS("(event) => { window.location.hash = '/grid-spacing/' + event.target.value; }"),
+          row = TRUE,
+          lapply(spacings, function(value) {
+            FormControlLabel(value = as.character(value), control = Radio(), label = as.character(value))
+          })
+        )
+      )
+    ),
+    tags$pre(sprintf("Grid(container = TRUE, spacing = %s)", spacing))
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(spacings, function(value) {
+        Route(path = paste0("grid-spacing/", value), element = spacingGrid(value))
+      }),
+      Route(path = "*", element = spacingGrid(2))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import FormLabel from '@mui/material/FormLabel';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import Paper from '@mui/material/Paper';
+import { HighlightedCode } from '@mui/internal-core-docs/HighlightedCode';
+
+export default function SpacingGrid() {
+  const [spacing, setSpacing] = React.useState(2);
+
+  const handleChange = (event) => {
+    setSpacing(Number(event.target.value));
+  };
+
+  const jsx = `
+<Grid container spacing={${spacing}}>
+`;
+
+  return (
+    <Box
+      sx={{
+        flexGrow: 1,
+        display: 'flex',
+        flexDirection: 'column',
+        gap: 2,
+        pt: 2,
+        '&& pre': { margin: 0 },
+      }}
+    >
+      <Grid container sx={{ justifyContent: 'center' }} spacing={spacing}>
+        {[0, 1, 2].map((value) => (
+          <Grid key={value}>
+            <Paper
+              sx={(theme) => ({
+                height: 140,
+                width: 100,
+                backgroundColor: '#fff',
+                ...theme.applyStyles('dark', {
+                  backgroundColor: '#1A2027',
+                }),
+              })}
+            />
+          </Grid>
+        ))}
+      </Grid>
+      <Paper sx={{ p: 2 }}>
+        <FormControl component="fieldset">
+          <FormLabel component="legend">spacing</FormLabel>
+          <RadioGroup
+            name="spacing"
+            aria-label="spacing"
+            value={spacing.toString()}
+            onChange={handleChange}
+            row
+          >
+            {[0, 0.5, 1, 2, 3, 4, 8, 12].map((value) => (
+              <FormControlLabel
+                key={value}
+                value={value.toString()}
+                control={<Radio />}
+                label={value.toString()}
+              />
+            ))}
+          </RadioGroup>
+        </FormControl>
+      </Paper>
+      <HighlightedCode code={jsx} language="jsx" />
+    </Box>
+  );
+}
+```
+</details>
+
+### Row and column spacing
+
+The `rowSpacing` and `columnSpacing` props let you specify row and column gaps independently of one another.
+They behave similarly to the `row-gap` and `column-gap` properties of [CSS Grid](https://mui.com/system/grid/#row-gap-column-gap).
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%"),
+    Grid(
+      container = TRUE,
+      rowSpacing = 1,
+      columnSpacing = list(xs = 1, sm = 2, md = 3),
+      lapply(1:4, function(i) Grid(size = 6, Item(i)))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Grid from '@mui/material/Grid';
+import Paper from '@mui/material/Paper';
+import Box from '@mui/material/Box';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function RowAndColumnSpacing() {
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
+        <Grid size={6}>
+          <Item>1</Item>
+        </Grid>
+        <Grid size={6}>
+          <Item>2</Item>
+        </Grid>
+        <Grid size={6}>
+          <Item>3</Item>
+        </Grid>
+        <Grid size={6}>
+          <Item>4</Item>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+## Responsive values
+
+You can set prop values to change when a given breakpoint is active.
+For instance, we can implement Material Design's [recommended](https://m2.material.io/design/layout/responsive-layout-grid.html) responsive layout grid, as seen in the following demo:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = list(xs = 2, md = 3),
+      columns = list(xs = 4, sm = 8, md = 12),
+      lapply(1:6, function(index) {
+        Grid(size = list(xs = 2, sm = 4, md = 4), Item(sx = list(p = 2), index))
+      })
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(2),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function ResponsiveGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={{ xs: 2, md: 3 }} columns={{ xs: 4, sm: 8, md: 12 }}>
+        {Array.from(Array(6)).map((_, index) => (
+          <Grid key={index} size={{ xs: 2, sm: 4, md: 4 }}>
+            <Item>{index + 1}</Item>
+          </Grid>
+        ))}
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+Responsive values are supported by:
+
+- `size`
+- `columns`
+- `columnSpacing`
+- `direction`
+- `rowSpacing`
+- `spacing`
+- `offset`
+
+## Interactive
+
+The MUI documentation has an interactive demo to explore the `direction`,
+`justifyContent` and `alignItems` settings of a grid container, which are
+set like this:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Grid(
+    container = TRUE,
+    spacing = 2,
+    direction = "row",
+    sx = list(justifyContent = "center", alignItems = "center", height = 200, bgcolor = "grey.100"),
+    lapply(1:3, function(value) {
+      Grid(Paper(sx = list(p = 2, color = "text.secondary", py = paste0(value * 10, "px")), paste("Cell", value)))
+    })
+  )
+)
+```
+
+## Auto-layout
+
+The auto-layout feature gives equal space to all items present.
+When you set the width of one item, the others will automatically resize to match it.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 3,
+      Grid(size = "grow", Item("size=grow")),
+      Grid(size = 6, Item("size=6")),
+      Grid(size = "grow", Item("size=grow"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function AutoGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={3}>
+        <Grid size="grow">
+          <Item>size=grow</Item>
+        </Grid>
+        <Grid size={6}>
+          <Item>size=6</Item>
+        </Grid>
+        <Grid size="grow">
+          <Item>size=grow</Item>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+### Variable width content
+
+When a breakpoint's value is given as `"auto"`, then a column's size will automatically adjust to match the width of its content.
+The demo below shows how this works:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 3,
+      Grid(size = "auto", Item("size=auto")),
+      Grid(size = 6, Item("size=6")),
+      Grid(size = "grow", Item("size=grow"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function VariableWidthGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={3}>
+        <Grid size="auto">
+          <Item>size=auto</Item>
+        </Grid>
+        <Grid size={6}>
+          <Item>size=6</Item>
+        </Grid>
+        <Grid size="grow">
+          <Item>size=grow</Item>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+## Nested grid
+
+The grid container that renders as a **direct child** inside another grid container is a nested grid that inherits its [`columns`](#columns) and [`spacing`](#spacing) from the top level.
+It will also inherit the props of the top-level grid if it receives those props.
+
+<div class="alert alert-success">
+Note that a nested grid container should be a direct child of another grid container. If there are non-grid elements in between, the grid container will start as the new root container.
+</div>
+
+### Inheriting spacing
+
+A nested grid container inherits the row and column spacing from its parent unless the `spacing` prop is specified to the instance.
+
+```{r}
+category <- function(letter, index) {
+  Grid(
+    size = list(xs = 6, lg = 3),
+    Item(
+      Box(id = paste0("category-", tolower(letter)), sx = list(fontSize = "12px", textTransform = "uppercase"), paste("Category", letter)),
+      Box(
+        component = "ul",
+        `aria-labelledby` = paste0("category-", tolower(letter)),
+        sx = list(pl = 2),
+        lapply(1:3, function(i) tags$li(sprintf("Link %s.%s", index, i)))
+      )
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      Grid(size = list(xs = 12, md = 5, lg = 4), Item("Email subscribe section")),
+      Grid(
+        container = TRUE,
+        spacing = 4,
+        size = list(xs = 12, md = 7, lg = 8),
+        unname(Map(category, LETTERS[1:4], 1:4))
+      ),
+      Grid(
+        container = TRUE,
+        sx = list(
+          justifyContent = "space-between",
+          alignItems = "center",
+          flexDirection = list(xs = "column", sm = "row"),
+          fontSize = "12px"
+        ),
+        size = 12,
+        Grid(sx = list(order = list(xs = 2, sm = 1)), Item("© Copyright")),
+        Grid(
+          container = TRUE,
+          columnSpacing = 1,
+          sx = list(order = list(xs = 1, sm = 2)),
+          lapply(c("A", "B", "C"), function(link) Grid(Item(paste("Link", link))))
+        )
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function NestedGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid size={{ xs: 12, md: 5, lg: 4 }}>
+          <Item>Email subscribe section</Item>
+        </Grid>
+        <Grid container spacing={4} size={{ xs: 12, md: 7, lg: 8 }}>
+          <Grid size={{ xs: 6, lg: 3 }}>
+            <Item>
+              <Box
+                id="category-a"
+                sx={{ fontSize: '12px', textTransform: 'uppercase' }}
+              >
+                Category A
+              </Box>
+              <Box component="ul" aria-labelledby="category-a" sx={{ pl: 2 }}>
+                <li>Link 1.1</li>
+                <li>Link 1.2</li>
+                <li>Link 1.3</li>
+              </Box>
+            </Item>
+          </Grid>
+          <Grid size={{ xs: 6, lg: 3 }}>
+            <Item>
+              <Box
+                id="category-b"
+                sx={{ fontSize: '12px', textTransform: 'uppercase' }}
+              >
+                Category B
+              </Box>
+              <Box component="ul" aria-labelledby="category-b" sx={{ pl: 2 }}>
+                <li>Link 2.1</li>
+                <li>Link 2.2</li>
+                <li>Link 2.3</li>
+              </Box>
+            </Item>
+          </Grid>
+          <Grid size={{ xs: 6, lg: 3 }}>
+            <Item>
+              <Box
+                id="category-c"
+                sx={{ fontSize: '12px', textTransform: 'uppercase' }}
+              >
+                Category C
+              </Box>
+              <Box component="ul" aria-labelledby="category-c" sx={{ pl: 2 }}>
+                <li>Link 3.1</li>
+                <li>Link 3.2</li>
+                <li>Link 3.3</li>
+              </Box>
+            </Item>
+          </Grid>
+          <Grid size={{ xs: 6, lg: 3 }}>
+            <Item>
+              <Box
+                id="category-d"
+                sx={{ fontSize: '12px', textTransform: 'uppercase' }}
+              >
+                Category D
+              </Box>
+              <Box component="ul" aria-labelledby="category-d" sx={{ pl: 2 }}>
+                <li>Link 4.1</li>
+                <li>Link 4.2</li>
+                <li>Link 4.3</li>
+              </Box>
+            </Item>
+          </Grid>
+        </Grid>
+        <Grid
+          container
+          sx={{
+            justifyContent: 'space-between',
+            alignItems: 'center',
+            flexDirection: { xs: 'column', sm: 'row' },
+            fontSize: '12px',
+          }}
+          size={12}
+        >
+          <Grid sx={{ order: { xs: 2, sm: 1 } }}>
+            <Item>© Copyright</Item>
+          </Grid>
+          <Grid container columnSpacing={1} sx={{ order: { xs: 1, sm: 2 } }}>
+            <Grid>
+              <Item>Link A</Item>
+            </Grid>
+            <Grid>
+              <Item>Link B</Item>
+            </Grid>
+            <Grid>
+              <Item>Link C</Item>
+            </Grid>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+### Inheriting columns
+
+A nested grid container inherits the columns from its parent unless the `columns` prop is specified to the instance.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      columns = 24,
+      Grid(size = 8, Item("size=8/24")),
+      Grid(
+        container = TRUE,
+        size = 16,
+        Grid(size = 12, Item("nested size=12/24")),
+        Grid(size = 12, Item("nested size=12/24"))
+      ),
+      Grid(size = 8, Item("size=8/24")),
+      Grid(
+        container = TRUE,
+        columns = 12,
+        size = 16,
+        Grid(size = 6, Item("nested size=6/12")),
+        Grid(size = 6, Item("nested size=6/12"))
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function NestedGridColumns() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2} columns={24}>
+        <Grid size={8}>
+          <Item>size=8/24</Item>
+        </Grid>
+        <Grid container size={16}>
+          <Grid size={12}>
+            <Item>nested size=12/24</Item>
+          </Grid>
+          <Grid size={12}>
+            <Item>nested size=12/24</Item>
+          </Grid>
+        </Grid>
+        <Grid size={8}>
+          <Item>size=8/24</Item>
+        </Grid>
+        <Grid container columns={12} size={16}>
+          <Grid size={6}>
+            <Item>nested size=6/12</Item>
+          </Grid>
+          <Grid size={6}>
+            <Item>nested size=6/12</Item>
+          </Grid>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+## Columns
+
+Use the `columns` prop to change the default number of columns (12) in the grid, as shown below:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      columns = 16,
+      Grid(size = 8, Item("size=8")),
+      Grid(size = 8, Item("size=8"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function ColumnsGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2} columns={16}>
+        <Grid size={8}>
+          <Item>size=8</Item>
+        </Grid>
+        <Grid size={8}>
+          <Item>size=8</Item>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+## Offset
+
+The `offset` prop pushes an item to the right side of the grid.
+This props accepts:
+
+- numbers: for example, `offset = list(md = 2)` pushes an item two columns to the right when the viewport size is equal to or greater than the `md` breakpoint.
+- `"auto"`: this pushes the item to the far right side of the grid container.
+
+The demo below illustrates how to use the offset props:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Grid(
+    container = TRUE,
+    spacing = 3,
+    sx = list(flexGrow = 1),
+    Grid(size = list(xs = 6, md = 2), offset = list(xs = 3, md = 0), Item(1)),
+    Grid(size = list(xs = 4, md = 2), offset = list(md = "auto"), Item(2)),
+    Grid(size = list(xs = 4, md = 2), offset = list(xs = 4, md = 0), Item(3)),
+    Grid(size = list(xs = "grow", md = 6), offset = list(md = 2), Item(4))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function OffsetGrid() {
+  return (
+    <Grid container spacing={3} sx={{ flexGrow: 1 }}>
+      <Grid size={{ xs: 6, md: 2 }} offset={{ xs: 3, md: 0 }}>
+        <Item>1</Item>
+      </Grid>
+      <Grid size={{ xs: 4, md: 2 }} offset={{ md: 'auto' }}>
+        <Item>2</Item>
+      </Grid>
+      <Grid size={{ xs: 4, md: 2 }} offset={{ xs: 4, md: 0 }}>
+        <Item>3</Item>
+      </Grid>
+      <Grid size={{ xs: 'grow', md: 6 }} offset={{ md: 2 }}>
+        <Item>4</Item>
+      </Grid>
+    </Grid>
+  );
+}
+```
+</details>
+
+## Custom breakpoints
+
+If you specify custom breakpoints in the theme, you can use those names as grid item props in responsive values:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      breakpoints = list(values = list(laptop = 1024, tablet = 640, mobile = 0, desktop = 1280))
+    ),
+    Grid(
+      container = TRUE,
+      spacing = list(mobile = 1, tablet = 2, laptop = 3),
+      lapply(1:4, function(index) {
+        Grid(size = list(mobile = 6, tablet = 4, laptop = 3), Item(index))
+      })
+    )
+  )
+)
+```
+
+<div class="alert alert-info">
+Custom breakpoints affect all [responsive values](#responsive-values).
+</div>
+
+## Customization
+
+### Centered elements
+
+To center a grid item's content, specify `display = "flex"` directly on the item.
+Then use `justifyContent` and/or `alignItems` to adjust the position of the content, as shown below:
+
+```{r}
+centered <- list(display = "flex", justifyContent = "center", alignItems = "center")
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      sx = list(minHeight = 160),
+      Grid(sx = centered, size = "grow", Avatar(src = "https://mui.com/static/images/avatar/1.jpg")),
+      Grid(sx = centered, Avatar(src = "https://mui.com/static/images/avatar/2.jpg")),
+      Grid(sx = centered, size = "grow", Avatar(src = "https://mui.com/static/images/avatar/3.jpg"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Avatar from '@mui/material/Avatar';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+
+export default function CenteredElementGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2} sx={{ minHeight: 160 }}>
+        <Grid
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          size="grow"
+        >
+          <Avatar src="/static/images/avatar/1.jpg" />
+        </Grid>
+        <Grid
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+        >
+          <Avatar src="/static/images/avatar/2.jpg" />
+        </Grid>
+        <Grid
+          sx={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}
+          size="grow"
+        >
+          <Avatar src="/static/images/avatar/3.jpg" />
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+<div class="alert alert-warning">
+Using the `container` prop does not work in this situation because the grid container is designed exclusively to wrap grid items.
+It cannot wrap other elements.
+</div>
+
+### Full border
+
+```{r}
+colWidth <- list(xs = 12, sm = 6, md = 4, lg = 3)
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1, p = 2),
+    Grid(
+      container = TRUE,
+      sx = list(
+        "--Grid-borderWidth" = "1px",
+        borderTop = "var(--Grid-borderWidth) solid",
+        borderLeft = "var(--Grid-borderWidth) solid",
+        borderColor = "divider",
+        "& > div" = list(
+          borderRight = "var(--Grid-borderWidth) solid",
+          borderBottom = "var(--Grid-borderWidth) solid",
+          borderColor = "divider"
+        )
+      ),
+      lapply(1:6, function(i) Grid(size = colWidth, sx = list(minHeight = 160)))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+
+export default function FullBorderedGrid() {
+  return (
+    <Box sx={{ flexGrow: 1, p: 2 }}>
+      <Grid
+        container
+        sx={{
+          '--Grid-borderWidth': '1px',
+          borderTop: 'var(--Grid-borderWidth) solid',
+          borderLeft: 'var(--Grid-borderWidth) solid',
+          borderColor: 'divider',
+          '& > div': {
+            borderRight: 'var(--Grid-borderWidth) solid',
+            borderBottom: 'var(--Grid-borderWidth) solid',
+            borderColor: 'divider',
+          },
+        }}
+      >
+        {[...Array(6)].map((_, index) => (
+          <Grid
+            key={index}
+            size={{
+              xs: 12,
+              sm: 6,
+              md: 4,
+              lg: 3,
+            }}
+            sx={{ minHeight: 160 }}
+          />
+        ))}
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+### Half border
+
+The original demo builds one media query per breakpoint with
+`theme.breakpoints.only()`. In R, the media queries of the default breakpoints
+are written out:
+
+```{r}
+# theme.breakpoints.only(key) for the default breakpoints
+onlyBreakpoint <- c(
+  xs = "@media (max-width:599.95px)",
+  sm = "@media (min-width:600px) and (max-width:899.95px)",
+  md = "@media (min-width:900px) and (max-width:1199.95px)",
+  lg = "@media (min-width:1200px) and (max-width:1535.95px)"
+)
+# Remove the right border of the last item of each row
+lastInRow <- lapply(names(colWidth), function(key) {
+  setNames(list(list(borderRight = "none")), onlyBreakpoint[[key]])
+})
+names(lastInRow) <- sprintf("&:nth-of-type(%sn)", 12 / unlist(colWidth))
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1, p = 2),
+    Grid(
+      container = TRUE,
+      sx = list(
+        "--Grid-borderWidth" = "1px",
+        borderTop = "var(--Grid-borderWidth) solid",
+        borderColor = "divider",
+        "& > div" = c(
+          list(
+            borderRight = "var(--Grid-borderWidth) solid",
+            borderBottom = "var(--Grid-borderWidth) solid",
+            borderColor = "divider"
+          ),
+          lastInRow
+        )
+      ),
+      lapply(1:6, function(i) Grid(size = colWidth, sx = list(minHeight = 160)))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+
+export default function HalfBorderedGrid() {
+  const colWidth = { xs: 12, sm: 6, md: 4, lg: 3 };
+  return (
+    <Box sx={{ flexGrow: 1, p: 2 }}>
+      <Grid
+        container
+        sx={(theme) => ({
+          '--Grid-borderWidth': '1px',
+          borderTop: 'var(--Grid-borderWidth) solid',
+          borderColor: 'divider',
+          '& > div': {
+            borderRight: 'var(--Grid-borderWidth) solid',
+            borderBottom: 'var(--Grid-borderWidth) solid',
+            borderColor: 'divider',
+            ...Object.keys(colWidth).reduce(
+              (result, key) => ({
+                ...result,
+                [`&:nth-of-type(${12 / colWidth[key]}n)`]: {
+                  [theme.breakpoints.only(key)]: {
+                    borderRight: 'none',
+                  },
+                },
+              }),
+              {},
+            ),
+          },
+        })}
+      >
+        {[...Array(6)].map((_, index) => (
+          <Grid key={index} size={colWidth} sx={{ minHeight: 160 }} />
+        ))}
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+## Limitations
+
+### Column direction
+
+Using `direction = "column"` or `direction = "column-reverse"` is not supported.
+The Grid component is specifically designed to subdivide a layout into columns, not rows.
+You should not use the Grid component on its own to stack layout elements vertically.
+Instead, you should use the [Stack component](stack.html) inside of a Grid to create vertical layouts as shown below:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(flexGrow = 1),
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      Grid(
+        size = 4,
+        Stack(spacing = 2, Item("Column 1 - Row 1"), Item("Column 1 - Row 2"), Item("Column 1 - Row 3"))
+      ),
+      Grid(size = 8, Item(sx = list(height = "100%", boxSizing = "border-box"), "Column 2"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { styled } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import Stack from '@mui/material/Stack';
+
+const Item = styled(Paper)(({ theme }) => ({
+  backgroundColor: '#fff',
+  ...theme.typography.body2,
+  padding: theme.spacing(1),
+  textAlign: 'center',
+  color: (theme.vars ?? theme).palette.text.secondary,
+  ...theme.applyStyles('dark', {
+    backgroundColor: '#1A2027',
+  }),
+}));
+
+export default function ColumnLayoutInsideGrid() {
+  return (
+    <Box sx={{ flexGrow: 1 }}>
+      <Grid container spacing={2}>
+        <Grid size={4}>
+          <Stack spacing={2}>
+            <Item>Column 1 - Row 1</Item>
+            <Item>Column 1 - Row 2</Item>
+            <Item>Column 1 - Row 3</Item>
+          </Stack>
+        </Grid>
+        <Grid size={8}>
+          <Item sx={{ height: '100%', boxSizing: 'border-box' }}>Column 2</Item>
+        </Grid>
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+## Grids in Shiny apps
+
+`Grid()` is the usual layout of a dashboard: each item holds a card or a
+Shiny output. Items keep their width when the output inside them re-renders:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Grid(
+      container = TRUE,
+      spacing = 2,
+      Grid(size = list(xs = 12, md = 4), Paper(sx = list(p = 2), Slider.shinyInput("n", value = 50, min = 10, max = 500))),
+      Grid(size = list(xs = 12, md = 8), Paper(sx = list(p = 2), plotOutput("hist", height = 300)))
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$hist <- renderPlot(hist(rnorm(input$n), main = NULL))
+}
+
+shinyApp(ui, server)
+```
+
+Run a minimal example with `muiMaterialExample("Grid")`.

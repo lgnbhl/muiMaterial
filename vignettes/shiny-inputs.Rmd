@@ -1,0 +1,275 @@
+---
+title: "Shiny inputs and server updates"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Shiny inputs and server updates}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(eval = FALSE)
+```
+
+This guide explains how muiMaterial components talk to a Shiny server: the
+`.shinyInput()` wrappers, the `update*.shinyInput()` functions, the reserved
+props, and the lower-level helpers `triggerEvent()`, `setInput()`, `JS()`,
+`renderReact()` and `reactOutput()`.
+
+## `.shinyInput()` wrappers
+
+A plain component such as `Slider()` renders in the browser only. Its
+`.shinyInput()` variant, `Slider.shinyInput(inputId, ...)`, also sends its
+value to the server as `input[[inputId]]`:
+
+```{r}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2, width = 300),
+    Slider.shinyInput("size", value = 30, min = 0, max = 100, valueLabelDisplay = "auto"),
+    verbatimTextOutput("value")
+  )
+)
+
+server <- function(input, output, session) {
+  output$value <- renderPrint(input$size)
+}
+
+shinyApp(ui, server)
+```
+
+- The first argument is the `inputId`; every other argument is a prop of the
+  MUI component, exactly as with the plain component.
+- `value` sets the **initial** value.
+
+There are two kinds of `.shinyInput()` wrappers.
+
+**Value inputs** report their current value:
+
+| Function | `input[[inputId]]` |
+|---|---|
+| `Autocomplete.shinyInput()` | the selected option, or a vector with `multiple = TRUE` |
+| `BottomNavigation.shinyInput()` | the `value` of the selected action |
+| `Checkbox.shinyInput()`, `Switch.shinyInput()`, `Radio.shinyInput()`, `FormControlLabel.shinyInput()` | `TRUE` or `FALSE` |
+| `TextField.shinyInput()`, `Input.shinyInput()`, `OutlinedInput.shinyInput()`, `FilledInput.shinyInput()` | the text (sent 250ms after the last keystroke) |
+| `Select.shinyInput()`, `NativeSelect.shinyInput()` | the selected value, or a vector with `multiple = TRUE` |
+| `RadioGroup.shinyInput()` | the `value` of the selected radio |
+| `Slider.shinyInput()` | a number, or a vector of two for a range (sent 250ms after the last move) |
+| `Rating.shinyInput()` | a number |
+| `Pagination.shinyInput()` | the page number (starting at 1) |
+| `Tabs.shinyInput()`, `TabList.shinyInput()` | the `value` of the selected tab |
+| `ToggleButtonGroup.shinyInput()` | the selected value, or a vector without `exclusive = TRUE` |
+
+**Action inputs** report a click counter, like `shiny::actionButton()`:
+`Button.shinyInput()`, `IconButton.shinyInput()`, `Fab.shinyInput()`,
+`LoadingButton.shinyInput()`, `ListItemButton.shinyInput()`,
+`MenuItem.shinyInput()`, `StepButton.shinyInput()`, `ToggleButton.shinyInput()`.
+Use them with `observeEvent()`.
+
+The overlays `Dialog.shinyInput()`, `Drawer.shinyInput()`, `Menu.shinyInput()`,
+`Modal.shinyInput()` and `Snackbar.shinyInput()` are also action inputs: they
+count clicks inside the surface. Their `open` state is set from the server; see
+[Dialog](dialog.html#dialogs-in-shiny-apps) and
+[Snackbar](snackbar.html#snackbars-in-shiny-apps). For overlays opened by a
+button, [`.triggerId`](triggerid.html) is simpler.
+
+The bundled showcase app lists all of them:
+
+```{r}
+muiMaterialExample("showcase")
+```
+
+## Updating inputs from the server
+
+Each `.shinyInput()` has an `update*.shinyInput()` function. It changes **any
+prop** of the component, not only its value:
+
+```{r}
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    sx = list(p = 2, width = 300),
+    TextField.shinyInput("name", label = "Name", value = ""),
+    Button.shinyInput("reset", "Reset", variant = "outlined"),
+    Button.shinyInput("submit", "Submit", variant = "contained", disabled = TRUE)
+  )
+)
+
+server <- function(input, output, session) {
+  # Enable the submit button once a name is typed
+  observe({
+    updateButton.shinyInput(inputId = "submit", disabled = !nzchar(input$name))
+  })
+  # Clear the field and change its label
+  observeEvent(input$reset, {
+    updateTextField.shinyInput(inputId = "name", value = "", label = "Name (cleared)")
+  })
+}
+
+shinyApp(ui, server)
+```
+
+`session` is the first argument of the update functions and defaults to the
+current session, so `inputId` must be named.
+
+## Reserved props
+
+A `.shinyInput()` wrapper owns the props that carry its value:
+
+- value inputs own `value` (or `checked` / `page`) and `onChange`,
+- action inputs own `onClick`.
+
+Passing one of them through `...` replaces the wrapper's own handler, and
+`input[[inputId]]` stops updating. muiMaterial warns when this happens:
+
+```{r}
+Switch.shinyInput("dark", checked = TRUE)
+#> Warning: Switch.shinyInput(): `checked` is a reserved prop -- a caller-supplied
+#> value overrides the .shinyInput wiring and `input[[inputId]]` may stop updating. ...
+```
+
+Set the initial state with the `value` argument instead:
+`Switch.shinyInput("dark", value = TRUE)`. For a custom browser-to-server signal
+on a component, use a plain component with `onClick = triggerEvent("name")`
+(see below).
+
+Overriding the wiring on purpose is a legitimate advanced pattern, for example
+when the server is the single source of truth and pushes `checked` down with
+`renderReact()`, as in the [Transfer List](transfer-list.html#transfer-lists-in-shiny-apps)
+example. Silence the warning with:
+
+```{r}
+options(muiMaterial.warnReservedProps = FALSE)
+```
+
+## Events without an input: `triggerEvent()` and `setInput()`
+
+Any callback prop of any component (`onClick`, `onChange`, `onClose`, ...) can
+send a value to the server, without a `.shinyInput()` wrapper:
+
+- `triggerEvent("name")` sets `input$name` each time the callback runs. Use it
+  with `observeEvent(input$name, ...)`.
+- `setInput("name", accessor)` sets `input$name` to one of the arguments of the
+  callback: `setInput("name")` is the first argument, `setInput("name", 1)` the
+  second one, and `setInput("name", "[0].target.value")` a JavaScript accessor.
+
+```{r}
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    Chip(label = "Delete me", onDelete = triggerEvent("chip_deleted")),
+    Accordion(
+      onChange = setInput("details_expanded", 1), # onChange(event, expanded)
+      AccordionSummary("Details"),
+      AccordionDetails("Content")
+    ),
+    verbatimTextOutput("state")
+  )
+)
+
+server <- function(input, output, session) {
+  output$state <- renderPrint(list(deleted = input$chip_deleted, expanded = input$details_expanded))
+}
+
+shinyApp(ui, server)
+```
+
+## JavaScript callbacks: `JS()`
+
+Props that expect a JavaScript function (callbacks, render functions, `sx`
+functions of the theme) are written as strings marked with `JS()`. The function
+runs in the browser:
+
+```{r}
+Button(onClick = JS("() => alert('Hello from the browser')"), "Say hello")
+
+# Send a custom value with Shiny's JavaScript API
+MenuItem(onClick = JS("() => Shiny.setInputValue('action', 'edit', {priority: 'event'})"), "Edit")
+
+# sx as a function of the theme
+Box(sx = JS("(theme) => ({ color: theme.palette.primary.main })"), "Themed text")
+```
+
+`{priority: 'event'}` makes Shiny send the value even when it did not change,
+so `observeEvent()` runs on every click. When a component prop expects a
+component (not an element), pass it by reference, for example
+`slots = list(transition = JS("jsmodule['@mui/material'].Fade"))`.
+
+## Server-side rendering: `renderReact()` and `reactOutput()`
+
+Render muiMaterial components from the server with either:
+
+- `shiny::renderUI()` and `shiny::uiOutput()`, or
+- `renderReact()` and `reactOutput()`, re-exported from shiny.react.
+
+`renderReact()` updates the React elements already on the page instead of
+replacing them. Transitions run, and the state of components that did not change is
+kept. Prefer it for components that change often, such as progress bars or
+[transitions](transitions.html#transitions-in-shiny-apps):
+
+```{r}
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Box(sx = list(p = 2, width = 300), Slider.shinyInput("value", value = 40), reactOutput("progress"))
+)
+
+server <- function(input, output, session) {
+  output$progress <- renderReact({
+    LinearProgress(variant = "determinate", value = input$value)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+## Bookmarking
+
+Shiny's [bookmarking](https://shiny.posit.co/r/articles/share/bookmarking-state/)
+saves `input` values in the URL, but restores them only for Shiny's own input
+bindings. Restore `.shinyInput()` values in `onRestore()` with their update
+function:
+
+```{r}
+ui <- function(request) {
+  muiMaterialPage(
+    CssBaseline(),
+    Box(
+      sx = list(p = 2),
+      TextField.shinyInput("txt", label = "Enter text", value = "initial"),
+      verbatimTextOutput("show_txt")
+    )
+  )
+}
+
+server <- function(input, output, session) {
+  output$show_txt <- renderPrint(input$txt)
+
+  onRestore(function(state) {
+    updateTextField.shinyInput(session, "txt", value = state$input$txt)
+  })
+
+  # Update the URL on every change
+  observe({
+    reactiveValuesToList(input)
+    session$doBookmark()
+  })
+  onBookmarked(function(url) updateQueryString(url))
+}
+
+shinyApp(ui, server, enableBookmarking = "url")
+```
+
+`shiny::bookmarkButton()` needs Bootstrap, which `muiMaterialPage()` removes.
+Updating the URL automatically, as above, avoids the button. Run this example
+with `muiMaterialExample("bookmarking")`.
+
+For state kept in the URL on the client side (no server), see
+[Using a router](routing.html).

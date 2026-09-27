@@ -1,0 +1,1735 @@
+---
+title: "Stepper"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Stepper}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-stepper/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Stepper
+
+Steppers convey progress through numbered steps. It provides a wizard-like workflow.
+
+Steppers display progress through a sequence of logical and numbered steps. They may also be used for navigation.
+Steppers may display a transient feedback message after a step is saved.
+
+- **Types of Steps**: Editable, Non-editable, Mobile, Optional
+- **Types of Steppers**: Horizontal, Vertical, Linear, Non-linear
+
+<div class="alert alert-info">
+This component is no longer documented in the [Material Design guidelines](https://m2.material.io/), but Material UI will continue to support it.
+</div>
+
+<div class="alert alert-secondary">
+**How the live demos on this page work.** In React, the active step lives in a
+`useState()` hook. Here, each state of the stepper is a
+[reactRouter](https://felixluginbuhl.com/reactRouter/) route generated in R
+(for example `#/linear-stepper/2`), and the Back and Next buttons are links to
+the neighbouring states. In a Shiny app, the server usually holds the active
+step: see [Steppers in Shiny apps](#steppers-in-shiny-apps).
+</div>
+
+## Introduction
+
+The Stepper component displays progress through a sequence of logical and numbered steps.
+It supports horizontal and vertical orientation for desktop and mobile viewports.
+
+Steppers are implemented using a collection of related components:
+
+- `Stepper()`: the container for the steps.
+- `Step()`: an individual step in the sequence.
+- `StepLabel()`: a label for a Step.
+- `StepContent()`: optional content for a Step.
+- `StepButton()`: optional button for a Step.
+- `StepIcon()`: optional icon for a Step.
+- `StepConnector()`: optional customized connector between Steps.
+
+## Horizontal stepper
+
+Horizontal steppers are ideal when the contents of one step depend on an earlier step.
+
+Avoid using long step names in horizontal steppers.
+
+### Linear
+
+A linear stepper allows the user to complete the steps in sequence.
+
+The `Stepper` can be controlled by passing the current step index (zero-based) as the `activeStep` prop. `Stepper` orientation is set using the `orientation` prop.
+
+This example also shows the use of an optional step by placing the `optional` prop on the second `Step` component. Note that it's up to you to manage when an optional step is skipped. Once you've determined this for a particular step you must set `completed = FALSE` to signify that even though the active step index has gone beyond the optional step, it's not actually complete.
+
+The route is `#/linear-stepper/<activeStep>`, with a `/skipped` suffix once the
+optional step has been skipped.
+
+```{r}
+steps <- c("Select campaign settings", "Create an ad group", "Create an ad")
+isStepOptional <- function(step) step == 1
+
+linearHref <- function(step, skipped) {
+  sprintf("#/linear-stepper/%s%s", step, if (skipped) "/skipped" else "")
+}
+
+horizontalLinearStepper <- function(activeStep = 0, skipped = FALSE) {
+  Box(
+    sx = list(width = "100%"),
+    Stepper(
+      activeStep = activeStep,
+      lapply(seq_along(steps) - 1, function(index) {
+        Step(
+          completed = if (skipped && index == 1) FALSE else index < activeStep,
+          StepLabel(
+            optional = if (isStepOptional(index)) Typography(variant = "caption", "Optional") else FALSE,
+            steps[index + 1]
+          )
+        )
+      })
+    ),
+    if (activeStep == length(steps)) {
+      tagList(
+        Typography(sx = list(mt = 2, mb = 1), "All steps completed - you're finished"),
+        Box(
+          sx = list(display = "flex", flexDirection = "row", pt = 2),
+          Box(sx = list(flex = "1 1 auto")),
+          Button(href = "#/", "Reset")
+        )
+      )
+    } else {
+      tagList(
+        Typography(sx = list(mt = 2, mb = 1), paste("Step", activeStep + 1)),
+        Box(
+          sx = list(display = "flex", flexDirection = "row", pt = 2),
+          Button(
+            color = "inherit",
+            disabled = activeStep == 0,
+            href = linearHref(max(activeStep - 1, 0), skipped && activeStep - 1 > 1),
+            sx = list(mr = 1),
+            "Back"
+          ),
+          Box(sx = list(flex = "1 1 auto")),
+          if (isStepOptional(activeStep)) {
+            Button(color = "inherit", href = linearHref(activeStep + 1, TRUE), sx = list(mr = 1), "Skip")
+          },
+          Button(
+            href = linearHref(activeStep + 1, skipped && activeStep != 1),
+            if (activeStep == length(steps) - 1) "Finish" else "Next"
+          )
+        )
+      )
+    }
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(1:3, function(step) Route(path = paste0("linear-stepper/", step), element = horizontalLinearStepper(step))),
+      lapply(2:3, function(step) {
+        Route(path = sprintf("linear-stepper/%s/skipped", step), element = horizontalLinearStepper(step, skipped = TRUE))
+      }),
+      Route(path = "*", element = horizontalLinearStepper(0))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+
+export default function HorizontalLinearStepper() {
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [skipped, setSkipped] = React.useState(new Set());
+
+  const isStepOptional = React.useCallback((step) => {
+    return step === 1;
+  }, []);
+
+  const isStepSkipped = (step) => {
+    return skipped.has(step);
+  };
+
+  const handleNext = () => {
+    let newSkipped = skipped;
+    if (isStepSkipped(activeStep)) {
+      newSkipped = new Set(newSkipped.values());
+      newSkipped.delete(activeStep);
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped(newSkipped);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleSkip = () => {
+    if (!isStepOptional(activeStep)) {
+      // You probably want to guard against something like this,
+      // it should never occur unless someone's actively trying to break something.
+      throw new Error("You can't skip a step that isn't optional.");
+    }
+
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+    setSkipped((prevSkipped) => {
+      const newSkipped = new Set(prevSkipped.values());
+      newSkipped.add(activeStep);
+      return newSkipped;
+    });
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  const previousActiveStepRef = React.useRef(activeStep);
+  const resetButtonRef = React.useRef(null);
+  const nextButtonRef = React.useRef(null);
+
+  // Manage focus when the active step changes.
+  React.useEffect(() => {
+    const previousActiveStep = previousActiveStepRef.current;
+    previousActiveStepRef.current = activeStep;
+
+    if (activeStep === steps.length) {
+      // If the user has completed all steps and hits "Finish", focus the "Reset" button.
+      resetButtonRef.current.focus();
+      return;
+    }
+    if (activeStep === 0 && previousActiveStep === steps.length) {
+      // If the user has completed all steps and hits "Reset", focus the "Next" button.
+      nextButtonRef.current.focus();
+      return;
+    }
+    if (isStepOptional(previousActiveStep) && !isStepOptional(activeStep)) {
+      // If the user hits "Skip" and the next step is not optional, focus the "Next" button.
+      nextButtonRef.current.focus();
+    }
+  }, [activeStep, isStepOptional]);
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Stepper activeStep={activeStep}>
+        {steps.map((label, index) => {
+          const stepProps = {};
+          const labelProps = {};
+          if (isStepOptional(index)) {
+            labelProps.optional = (
+              <Typography variant="caption">Optional</Typography>
+            );
+          }
+          if (isStepSkipped(index)) {
+            stepProps.completed = false;
+          }
+          return (
+            <Step key={label} {...stepProps}>
+              <StepLabel {...labelProps}>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+      {activeStep === steps.length ? (
+        <React.Fragment>
+          <Typography sx={{ mt: 2, mb: 1 }}>
+            All steps completed - you&apos;re finished
+          </Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+            <Box sx={{ flex: '1 1 auto' }} />
+            <Button onClick={handleReset} ref={resetButtonRef}>
+              Reset
+            </Button>
+          </Box>
+        </React.Fragment>
+      ) : (
+        <React.Fragment>
+          <Typography sx={{ mt: 2, mb: 1 }}>Step {activeStep + 1}</Typography>
+          <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+            <Button
+              color="inherit"
+              disabled={activeStep === 0}
+              onClick={handleBack}
+              sx={{ mr: 1 }}
+            >
+              Back
+            </Button>
+            <Box sx={{ flex: '1 1 auto' }} />
+            {isStepOptional(activeStep) && (
+              <Button color="inherit" onClick={handleSkip} sx={{ mr: 1 }}>
+                Skip
+              </Button>
+            )}
+            <Button onClick={handleNext} ref={nextButtonRef}>
+              {activeStep === steps.length - 1 ? 'Finish' : 'Next'}
+            </Button>
+          </Box>
+        </React.Fragment>
+      )}
+    </Box>
+  );
+}
+```
+</details>
+
+### Non-linear
+
+Non-linear steppers allow the user to enter a multi-step flow at any point.
+
+This example is similar to the regular horizontal stepper, except steps are no longer automatically set to `disabled = TRUE` based on the `activeStep` prop.
+
+The use of the `StepButton` here demonstrates clickable step labels, as well as setting the `completed`
+flag. However because steps can be accessed in a non-linear fashion, it's up to your own implementation to
+determine when all steps are completed (or even if they need to be completed).
+
+Actionable steps mean that they control the content update of a section. From an accessibility standpoint, this means that each `StepButton` requires an `aria-controls` attribute that points to the `id` of the content area.
+
+The state has two parts, the active step and the set of completed steps. Both
+are in the route, `#/nonlinear-stepper/<activeStep>/<completed>`, where
+`<completed>` has one digit per step (for example `101`). R generates the 24
+routes with `expand.grid()`.
+
+```{r}
+nonLinearHref <- function(active, completed) {
+  sprintf("#/nonlinear-stepper/%s/%s", active, paste(as.integer(completed), collapse = ""))
+}
+
+horizontalNonLinearStepper <- function(activeStep = 0, completed = c(FALSE, FALSE, FALSE)) {
+  totalSteps <- length(steps)
+  allStepsCompleted <- all(completed)
+  isLastStep <- activeStep == totalSteps - 1
+  # Next: go to the first uncompleted step when on the last one
+  nextStep <- function(done) {
+    if (isLastStep && !all(done)) which(!done)[1] - 1 else min(activeStep + 1, totalSteps - 1)
+  }
+  withCompleted <- replace(completed, activeStep + 1, TRUE)
+  Box(
+    sx = list(width = "100%"),
+    Stepper(
+      nonLinear = TRUE,
+      activeStep = activeStep,
+      lapply(seq_len(totalSteps) - 1, function(index) {
+        Step(
+          completed = completed[index + 1],
+          StepButton(
+            `aria-controls` = "stepper-content",
+            color = "inherit",
+            href = nonLinearHref(index, completed),
+            steps[index + 1]
+          )
+        )
+      })
+    ),
+    Box(
+      id = "stepper-content",
+      if (allStepsCompleted) {
+        tagList(
+          Typography(sx = list(mt = 2, mb = 1), "All steps completed - you're finished"),
+          Box(sx = list(display = "flex", flexDirection = "row", pt = 2), Box(sx = list(flex = "1 1 auto")), Button(href = "#/", "Reset"))
+        )
+      } else {
+        tagList(
+          Typography(sx = list(mt = 2, mb = 1, py = 1), paste("Step", activeStep + 1)),
+          Box(
+            sx = list(display = "flex", flexDirection = "row", pt = 2),
+            Button(
+              color = "inherit",
+              disabled = activeStep == 0,
+              href = nonLinearHref(max(activeStep - 1, 0), completed),
+              sx = list(mr = 1),
+              "Back"
+            ),
+            Box(sx = list(flex = "1 1 auto")),
+            Button(href = nonLinearHref(nextStep(completed), completed), sx = list(mr = 1), "Next"),
+            if (completed[activeStep + 1]) {
+              Typography(variant = "caption", sx = list(display = "inline-block"), paste("Step", activeStep + 1, "already completed"))
+            } else {
+              Button(
+                href = nonLinearHref(if (all(withCompleted)) activeStep else nextStep(withCompleted), withCompleted),
+                if (sum(completed) == totalSteps - 1) "Finish" else "Complete Step"
+              )
+            }
+          )
+        )
+      }
+    )
+  )
+}
+
+states <- expand.grid(active = 0:2, c1 = c(FALSE, TRUE), c2 = c(FALSE, TRUE), c3 = c(FALSE, TRUE))
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(seq_len(nrow(states)), function(i) {
+        completed <- unlist(states[i, c("c1", "c2", "c3")])
+        Route(
+          path = sub("^#/", "", nonLinearHref(states$active[i], completed)),
+          element = horizontalNonLinearStepper(states$active[i], completed)
+        )
+      }),
+      Route(path = "*", element = horizontalNonLinearStepper())
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepButton from '@mui/material/StepButton';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+
+const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+
+export default function HorizontalNonLinearStepper() {
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [completed, setCompleted] = React.useState({});
+
+  const totalSteps = steps.length;
+  const completedSteps = Object.keys(completed).length;
+  const isLastStep = activeStep === totalSteps - 1;
+  const allStepsCompleted = completedSteps === totalSteps;
+
+  const handleNext = () => {
+    const newActiveStep =
+      isLastStep && !allStepsCompleted
+        ? // It's the last step, but not all steps have been completed,
+          // find the first step that has not been completed
+          steps.findIndex((_step, i) => !(i in completed))
+        : activeStep + 1;
+    setActiveStep(newActiveStep);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleStep = (step) => () => {
+    setActiveStep(step);
+  };
+
+  const handleComplete = () => {
+    setCompleted({
+      ...completed,
+      [activeStep]: true,
+    });
+    handleNext();
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+    setCompleted({});
+  };
+
+  const resetButtonRef = React.useRef(null);
+  const nextButtonRef = React.useRef(null);
+  const previousActiveStepRef = React.useRef(activeStep);
+  const previousCompletedRef = React.useRef(completed);
+
+  // Manage focus when the completed steps change.
+  React.useEffect(() => {
+    const previousCompleted = previousCompletedRef.current;
+    previousCompletedRef.current = completed;
+
+    if (allStepsCompleted) {
+      // If the user has completed all steps and hits "Finish", focus the "Reset" button.
+      resetButtonRef.current.focus();
+      return;
+    }
+
+    if (
+      Object.keys(completed).length === 0 &&
+      Object.keys(previousCompleted).length !== 0
+    ) {
+      // If the user has completed all steps and hits "Reset", focus the "Next" button.
+      nextButtonRef.current.focus();
+    }
+  }, [completed, allStepsCompleted]);
+
+  // Manage focus when the active step changes.
+  React.useEffect(() => {
+    if (activeStep === 0 && previousActiveStepRef.current === 1) {
+      // If the user navigated to first step via "Back" button, focus the "Next" button.
+      nextButtonRef.current.focus();
+    }
+
+    previousActiveStepRef.current = activeStep;
+  }, [activeStep]);
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Stepper nonLinear activeStep={activeStep}>
+        {steps.map((label, index) => (
+          <Step key={label} completed={completed[index]}>
+            <StepButton
+              aria-controls="stepper-content"
+              color="inherit"
+              onClick={handleStep(index)}
+            >
+              {label}
+            </StepButton>
+          </Step>
+        ))}
+      </Stepper>
+      <div id="stepper-content">
+        {allStepsCompleted ? (
+          <React.Fragment>
+            <Typography sx={{ mt: 2, mb: 1 }}>
+              All steps completed - you&apos;re finished
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Box sx={{ flex: '1 1 auto' }} />
+              <Button onClick={handleReset} ref={resetButtonRef}>
+                Reset
+              </Button>
+            </Box>
+          </React.Fragment>
+        ) : (
+          <React.Fragment>
+            <Typography sx={{ mt: 2, mb: 1, py: 1 }}>
+              Step {activeStep + 1}
+            </Typography>
+            <Box sx={{ display: 'flex', flexDirection: 'row', pt: 2 }}>
+              <Button
+                color="inherit"
+                disabled={activeStep === 0}
+                onClick={handleBack}
+                sx={{ mr: 1 }}
+              >
+                Back
+              </Button>
+              <Box sx={{ flex: '1 1 auto' }} />
+              <Button onClick={handleNext} sx={{ mr: 1 }} ref={nextButtonRef}>
+                Next
+              </Button>
+              {activeStep !== steps.length &&
+                (completed[activeStep] ? (
+                  <Typography variant="caption" sx={{ display: 'inline-block' }}>
+                    Step {activeStep + 1} already completed
+                  </Typography>
+                ) : (
+                  <Button onClick={handleComplete}>
+                    {completedSteps === totalSteps - 1 ? 'Finish' : 'Complete Step'}
+                  </Button>
+                ))}
+            </Box>
+          </React.Fragment>
+        )}
+      </div>
+    </Box>
+  );
+}
+```
+</details>
+
+### Alternative label
+
+Labels can be placed below the step icon by setting the `alternativeLabel` prop on the `Stepper` component.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%"),
+    Stepper(activeStep = 1, alternativeLabel = TRUE, lapply(steps, function(label) Step(StepLabel(label))))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+
+const steps = [
+  'Select master blaster campaign settings',
+  'Create an ad group',
+  'Create an ad',
+];
+
+export default function HorizontalLinearAlternativeLabelStepper() {
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Stepper activeStep={1} alternativeLabel>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Box>
+  );
+}
+```
+</details>
+
+### Error step
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%"),
+    Stepper(
+      activeStep = 1,
+      lapply(seq_along(steps), function(i) {
+        failed <- i == 2
+        Step(
+          StepLabel(
+            optional = if (failed) Typography(variant = "caption", color = "error", "Alert message") else FALSE,
+            error = failed,
+            steps[i]
+          )
+        )
+      })
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Typography from '@mui/material/Typography';
+
+const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+
+export default function HorizontalStepperWithError() {
+  const isStepFailed = (step) => {
+    return step === 1;
+  };
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Stepper activeStep={1}>
+        {steps.map((label, index) => {
+          const labelProps = {};
+          if (isStepFailed(index)) {
+            labelProps.optional = (
+              <Typography variant="caption" color="error">
+                Alert message
+              </Typography>
+            );
+
+            labelProps.error = true;
+          }
+
+          return (
+            <Step key={label}>
+              <StepLabel {...labelProps}>{label}</StepLabel>
+            </Step>
+          );
+        })}
+      </Stepper>
+    </Box>
+  );
+}
+```
+</details>
+
+### Customized horizontal stepper
+
+Here is an example of customizing the component.
+You can learn more about this in the [overrides documentation page](https://mui.com/material-ui/customization/how-to-customize/).
+
+In React, the custom step icons are components passed to `slots$stepIcon`.
+In R, the `icon` prop of `StepLabel()` accepts an element, which is built for
+each step from its state (the active step is known when the page is built).
+The `styled()` connectors become `sx` values:
+
+```{r}
+activeStep <- 1
+gradient <- "linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)"
+
+QontoConnector <- StepConnector(
+  sx = list(
+    "&.MuiStepConnector-alternativeLabel" = list(top = 10, left = "calc(-50% + 16px)", right = "calc(50% + 16px)"),
+    "&.Mui-active .MuiStepConnector-line, &.Mui-completed .MuiStepConnector-line" = list(borderColor = "#784af4"),
+    "& .MuiStepConnector-line" = list(borderColor = "#eaeaf0", borderTopWidth = 3, borderRadius = 1)
+  )
+)
+QontoStepIcon <- function(index) {
+  Box(
+    sx = list(color = if (index == activeStep) "#784af4" else "#eaeaf0", display = "flex", height = 22, alignItems = "center"),
+    if (index < activeStep) {
+      Icon("check", sx = list(color = "#784af4", zIndex = 1, fontSize = 18))
+    } else {
+      Box(sx = list(width = 8, height = 8, borderRadius = "50%", backgroundColor = "currentColor"))
+    }
+  )
+}
+
+ColorlibConnector <- StepConnector(
+  sx = list(
+    "&.MuiStepConnector-alternativeLabel" = list(top = 22),
+    "&.Mui-active .MuiStepConnector-line, &.Mui-completed .MuiStepConnector-line" = list(
+      backgroundImage = "linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)"
+    ),
+    "& .MuiStepConnector-line" = list(height = 3, border = 0, backgroundColor = "#eaeaf0", borderRadius = 1)
+  )
+)
+ColorlibStepIcon <- function(index) {
+  Box(
+    sx = list(
+      backgroundColor = "#ccc", zIndex = 1, color = "#fff", width = 50, height = 50, display = "flex",
+      borderRadius = "50%", justifyContent = "center", alignItems = "center",
+      backgroundImage = if (index <= activeStep) gradient else "none",
+      boxShadow = if (index == activeStep) "0 4px 10px 0 rgba(0,0,0,.25)" else "none"
+    ),
+    Icon(c("settings", "group_add", "video_label")[index + 1])
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Stack(
+    sx = list(width = "100%"),
+    spacing = 4,
+    Stepper(
+      alternativeLabel = TRUE,
+      activeStep = activeStep,
+      connector = QontoConnector,
+      lapply(seq_along(steps) - 1, function(i) Step(StepLabel(icon = QontoStepIcon(i), steps[i + 1])))
+    ),
+    Stepper(
+      alternativeLabel = TRUE,
+      activeStep = activeStep,
+      connector = ColorlibConnector,
+      lapply(seq_along(steps) - 1, function(i) Step(StepLabel(icon = ColorlibStepIcon(i), steps[i + 1])))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import { styled } from '@mui/material/styles';
+import Stack from '@mui/material/Stack';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import Check from '@mui/icons-material/Check';
+import SettingsIcon from '@mui/icons-material/Settings';
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
+import VideoLabelIcon from '@mui/icons-material/VideoLabel';
+import StepConnector, { stepConnectorClasses } from '@mui/material/StepConnector';
+
+const QontoConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${stepConnectorClasses.alternativeLabel}`]: {
+    top: 10,
+    left: 'calc(-50% + 16px)',
+    right: 'calc(50% + 16px)',
+  },
+  [`&.${stepConnectorClasses.active}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      borderColor: '#784af4',
+    },
+  },
+  [`&.${stepConnectorClasses.completed}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      borderColor: '#784af4',
+    },
+  },
+  [`& .${stepConnectorClasses.line}`]: {
+    borderColor: '#eaeaf0',
+    borderTopWidth: 3,
+    borderRadius: 1,
+    ...theme.applyStyles('dark', {
+      borderColor: theme.palette.grey[800],
+    }),
+  },
+}));
+
+const QontoStepIconRoot = styled('div')(({ theme }) => ({
+  color: '#eaeaf0',
+  display: 'flex',
+  height: 22,
+  alignItems: 'center',
+  '& .QontoStepIcon-completedIcon': {
+    color: '#784af4',
+    zIndex: 1,
+    fontSize: 18,
+  },
+  '& .QontoStepIcon-circle': {
+    width: 8,
+    height: 8,
+    borderRadius: '50%',
+    backgroundColor: 'currentColor',
+  },
+  ...theme.applyStyles('dark', {
+    color: theme.palette.grey[700],
+  }),
+  variants: [
+    {
+      props: ({ ownerState }) => ownerState.active,
+      style: {
+        color: '#784af4',
+      },
+    },
+  ],
+}));
+
+function QontoStepIcon(props) {
+  const { active, completed, className } = props;
+
+  return (
+    <QontoStepIconRoot ownerState={{ active }} className={className}>
+      {completed ? (
+        <Check className="QontoStepIcon-completedIcon" />
+      ) : (
+        <div className="QontoStepIcon-circle" />
+      )}
+    </QontoStepIconRoot>
+  );
+}
+
+QontoStepIcon.propTypes = {
+  /**
+   * Whether this step is active.
+   * @default false
+   */
+  active: PropTypes.bool,
+  className: PropTypes.string,
+  /**
+   * Mark the step as completed. Is passed to child components.
+   * @default false
+   */
+  completed: PropTypes.bool,
+};
+
+const ColorlibConnector = styled(StepConnector)(({ theme }) => ({
+  [`&.${stepConnectorClasses.alternativeLabel}`]: {
+    top: 22,
+  },
+  [`&.${stepConnectorClasses.active}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+    },
+  },
+  [`&.${stepConnectorClasses.completed}`]: {
+    [`& .${stepConnectorClasses.line}`]: {
+      backgroundImage:
+        'linear-gradient( 95deg,rgb(242,113,33) 0%,rgb(233,64,87) 50%,rgb(138,35,135) 100%)',
+    },
+  },
+  [`& .${stepConnectorClasses.line}`]: {
+    height: 3,
+    border: 0,
+    backgroundColor: '#eaeaf0',
+    borderRadius: 1,
+    ...theme.applyStyles('dark', {
+      backgroundColor: theme.palette.grey[800],
+    }),
+  },
+}));
+
+const ColorlibStepIconRoot = styled('div')(({ theme }) => ({
+  backgroundColor: '#ccc',
+  zIndex: 1,
+  color: '#fff',
+  width: 50,
+  height: 50,
+  display: 'flex',
+  borderRadius: '50%',
+  justifyContent: 'center',
+  alignItems: 'center',
+  ...theme.applyStyles('dark', {
+    backgroundColor: theme.palette.grey[700],
+  }),
+  variants: [
+    {
+      props: ({ ownerState }) => ownerState.active,
+      style: {
+        backgroundImage:
+          'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+        boxShadow: '0 4px 10px 0 rgba(0,0,0,.25)',
+      },
+    },
+    {
+      props: ({ ownerState }) => ownerState.completed,
+      style: {
+        backgroundImage:
+          'linear-gradient( 136deg, rgb(242,113,33) 0%, rgb(233,64,87) 50%, rgb(138,35,135) 100%)',
+      },
+    },
+  ],
+}));
+
+function ColorlibStepIcon(props) {
+  const { active, completed, className } = props;
+
+  const icons = {
+    1: <SettingsIcon />,
+    2: <GroupAddIcon />,
+    3: <VideoLabelIcon />,
+  };
+
+  return (
+    <ColorlibStepIconRoot ownerState={{ completed, active }} className={className}>
+      {icons[String(props.icon)]}
+    </ColorlibStepIconRoot>
+  );
+}
+
+ColorlibStepIcon.propTypes = {
+  /**
+   * Whether this step is active.
+   * @default false
+   */
+  active: PropTypes.bool,
+  className: PropTypes.string,
+  /**
+   * Mark the step as completed. Is passed to child components.
+   * @default false
+   */
+  completed: PropTypes.bool,
+  /**
+   * The label displayed in the step icon.
+   */
+  icon: PropTypes.node,
+};
+
+const steps = ['Select campaign settings', 'Create an ad group', 'Create an ad'];
+
+export default function CustomizedSteppers() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={4}>
+      <Stepper alternativeLabel activeStep={1} connector={<QontoConnector />}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel slots={{ stepIcon: QontoStepIcon }}>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+      <Stepper alternativeLabel activeStep={1} connector={<ColorlibConnector />}>
+        {steps.map((label) => (
+          <Step key={label}>
+            <StepLabel slots={{ stepIcon: ColorlibStepIcon }}>{label}</StepLabel>
+          </Step>
+        ))}
+      </Stepper>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Vertical stepper
+
+Vertical steppers are designed for narrow screen sizes. They are ideal for mobile. All the features of the horizontal stepper can be implemented.
+
+```{r}
+verticalSteps <- list(
+  list(
+    label = "Select campaign settings",
+    description = "For each ad campaign that you create, you can control how much
+    you're willing to spend on clicks and conversions, which networks
+    and geographical locations you want your ads to show on, and more."
+  ),
+  list(
+    label = "Create an ad group",
+    description = "An ad group contains one or more ads which target a shared set of keywords."
+  ),
+  list(
+    label = "Create an ad",
+    description = "Try out different ad text to see what brings in the most customers,
+    and learn how to enhance your ads using features like ad extensions.
+    If you run into any problems with your ads, find out how to tell if
+    they're running and how to resolve approval issues."
+  )
+)
+
+verticalLinearStepper <- function(activeStep = 0, alternativeLabel = FALSE, route = "vertical-stepper") {
+  Box(
+    sx = list(maxWidth = 400),
+    Stepper(
+      activeStep = activeStep,
+      orientation = "vertical",
+      alternativeLabel = alternativeLabel,
+      lapply(seq_along(verticalSteps) - 1, function(index) {
+        step <- verticalSteps[[index + 1]]
+        Step(
+          StepLabel(
+            optional = if (index == length(verticalSteps) - 1) Typography(variant = "caption", "Last step") else FALSE,
+            step$label
+          ),
+          StepContent(
+            Typography(step$description),
+            Box(
+              sx = list(mb = 2),
+              Button(
+                variant = "contained",
+                href = sprintf("#/%s/%s", route, index + 1),
+                sx = list(mt = 1, mr = 1),
+                if (index == length(verticalSteps) - 1) "Finish" else "Continue"
+              ),
+              if (index != 0) Button(href = sprintf("#/%s/%s", route, index - 1), sx = list(mt = 1, mr = 1), "Back")
+            )
+          )
+        )
+      })
+    ),
+    if (activeStep == length(verticalSteps)) {
+      Paper(
+        square = TRUE,
+        elevation = 0,
+        sx = list(p = 3),
+        Typography("All steps completed - you're finished"),
+        Button(href = "#/", sx = list(mt = 1, mr = 1), "Reset")
+      )
+    }
+  )
+}
+
+stepRoutes <- function(route, n, render) {
+  c(
+    lapply(seq_len(n), function(step) Route(path = paste0(route, "/", step), element = render(step))),
+    list(Route(path = "*", element = render(0)))
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(stepRoutes("vertical-stepper", 3, verticalLinearStepper))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepContent from '@mui/material/StepContent';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+
+const steps = [
+  {
+    label: 'Select campaign settings',
+    description: `For each ad campaign that you create, you can control how much
+              you're willing to spend on clicks and conversions, which networks
+              and geographical locations you want your ads to show on, and more.`,
+  },
+  {
+    label: 'Create an ad group',
+    description:
+      'An ad group contains one or more ads which target a shared set of keywords.',
+  },
+  {
+    label: 'Create an ad',
+    description: `Try out different ad text to see what brings in the most customers,
+              and learn how to enhance your ads using features like ad extensions.
+              If you run into any problems with your ads, find out how to tell if
+              they're running and how to resolve approval issues.`,
+  },
+];
+
+export default function VerticalLinearStepper() {
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  const previousActiveStepRef = React.useRef(activeStep);
+  const continueButtonRef = React.useRef(null);
+  const backButtonRef = React.useRef(null);
+  const resetButtonRef = React.useRef(null);
+
+  // Manage focus when the active step changes.
+  React.useEffect(() => {
+    const previousActiveStep = previousActiveStepRef.current;
+    previousActiveStepRef.current = activeStep;
+
+    // If the user is going forward.
+    if (previousActiveStep < activeStep) {
+      if (activeStep === steps.length) {
+        // If the user has completed all steps and hits "Finish", focus the "Reset" button.
+        resetButtonRef.current.focus();
+      } else {
+        // Focus the "Continue" button otherwise.
+        continueButtonRef.current.focus();
+      }
+      return;
+    }
+    // Otherwise, the user is going back.
+
+    if (activeStep === 0) {
+      // If the user hit "Back" on the second step, or hit "Reset", focus the "Continue" button.
+      continueButtonRef.current.focus();
+      return;
+    }
+
+    // Focus the "Back" button otherwise.
+    backButtonRef.current.focus();
+  }, [activeStep]);
+
+  return (
+    <Box sx={{ maxWidth: 400 }}>
+      <Stepper activeStep={activeStep} orientation="vertical">
+        {steps.map((step, index) => (
+          <Step key={step.label}>
+            <StepLabel
+              optional={
+                index === steps.length - 1 ? (
+                  <Typography variant="caption">Last step</Typography>
+                ) : null
+              }
+            >
+              {step.label}
+            </StepLabel>
+            <StepContent>
+              <Typography>{step.description}</Typography>
+              <Box sx={{ mb: 2 }}>
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{ mt: 1, mr: 1 }}
+                  ref={continueButtonRef}
+                >
+                  {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                </Button>
+                {index !== 0 && (
+                  <Button
+                    onClick={handleBack}
+                    sx={{ mt: 1, mr: 1 }}
+                    ref={backButtonRef}
+                  >
+                    Back
+                  </Button>
+                )}
+              </Box>
+            </StepContent>
+          </Step>
+        ))}
+      </Stepper>
+      {activeStep === steps.length && (
+        <Paper square elevation={0} sx={{ p: 3 }}>
+          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }} ref={resetButtonRef}>
+            Reset
+          </Button>
+        </Paper>
+      )}
+    </Box>
+  );
+}
+```
+</details>
+
+### Alternative label
+
+Use `alternativeLabel` prop on the vertical `Stepper` component to reverse the placement of the label and content.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(stepRoutes("vertical-alternative-stepper", 3, function(step) {
+      verticalLinearStepper(step, alternativeLabel = TRUE, route = "vertical-alternative-stepper")
+    }))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Stepper from '@mui/material/Stepper';
+import Step from '@mui/material/Step';
+import StepLabel from '@mui/material/StepLabel';
+import StepContent from '@mui/material/StepContent';
+import Button from '@mui/material/Button';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+
+const steps = [
+  {
+    label: 'Select campaign settings',
+    description: `For each ad campaign that you create, you can control how much
+              you're willing to spend on clicks and conversions, which networks
+              and geographical locations you want your ads to show on, and more.`,
+  },
+  {
+    label: 'Create an ad group',
+    description:
+      'An ad group contains one or more ads which target a shared set of keywords.',
+  },
+  {
+    label: 'Create an ad',
+    description: `Try out different ad text to see what brings in the most customers,
+              and learn how to enhance your ads using features like ad extensions.
+              If you run into any problems with your ads, find out how to tell if
+              they're running and how to resolve approval issues.`,
+  },
+];
+
+export default function VerticalLinearAlternativeLabelStepper() {
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const handleReset = () => {
+    setActiveStep(0);
+  };
+
+  return (
+    <Box sx={{ maxWidth: 400 }}>
+      <Stepper activeStep={activeStep} orientation="vertical" alternativeLabel>
+        {steps.map((step, index) => (
+          <Step key={step.label}>
+            <StepLabel
+              optional={
+                index === steps.length - 1 ? (
+                  <Typography variant="caption">Last step</Typography>
+                ) : null
+              }
+            >
+              {step.label}
+            </StepLabel>
+            <StepContent sx={{ textAlign: 'right' }}>
+              <Typography>{step.description}</Typography>
+              <Box sx={{ mb: 2 }}>
+                <Button
+                  variant="contained"
+                  onClick={handleNext}
+                  sx={{ mt: 1, mr: 1 }}
+                >
+                  {index === steps.length - 1 ? 'Finish' : 'Continue'}
+                </Button>
+                <Button
+                  disabled={index === 0}
+                  onClick={handleBack}
+                  sx={{ mt: 1, mr: 1 }}
+                >
+                  Back
+                </Button>
+              </Box>
+            </StepContent>
+          </Step>
+        ))}
+      </Stepper>
+      {activeStep === steps.length && (
+        <Paper square elevation={0} sx={{ p: 3 }}>
+          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
+            Reset
+          </Button>
+        </Paper>
+      )}
+    </Box>
+  );
+}
+```
+</details>
+
+## Transition
+
+`StepContent` uses [Collapse](transitions.html#collapse) by default.
+Use `slots$transition` and `slotProps$transition` to replace it with another transition or to pass transition props.
+
+## Performance
+
+The content of a step is unmounted when closed.
+If you need to make the content available to search engines or render expensive component trees inside your modal while optimizing for interaction responsiveness it might be a good idea to keep the step mounted with:
+
+```r
+StepContent(slotProps = list(transition = list(unmountOnExit = FALSE)))
+```
+
+## Mobile stepper
+
+This component implements a compact stepper suitable for a mobile device. It has more limited functionality than the vertical stepper. See [mobile steps](https://m1.material.io/components/steppers.html#steppers-types-of-steps) for its inspiration.
+
+The mobile stepper supports three variants to display progress through the available steps: text, dots, and progress.
+
+### Text
+
+The current step and total number of steps are displayed as text.
+
+```{r}
+mobileButtons <- function(route, activeStep, maxSteps) {
+  list(
+    nextButton = Button(
+      size = "small",
+      href = sprintf("#/%s/%s", route, activeStep + 1),
+      disabled = activeStep == maxSteps - 1,
+      "Next", Icon("keyboard_arrow_right")
+    ),
+    backButton = Button(
+      size = "small",
+      href = sprintf("#/%s/%s", route, activeStep - 1),
+      disabled = activeStep == 0,
+      Icon("keyboard_arrow_left"), "Back"
+    )
+  )
+}
+
+textMobileStepper <- function(activeStep) {
+  buttons <- mobileButtons("text-mobile-stepper", activeStep, length(verticalSteps))
+  Box(
+    sx = list(maxWidth = 400, flexGrow = 1),
+    Paper(
+      square = TRUE,
+      elevation = 0,
+      sx = list(display = "flex", alignItems = "center", height = 50, pl = 2, bgcolor = "background.default"),
+      Typography(verticalSteps[[activeStep + 1]]$label)
+    ),
+    Box(sx = list(height = 255, maxWidth = 400, width = "100%", p = 2), verticalSteps[[activeStep + 1]]$description),
+    MobileStepper(
+      variant = "text", steps = length(verticalSteps), position = "static", activeStep = activeStep,
+      nextButton = buttons$nextButton, backButton = buttons$backButton
+    )
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(router = createHashRouter(stepRoutes("text-mobile-stepper", 2, textMobileStepper)))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import Paper from '@mui/material/Paper';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+
+const steps = [
+  {
+    label: 'Select campaign settings',
+    description: `For each ad campaign that you create, you can control how much
+              you're willing to spend on clicks and conversions, which networks
+              and geographical locations you want your ads to show on, and more.`,
+  },
+  {
+    label: 'Create an ad group',
+    description:
+      'An ad group contains one or more ads which target a shared set of keywords.',
+  },
+  {
+    label: 'Create an ad',
+    description: `Try out different ad text to see what brings in the most customers,
+              and learn how to enhance your ads using features like ad extensions.
+              If you run into any problems with your ads, find out how to tell if
+              they're running and how to resolve approval issues.`,
+  },
+];
+
+export default function TextMobileStepper() {
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+  const maxSteps = steps.length;
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const nextButtonRef = React.useRef(null);
+  const backButtonRef = React.useRef(null);
+  const previousActiveStepRef = React.useRef(activeStep);
+
+  // Manage focus when the active step changes.
+  React.useEffect(() => {
+    const previousActiveStep = previousActiveStepRef.current;
+    previousActiveStepRef.current = activeStep;
+
+    if (activeStep === 0 && previousActiveStep === 1) {
+      // If the user is going back to the first step, focus the "Next" button.
+      nextButtonRef.current.focus();
+      return;
+    }
+
+    if (activeStep === maxSteps - 1 && previousActiveStep === maxSteps - 2) {
+      // If the user is going to the last step, focus the "Back" button.
+      backButtonRef.current.focus();
+    }
+  }, [activeStep, maxSteps]);
+
+  return (
+    <Box sx={{ maxWidth: 400, flexGrow: 1 }}>
+      <Paper
+        square
+        elevation={0}
+        sx={{
+          display: 'flex',
+          alignItems: 'center',
+          height: 50,
+          pl: 2,
+          bgcolor: 'background.default',
+        }}
+      >
+        <Typography>{steps[activeStep].label}</Typography>
+      </Paper>
+      <Box sx={{ height: 255, maxWidth: 400, width: '100%', p: 2 }}>
+        {steps[activeStep].description}
+      </Box>
+      <MobileStepper
+        variant="text"
+        steps={maxSteps}
+        position="static"
+        activeStep={activeStep}
+        nextButton={
+          <Button
+            size="small"
+            onClick={handleNext}
+            disabled={activeStep === maxSteps - 1}
+            ref={nextButtonRef}
+          >
+            Next
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowLeft />
+            ) : (
+              <KeyboardArrowRight />
+            )}
+          </Button>
+        }
+        backButton={
+          <Button
+            size="small"
+            onClick={handleBack}
+            disabled={activeStep === 0}
+            ref={backButtonRef}
+          >
+            {theme.direction === 'rtl' ? (
+              <KeyboardArrowRight />
+            ) : (
+              <KeyboardArrowLeft />
+            )}
+            Back
+          </Button>
+        }
+      />
+    </Box>
+  );
+}
+```
+</details>
+
+### Dots
+
+Use dots when the number of steps is small.
+
+```{r}
+dotsMobileStepper <- function(activeStep) {
+  buttons <- mobileButtons("dots-mobile-stepper", activeStep, 6)
+  MobileStepper(
+    variant = "dots", steps = 6, position = "static", activeStep = activeStep,
+    sx = list(maxWidth = 400, flexGrow = 1),
+    nextButton = buttons$nextButton, backButton = buttons$backButton
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(router = createHashRouter(stepRoutes("dots-mobile-stepper", 5, dotsMobileStepper)))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import Button from '@mui/material/Button';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+
+const steps = 6;
+
+export default function DotsMobileStepper() {
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const nextButtonRef = React.useRef(null);
+  const backButtonRef = React.useRef(null);
+  const previousActiveStepRef = React.useRef(activeStep);
+
+  // Manage focus when the active step changes.
+  React.useEffect(() => {
+    const previousActiveStep = previousActiveStepRef.current;
+    previousActiveStepRef.current = activeStep;
+
+    if (activeStep === 0 && previousActiveStep === 1) {
+      // If the user is going back to the first step, focus the "Next" button.
+      nextButtonRef.current.focus();
+      return;
+    }
+    if (activeStep === steps - 1 && previousActiveStep === steps - 2) {
+      // If the user is going to the last step, focus the "Back" button.
+      backButtonRef.current.focus();
+    }
+  }, [activeStep]);
+
+  return (
+    <MobileStepper
+      variant="dots"
+      steps={steps}
+      position="static"
+      activeStep={activeStep}
+      sx={{ maxWidth: 400, flexGrow: 1 }}
+      slotProps={{
+        progress: {
+          'aria-label': 'stepper dotted progress',
+        },
+      }}
+      nextButton={
+        <Button
+          size="small"
+          onClick={handleNext}
+          disabled={activeStep === 5}
+          ref={nextButtonRef}
+        >
+          Next
+          {theme.direction === 'rtl' ? (
+            <KeyboardArrowLeft />
+          ) : (
+            <KeyboardArrowRight />
+          )}
+        </Button>
+      }
+      backButton={
+        <Button
+          size="small"
+          onClick={handleBack}
+          disabled={activeStep === 0}
+          ref={backButtonRef}
+        >
+          {theme.direction === 'rtl' ? (
+            <KeyboardArrowRight />
+          ) : (
+            <KeyboardArrowLeft />
+          )}
+          Back
+        </Button>
+      }
+    />
+  );
+}
+```
+</details>
+
+### Progress
+
+Use a progress bar when there are many steps, or if there are steps that need to be inserted during the process (based on responses to earlier steps).
+
+```{r}
+progressMobileStepper <- function(activeStep) {
+  buttons <- mobileButtons("progress-mobile-stepper", activeStep, 6)
+  MobileStepper(
+    variant = "progress", steps = 6, position = "static", activeStep = activeStep,
+    sx = list(maxWidth = 400, flexGrow = 1),
+    nextButton = buttons$nextButton, backButton = buttons$backButton
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(router = createHashRouter(stepRoutes("progress-mobile-stepper", 5, progressMobileStepper)))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { useTheme } from '@mui/material/styles';
+import MobileStepper from '@mui/material/MobileStepper';
+import Button from '@mui/material/Button';
+import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
+
+export default function ProgressMobileStepper() {
+  const theme = useTheme();
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const handleBack = () => {
+    setActiveStep((prevActiveStep) => prevActiveStep - 1);
+  };
+
+  const nextButtonRef = React.useRef(null);
+  const backButtonRef = React.useRef(null);
+  const previousActiveStepRef = React.useRef(activeStep);
+
+  // Manage focus when the active step changes.
+  React.useEffect(() => {
+    const previousActiveStep = previousActiveStepRef.current;
+
+    if (activeStep === 0 && previousActiveStep === 1) {
+      // If the user is going back to the first step, focus the "Next" button.
+      nextButtonRef.current.focus();
+    } else if (activeStep === 5 && previousActiveStep === 4) {
+      // If the user is going to the last step, focus the "Back" button.
+      backButtonRef.current.focus();
+    }
+
+    previousActiveStepRef.current = activeStep;
+  }, [activeStep]);
+
+  return (
+    <MobileStepper
+      variant="progress"
+      steps={6}
+      position="static"
+      activeStep={activeStep}
+      sx={{ maxWidth: 400, flexGrow: 1 }}
+      slotProps={{
+        progress: {
+          'aria-label': 'stepper linear progress',
+        },
+      }}
+      nextButton={
+        <Button
+          size="small"
+          onClick={handleNext}
+          disabled={activeStep === 5}
+          ref={nextButtonRef}
+        >
+          Next
+          {theme.direction === 'rtl' ? (
+            <KeyboardArrowLeft />
+          ) : (
+            <KeyboardArrowRight />
+          )}
+        </Button>
+      }
+      backButton={
+        <Button
+          size="small"
+          onClick={handleBack}
+          disabled={activeStep === 0}
+          ref={backButtonRef}
+        >
+          {theme.direction === 'rtl' ? (
+            <KeyboardArrowRight />
+          ) : (
+            <KeyboardArrowLeft />
+          )}
+          Back
+        </Button>
+      }
+    />
+  );
+}
+```
+</details>
+
+## Steppers in Shiny apps
+
+In a Shiny app, the server holds the active step, for example to validate each
+step before moving on. Render the stepper with `renderUI()` and update the step
+from `Button.shinyInput()` clicks:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+steps <- c("Select campaign settings", "Create an ad group", "Create an ad")
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(width = "100%", p = 2),
+    uiOutput("stepper"),
+    Box(
+      sx = list(display = "flex", flexDirection = "row", pt = 2),
+      Button.shinyInput("back", "Back", color = "inherit"),
+      Box(sx = list(flex = "1 1 auto")),
+      Button.shinyInput("next", "Next")
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  activeStep <- reactiveVal(0)
+  observeEvent(input$back, activeStep(max(activeStep() - 1, 0)))
+  observeEvent(input$`next`, activeStep(min(activeStep() + 1, length(steps))))
+
+  output$stepper <- renderUI({
+    Stepper(activeStep = activeStep(), lapply(steps, function(label) Step(StepLabel(label))))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+Run a complete example with `muiMaterialExample("Stepper")`. `StepButton.shinyInput()`
+reports clicks on a step label to the server, for non-linear steppers.

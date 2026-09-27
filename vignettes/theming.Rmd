@@ -1,0 +1,1217 @@
+---
+title: "Theming"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Theming}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the MUI Material UI documentation pages on [theming](https://mui.com/material-ui/customization/theming/), [palette](https://mui.com/material-ui/customization/palette/), [dark mode](https://mui.com/material-ui/customization/dark-mode/), [typography](https://mui.com/material-ui/customization/typography/) and [themed components](https://mui.com/material-ui/customization/theme-components/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Theming
+
+Customize Material UI with your theme. You can change the colors, the typography and much more.
+
+The theme specifies the color of the components, darkness of the surfaces, level of shadow, appropriate opacity of ink elements, etc.
+
+Themes let you apply a consistent tone to your app. It allows you to **customize all design aspects** of your project in order to meet the specific needs of your business or brand.
+
+To promote greater consistency between apps, light and dark theme types are available to choose from. By default, components use the light theme type.
+
+## Theme provider
+
+Material UI components adhere to the library's default theme out of the box.
+Use `ThemeProvider()` to inject a custom theme into your application.
+
+In React, you build a theme with `createTheme(options)` and pass it to
+`ThemeProvider`. In R, `ThemeProvider(theme = ...)` takes the **options** as a
+named list and calls `createTheme()` for you. `ThemeProvider()` must be a
+parent of the components you want to customize:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(palette = list(primary = list(main = "#6a1b9a"))),
+    Stack(
+      direction = "row",
+      spacing = 2,
+      Button(variant = "contained", "Themed button"),
+      Chip(color = "primary", label = "Themed chip"),
+      Switch(defaultChecked = TRUE)
+    )
+  )
+)
+```
+
+In a Shiny app, wrap the whole UI:
+
+```r
+ui <- muiMaterialPage(
+  ThemeProvider(
+    theme = myTheme,
+    CssBaseline(),
+    # the rest of your app
+  )
+)
+```
+
+## Theme configuration variables
+
+Changing the theme configuration variables is the most effective way to match Material UI to your needs.
+The following sections cover the most important theme variables:
+
+- [`palette`](#palette)
+- [`typography`](#typography)
+- `spacing`: the unit of the spacing values in `sx` (8px by default). See [MUI spacing](https://mui.com/material-ui/customization/spacing/).
+- `breakpoints`: see [custom breakpoints](grid.html#custom-breakpoints).
+- `zIndex` and `transitions`: see [MUI z-index](https://mui.com/material-ui/customization/z-index/) and [MUI transitions](https://mui.com/material-ui/customization/transitions/).
+- [`components`](#themed-components)
+
+You can check out the [default theme](https://mui.com/material-ui/customization/default-theme/) to view the default theme in full.
+
+### Custom variables
+
+It can be convenient to add additional variables to the theme so you can use them everywhere.
+For instance, a `status` color. In `sx`, a function of the theme (written with
+`JS()`) reads the variable:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(status = list(danger = "#ff9800")), # orange[500]
+    Checkbox(defaultChecked = TRUE, sx = JS("(theme) => ({ color: theme.status.danger, '&.Mui-checked': { color: theme.status.danger } })"))
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Checkbox from '@mui/material/Checkbox';
+import { createTheme, ThemeProvider, styled } from '@mui/material/styles';
+import { orange } from '@mui/material/colors';
+
+const CustomCheckbox = styled(Checkbox)(({ theme }) => ({
+  color: theme.status.danger,
+  '&.Mui-checked': {
+    color: theme.status.danger,
+  },
+}));
+
+const theme = createTheme({
+  status: {
+    danger: orange[500],
+  },
+});
+
+export default function CustomStyles() {
+  return (
+    <ThemeProvider theme={theme}>
+      <CustomCheckbox defaultChecked />
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+## Palette
+
+The palette enables you to modify the color of the components to suit your brand.
+
+### Default colors
+
+The theme exposes the following default palette colors (accessible under
+`theme.palette.*`, and usable as `"primary.main"`, `"error.light"`, ... in `sx`):
+
+- `primary` - for primary interface elements.
+- `secondary` - for secondary interface elements.
+- `error` - for elements that the user should be made aware of.
+- `warning` - for potentially dangerous actions or important messages.
+- `info` - for highlighting neutral information.
+- `success` - for indicating the successful completion of an action that the user triggered.
+
+Each color has a `main` value, and `light`, `dark` and `contrastText` values derived from it:
+
+```{r}
+intentions <- c("primary", "secondary", "error", "warning", "info", "success")
+
+muiMaterialPage(
+  CssBaseline(),
+  Grid(
+    container = TRUE,
+    spacing = 2,
+    lapply(intentions, function(intention) {
+      Grid(
+        size = list(xs = 6, sm = 4),
+        Typography(variant = "subtitle2", intention),
+        lapply(c("light", "main", "dark"), function(tone) {
+          Box(
+            sx = list(
+              bgcolor = paste0(intention, ".", tone),
+              color = paste0(intention, ".contrastText"),
+              p = 1,
+              typography = "body2"
+            ),
+            tone
+          )
+        })
+      )
+    })
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Typography from '@mui/material/Typography';
+import { useTheme, rgbToHex, styled } from '@mui/material/styles';
+
+const Group = styled(Typography)(({ theme }) => ({
+  marginTop: theme.spacing(3),
+}));
+
+const Color = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  '& div:first-of-type': {
+    width: theme.spacing(6),
+    height: theme.spacing(6),
+    marginRight: theme.spacing(1),
+    borderRadius: theme.shape.borderRadius,
+    boxShadow: 'inset 0 2px 4px 0 rgba(0, 0, 0, .06)',
+  },
+}));
+
+export default function Intentions() {
+  const theme = useTheme();
+
+  const item = (color, name) => (
+    <Color size={{ xs: 12, sm: 6, md: 4 }}>
+      <div style={{ backgroundColor: color }} />
+      <div>
+        <Typography variant="body2">{name}</Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          {rgbToHex(color)}
+        </Typography>
+      </div>
+    </Color>
+  );
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Group gutterBottom>Primary</Group>
+      <Grid container spacing={2}>
+        {item(theme.palette.primary.light, 'palette.primary.light')}
+        {item(theme.palette.primary.main, 'palette.primary.main')}
+        {item(theme.palette.primary.dark, 'palette.primary.dark')}
+      </Grid>
+      <Group gutterBottom>Secondary</Group>
+      <Grid container spacing={2}>
+        {item(theme.palette.secondary.light, 'palette.secondary.light')}
+        {item(theme.palette.secondary.main, 'palette.secondary.main')}
+        {item(theme.palette.secondary.dark, 'palette.secondary.dark')}
+      </Grid>
+      <Group gutterBottom>Error</Group>
+      <Grid container spacing={2}>
+        {item(theme.palette.error.light, 'palette.error.light')}
+        {item(theme.palette.error.main, 'palette.error.main')}
+        {item(theme.palette.error.dark, 'palette.error.dark')}
+      </Grid>
+      <Group gutterBottom>Warning</Group>
+      <Grid container spacing={2}>
+        {item(theme.palette.warning.light, 'palette.warning.light')}
+        {item(theme.palette.warning.main, 'palette.warning.main')}
+        {item(theme.palette.warning.dark, 'palette.warning.dark')}
+      </Grid>
+      <Group gutterBottom>Info</Group>
+      <Grid container spacing={2}>
+        {item(theme.palette.info.light, 'palette.info.light')}
+        {item(theme.palette.info.main, 'palette.info.main')}
+        {item(theme.palette.info.dark, 'palette.info.dark')}
+      </Grid>
+      <Group gutterBottom>Success</Group>
+      <Grid container spacing={2}>
+        {item(theme.palette.success.light, 'palette.success.light')}
+        {item(theme.palette.success.main, 'palette.success.main')}
+        {item(theme.palette.success.dark, 'palette.success.dark')}
+      </Grid>
+    </Box>
+  );
+}
+```
+</details>
+
+### Customization
+
+You may override the default palette values by including a palette object as part of your theme.
+If any of the `palette.primary`, `palette.secondary`, `palette.error`, `palette.warning`, `palette.info` or `palette.success` palette color objects are provided, they will replace the default ones.
+
+When only `main` is given, `light`, `dark` and `contrastText` are calculated
+from it. You can also provide them directly:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      palette = list(
+        primary = list(main = "#FF5733"),
+        secondary = list(main = "#E0C2FF", light = "#F5EBFF", contrastText = "#47008F")
+      )
+    ),
+    Stack(
+      direction = "row",
+      spacing = 2,
+      Button(variant = "contained", "Primary"),
+      Button(variant = "contained", color = "secondary", "Secondary")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import PropTypes from 'prop-types';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import { unstable_capitalize as capitalize } from '@mui/utils';
+import Typography from '@mui/material/Typography';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#FF5733',
+      // light: will be calculated from palette.primary.main,
+      // dark: will be calculated from palette.primary.main,
+      // contrastText: will be calculated to contrast with palette.primary.main
+    },
+    secondary: {
+      main: '#E0C2FF',
+      light: '#F5EBFF',
+      // dark: will be calculated from palette.secondary.main,
+      contrastText: '#47008F',
+    },
+  },
+});
+
+function ColorShowcase({ color }) {
+  return (
+    <Stack sx={{ gap: 2, alignItems: 'center' }}>
+      <Button variant="contained" color={color}>
+        {capitalize(color)}
+      </Button>
+      <Stack direction="row" sx={{ gap: 1 }}>
+        <Stack sx={{ alignItems: 'center' }}>
+          <Typography variant="body2">light</Typography>
+          <Box sx={{ bgcolor: `${color}.light`, width: 40, height: 20 }} />
+        </Stack>
+        <Stack sx={{ alignItems: 'center' }}>
+          <Typography variant="body2">main</Typography>
+          <Box sx={{ bgcolor: `${color}.main`, width: 40, height: 20 }} />
+        </Stack>
+        <Stack sx={{ alignItems: 'center' }}>
+          <Typography variant="body2">dark</Typography>
+          <Box sx={{ bgcolor: `${color}.dark`, width: 40, height: 20 }} />
+        </Stack>
+      </Stack>
+    </Stack>
+  );
+}
+
+ColorShowcase.propTypes = {
+  color: PropTypes.oneOf(['primary', 'secondary']).isRequired,
+};
+
+export default function ManuallyProvidePaletteColor() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Stack direction="row" sx={{ gap: 8 }}>
+        <ColorShowcase color="primary" />
+        <ColorShowcase color="secondary" />
+      </Stack>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+`contrastThreshold` (3 by default) and `tonalOffset` (0.2 by default) control
+how `contrastText`, `light` and `dark` are computed:
+
+```r
+ThemeProvider(theme = list(palette = list(contrastThreshold = 4.5, tonalOffset = 0.25)), ...)
+```
+
+### Custom colors
+
+You can add your own colors to the palette, and use them with the `color`
+prop of the components and in `sx`:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      palette = list(
+        ochre = list(main = "#E3D026", light = "#E9DB5D", dark = "#A29415", contrastText = "#242105")
+      )
+    ),
+    Stack(
+      direction = "row",
+      spacing = 2,
+      sx = list(alignItems = "center"),
+      Button(variant = "contained", color = "ochre", "Ochre"),
+      Chip(color = "ochre", label = "Ochre chip"),
+      Box(sx = list(bgcolor = "ochre.light", p = 1, borderRadius = 1), "ochre.light")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+import Box from '@mui/material/Box';
+import Stack from '@mui/material/Stack';
+import Typography from '@mui/material/Typography';
+
+// Augment the palette to include an ochre color
+
+// Update the Button's color options to include an ochre option
+
+const theme = createTheme({
+  palette: {
+    ochre: {
+      main: '#E3D026',
+      light: '#E9DB5D',
+      dark: '#A29415',
+      contrastText: '#242105',
+    },
+  },
+});
+
+export default function ManuallyProvideCustomColor() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Stack sx={{ gap: 2, alignItems: 'center' }}>
+        <Button variant="contained" color="ochre">
+          Ochre
+        </Button>
+        <Stack direction="row" sx={{ gap: 1 }}>
+          <Stack sx={{ alignItems: 'center' }}>
+            <Typography variant="body2">light</Typography>
+            <Box sx={{ bgcolor: 'ochre.light', width: 40, height: 20 }} />
+          </Stack>
+          <Stack sx={{ alignItems: 'center' }}>
+            <Typography variant="body2">main</Typography>
+            <Box sx={{ bgcolor: 'ochre.main', width: 40, height: 20 }} />
+          </Stack>
+          <Stack sx={{ alignItems: 'center' }}>
+            <Typography variant="body2">dark</Typography>
+            <Box sx={{ bgcolor: 'ochre.dark', width: 40, height: 20 }} />
+          </Stack>
+        </Stack>
+      </Stack>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+## Dark mode
+
+Material UI comes with two palette modes: light (the default) and dark.
+You can make the theme dark by setting `mode = "dark"`:
+
+```{r}
+muiMaterialPage(
+  ThemeProvider(
+    theme = list(palette = list(mode = "dark")),
+    CssBaseline(),
+    Paper(
+      sx = list(p = 2),
+      Stack(
+        spacing = 2,
+        Typography("This paper uses the dark palette."),
+        Stack(direction = "row", spacing = 2, Button(variant = "contained", "Contained"), Button(variant = "outlined", "Outlined"))
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Typography from '@mui/material/Typography';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import { styled, ThemeProvider, useTheme, createTheme } from '@mui/material/styles';
+
+const Root = styled('div')(({ theme }) => ({
+  backgroundColor: theme.palette.background.default,
+  color: theme.palette.text.primary,
+  padding: theme.spacing(2),
+  borderRadius: 4,
+  [theme.breakpoints.up('md')]: {
+    padding: theme.spacing(3),
+  },
+}));
+
+const Color = styled(Grid)(({ theme }) => ({
+  display: 'flex',
+  alignItems: 'center',
+  '& div:first-of-type': {
+    width: theme.spacing(5),
+    height: theme.spacing(5),
+    flexShrink: 0,
+    marginRight: theme.spacing(1.5),
+    borderRadius: theme.shape.borderRadius,
+  },
+}));
+
+function Demo() {
+  const theme = useTheme();
+
+  const item = (color, name, expanded = false, border = false) => (
+    <Color size={{ xs: 12, sm: 6, md: expanded ? 8 : 4 }}>
+      <div
+        style={{
+          backgroundColor: color,
+          border: border ? `1px solid ${theme.palette.divider}` : undefined,
+        }}
+      />
+      <div>
+        <Typography variant="body2">{name}</Typography>
+        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
+          {color}
+        </Typography>
+      </div>
+    </Color>
+  );
+
+  return (
+    <Root>
+      <Typography gutterBottom sx={{ mb: 1.5 }}>
+        Typography
+      </Typography>
+      <Grid container spacing={1}>
+        {item(theme.palette.text.primary, 'palette.text.primary')}
+        {item(theme.palette.text.secondary, 'palette.text.secondary')}
+        {item(theme.palette.text.disabled, 'palette.text.disabled')}
+      </Grid>
+      <Typography gutterBottom sx={{ mt: 4, mb: 1.5 }}>
+        Buttons
+      </Typography>
+      <Grid container spacing={1}>
+        {item(theme.palette.action.active, 'palette.action.active')}
+        {item(theme.palette.action.hover, 'palette.action.hover')}
+        {item(theme.palette.action.selected, 'palette.action.selected')}
+        {item(theme.palette.action.disabled, 'palette.action.disabled')}
+        {item(
+          theme.palette.action.disabledBackground,
+          'palette.action.disabledBackground',
+          true,
+        )}
+      </Grid>
+      <Typography gutterBottom sx={{ mt: 4, mb: 1.5 }}>
+        Background
+      </Typography>
+      <Grid container spacing={1}>
+        {item(
+          theme.palette.background.default,
+          'palette.background.default',
+          false,
+          true,
+        )}
+        {item(
+          theme.palette.background.paper,
+          'palette.background.paper',
+          false,
+          true,
+        )}
+      </Grid>
+      <Typography gutterBottom sx={{ mt: 4, mb: 1.5 }}>
+        Divider
+      </Typography>
+      <Grid container spacing={1}>
+        {item(theme.palette.divider, 'palette.divider')}
+      </Grid>
+    </Root>
+  );
+}
+
+const darkTheme = createTheme({
+  palette: {
+    // Switching the dark mode on is a single property value change.
+    mode: 'dark',
+  },
+});
+
+export default function DarkTheme() {
+  return (
+    <Box sx={{ width: '100%' }}>
+      <ThemeProvider theme={darkTheme}>
+        <Demo />
+      </ThemeProvider>
+    </Box>
+  );
+}
+```
+</details>
+
+Adding `CssBaseline()` inside the `ThemeProvider()` applies the dark background
+to the whole page (above, the demo only changes its `Paper()`).
+
+### Toggling color mode
+
+In React, the mode is kept in state and toggled with `useColorScheme()`. From R,
+build one theme per mode, and choose it:
+
+- in a **static page**, with a [reactRouter](https://felixluginbuhl.com/reactRouter/) route per mode,
+- in a **Shiny app**, with `renderReact()` (see [Theming in Shiny apps](#theming-in-shiny-apps)).
+
+```{r, message = FALSE}
+library(reactRouter)
+
+modeDemo <- function(mode) {
+  ThemeProvider(
+    theme = list(palette = list(mode = mode)),
+    Box(
+      sx = list(
+        display = "flex", width = "100%", alignItems = "center", justifyContent = "center",
+        bgcolor = "background.default", color = "text.primary", borderRadius = 1, p = 3
+      ),
+      paste(mode, "mode"),
+      IconButton(
+        sx = list(ml = 1),
+        href = if (mode == "dark") "#/" else "#/mode/dark",
+        color = "inherit",
+        Icon(if (mode == "dark") "brightness_7" else "brightness_4")
+      )
+    )
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      Route(path = "mode/dark", element = modeDemo("dark")),
+      Route(path = "*", element = modeDemo("light"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Box from '@mui/material/Box';
+import RadioGroup from '@mui/material/RadioGroup';
+import Radio from '@mui/material/Radio';
+import FormControl from '@mui/material/FormControl';
+import FormControlLabel from '@mui/material/FormControlLabel';
+import FormLabel from '@mui/material/FormLabel';
+import { ThemeProvider, createTheme, useColorScheme } from '@mui/material/styles';
+
+function MyApp() {
+  const { mode, setMode } = useColorScheme();
+  if (!mode) {
+    return null;
+  }
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        width: '100%',
+        alignItems: 'center',
+        justifyContent: 'center',
+        bgcolor: 'background.default',
+        color: 'text.primary',
+        borderRadius: 1,
+        p: 3,
+        minHeight: '56px',
+      }}
+    >
+      <FormControl>
+        <FormLabel id="demo-theme-toggle">Theme</FormLabel>
+        <RadioGroup
+          aria-labelledby="demo-theme-toggle"
+          name="theme-toggle"
+          row
+          value={mode}
+          onChange={(event) => setMode(event.target.value)}
+        >
+          <FormControlLabel value="system" control={<Radio />} label="System" />
+          <FormControlLabel value="light" control={<Radio />} label="Light" />
+          <FormControlLabel value="dark" control={<Radio />} label="Dark" />
+        </RadioGroup>
+      </FormControl>
+    </Box>
+  );
+}
+
+const theme = createTheme({
+  colorSchemes: {
+    dark: true,
+  },
+});
+
+export default function ToggleColorMode() {
+  return (
+    <ThemeProvider theme={theme}>
+      <MyApp />
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+## Typography
+
+The theme provides a set of type sizes that work well together, and also with the layout grid.
+
+### Font family
+
+You can change the font family with the `typography$fontFamily` theme property.
+Load the font first, for example from Google Fonts with an `htmltools::htmlDependency()`
+(this is how `muiMaterialPage(useFontRoboto = TRUE)` loads Roboto):
+
+```{r}
+lobster <- htmltools::htmlDependency(
+  name = "font-lobster", version = "1.0.0", src = c(href = "https://fonts.googleapis.com"),
+  head = '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Lobster&display=swap">'
+)
+
+muiMaterialPage(
+  CssBaseline(),
+  lobster,
+  ThemeProvider(
+    theme = list(typography = list(fontFamily = "'Lobster', cursive")),
+    Typography(variant = "h4", "A custom font family"),
+    Button(variant = "outlined", "Also on buttons")
+  )
+)
+```
+
+### Font size
+
+Material UI uses `rem` units for the font size.
+The browser `<html>` element default font size is `16px`, but browsers have an option to change this value, so `rem` units allow us to accommodate the user's settings, resulting in a better accessibility support.
+Users change font size settings for all kinds of reasons, from poor eyesight to choosing optimum settings for devices that can be vastly different in size and viewing distance.
+
+To change the font-size of Material UI you can provide a `fontSize` property.
+The default value is `14px`.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(typography = list(fontSize = 12)),
+    Typography("body1 with a 12px base font size"),
+    Button(variant = "contained", "Small button text")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+
+const theme = createTheme({
+  typography: {
+    // Tell MUI what the font-size on the html element is.
+    htmlFontSize: 10,
+  },
+});
+
+export default function FontSizeTheme() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Typography>body1</Typography>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+### Variants
+
+The typography object comes with [13 variants](typography.html#usage) by default. Each of these variants can be customized individually:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      typography = list(
+        subtitle1 = list(fontSize = 12),
+        body1 = list(fontWeight = 500),
+        button = list(fontStyle = "italic")
+      )
+    ),
+    Typography(variant = "subtitle1", "subtitle"),
+    Typography("body1"),
+    Button("Button")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+
+const theme = createTheme({
+  typography: {
+    subtitle1: {
+      fontSize: 12,
+    },
+    body1: {
+      fontWeight: 500,
+    },
+    button: {
+      fontStyle: 'italic',
+    },
+  },
+});
+
+export default function TypographyVariants() {
+  return (
+    <div>
+      <ThemeProvider theme={theme}>
+        <Typography variant="subtitle1">subtitle</Typography>
+        <Typography>body1</Typography>
+        <Button>Button</Button>
+      </ThemeProvider>
+    </div>
+  );
+}
+```
+</details>
+
+### Adding & disabling variants
+
+In addition to using the default typography variants, you can add custom ones.
+A new variant is a new key of `typography`, used with `Typography(variant = ...)`.
+Set `variantMapping` to choose the HTML element it renders:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      typography = list(poster = list(fontSize = "4rem", color = "red")),
+      components = list(MuiTypography = list(defaultProps = list(variantMapping = list(poster = "h1"))))
+    ),
+    Typography(variant = "poster", "poster")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Box from '@mui/material/Box';
+import Typography from '@mui/material/Typography';
+
+const theme = createTheme({
+  typography: {
+    poster: {
+      fontSize: '4rem',
+      color: 'indianred',
+    },
+    // Disable v3 variant
+    h3: undefined,
+  },
+  components: {
+    MuiTypography: {
+      defaultProps: {
+        variantMapping: {
+          poster: 'h1', // map our new variant to render an <h1> by default
+        },
+      },
+    },
+  },
+});
+
+export default function TypographyCustomVariant() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Box sx={{ '& > *': { display: 'block' } }}>
+        {/* @ts-ignore */}
+        <Typography variant="poster">poster</Typography>
+        <Typography variant="h3">h3</Typography>
+      </Box>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+## Themed components
+
+You can customize a component's styles, default props, and more by using its component key inside the theme.
+This helps to achieve styling consistency across your application.
+
+### Theme default props
+
+Every Material UI component has default values for each of its props.
+To change these default values, use the `defaultProps` key exposed in the theme's `components` key:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      components = list(
+        # Name of the component
+        MuiButtonBase = list(
+          defaultProps = list(
+            # The props to change the default for.
+            disableRipple = TRUE # No more ripple, on the whole application 💣!
+          )
+        )
+      )
+    ),
+    Button("This button has disabled ripples.")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+
+const theme = createTheme({
+  components: {
+    // Name of the component ⚛️
+    MuiButtonBase: {
+      defaultProps: {
+        // The default props to change
+        disableRipple: true, // No more ripple, on the whole application 💣!
+      },
+    },
+  },
+});
+
+export default function DefaultProps() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Button>This button has disabled ripples.</Button>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+### Theme style overrides
+
+The theme's `styleOverrides` key makes it possible to change the default styles of any Material UI component.
+
+`styleOverrides` requires a slot name as a key (use `root` to target the outer-most element) and an object with CSS properties as a value.
+Nested CSS selectors are also supported as values.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      components = list(
+        # Name of the component
+        MuiButton = list(
+          styleOverrides = list(
+            # Name of the slot
+            root = list(
+              # Some CSS
+              fontSize = "1rem"
+            )
+          )
+        )
+      )
+    ),
+    Button("font-size: 1rem")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+
+const theme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontSize: '1rem',
+        },
+      },
+    },
+  },
+});
+
+export default function GlobalThemeOverride() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Button>font-size: 1rem</Button>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+### Variants
+
+Most components have variants (for example `Button` has `text`, `outlined`
+and `contained`). The `variants` key of `styleOverrides` adds styles for a
+combination of props, and new variants can be added the same way:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(
+      components = list(
+        MuiButton = list(
+          styleOverrides = list(
+            root = list(
+              variants = list(
+                list(props = list(variant = "dashed"), style = list(textTransform = "none", border = "2px dashed grey")),
+                list(props = list(variant = "dashed", color = "secondary"), style = list(border = "4px dashed #9c27b0"))
+              )
+            )
+          )
+        )
+      )
+    ),
+    Stack(
+      direction = "row",
+      spacing = 2,
+      Button(variant = "dashed", sx = list(m = 2), "Dashed"),
+      Button(variant = "dashed", color = "secondary", sx = list(m = 2), "Secondary")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+
+const customTheme = createTheme({
+  components: {
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          variants: [
+            {
+              props: { variant: 'dashed' },
+              style: ({ theme }) => ({
+                textTransform: 'none',
+                border: `2px dashed ${theme.palette.primary.main}`,
+                color: theme.palette.primary.main,
+              }),
+            },
+            {
+              props: { variant: 'dashed', color: 'secondary' },
+              style: ({ theme }) => ({
+                border: `2px dashed ${theme.palette.secondary.main}`,
+                color: theme.palette.secondary.main,
+              }),
+            },
+            {
+              props: { variant: 'dashed', size: 'large' },
+              style: {
+                borderWidth: 4,
+              },
+            },
+            {
+              props: { variant: 'dashed', color: 'secondary', size: 'large' },
+              style: {
+                fontSize: 18,
+              },
+            },
+          ],
+        },
+      },
+    },
+  },
+});
+
+export default function GlobalThemeVariants() {
+  return (
+    <ThemeProvider theme={customTheme}>
+      <Button variant="dashed" sx={{ m: 1 }}>
+        Dashed
+      </Button>
+      <Button variant="dashed" color="secondary" sx={{ m: 1 }}>
+        Secondary
+      </Button>
+      <Button variant="dashed" size="large" sx={{ m: 1 }}>
+        Large
+      </Button>
+      <Button variant="dashed" color="secondary" size="large" sx={{ m: 1 }}>
+        Secondary large
+      </Button>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+### Theme variables
+
+Another way to override the look of all component instances is to adjust the [theme configuration variables](#theme-configuration-variables):
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = list(typography = list(button = list(fontSize = "1rem"))),
+    Button("font-size: 1rem")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { ThemeProvider, createTheme } from '@mui/material/styles';
+import Button from '@mui/material/Button';
+
+const theme = createTheme({
+  typography: {
+    button: {
+      fontSize: '1rem',
+    },
+  },
+});
+
+export default function ThemeVariables() {
+  return (
+    <ThemeProvider theme={theme}>
+      <Button>font-size: 1rem</Button>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+## Nesting the theme
+
+You can nest multiple theme providers. In muiMaterial, a nested
+`ThemeProvider()` builds a **complete** theme from its own options: it does
+not inherit the options of the outer one. To extend a theme, build the inner
+options from the outer ones with `modifyList()`:
+
+```{r}
+brand <- list(palette = list(primary = list(main = "#6a1b9a"), secondary = list(main = "#ffb300")))
+darkBrand <- modifyList(brand, list(palette = list(mode = "dark")))
+
+muiMaterialPage(
+  CssBaseline(),
+  ThemeProvider(
+    theme = brand,
+    Stack(
+      spacing = 2,
+      Button(variant = "contained", "Outer theme"),
+      ThemeProvider(
+        theme = darkBrand,
+        Paper(sx = list(p = 2), Button(variant = "contained", color = "secondary", "Inner theme: same brand colors, dark mode"))
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import Checkbox from '@mui/material/Checkbox';
+import { green, orange } from '@mui/material/colors';
+
+const outerTheme = createTheme({
+  palette: {
+    secondary: {
+      main: orange[500],
+    },
+  },
+});
+
+export default function ThemeNestingExtend() {
+  return (
+    <ThemeProvider theme={outerTheme}>
+      <Checkbox defaultChecked color="secondary" />
+      <ThemeProvider
+        theme={(theme) =>
+          createTheme({
+            ...theme,
+            palette: {
+              ...theme.palette,
+              primary: {
+                main: green[500],
+              },
+            },
+          })
+        }
+      >
+        <Checkbox defaultChecked />
+        <Checkbox defaultChecked color="secondary" />
+      </ThemeProvider>
+    </ThemeProvider>
+  );
+}
+```
+</details>
+
+## Theming in Shiny apps
+
+Define the theme once as an R list and reuse it. To switch themes at runtime
+(for example a dark mode toggle), render the `ThemeProvider()` with
+`renderReact()`:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+brand <- list(palette = list(primary = list(main = "#6a1b9a")))
+
+ui <- muiMaterialPage(reactOutput("app"))
+
+server <- function(input, output, session) {
+  output$app <- renderReact({
+    ThemeProvider(
+      theme = modifyList(brand, list(palette = list(mode = if (isTRUE(input$dark)) "dark" else "light"))),
+      CssBaseline(),
+      Box(
+        sx = list(p = 2),
+        FormControlLabel(control = Switch.shinyInput("dark", value = isTRUE(input$dark)), label = "Dark mode"),
+        Button(variant = "contained", "A themed button")
+      )
+    )
+  })
+}
+
+shinyApp(ui, server)
+```
+
+Run a complete example with `muiMaterialExample("ThemeProvider")`.

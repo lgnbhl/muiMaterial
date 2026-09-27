@@ -26,3 +26,12 @@ Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 \description{
 Custom SwipeableDrawer bound to a DOM element by id. See 'js/src/MuiSwipeableDrawerTriggerId.jsx'.
 }
+\examples{
+htmltools::tagList(
+  Button(id = "open-swipeable", "Open"),
+  SwipeableDrawer.triggerId(
+    "open-swipeable", anchor = "bottom", width = "auto",
+    Box(sx = list(p = 2), "Content")
+  )
+)
+}

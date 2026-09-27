@@ -1,0 +1,463 @@
+---
+title: "Pagination"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Pagination}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-pagination/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Pagination
+
+The Pagination component enables the user to select a specific page from a range of pages.
+
+## Basic pagination
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    Pagination(count = 10),
+    Pagination(count = 10, color = "primary"),
+    Pagination(count = 10, color = "secondary"),
+    Pagination(count = 10, disabled = TRUE)
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+export default function BasicPagination() {
+  return (
+    <Stack spacing={2}>
+      <Pagination count={10} />
+      <Pagination count={10} color="primary" />
+      <Pagination count={10} color="secondary" />
+      <Pagination count={10} disabled />
+    </Stack>
+  );
+}
+```
+</details>
+
+## Outlined pagination
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    Pagination(count = 10, variant = "outlined"),
+    Pagination(count = 10, variant = "outlined", color = "primary"),
+    Pagination(count = 10, variant = "outlined", color = "secondary"),
+    Pagination(count = 10, variant = "outlined", disabled = TRUE)
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+export default function PaginationOutlined() {
+  return (
+    <Stack spacing={2}>
+      <Pagination count={10} variant="outlined" />
+      <Pagination count={10} variant="outlined" color="primary" />
+      <Pagination count={10} variant="outlined" color="secondary" />
+      <Pagination count={10} variant="outlined" disabled />
+    </Stack>
+  );
+}
+```
+</details>
+
+## Rounded pagination
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    Pagination(count = 10, shape = "rounded"),
+    Pagination(count = 10, variant = "outlined", shape = "rounded")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+export default function PaginationRounded() {
+  return (
+    <Stack spacing={2}>
+      <Pagination count={10} shape="rounded" />
+      <Pagination count={10} variant="outlined" shape="rounded" />
+    </Stack>
+  );
+}
+```
+</details>
+
+## Pagination size
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    Pagination(count = 10, size = "small"),
+    Pagination(count = 10),
+    Pagination(count = 10, size = "large")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+export default function PaginationSize() {
+  return (
+    <Stack spacing={2}>
+      <Pagination count={10} size="small" />
+      <Pagination count={10} />
+      <Pagination count={10} size="large" />
+    </Stack>
+  );
+}
+```
+</details>
+
+## Buttons
+
+You can optionally enable first-page and last-page buttons, or disable the previous-page and next-page buttons.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    Pagination(count = 10, showFirstButton = TRUE, showLastButton = TRUE),
+    Pagination(count = 10, hidePrevButton = TRUE, hideNextButton = TRUE)
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+export default function PaginationButtons() {
+  return (
+    <Stack spacing={2}>
+      <Pagination count={10} showFirstButton showLastButton />
+      <Pagination count={10} hidePrevButton hideNextButton />
+    </Stack>
+  );
+}
+```
+</details>
+
+## Custom icons
+
+It's possible to customize the control icons.
+`renderItem` is a function that returns an element for each item, so it is
+written in JavaScript with `JS()`. `jsmodule` gives access to the React and MUI
+modules bundled with muiMaterial:
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    Pagination(
+      count = 10,
+      renderItem = JS(
+        "(item) => {
+          const h = jsmodule['react'].createElement;
+          const { PaginationItem, Icon } = jsmodule['@mui/material'];
+          return h(PaginationItem, {
+            ...item,
+            slots: {
+              previous: () => h(Icon, null, 'arrow_back'),
+              next: () => h(Icon, null, 'arrow_forward')
+            }
+          });
+        }"
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+import Stack from '@mui/material/Stack';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
+
+export default function CustomIcons() {
+  return (
+    <Stack spacing={2}>
+      <Pagination
+        count={10}
+        renderItem={(item) => (
+          <PaginationItem
+            slots={{ previous: ArrowBackIcon, next: ArrowForwardIcon }}
+            {...item}
+          />
+        )}
+      />
+    </Stack>
+  );
+}
+```
+</details>
+
+## Pagination ranges
+
+You can specify how many digits to display either side of current page with the `siblingCount` prop, and adjacent to the start and end page number with the `boundaryCount` prop.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    Pagination(count = 11, defaultPage = 6, siblingCount = 0),
+    Pagination(count = 11, defaultPage = 6), # Default ranges
+    Pagination(count = 11, defaultPage = 6, siblingCount = 0, boundaryCount = 2),
+    Pagination(count = 11, defaultPage = 6, boundaryCount = 2)
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+export default function PaginationRanges() {
+  return (
+    <Stack spacing={2}>
+      <Pagination count={11} defaultPage={6} siblingCount={0} />
+      <Pagination count={11} defaultPage={6} /> {/* Default ranges */}
+      <Pagination count={11} defaultPage={6} siblingCount={0} boundaryCount={2} />
+      <Pagination count={11} defaultPage={6} boundaryCount={2} />
+    </Stack>
+  );
+}
+```
+</details>
+
+## Controlled pagination
+
+In a Shiny app, `Pagination.shinyInput()` sends the selected page to
+`input[[inputId]]`, and `updatePagination.shinyInput()` changes it from the
+server:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    sx = list(p = 2),
+    uiOutput("page"),
+    Pagination.shinyInput("pagination", count = 10, value = 1)
+  )
+)
+
+server <- function(input, output, session) {
+  output$page <- renderUI(Typography(paste("Page:", input$pagination)))
+}
+
+shinyApp(ui, server)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import Pagination from '@mui/material/Pagination';
+import Stack from '@mui/material/Stack';
+
+export default function PaginationControlled() {
+  const [page, setPage] = React.useState(1);
+  const handleChange = (event, value) => {
+    setPage(value);
+  };
+
+  return (
+    <Stack spacing={2}>
+      <Typography>Page: {page}</Typography>
+      <Pagination count={10} page={page} onChange={handleChange} />
+    </Stack>
+  );
+}
+```
+</details>
+
+Run the bundled version with `muiMaterialExample("Pagination")`.
+
+## Router integration
+
+Pagination can also be kept in the URL, so that each page can be bookmarked.
+The MUI demo uses React Router; in R, the same is done with
+[reactRouter](https://felixluginbuhl.com/reactRouter/). Each page is a route
+(`#/inbox/<page>`), and `onChange` navigates to the selected page:
+
+```{r}
+inbox <- function(page) {
+  Stack(
+    spacing = 2,
+    Typography(paste("Page:", page)),
+    Pagination(
+      page = page,
+      count = 10,
+      onChange = JS("(event, value) => { window.location.hash = '/inbox/' + value; }")
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(1:10, function(page) Route(path = paste0("inbox/", page), element = inbox(page))),
+      Route(path = "*", element = inbox(1))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import { Link, MemoryRouter, Route, Routes, useLocation } from 'react-router';
+import Pagination from '@mui/material/Pagination';
+import PaginationItem from '@mui/material/PaginationItem';
+
+function Content() {
+  const location = useLocation();
+  const query = new URLSearchParams(location.search);
+  const page = parseInt(query.get('page') || '1', 10);
+  return (
+    <Pagination
+      page={page}
+      count={10}
+      renderItem={(item) => (
+        <PaginationItem
+          component={Link}
+          to={`/inbox${item.page === 1 ? '' : `?page=${item.page}`}`}
+          {...item}
+        />
+      )}
+    />
+  );
+}
+
+export default function PaginationLink() {
+  return (
+    <MemoryRouter initialEntries={['/inbox']} initialIndex={0}>
+      <Routes>
+        <Route path="*" element={<Content />} />
+      </Routes>
+    </MemoryRouter>
+  );
+}
+```
+</details>
+
+## `usePagination`
+
+For advanced customization use cases, React exposes a headless `usePagination()`
+hook. It accepts almost the same options as the Pagination component minus all
+the props related to the rendering of JSX. Hooks are not available from R; use
+`renderItem` (see [Custom icons](#custom-icons)) to customize the items instead.
+
+## Table pagination
+
+The `Pagination` component was designed to paginate a list of arbitrary items when infinite loading isn't used.
+It's preferred in contexts where SEO is important, for instance, a blog.
+
+For the pagination of a large set of tabular data, you should use the `TablePagination` component.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  TablePagination(component = "div", count = 100, page = 2, rowsPerPage = 10, onPageChange = JS("() => {}"))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import TablePagination from '@mui/material/TablePagination';
+
+export default function TablePaginationDemo() {
+  const [page, setPage] = React.useState(2);
+  const [rowsPerPage, setRowsPerPage] = React.useState(10);
+
+  const handleChangePage = (event, newPage) => {
+    setPage(newPage);
+  };
+
+  const handleChangeRowsPerPage = (event) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  return (
+    <TablePagination
+      component="div"
+      count={100}
+      page={page}
+      onPageChange={handleChangePage}
+      rowsPerPage={rowsPerPage}
+      onRowsPerPageChange={handleChangeRowsPerPage}
+    />
+  );
+}
+```
+</details>
+
+<div class="alert alert-warning">
+Note that the `Pagination` page prop starts at 1 to match the requirement of including the value in the URL, while the `TablePagination` page prop starts at 0 to match the requirement of zero-based JavaScript arrays that come with rendering a lot of tabular data.
+</div>
+
+For a working paginated table, see the [sticky header table](table.html#sticky-header).
+
+## Accessibility
+
+### ARIA
+
+The root node has a role of "navigation" and aria-label "pagination navigation" by default. The page items have an aria-label that identifies the purpose of the item ("go to first page", "go to previous page", "go to page 1" etc.).
+You can override these using the `getItemAriaLabel` prop.
+
+### Keyboard
+
+The pagination items are in tab order, with a tabindex of "0".

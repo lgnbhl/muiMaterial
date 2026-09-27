@@ -1,0 +1,212 @@
+---
+title: "Custom components"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Custom components}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+This guide shows three ways to go beyond the components shipped with
+muiMaterial, from the simplest to the most flexible:
+
+1. [Reusable components in R](#reusable-components-in-r): R functions that return muiMaterial components.
+2. [Custom React components](#custom-react-components): JavaScript components built with the MUI modules bundled in muiMaterial.
+3. [Custom Shiny inputs](#custom-shiny-inputs): JavaScript components that send a value to the Shiny server.
+
+## Reusable components in R
+
+In React, a reusable component is a function or a `styled()` component. In R,
+it is a function that returns muiMaterial components. Arguments set the props,
+and `...` passes the rest:
+
+```{r}
+# A reusable "stat card"
+StatCard <- function(title, value, trend, ...) {
+  up <- trend >= 0
+  Card(
+    variant = "outlined",
+    ...,
+    CardContent(
+      Typography(sx = list(color = "text.secondary", fontSize = 14), gutterBottom = TRUE, title),
+      Typography(variant = "h4", component = "div", value),
+      Chip(
+        size = "small",
+        color = if (up) "success" else "error",
+        label = sprintf("%+.0f%%", trend),
+        sx = list(mt = 1)
+      )
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  Grid(
+    container = TRUE,
+    spacing = 2,
+    Grid(size = list(xs = 12, sm = 4), StatCard("Users", "14k", 25)),
+    Grid(size = list(xs = 12, sm = 4), StatCard("Conversions", "325", -12)),
+    Grid(size = list(xs = 12, sm = 4), StatCard("Event count", "200k", 5, sx = list(bgcolor = "grey.50")))
+  )
+)
+```
+
+Most `styled()` components of the MUI documentation translate this way: the
+styles become an `sx` list (see [The `sx` prop in R](box.html#the-sx-prop-in-r)),
+and variants become R arguments. To restyle **all** instances of a component,
+use the theme instead (see [Theming](theming.html#themed-components)).
+
+## Custom React components
+
+For behaviour that needs JavaScript (state, effects, `styled()`), define a
+React component in a script and render it with `shiny.react::reactElement()`.
+The script finds React and the bundled MUI modules on the global `jsmodule`
+object, and registers the component under its own module name:
+
+```{r}
+CustomComponents <- tags$script(HTML(
+  "(function() {
+    const React = jsmodule['react'];
+    const { Button, styled } = jsmodule['@mui/material'];
+    const CustomComponents = jsmodule['CustomComponents'] ??= {};
+
+    // A styled() component, as in the MUI documentation
+    const GradientButton = styled(Button)({
+      background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+      border: 0,
+      borderRadius: 3,
+      boxShadow: '0 3px 5px 2px rgba(255, 105, 135, .3)',
+      color: 'white',
+      height: 48,
+      padding: '0 30px',
+    });
+
+    // A component with its own state: counts its clicks
+    CustomComponents.ClickCounter = function ClickCounter({ label }) {
+      const [count, setCount] = React.useState(0);
+      return React.createElement(GradientButton, { onClick: () => setCount(count + 1) }, `${label}: ${count}`);
+    };
+  })();"
+))
+
+ClickCounter <- function(...) {
+  shiny.react::reactElement(
+    module = "CustomComponents",
+    name = "ClickCounter",
+    props = shiny.react::asProps(...),
+    deps = muiMaterialDependency()
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  CustomComponents,
+  ClickCounter(label = "Clicks")
+)
+```
+
+- `muiMaterialDependency()` makes sure the muiMaterial bundle (which fills
+  `jsmodule`) is loaded before the component renders.
+- The script must be on the page before the component, as above.
+- Write the component with `React.createElement()`: the script is not
+  compiled, so JSX is not available.
+
+## Custom Shiny inputs
+
+shiny.react provides two adapters that turn a React component into a Shiny
+input. All the `.shinyInput()` wrappers of muiMaterial are built with them:
+
+- `InputAdapter(Component, (value, setValue, props) => props)` maps the value of
+  the input to the props of the component. Call `setValue()` to send a new value
+  to `input[[inputId]]`. An optional third argument limits how often the value is
+  sent, for example `{ policy: debounce, delay: 250 }`.
+- `ButtonAdapter(Component)` sends a click counter, like `Button.shinyInput()`.
+
+The example below builds a text field that upper-cases its input. Its value can
+be changed from the server with `shiny.react::updateReactInput()`:
+
+```{r, eval = FALSE}
+library(shiny)
+library(muiMaterial)
+
+CustomInputs <- tags$script(HTML(
+  "(function() {
+    const { InputAdapter, debounce } = jsmodule['@/shiny.react'];
+    const { TextField } = jsmodule['@mui/material'];
+    const CustomInputs = jsmodule['CustomInputs'] ??= {};
+
+    CustomInputs.UpperCaseTextField = InputAdapter(TextField, (value, setValue) => ({
+      value: (value ?? '').toUpperCase(),
+      onChange: (e) => setValue(e.target.value.toUpperCase()),
+    }), { policy: debounce, delay: 250 });
+  })();"
+))
+
+UpperCaseTextField.shinyInput <- function(inputId, ..., value = "") {
+  shiny.react::reactElement(
+    module = "CustomInputs",
+    name = "UpperCaseTextField",
+    props = shiny.react::asProps(inputId = inputId, ..., value = value),
+    deps = muiMaterialDependency()
+  )
+}
+updateUpperCaseTextField.shinyInput <- shiny.react::updateReactInput
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  CustomInputs,
+  Box(
+    sx = list(p = 2),
+    UpperCaseTextField.shinyInput("code", label = "Code", value = "abc"),
+    Button.shinyInput("reset", "Reset"),
+    verbatimTextOutput("value")
+  )
+)
+
+server <- function(input, output, session) {
+  output$value <- renderText(input$code)
+  observeEvent(input$reset, updateUpperCaseTextField.shinyInput(inputId = "code", value = ""))
+}
+
+shinyApp(ui, server)
+```
+
+Run the bundled examples with `muiMaterialExample("CustomComponentShinyInput")`
+and `muiMaterialExample("CustomComponentShinyInputStyled")` (a `styled()`
+slider).
+
+## Available JavaScript modules
+
+The muiMaterial bundle registers these modules on `window.jsmodule`:
+
+| Module | Content |
+|---|---|
+| `jsmodule['react']`, `jsmodule['react-dom']` | React, provided by shiny.react |
+| `jsmodule['@/shiny.react']` | `InputAdapter`, `ButtonAdapter`, `debounce`, ... |
+| `jsmodule['@mui/material']` | all Material UI components and `styled`, `createTheme`, `alpha`, ... |
+| `jsmodule['@mui/lab']` | the lab components (Timeline, Masonry, TabContext, ...) |
+| `jsmodule['@mui/system']`, `jsmodule['@mui/utils']` | MUI System and utilities |
+| `jsmodule['@emotion/react']`, `jsmodule['@emotion/styled']`, `jsmodule['@emotion/cache']` | the Emotion styling engine |
+| `jsmodule['@/muiMaterial']` | the muiMaterial wrappers (`.shinyInput`, `.triggerId`, `ThemeProvider`, ...) |
+
+`@mui/icons-material` is not bundled; see [Icons](icons.html).
+
+## Compatibility
+
+- **React 18.** muiMaterial is built and tested against React 18, which is
+  provided at runtime by shiny.react. A warning is printed in the browser
+  console if another React version is loaded.
+- **Other shiny.react packages.** Packages built on shiny.react (such as
+  [muiDataGrid](https://felixluginbuhl.com/muiDataGrid/), shiny.fluent or
+  shiny.blueprint) share the same `jsmodule` object. The MUI modules above are
+  shared on purpose, so that a `ThemeProvider()` of muiMaterial also styles the
+  components of companion packages. If another package registers a different copy
+  of these modules, muiMaterial prints a warning in the browser console.

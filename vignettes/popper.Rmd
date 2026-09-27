@@ -1,0 +1,346 @@
+---
+title: "Popper"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Popper}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-popper/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Popper
+
+A Popper can be used to display some content on top of another. It's an alternative to react-popper.
+
+Some important features of the Popper component:
+
+- 🕷 Popper relies on the 3rd party library ([Popper.js](https://popper.js.org/docs/v2/)) for perfect positioning.
+- 💄 It's an alternative API to react-popper. It aims for simplicity.
+- Its child element is a [Portal](https://mui.com/material-ui/react-portal/) on the body of the document to avoid rendering problems.
+  You can disable this behavior with `disablePortal`.
+- The scroll isn't blocked like with the [Popover](popover.html) component.
+  The placement of the popper updates with the available area in the viewport.
+- Clicking away does not hide the Popper component.
+  If you need this behavior, you can use the [Click-Away Listener](click-away-listener.html).
+- The `anchorEl` is passed as the reference object to create a new `Popper.js` instance.
+
+<div class="alert alert-secondary">
+**How the live demos on this page work.** The open state is kept in the URL
+with [reactRouter](https://felixluginbuhl.com/reactRouter/): the route
+`#/simple-popper` renders the popper, any other URL does not. The toggle button
+is part of each route and links to the other state. `anchorEl` accepts a
+function, so the anchor is looked up by `id` with `JS()`.
+</div>
+
+## Basic Popper
+
+```{r}
+anchorById <- function(id) JS(sprintf("() => document.getElementById('%s')", id))
+
+simplePopper <- function(open) {
+  tagList(
+    Button(
+      id = "simple-popper-button",
+      variant = "outlined",
+      `aria-describedby` = "simple-popper",
+      href = if (open) "#/" else "#/simple-popper",
+      "Toggle Popper"
+    ),
+    if (open) Popper(
+      id = "simple-popper",
+      open = TRUE,
+      anchorEl = anchorById("simple-popper-button"),
+      Box(sx = list(border = 1, p = 1, bgcolor = "background.paper"), "The content of the Popper.")
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      Route(path = "simple-popper", element = simplePopper(TRUE)),
+      Route(path = "*", element = simplePopper(FALSE))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+
+export default function SimplePopper() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(anchorEl ? null : event.currentTarget);
+  };
+
+  const open = Boolean(anchorEl);
+  const id = open ? 'simple-popper' : undefined;
+
+  return (
+    <div>
+      <button aria-describedby={id} type="button" onClick={handleClick}>
+        Toggle Popper
+      </button>
+      <Popper id={id} open={open} anchorEl={anchorEl}>
+        <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
+          The content of the Popper.
+        </Box>
+      </Popper>
+    </div>
+  );
+}
+```
+</details>
+
+## Transitions
+
+The open/close state of the popper can be animated with a render prop child and a transition component.
+This component should respect the following conditions:
+
+- Be a direct child descendent of the popper.
+- Call the `onEnter` callback prop when the enter transition starts.
+- Call the `onExited` callback prop when the exit transition is completed.
+  These two callbacks allow the popper to unmount the child content when closed and fully transitioned.
+
+Popper has built-in support for [react-transition-group](https://github.com/reactjs/react-transition-group).
+
+A render prop (a function child) cannot be written in R. Wrapping the content
+in a transition such as `Fade(in = TRUE)` animates the opening, as the content
+mounts when the route becomes active:
+
+```{r}
+transitionsPopper <- function(open) {
+  tagList(
+    Button(
+      id = "transitions-popper-button",
+      variant = "outlined",
+      href = if (open) "#/" else "#/transitions-popper",
+      "Toggle Popper"
+    ),
+    if (open) Popper(
+      open = TRUE,
+      anchorEl = anchorById("transitions-popper-button"),
+      Fade(
+        `in` = TRUE,
+        timeout = 350,
+        Box(sx = list(border = 1, p = 1, bgcolor = "background.paper"), "The content of the Popper.")
+      )
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      Route(path = "transitions-popper", element = transitionsPopper(TRUE)),
+      Route(path = "*", element = transitionsPopper(FALSE))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+import Fade from '@mui/material/Fade';
+
+export default function TransitionsPopper() {
+  const [open, setOpen] = React.useState(false);
+  const [anchorEl, setAnchorEl] = React.useState(null);
+
+  const handleClick = (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((previousOpen) => !previousOpen);
+  };
+
+  const canBeOpen = open && Boolean(anchorEl);
+  const id = canBeOpen ? 'transition-popper' : undefined;
+
+  return (
+    <div>
+      <button aria-describedby={id} type="button" onClick={handleClick}>
+        Toggle Popper
+      </button>
+      <Popper id={id} open={open} anchorEl={anchorEl} transition>
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Box sx={{ border: 1, p: 1, bgcolor: 'background.paper' }}>
+              The content of the Popper.
+            </Box>
+          </Fade>
+        )}
+      </Popper>
+    </div>
+  );
+}
+```
+</details>
+
+## Positioned popper
+
+The `placement` prop sets where the popper appears relative to its anchor.
+Here each placement is a route (`#/positioned-popper/<placement>`). The
+buttons link to their own placement, or back to `#/` when their popper is open.
+
+```{r}
+placements <- list(
+  top = c("top-start", "top", "top-end"),
+  left = c("left-start", "left", "left-end"),
+  right = c("right-start", "right", "right-end"),
+  bottom = c("bottom-start", "bottom", "bottom-end")
+)
+
+positionedPopper <- function(active = NULL) {
+  placementButton <- function(placement) {
+    Button(
+      id = paste0("placement-", placement),
+      href = if (identical(placement, active)) "#/" else paste0("#/positioned-popper/", placement),
+      placement
+    )
+  }
+  Box(
+    sx = list(width = 500, maxWidth = "100%"),
+    if (!is.null(active)) Popper(
+      sx = list(zIndex = 1200),
+      open = TRUE,
+      anchorEl = anchorById(paste0("placement-", active)),
+      placement = active,
+      Fade(`in` = TRUE, timeout = 350, Paper(Typography(sx = list(p = 2), "The content of the Popper.")))
+    ),
+    Stack(direction = "row", sx = list(justifyContent = "center"), lapply(placements$top, placementButton)),
+    Box(
+      sx = list(display = "flex", justifyContent = "space-between"),
+      Stack(direction = "column", sx = list(alignItems = "flex-start"), lapply(placements$left, placementButton)),
+      Stack(direction = "column", sx = list(alignItems = "flex-end"), lapply(placements$right, placementButton))
+    ),
+    Stack(direction = "row", sx = list(justifyContent = "center"), lapply(placements$bottom, placementButton))
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(unlist(placements, use.names = FALSE), function(placement) {
+        Route(path = paste0("positioned-popper/", placement), element = positionedPopper(placement))
+      }),
+      Route(path = "*", element = positionedPopper())
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Popper from '@mui/material/Popper';
+import Typography from '@mui/material/Typography';
+import Stack from '@mui/material/Stack';
+import Button from '@mui/material/Button';
+import Fade from '@mui/material/Fade';
+import Paper from '@mui/material/Paper';
+
+export default function PositionedPopper() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const [open, setOpen] = React.useState(false);
+  const [placement, setPlacement] = React.useState();
+
+  const handleClick = (newPlacement) => (event) => {
+    setAnchorEl(event.currentTarget);
+    setOpen((prev) => placement !== newPlacement || !prev);
+    setPlacement(newPlacement);
+  };
+
+  return (
+    <Box sx={{ width: 500 }}>
+      <Popper
+        // Note: The following zIndex style is specifically for documentation purposes and may not be necessary in your application.
+        sx={{ zIndex: 1200 }}
+        open={open}
+        anchorEl={anchorEl}
+        placement={placement}
+        transition
+      >
+        {({ TransitionProps }) => (
+          <Fade {...TransitionProps} timeout={350}>
+            <Paper>
+              <Typography sx={{ p: 2 }}>The content of the Popper.</Typography>
+            </Paper>
+          </Fade>
+        )}
+      </Popper>
+      <Stack direction="row" sx={{ justifyContent: 'center' }}>
+        <Button onClick={handleClick('top-start')}>top-start</Button>
+        <Button onClick={handleClick('top')}>top</Button>
+        <Button onClick={handleClick('top-end')}>top-end</Button>
+      </Stack>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+        <Stack direction="column" sx={{ alignItems: 'flex-start' }}>
+          <Button onClick={handleClick('left-start')}>left-start</Button>
+          <Button onClick={handleClick('left')}>left</Button>
+          <Button onClick={handleClick('left-end')}>left-end</Button>
+        </Stack>
+        <Stack direction="column" sx={{ alignItems: 'flex-end' }}>
+          <Button onClick={handleClick('right-start')}>right-start</Button>
+          <Button onClick={handleClick('right')}>right</Button>
+          <Button onClick={handleClick('right-end')}>right-end</Button>
+        </Stack>
+      </Box>
+      <Stack direction="row" sx={{ justifyContent: 'center' }}>
+        <Button onClick={handleClick('bottom-start')}>bottom-start</Button>
+        <Button onClick={handleClick('bottom')}>bottom</Button>
+        <Button onClick={handleClick('bottom-end')}>bottom-end</Button>
+      </Stack>
+    </Box>
+  );
+}
+```
+</details>
+
+## Scroll playground
+
+The MUI documentation has an interactive playground for the `flip` and
+`preventOverflow` modifiers of Popper.js. The modifiers are passed with the
+`modifiers` prop, for example:
+
+```r
+Popper(
+  modifiers = list(
+    list(name = "flip", enabled = TRUE, options = list(padding = 8)),
+    list(name = "preventOverflow", enabled = TRUE, options = list(tether = TRUE, padding = 8))
+  )
+)
+```
+
+## Virtual element
+
+In React, the value of the `anchorEl` prop can be a fake DOM element shaped
+like a Popper.js [`VirtualElement`](https://popper.js.org/docs/v2/virtual-elements/),
+for example to show a popper next to selected text. This needs custom
+JavaScript and has no R equivalent.
+
+## Popover or Popper?
+
+For most "open on click" cases, [Popover](popover.html) is simpler:
+`Popover.triggerId()` manages the open state and closes on click-away. Use
+`Popper()` when the page must stay scrollable and interactive while the content
+is shown.

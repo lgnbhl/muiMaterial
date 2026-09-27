@@ -1,0 +1,543 @@
+---
+title: "Alert"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Alert}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-alert/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Alert
+
+Alerts display brief messages for the user without interrupting their use of the app.
+
+## Introduction
+
+Alerts give users brief and potentially time-sensitive information in an unobtrusive manner.
+
+The Material UI Alert component includes several props for quickly customizing its styles to provide immediate visual cues about its contents.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Alert(
+    icon = Icon("check", fontSize = "inherit"),
+    severity = "success",
+    "Here is a gentle confirmation that your action was successful."
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+
+export default function SimpleAlert() {
+  return (
+    <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+      Here is a gentle confirmation that your action was successful.
+    </Alert>
+  );
+}
+```
+</details>
+
+<div class="alert alert-info">
+This component is no longer documented in the [Material Design guidelines](https://m2.material.io/), but Material UI will continue to support it.
+</div>
+
+### Usage
+
+A key trait of the alert pattern is that [it should not interrupt the user's experience](https://www.w3.org/WAI/ARIA/apg/patterns/alert/) of the app.
+Alerts should not be confused with alert _dialogs_ ([ARIA](https://www.w3.org/WAI/ARIA/apg/patterns/alertdialog/)), which _are_ intended to interrupt the user to obtain a response.
+Use the Dialog component (see the [alert dialog](dialog.html#alerts) example) if you need this behavior.
+
+## Basics
+
+The Alert component wraps around its content, and stretches to fill its enclosing container.
+
+### Severity
+
+The `severity` prop accepts four values representing different states: `success` (the default), `info`, `warning`, and `error`, with corresponding icon and color combinations for each:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    sx = list(width = "100%"),
+    spacing = 2,
+    Alert(severity = "success", "This is a success Alert."),
+    Alert(severity = "info", "This is an info Alert."),
+    Alert(severity = "warning", "This is a warning Alert."),
+    Alert(severity = "error", "This is an error Alert.")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+export default function BasicAlerts() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="success">This is a success Alert.</Alert>
+      <Alert severity="info">This is an info Alert.</Alert>
+      <Alert severity="warning">This is a warning Alert.</Alert>
+      <Alert severity="error">This is an error Alert.</Alert>
+    </Stack>
+  );
+}
+```
+</details>
+
+### Variants
+
+The Alert component comes with two alternative style options, `filled` and `outlined`, which you can set using the `variant` prop.
+
+#### Filled
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    sx = list(width = "100%"),
+    spacing = 2,
+    Alert(variant = "filled", severity = "success", "This is a filled success Alert."),
+    Alert(variant = "filled", severity = "info", "This is a filled info Alert."),
+    Alert(variant = "filled", severity = "warning", "This is a filled warning Alert."),
+    Alert(variant = "filled", severity = "error", "This is a filled error Alert.")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+export default function FilledAlerts() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert variant="filled" severity="success">
+        This is a filled success Alert.
+      </Alert>
+      <Alert variant="filled" severity="info">
+        This is a filled info Alert.
+      </Alert>
+      <Alert variant="filled" severity="warning">
+        This is a filled warning Alert.
+      </Alert>
+      <Alert variant="filled" severity="error">
+        This is a filled error Alert.
+      </Alert>
+    </Stack>
+  );
+}
+```
+</details>
+
+#### Outlined
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    sx = list(width = "100%"),
+    spacing = 2,
+    Alert(variant = "outlined", severity = "success", "This is an outlined success Alert."),
+    Alert(variant = "outlined", severity = "info", "This is an outlined info Alert."),
+    Alert(variant = "outlined", severity = "warning", "This is an outlined warning Alert."),
+    Alert(variant = "outlined", severity = "error", "This is an outlined error Alert.")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Alert from '@mui/material/Alert';
+import Stack from '@mui/material/Stack';
+
+export default function OutlinedAlerts() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert variant="outlined" severity="success">
+        This is an outlined success Alert.
+      </Alert>
+      <Alert variant="outlined" severity="info">
+        This is an outlined info Alert.
+      </Alert>
+      <Alert variant="outlined" severity="warning">
+        This is an outlined warning Alert.
+      </Alert>
+      <Alert variant="outlined" severity="error">
+        This is an outlined error Alert.
+      </Alert>
+    </Stack>
+  );
+}
+```
+</details>
+
+<div class="alert alert-warning">
+When using an outlined Alert with the [Snackbar](snackbar.html) component, background content will be visible and bleed through the Alert by default.
+You can prevent this by adding `bgcolor = "background.paper"` to the `sx` prop on the Alert component: `Alert(sx = list(bgcolor = "background.paper"))`.
+Check out the [Snackbar customization](snackbar.html#use-with-alerts) doc for an example of how to use these two components together.
+</div>
+
+### Color
+
+Use the `color` prop to override the default color for the specified [`severity`](#severity), for instance, to apply `warning` colors to a `success` Alert:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Alert(severity = "success", color = "warning", "This is a success Alert with warning colors.")
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Alert from '@mui/material/Alert';
+
+export default function ColorAlerts() {
+  return (
+    <Alert severity="success" color="warning">
+      This is a success Alert with warning colors.
+    </Alert>
+  );
+}
+```
+</details>
+
+### Actions
+
+Add an action to your Alert with the `action` prop.
+This lets you insert any element, such as an HTML tag, an icon, or a component such as a `Button()`, after the Alert's message, justified to the right.
+
+If you provide an `onClose` callback to the Alert without setting the `action` prop, the component will display a close icon (&#x2715;) by default.
+In a Shiny app, `onClose = triggerEvent("alert_closed")` sends the click to the server.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    sx = list(width = "100%"),
+    spacing = 2,
+    Alert(severity = "warning", onClose = JS("() => {}"), "This Alert displays the default close icon."),
+    Alert(
+      severity = "success",
+      action = Button(color = "inherit", size = "small", "UNDO"),
+      "This Alert uses a Button component for its action."
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Alert from '@mui/material/Alert';
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+
+export default function ActionAlerts() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="warning" onClose={() => {}}>
+        This Alert displays the default close icon.
+      </Alert>
+      <Alert
+        severity="success"
+        action={
+          <Button color="inherit" size="small">
+            UNDO
+          </Button>
+        }
+      >
+        This Alert uses a Button component for its action.
+      </Alert>
+    </Stack>
+  );
+}
+```
+</details>
+
+### Icons
+
+Use the `icon` prop to override an Alert's icon.
+As with the [`action`](#actions) prop, your `icon` can be an HTML element, an icon, or a component.
+Set this prop to `FALSE` to remove the icon altogether.
+
+If you need to override all instances of an icon for a given [`severity`](#severity), you can use the `iconMapping` prop instead.
+You can define this prop globally by customizing your app's theme. See [Theming](theming.html) for details.
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Stack(
+    sx = list(width = "100%"),
+    spacing = 2,
+    Alert(icon = Icon("check", fontSize = "inherit"), severity = "success", "This success Alert has a custom icon."),
+    Alert(icon = FALSE, severity = "success", "This success Alert has no icon."),
+    Alert(
+      iconMapping = list(success = Icon("check_circle_outline", fontSize = "inherit")),
+      "This success Alert uses `iconMapping` to override the default icon."
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Alert from '@mui/material/Alert';
+import CheckIcon from '@mui/icons-material/Check';
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutlined';
+import Stack from '@mui/material/Stack';
+
+export default function IconAlerts() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert icon={<CheckIcon fontSize="inherit" />} severity="success">
+        This success Alert has a custom icon.
+      </Alert>
+      <Alert icon={false} severity="success">
+        This success Alert has no icon.
+      </Alert>
+      <Alert
+        iconMapping={{
+          success: <CheckCircleOutlineIcon fontSize="inherit" />,
+        }}
+      >
+        This success Alert uses `iconMapping` to override the default icon.
+      </Alert>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Customization
+
+### Titles
+
+To add a title to an Alert, use the `AlertTitle()` component.
+You can nest this component above the message in your Alert for a neatly styled and properly aligned title, as shown below:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    sx = list(width = "100%"),
+    spacing = 2,
+    Alert(severity = "success", AlertTitle("Success"), "This is a success Alert with an encouraging title."),
+    Alert(severity = "info", AlertTitle("Info"), "This is an info Alert with an informative title."),
+    Alert(severity = "warning", AlertTitle("Warning"), "This is a warning Alert with a cautious title."),
+    Alert(severity = "error", AlertTitle("Error"), "This is an error Alert with a scary title.")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+import Stack from '@mui/material/Stack';
+
+export default function DescriptionAlerts() {
+  return (
+    <Stack sx={{ width: '100%' }} spacing={2}>
+      <Alert severity="success">
+        <AlertTitle>Success</AlertTitle>
+        This is a success Alert with an encouraging title.
+      </Alert>
+      <Alert severity="info">
+        <AlertTitle>Info</AlertTitle>
+        This is an info Alert with an informative title.
+      </Alert>
+      <Alert severity="warning">
+        <AlertTitle>Warning</AlertTitle>
+        This is a warning Alert with a cautious title.
+      </Alert>
+      <Alert severity="error">
+        <AlertTitle>Error</AlertTitle>
+        This is an error Alert with a scary title.
+      </Alert>
+    </Stack>
+  );
+}
+```
+</details>
+
+### Transitions
+
+You can use [Transition components](transitions.html) like [Collapse](transitions.html#collapse) to add motion to an Alert's entrance and exit.
+
+In React, the open state lives in a `useState()` hook. Here it is kept in the
+URL with [reactRouter](https://felixluginbuhl.com/reactRouter/): the close
+icon links to `#/alert-closed` and "Re-open" links back to `#/`.
+`transitionAlert()` builds the content of both routes. Changing route replaces
+the elements, so `appear = TRUE` makes `Collapse()` animate when the alert
+comes back; closing is immediate. For an animated close as well, the open state
+must stay in one mounted element, for example in a Shiny app with
+`renderReact()` updating `in`.
+
+```{r, message = FALSE}
+library(reactRouter)
+
+transitionAlert <- function(open) {
+  Box(
+    sx = list(width = "100%"),
+    Collapse(
+      `in` = open,
+      appear = TRUE,
+      Alert(
+        action = IconButton(
+          `aria-label` = "close",
+          color = "inherit",
+          size = "small",
+          href = "#/alert-closed",
+          Icon("close", fontSize = "inherit")
+        ),
+        sx = list(mb = 2),
+        "Click the close icon to see the Collapse transition in action!"
+      )
+    ),
+    Button(disabled = open, variant = "outlined", href = "#/", "Re-open")
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(
+    router = createHashRouter(
+      Route(path = "alert-closed", element = transitionAlert(FALSE)),
+      Route(path = "*", element = transitionAlert(TRUE))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Alert from '@mui/material/Alert';
+import IconButton from '@mui/material/IconButton';
+import Collapse from '@mui/material/Collapse';
+import Button from '@mui/material/Button';
+import CloseIcon from '@mui/icons-material/Close';
+
+export default function TransitionAlerts() {
+  const [open, setOpen] = React.useState(true);
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Collapse in={open}>
+        <Alert
+          action={
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              size="small"
+              onClick={() => {
+                setOpen(false);
+              }}
+            >
+              <CloseIcon fontSize="inherit" />
+            </IconButton>
+          }
+          sx={{ mb: 2 }}
+        >
+          Click the close icon to see the Collapse transition in action!
+        </Alert>
+      </Collapse>
+      <Button
+        disabled={open}
+        variant="outlined"
+        onClick={() => {
+          setOpen(true);
+        }}
+      >
+        Re-open
+      </Button>
+    </Box>
+  );
+}
+```
+</details>
+
+## Accessibility
+
+Here are some factors to consider to ensure that your Alert is accessible:
+
+- Because alerts are not intended to interfere with the use of the app, your Alert component should _never_ affect the keyboard focus.
+- If an alert contains an action, that action must have a `tabindex` of `0` so it can be reached by keyboard-only users.
+- Essential alerts should not disappear automatically: [timed interactions](https://www.w3.org/WAI/WCAG22/Understanding/no-timing.html) can make your app inaccessible to users who need extra time to understand or locate the alert.
+- By default, the Alert renders an element with the `role="alert"`, which is the same as using `aria-live="assertive"` and `aria-atomic="true"`. This assumes the message requires the user's immediate attention. Less urgent messages should use a less aggressive method, such as overriding the default role with a `role = "status"`. Check this [alert role page](https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Reference/Roles/alert_role) for more information.
+- Alerts that occur too frequently can [inhibit the usability](https://www.w3.org/WAI/WCAG22/Understanding/interruptions.html) of your app.
+- Dynamically rendered alerts are announced by screen readers; alerts that are already present on the page when it loads are _not_ announced.
+- Color does not add meaning to the UI for users who require assistive technology. You must ensure that any information conveyed through color is also denoted in other ways, such as within the text of the alert itself, or with additional hidden text that's read by screen readers.
+
+## Anatomy
+
+The Alert component is composed of a root [Paper](paper.html) component (which renders as a `<div>`) that houses an icon, a message, and an optional [action](#actions):
+
+```html
+<div class="MuiPaper-root MuiAlert-root" role="alert">
+  <div class="MuiAlert-icon">
+    <!-- svg icon here -->
+  </div>
+  <div class="MuiAlert-message">This is how an Alert renders in the DOM.</div>
+  <div class="MuiAlert-action">
+    <!-- optional action element here -->
+  </div>
+</div>
+```
+
+## Alerts in Shiny apps
+
+Render alerts from the server with `renderUI()` / `uiOutput()` (or
+`renderReact()` / `reactOutput()`), for example to report the result of a
+validation:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    sx = list(p = 2, maxWidth = 400),
+    TextField.shinyInput("email", label = "Email", value = ""),
+    uiOutput("status")
+  )
+)
+
+server <- function(input, output, session) {
+  output$status <- renderUI({
+    req(input$email)
+    if (grepl("^[^@]+@[^@]+$", input$email)) {
+      Alert(severity = "success", "Valid email address.")
+    } else {
+      Alert(severity = "error", AlertTitle("Invalid email"), "Please check the address.")
+    }
+  })
+}
+
+shinyApp(ui, server)
+```

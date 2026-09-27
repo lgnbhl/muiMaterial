@@ -1,0 +1,636 @@
+---
+title: "Transitions"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Transitions}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/transitions/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Transitions
+
+Transitions help to make a UI expressive and easy to use.
+
+Material UI provides transitions that can be used to introduce some basic [motion](https://m2.material.io/design/motion/) to your applications.
+
+<div class="alert alert-secondary">
+**How the live demos on this page work.** A transition animates when its `in`
+prop changes. In React, `in` comes from a `useState()` hook toggled by the
+"Show" switch. Here, the switch navigates between two
+[reactRouter](https://felixluginbuhl.com/reactRouter/) routes (for example
+`#/transition/collapse` and `#/`), which render the demo with `in = TRUE` or
+`in = FALSE`. Changing route replaces the elements, so `appear = TRUE` animates
+the entering; the exit is immediate. In a Shiny app, `renderReact()` updates
+`in` on the same element, so both directions are animated: see
+[Transitions in Shiny apps](#transitions-in-shiny-apps).
+</div>
+
+```{r}
+# The triangle icon of the MUI demos
+icon <- Paper(
+  sx = list(m = 1, width = 100, height = 100),
+  elevation = 4,
+  tags$svg(
+    width = "100", height = "100",
+    Box(component = "polygon", points = "0,100 50,00, 100,100", sx = list(fill = "common.white", stroke = "divider", strokeWidth = 1))
+  )
+)
+
+# A demo with a "Show" switch: `render(checked)` builds the content
+transitionDemo <- function(name, render) {
+  showSwitch <- function(checked) {
+    FormControlLabel(
+      control = Switch(
+        checked = checked,
+        onChange = JS(sprintf("() => { window.location.hash = '%s'; }", if (checked) "/" else paste0("/transition/", name)))
+      ),
+      label = "Show"
+    )
+  }
+  RouterProvider(
+    router = createHashRouter(
+      Route(path = paste0("transition/", name), element = render(TRUE, showSwitch(TRUE))),
+      Route(path = "*", element = render(FALSE, showSwitch(FALSE)))
+    )
+  )
+}
+```
+
+## Collapse
+
+Expand from the start edge of the child element.
+Use the `orientation` prop if you need a horizontal collapse.
+The `collapsedSize` prop can be used to set the minimum width/height when not expanded.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  transitionDemo("collapse", function(checked, toggle) {
+    Box(
+      sx = list(height = 300),
+      toggle,
+      Box(
+        sx = list("& > :not(style)" = list(display = "flex", justifyContent = "space-around", height = 120, width = 250)),
+        Box(
+          Collapse(`in` = checked, appear = TRUE, icon),
+          Collapse(`in` = checked, appear = TRUE, collapsedSize = 40, icon)
+        ),
+        Box(
+          Box(sx = list(width = "50%"), Collapse(orientation = "horizontal", `in` = checked, appear = TRUE, icon)),
+          Box(sx = list(width = "50%"), Collapse(orientation = "horizontal", `in` = checked, appear = TRUE, collapsedSize = 40, icon))
+        )
+      )
+    )
+  })
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Collapse from '@mui/material/Collapse';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+const icon = (
+  <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
+    <svg width="100" height="100">
+      <Box
+        component="polygon"
+        points="0,100 50,00, 100,100"
+        sx={(theme) => ({
+          fill: theme.palette.common.white,
+          stroke: theme.palette.divider,
+          strokeWidth: 1,
+        })}
+      />
+    </svg>
+  </Paper>
+);
+
+export default function SimpleCollapse() {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  return (
+    <Box sx={{ height: 300 }}>
+      <FormControlLabel
+        control={<Switch checked={checked} onChange={handleChange} />}
+        label="Show"
+      />
+      <Box
+        sx={{
+          '& > :not(style)': {
+            display: 'flex',
+            justifyContent: 'space-around',
+            height: 120,
+            width: 250,
+          },
+        }}
+      >
+        <div>
+          <Collapse in={checked}>{icon}</Collapse>
+          <Collapse in={checked} collapsedSize={40}>
+            {icon}
+          </Collapse>
+        </div>
+        <div>
+          <Box sx={{ width: '50%' }}>
+            <Collapse orientation="horizontal" in={checked}>
+              {icon}
+            </Collapse>
+          </Box>
+          <Box sx={{ width: '50%' }}>
+            <Collapse orientation="horizontal" in={checked} collapsedSize={40}>
+              {icon}
+            </Collapse>
+          </Box>
+        </div>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+## Fade
+
+Fade in from transparent to opaque.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  transitionDemo("fade", function(checked, toggle) {
+    Box(sx = list(height = 180), toggle, Box(sx = list(display = "flex"), Fade(`in` = checked, appear = TRUE, icon)))
+  })
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Fade from '@mui/material/Fade';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+const icon = (
+  <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
+    <svg width="100" height="100">
+      <Box
+        component="polygon"
+        points="0,100 50,00, 100,100"
+        sx={(theme) => ({
+          fill: theme.palette.common.white,
+          stroke: theme.palette.divider,
+          strokeWidth: 1,
+        })}
+      />
+    </svg>
+  </Paper>
+);
+
+export default function SimpleFade() {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  return (
+    <Box sx={{ height: 180 }}>
+      <FormControlLabel
+        control={<Switch checked={checked} onChange={handleChange} />}
+        label="Show"
+      />
+      <Box sx={{ display: 'flex' }}>
+        <Fade in={checked}>{icon}</Fade>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+## Grow
+
+Expands outwards from the center of the child element, while also fading in from transparent to opaque.
+
+The second example demonstrates how to change the `transform-origin`, and conditionally applies
+the `timeout` prop to change the entry speed.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  transitionDemo("grow", function(checked, toggle) {
+    Box(
+      sx = list(height = 180),
+      toggle,
+      Box(
+        sx = list(display = "flex"),
+        Grow(`in` = checked, appear = TRUE, icon),
+        # Conditionally applies the timeout prop to change the entry speed.
+        do.call(Grow, c(
+          list(`in` = checked, appear = TRUE, style = list(transformOrigin = "0 0 0"), icon),
+          if (checked) list(timeout = 1000)
+        ))
+      )
+    )
+  })
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Grow from '@mui/material/Grow';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+const icon = (
+  <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
+    <svg width="100" height="100">
+      <Box
+        component="polygon"
+        points="0,100 50,00, 100,100"
+        sx={(theme) => ({
+          fill: theme.palette.common.white,
+          stroke: theme.palette.divider,
+          strokeWidth: 1,
+        })}
+      />
+    </svg>
+  </Paper>
+);
+
+export default function SimpleGrow() {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  return (
+    <Box sx={{ height: 180 }}>
+      <FormControlLabel
+        control={<Switch checked={checked} onChange={handleChange} />}
+        label="Show"
+      />
+      <Box sx={{ display: 'flex' }}>
+        <Grow in={checked}>{icon}</Grow>
+        {/* Conditionally applies the timeout prop to change the entry speed. */}
+        <Grow
+          in={checked}
+          style={{ transformOrigin: '0 0 0' }}
+          {...(checked ? { timeout: 1000 } : {})}
+        >
+          {icon}
+        </Grow>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+## Slide
+
+Slide in from the edge of the screen.
+The `direction` prop controls which edge of the screen the transition starts from.
+
+The `mountOnEnter` prop prevents the child component from being mounted
+until `in` is `TRUE`.
+This prevents the relatively positioned component from scrolling into view
+from its off-screen position.
+Similarly, the `unmountOnExit` prop removes the component from the DOM after it has been transition off-screen.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  transitionDemo("slide", function(checked, toggle) {
+    Box(
+      sx = list(height = 180, width = 130, position = "relative", zIndex = 1),
+      toggle,
+      Slide(direction = "up", `in` = checked, appear = TRUE, mountOnEnter = TRUE, unmountOnExit = TRUE, icon)
+    )
+  })
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Slide from '@mui/material/Slide';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+const icon = (
+  <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
+    <svg width="100" height="100">
+      <Box
+        component="polygon"
+        points="0,100 50,00, 100,100"
+        sx={(theme) => ({
+          fill: theme.palette.common.white,
+          stroke: theme.palette.divider,
+          strokeWidth: 1,
+        })}
+      />
+    </svg>
+  </Paper>
+);
+
+export default function SimpleSlide() {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  return (
+    <Box sx={{ height: 180, width: 130, position: 'relative', zIndex: 1 }}>
+      <FormControlLabel
+        control={<Switch checked={checked} onChange={handleChange} />}
+        label="Show"
+      />
+      <Slide direction="up" in={checked} mountOnEnter unmountOnExit>
+        {icon}
+      </Slide>
+    </Box>
+  );
+}
+```
+</details>
+
+### Slide relative to a container
+
+The Slide component also accepts `container` prop, which is a reference to a DOM node.
+If this prop is set, the Slide component will slide from the edge of that DOM node.
+In R, the node is looked up by `id` with a `JS()` function:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  transitionDemo("slide-container", function(checked, toggle) {
+    Box(
+      sx = list(width = 240, borderRadius = 2, border = "1px solid", borderColor = "divider", backgroundColor = "background.default"),
+      Box(
+        id = "slide-container",
+        sx = list(p = 2, height = 200, overflow = "hidden"),
+        toggle,
+        Slide(`in` = checked, appear = TRUE, container = JS("() => document.getElementById('slide-container')"), icon)
+      )
+    )
+  })
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Slide from '@mui/material/Slide';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+const icon = (
+  <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
+    <svg width="100" height="100">
+      <Box
+        component="polygon"
+        points="0,100 50,00, 100,100"
+        sx={(theme) => ({
+          fill: theme.palette.common.white,
+          stroke: theme.palette.divider,
+          strokeWidth: 1,
+        })}
+      />
+    </svg>
+  </Paper>
+);
+
+export default function SlideFromContainer() {
+  const [checked, setChecked] = React.useState(false);
+  const containerRef = React.useRef(null);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  return (
+    <Box
+      sx={{
+        width: 240,
+        borderRadius: 2,
+        border: '1px solid',
+        borderColor: 'divider',
+        backgroundColor: 'background.default',
+      }}
+    >
+      <Box sx={{ p: 2, height: 200, overflow: 'hidden' }} ref={containerRef}>
+        <FormControlLabel
+          control={<Switch checked={checked} onChange={handleChange} />}
+          label="Show from target"
+        />
+        <Slide in={checked} container={containerRef.current}>
+          {icon}
+        </Slide>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+## Zoom
+
+Expand outwards from the center of the child element.
+
+This example also demonstrates how to delay the enter transition.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  transitionDemo("zoom", function(checked, toggle) {
+    Box(
+      sx = list(height = 180),
+      toggle,
+      Box(
+        sx = list(display = "flex"),
+        Zoom(`in` = checked, appear = TRUE, icon),
+        Zoom(`in` = checked, appear = TRUE, style = list(transitionDelay = if (checked) "500ms" else "0ms"), icon)
+      )
+    )
+  })
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Switch from '@mui/material/Switch';
+import Paper from '@mui/material/Paper';
+import Zoom from '@mui/material/Zoom';
+import FormControlLabel from '@mui/material/FormControlLabel';
+
+const icon = (
+  <Paper sx={{ m: 1, width: 100, height: 100 }} elevation={4}>
+    <svg width="100" height="100">
+      <Box
+        component="polygon"
+        points="0,100 50,00, 100,100"
+        sx={(theme) => ({
+          fill: theme.palette.common.white,
+          stroke: theme.palette.divider,
+          strokeWidth: 1,
+        })}
+      />
+    </svg>
+  </Paper>
+);
+
+export default function SimpleZoom() {
+  const [checked, setChecked] = React.useState(false);
+
+  const handleChange = () => {
+    setChecked((prev) => !prev);
+  };
+
+  return (
+    <Box sx={{ height: 180 }}>
+      <FormControlLabel
+        control={<Switch checked={checked} onChange={handleChange} />}
+        label="Show"
+      />
+      <Box sx={{ display: 'flex' }}>
+        <Zoom in={checked}>{icon}</Zoom>
+        <Zoom in={checked} style={{ transitionDelay: checked ? '500ms' : '0ms' }}>
+          {icon}
+        </Zoom>
+      </Box>
+    </Box>
+  );
+}
+```
+</details>
+
+## Reduced motion
+
+Transitions can opt in to reduced-motion support through the theme:
+
+```r
+ThemeProvider(theme = list(motion = list(reducedMotion = "system")), ...)
+```
+
+When enabled, Material UI transition components preserve lifecycle callbacks and mount/unmount
+behavior. When reduced motion is active, entering content appears in its final state and exiting
+content disappears without the normal animation. Components still run the same callbacks, so code
+that waits for `onEntered` or `onExited` continues to work.
+
+Use `disablePrefersReducedMotion` only when a specific transition should intentionally keep its
+normal motion:
+
+```r
+Fade(`in` = TRUE, disablePrefersReducedMotion = TRUE, Box())
+```
+
+## Child requirement
+
+- **Forward the style**: To better support server rendering, Material UI provides a `style` prop to the children of some transition components (Fade, Grow, Zoom, Slide).
+  The `style` prop must be applied to the DOM for the animation to work as expected.
+- **Forward the ref**: The transition components require the first child element to forward its ref to the DOM node.
+- **Single element**: The transition components require only one child element.
+
+All muiMaterial components and HTML tags satisfy the first two requirements.
+Wrap several elements in a single `Box()` or `tags$div()`.
+
+## TransitionGroup
+
+In React, the [`TransitionGroup`](https://reactcommunity.org/react-transition-group/transition-group/)
+component of react-transition-group animates components when they are mounted or
+unmounted, for example items added to or removed from a list. It is not
+exported by muiMaterial.
+
+## Transition slots
+
+Many Material UI components use these transitions internally.
+Use `slots$transition` and `slotProps$transition` to customize the default transition.
+A component is expected, so pass it as a JavaScript reference with `JS()`, for example
+`slots = list(transition = JS("jsmodule['@mui/material'].Fade"))`.
+It should respect the following conditions:
+
+- Accepts an `in` prop. This corresponds to the open/close state.
+- Call the `onEnter` callback prop when the enter transition starts.
+- Call the `onExited` callback prop when the exit transition is completed.
+  These two callbacks allow to unmount the children when in a closed state and fully transitioned.
+
+You can also visit the dedicated sections of some of the components:
+
+- [Modal](modal.html#transitions)
+- [Dialog](dialog.html#transitions)
+- [Popper](popper.html#transitions)
+- [Snackbar](snackbar.html#transitions)
+- [Tooltip](tooltip.html#transitions)
+
+## Performance & SEO
+
+The content of transition component is mounted by default even if `in = FALSE`.
+This default behavior has server-side rendering and SEO in mind.
+If you render expensive component trees inside your transition it might be a good idea to change this default behavior by enabling the
+`unmountOnExit` prop:
+
+```r
+Fade(`in` = FALSE, unmountOnExit = TRUE, Box())
+```
+
+As with any performance optimization this is not a silver bullet.
+Be sure to identify bottlenecks first and then try out these optimization strategies.
+
+## Transitions in Shiny apps
+
+With `renderReact()`, the server updates the `in` prop of the rendered
+element. React keeps the element, so the transition runs in both directions:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(p = 2),
+    FormControlLabel(control = Switch.shinyInput("show", value = FALSE), label = "Show"),
+    reactOutput("collapse")
+  )
+)
+
+server <- function(input, output, session) {
+  output$collapse <- renderReact({
+    Collapse(`in` = isTRUE(input$show), Alert(severity = "info", "Collapsed content"))
+  })
+}
+
+shinyApp(ui, server)
+```

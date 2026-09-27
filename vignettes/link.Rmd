@@ -1,0 +1,199 @@
+---
+title: "Link"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Link}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-link/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+```
+
+# Links
+
+The Link component allows you to easily customize anchor elements with your theme colors and typography styles.
+
+## Basic links
+
+The Link component is built on top of the [Typography](typography.html) component, meaning that you can use its props.
+As in the MUI documentation, the demos prevent the navigation with an `onClick`
+handler on the wrapper.
+
+```{r}
+preventDefault <- JS("(event) => event.preventDefault()")
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(typography = "body1", "& > :not(style) ~ :not(style)" = list(ml = 2)),
+    onClick = preventDefault,
+    Link(href = "#", "Link"),
+    Link(href = "#", color = "inherit", 'color="inherit"'),
+    Link(href = "#", variant = "body2", 'variant="body2"')
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+
+const preventDefault = (event) => event.preventDefault();
+
+export default function Links() {
+  return (
+    <Box
+      sx={{
+        typography: 'body1',
+        '& > :not(style) ~ :not(style)': {
+          ml: 2,
+        },
+      }}
+      onClick={preventDefault}
+    >
+      <Link href="#">Link</Link>
+      <Link href="#" color="inherit">
+        {'color="inherit"'}
+      </Link>
+      <Link href="#" variant="body2">
+        {'variant="body2"'}
+      </Link>
+    </Box>
+  );
+}
+```
+</details>
+
+However, the Link component has some different default props than the Typography component:
+
+- `color = "primary"` as the link needs to stand out.
+- `variant = "inherit"` as the link will, most of the time, be used as a child of a Typography component.
+
+## Underline
+
+The `underline` prop can be used to set the underline behavior. The default is `always`.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(
+      display = "flex", flexWrap = "wrap", justifyContent = "center", typography = "body1",
+      "& > :not(style) ~ :not(style)" = list(ml = 2)
+    ),
+    onClick = preventDefault,
+    Link(href = "#", underline = "none", 'underline="none"'),
+    Link(href = "#", underline = "hover", 'underline="hover"'),
+    Link(href = "#", underline = "always", 'underline="always"')
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Link from '@mui/material/Link';
+
+const preventDefault = (event) => event.preventDefault();
+
+export default function UnderlineLink() {
+  return (
+    <Box
+      sx={{
+        display: 'flex',
+        flexWrap: 'wrap',
+        justifyContent: 'center',
+        typography: 'body1',
+        '& > :not(style) ~ :not(style)': {
+          ml: 2,
+        },
+      }}
+      onClick={preventDefault}
+    >
+      <Link href="#" underline="none">
+        {'underline="none"'}
+      </Link>
+      <Link href="#" underline="hover">
+        {'underline="hover"'}
+      </Link>
+      <Link href="#" underline="always">
+        {'underline="always"'}
+      </Link>
+    </Box>
+  );
+}
+```
+</details>
+
+## Third-party routing library
+
+One frequent use case is to perform navigation on the client only, without an HTTP round-trip to the server.
+With a hash router such as `createHashRouter()` of
+[reactRouter](https://felixluginbuhl.com/reactRouter/), a regular `href` that
+starts with `#/` is enough: `Link(href = "#/about", "About")` navigates to the
+`about` route. See [Using a router](routing.html).
+
+<div class="alert alert-warning">
+reactRouter also exports a `Link()` function, for its own links. When both
+packages are attached, the last one attached masks the other: call
+`muiMaterial::Link()` explicitly, or attach muiMaterial after reactRouter.
+</div>
+
+## Accessibility
+
+(WAI-ARIA: <https://www.w3.org/WAI/ARIA/apg/patterns/link/>)
+
+- When providing the content for the link, avoid generic descriptions like "click here" or "go to".
+  Instead, use [specific descriptions](https://developers.google.com/web/tools/lighthouse/audits/descriptive-link-text).
+- For the best user experience, links should stand out from the text on the page. For instance, you can keep the default `underline = "always"` behavior.
+- If a link doesn't have a meaningful href, [it should be rendered using a `<button>` element](https://github.com/jsx-eslint/eslint-plugin-jsx-a11y/blob/HEAD/docs/rules/anchor-is-valid.md).
+  The demo below illustrates how to properly link with a `<button>`:
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Link(component = "button", variant = "body2", onClick = JS("() => { console.info(\"I'm a button.\"); }"), "Button Link")
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Link from '@mui/material/Link';
+
+export default function ButtonLink() {
+  return (
+    <Link
+      component="button"
+      variant="body2"
+      onClick={() => {
+        console.info("I'm a button.");
+      }}
+    >
+      Button Link
+    </Link>
+  );
+}
+```
+</details>
+
+In a Shiny app, send the click to the server with
+`onClick = triggerEvent("link_clicked")`.
+
+### Keyboard accessibility
+
+- Interactive elements should receive focus in a coherent order when the user presses the <kbd class="key">Tab</kbd> key.
+- Users should be able to open a link by pressing <kbd class="key">Enter</kbd>.
+
+### Screen reader accessibility
+
+- When a link receives focus, screen readers should announce a descriptive link name.
+  If the link opens in a new window or browser tab, add an [`aria-label`](https://www.w3.org/WAI/WCAG22/Techniques/aria/ARIA8) to inform screen reader users, for example, "To learn more, visit the About page which opens in a new window."

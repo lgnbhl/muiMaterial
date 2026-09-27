@@ -1,0 +1,379 @@
+---
+title: "Bottom Navigation"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Bottom Navigation}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-bottom-navigation/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Bottom Navigation
+
+The Bottom Navigation bar allows movement between primary destinations in an app.
+
+Bottom navigation bars display three to five destinations at the bottom of a screen. Each destination is represented by an icon and an optional text label. When a bottom navigation icon is tapped, the user is taken to the top-level navigation destination associated with that icon.
+
+<div class="alert alert-secondary">
+**How the live demos on this page work.** The selected action is kept in the
+URL with [reactRouter](https://felixluginbuhl.com/reactRouter/), as in the
+[Third-party routing library](#third-party-routing-library) section of the MUI
+documentation: each action is a link (`component = "a"` and `href`), and each
+route renders the bar with its `value`. In a Shiny app, use
+`BottomNavigation.shinyInput()`: see
+[Bottom navigation in Shiny apps](#bottom-navigation-in-shiny-apps).
+</div>
+
+## Bottom navigation
+
+When there are only **three** actions, display both icons and text labels at all times.
+
+```{r}
+actions <- list(
+  list(value = "recents", label = "Recents", icon = "restore"),
+  list(value = "favorites", label = "Favorites", icon = "favorite"),
+  list(value = "nearby", label = "Nearby", icon = "location_on")
+)
+
+navigationAction <- function(action, route) {
+  BottomNavigationAction(
+    component = "a",
+    href = sprintf("#/%s/%s", route, action$value),
+    value = action$value,
+    label = action$label,
+    icon = Icon(action$icon)
+  )
+}
+
+simpleBottomNavigation <- function(value) {
+  Box(
+    sx = list(width = 500, maxWidth = "100%"),
+    BottomNavigation(
+      showLabels = TRUE,
+      value = value,
+      lapply(actions, navigationAction, route = "simple-bottom-navigation")
+    )
+  )
+}
+
+navigationRoutes <- function(route, actions, render) {
+  c(
+    lapply(actions, function(action) Route(path = paste0(route, "/", action$value), element = render(action$value))),
+    list(Route(path = "*", element = render(actions[[1]]$value)))
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(router = createHashRouter(navigationRoutes("simple-bottom-navigation", actions, simpleBottomNavigation)))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+
+export default function SimpleBottomNavigation() {
+  const [value, setValue] = React.useState(0);
+
+  return (
+    <Box sx={{ width: 500 }}>
+      <BottomNavigation
+        showLabels
+        value={value}
+        onChange={(event, newValue) => {
+          setValue(newValue);
+        }}
+      >
+        <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+        <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+        <BottomNavigationAction label="Nearby" icon={<LocationOnIcon />} />
+      </BottomNavigation>
+    </Box>
+  );
+}
+```
+</details>
+
+## Bottom navigation with no label
+
+If there are **four** or **five** actions, display inactive views as icons only.
+
+```{r}
+labelActions <- c(actions, list(list(value = "folder", label = "Folder", icon = "folder")))
+
+labelBottomNavigation <- function(value) {
+  BottomNavigation(
+    sx = list(width = 500, maxWidth = "100%"),
+    value = value,
+    lapply(labelActions, navigationAction, route = "label-bottom-navigation")
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(router = createHashRouter(navigationRoutes("label-bottom-navigation", labelActions, labelBottomNavigation)))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import FolderIcon from '@mui/icons-material/Folder';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+
+export default function LabelBottomNavigation() {
+  const [value, setValue] = React.useState('recents');
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <BottomNavigation sx={{ width: 500 }} value={value} onChange={handleChange}>
+      <BottomNavigationAction
+        label="Recents"
+        value="recents"
+        icon={<RestoreIcon />}
+      />
+      <BottomNavigationAction
+        label="Favorites"
+        value="favorites"
+        icon={<FavoriteIcon />}
+      />
+      <BottomNavigationAction
+        label="Nearby"
+        value="nearby"
+        icon={<LocationOnIcon />}
+      />
+      <BottomNavigationAction label="Folder" value="folder" icon={<FolderIcon />} />
+    </BottomNavigation>
+  );
+}
+```
+</details>
+
+## Fixed positioning
+
+This demo keeps bottom navigation fixed to the bottom, no matter the amount of content on-screen.
+It is rendered in a framed box: its `transform` makes the fixed-position bar
+stay at the bottom of the frame, while the inner box scrolls.
+
+```{r}
+messages <- list(
+  list(primary = "Brunch this week?", secondary = "I'll be in the neighbourhood this week. Let's grab a bite to eat", person = 5),
+  list(primary = "Birthday Gift", secondary = "Do you have a suggestion for a good present for John on his work anniversary. I am really confused & would love your thoughts on it.", person = 1),
+  list(primary = "Recipe to try", secondary = "I am try out this new BBQ recipe, I think this might be amazing", person = 2),
+  list(primary = "Yes!", secondary = "I have the tickets to the ReactConf for this year.", person = 3),
+  list(primary = "Doctor's Appointment", secondary = "My appointment for the doctor was rescheduled for next Saturday.", person = 4),
+  list(primary = "Discussion", secondary = "Menus that are generated by the bottom app bar (such as a bottom navigation drawer or overflow menu) open as bottom sheets at a higher elevation than the bar.", person = 5),
+  list(primary = "Summer BBQ", secondary = "Who wants to have a cookout this weekend? I just got some furniture for my backyard and would love to fire up the grill.", person = 1)
+)
+fixedActions <- list(
+  list(value = "recents", label = "Recents", icon = "restore"),
+  list(value = "favorites", label = "Favorites", icon = "favorite"),
+  list(value = "archive", label = "Archive", icon = "archive")
+)
+
+fixedBottomNavigation <- function(value) {
+  set.seed(match(value, sapply(fixedActions, `[[`, "value"))) # new messages for each action
+  Box(
+    sx = list(position = "relative", height = 400, overflow = "hidden", transform = "translateZ(0)", border = 1, borderColor = "divider"),
+    Box(
+      sx = list(height = "100%", overflow = "auto", pb = 7),
+      List(lapply(sample(messages, 20, replace = TRUE), function(m) {
+        ListItemButton(
+          ListItemAvatar(Avatar(alt = "Profile Picture", src = sprintf("https://mui.com/static/images/avatar/%s.jpg", m$person))),
+          ListItemText(primary = m$primary, secondary = m$secondary)
+        )
+      }))
+    ),
+    Paper(
+      sx = list(position = "fixed", bottom = 0, left = 0, right = 0),
+      elevation = 3,
+      BottomNavigation(showLabels = TRUE, value = value, lapply(fixedActions, navigationAction, route = "fixed-bottom-navigation"))
+    )
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  RouterProvider(router = createHashRouter(navigationRoutes("fixed-bottom-navigation", fixedActions, fixedBottomNavigation)))
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import CssBaseline from '@mui/material/CssBaseline';
+import BottomNavigation from '@mui/material/BottomNavigation';
+import BottomNavigationAction from '@mui/material/BottomNavigationAction';
+import RestoreIcon from '@mui/icons-material/Restore';
+import FavoriteIcon from '@mui/icons-material/Favorite';
+import ArchiveIcon from '@mui/icons-material/Archive';
+import Paper from '@mui/material/Paper';
+import List from '@mui/material/List';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemAvatar from '@mui/material/ListItemAvatar';
+import ListItemText from '@mui/material/ListItemText';
+import Avatar from '@mui/material/Avatar';
+
+function refreshMessages() {
+  const getRandomInt = (max) => Math.floor(Math.random() * Math.floor(max));
+
+  return Array.from(new Array(50)).map(
+    () => messageExamples[getRandomInt(messageExamples.length)],
+  );
+}
+
+export default function FixedBottomNavigation() {
+  const [value, setValue] = React.useState(0);
+  const ref = React.useRef(null);
+  const [messages, setMessages] = React.useState(() => refreshMessages());
+
+  React.useEffect(() => {
+    ref.current.ownerDocument.body.scrollTop = 0;
+    setMessages(refreshMessages());
+  }, [value, setMessages]);
+
+  return (
+    <Box sx={{ pb: 7 }} ref={ref}>
+      <CssBaseline />
+      <List>
+        {messages.map(({ primary, secondary, person }, index) => (
+          <ListItemButton key={index + person}>
+            <ListItemAvatar>
+              <Avatar alt="Profile Picture" src={person} />
+            </ListItemAvatar>
+            <ListItemText primary={primary} secondary={secondary} />
+          </ListItemButton>
+        ))}
+      </List>
+      <Paper sx={{ position: 'fixed', bottom: 0, left: 0, right: 0 }} elevation={3}>
+        <BottomNavigation
+          showLabels
+          value={value}
+          onChange={(event, newValue) => {
+            setValue(newValue);
+          }}
+        >
+          <BottomNavigationAction label="Recents" icon={<RestoreIcon />} />
+          <BottomNavigationAction label="Favorites" icon={<FavoriteIcon />} />
+          <BottomNavigationAction label="Archive" icon={<ArchiveIcon />} />
+        </BottomNavigation>
+      </Paper>
+    </Box>
+  );
+}
+
+const messageExamples = [
+  {
+    primary: 'Brunch this week?',
+    secondary: "I'll be in the neighbourhood this week. Let's grab a bite to eat",
+    person: '/static/images/avatar/5.jpg',
+  },
+  {
+    primary: 'Birthday Gift',
+    secondary: `Do you have a suggestion for a good present for John on his work
+      anniversary. I am really confused & would love your thoughts on it.`,
+    person: '/static/images/avatar/1.jpg',
+  },
+  {
+    primary: 'Recipe to try',
+    secondary: 'I am try out this new BBQ recipe, I think this might be amazing',
+    person: '/static/images/avatar/2.jpg',
+  },
+  {
+    primary: 'Yes!',
+    secondary: 'I have the tickets to the ReactConf for this year.',
+    person: '/static/images/avatar/3.jpg',
+  },
+  {
+    primary: "Doctor's Appointment",
+    secondary: 'My appointment for the doctor was rescheduled for next Saturday.',
+    person: '/static/images/avatar/4.jpg',
+  },
+  {
+    primary: 'Discussion',
+    secondary: `Menus that are generated by the bottom app bar (such as a bottom
+      navigation drawer or overflow menu) open as bottom sheets at a higher elevation
+      than the bar.`,
+    person: '/static/images/avatar/5.jpg',
+  },
+  {
+    primary: 'Summer BBQ',
+    secondary: `Who wants to have a cookout this weekend? I just got some furniture
+      for my backyard and would love to fire up the grill.`,
+    person: '/static/images/avatar/1.jpg',
+  },
+];
+```
+</details>
+
+## Third-party routing library
+
+One frequent use case is to perform navigation on the client only, without an HTTP round-trip to the server.
+The `BottomNavigationAction` component provides the `component` prop to handle this use case.
+All the demos on this page use it with [reactRouter](https://felixluginbuhl.com/reactRouter/),
+and [Using a router](routing.html) shows complete multi-page apps.
+
+## Bottom navigation in Shiny apps
+
+`BottomNavigation.shinyInput()` sends the `value` of the selected action to
+`input[[inputId]]`. Give each `BottomNavigationAction()` a `value`, and pass the
+initial one as `value`:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    sx = list(width = 500, p = 2),
+    reactOutput("page"),
+    BottomNavigation.shinyInput(
+      inputId = "nav",
+      value = "recents",
+      showLabels = TRUE,
+      BottomNavigationAction(label = "Recents", value = "recents", icon = Icon("restore")),
+      BottomNavigationAction(label = "Favorites", value = "favorites", icon = Icon("favorite")),
+      BottomNavigationAction(label = "Nearby", value = "nearby", icon = Icon("location_on"))
+    )
+  )
+)
+
+server <- function(input, output, session) {
+  output$page <- renderReact({
+    Typography(variant = "h5", sx = list(p = 2), paste("Page:", input$nav))
+  })
+}
+
+shinyApp(ui, server)
+```
+
+Run the bundled version with `muiMaterialExample("BottomNavigation")`.

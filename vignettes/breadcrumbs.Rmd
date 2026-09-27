@@ -1,0 +1,744 @@
+---
+title: "Breadcrumbs"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Breadcrumbs}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-breadcrumbs/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(shiny)
+```
+
+# Breadcrumbs
+
+A breadcrumbs is a list of links that help visualize a page's location within a site's hierarchical structure, it allows navigation up to any of the ancestors.
+
+As in the MUI documentation, the links of the demos do not navigate: a
+`preventDefault()` handler on the wrapper logs the click to the browser console
+instead.
+
+```{r}
+handleClick <- JS("(event) => { event.preventDefault(); console.info('You clicked a breadcrumb.'); }")
+```
+
+## Basic breadcrumbs
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    role = "presentation",
+    onClick = handleClick,
+    Breadcrumbs(
+      `aria-label` = "breadcrumb",
+      Link(underline = "hover", color = "inherit", href = "/", "MUI"),
+      Link(underline = "hover", color = "inherit", href = "/material-ui/getting-started/installation/", "Core"),
+      Typography(sx = list(color = "text.primary"), "Breadcrumbs")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+
+export default function BasicBreadcrumbs() {
+  return (
+    <div role="presentation" onClick={handleClick}>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" href="/">
+          MUI
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          href="/material-ui/getting-started/installation/"
+        >
+          Core
+        </Link>
+        <Typography sx={{ color: 'text.primary' }}>Breadcrumbs</Typography>
+      </Breadcrumbs>
+    </div>
+  );
+}
+```
+</details>
+
+## Active last breadcrumb
+
+Keep the last breadcrumb interactive.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    role = "presentation",
+    onClick = handleClick,
+    Breadcrumbs(
+      `aria-label` = "breadcrumb",
+      Link(underline = "hover", color = "inherit", href = "/", "MUI"),
+      Link(underline = "hover", color = "inherit", href = "/material-ui/getting-started/installation/", "Core"),
+      Link(
+        underline = "hover",
+        href = "/material-ui/react-breadcrumbs/",
+        `aria-current` = "page",
+        sx = list(color = "text.primary"),
+        "Breadcrumbs"
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+
+export default function ActiveLastBreadcrumb() {
+  return (
+    <div role="presentation" onClick={handleClick}>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" href="/">
+          MUI
+        </Link>
+        <Link
+          underline="hover"
+          color="inherit"
+          href="/material-ui/getting-started/installation/"
+        >
+          Core
+        </Link>
+        <Link
+          underline="hover"
+          href="/material-ui/react-breadcrumbs/"
+          aria-current="page"
+          sx={{
+            color: 'text.primary',
+          }}
+        >
+          Breadcrumbs
+        </Link>
+      </Breadcrumbs>
+    </div>
+  );
+}
+```
+</details>
+
+## Custom separator
+
+In the following examples, we are using two string separators and an icon.
+
+```{r}
+breadcrumbs <- tagList(
+  Link(underline = "hover", color = "inherit", href = "/", onClick = handleClick, "MUI"),
+  Link(underline = "hover", color = "inherit", href = "/material-ui/getting-started/installation/", onClick = handleClick, "Core"),
+  Typography(sx = list(color = "text.primary"), "Breadcrumb")
+)
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    Breadcrumbs(separator = "›", `aria-label` = "breadcrumb", breadcrumbs),
+    Breadcrumbs(separator = "-", `aria-label` = "breadcrumb", breadcrumbs),
+    Breadcrumbs(separator = Icon("navigate_next", fontSize = "small"), `aria-label` = "breadcrumb", breadcrumbs)
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+import Stack from '@mui/material/Stack';
+import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+
+export default function CustomSeparator() {
+  const breadcrumbs = [
+    <Link underline="hover" key="1" color="inherit" href="/" onClick={handleClick}>
+      MUI
+    </Link>,
+    <Link
+      underline="hover"
+      key="2"
+      color="inherit"
+      href="/material-ui/getting-started/installation/"
+      onClick={handleClick}
+    >
+      Core
+    </Link>,
+    <Typography key="3" sx={{ color: 'text.primary' }}>
+      Breadcrumb
+    </Typography>,
+  ];
+
+  return (
+    <Stack spacing={2}>
+      <Breadcrumbs separator="›" aria-label="breadcrumb">
+        {breadcrumbs}
+      </Breadcrumbs>
+      <Breadcrumbs separator="-" aria-label="breadcrumb">
+        {breadcrumbs}
+      </Breadcrumbs>
+      <Breadcrumbs
+        separator={<NavigateNextIcon fontSize="small" />}
+        aria-label="breadcrumb"
+      >
+        {breadcrumbs}
+      </Breadcrumbs>
+    </Stack>
+  );
+}
+```
+</details>
+
+## Breadcrumbs with icons
+
+```{r}
+iconLink <- function(icon, label, href) {
+  Link(
+    underline = "hover",
+    sx = list(display = "flex", alignItems = "center"),
+    color = "inherit",
+    href = href,
+    Icon(icon, sx = list(mr = 0.5), fontSize = "inherit"),
+    label
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    role = "presentation",
+    onClick = handleClick,
+    Breadcrumbs(
+      `aria-label` = "breadcrumb",
+      iconLink("home", "MUI", "/"),
+      iconLink("whatshot", "Core", "/material-ui/getting-started/installation/"),
+      Typography(
+        sx = list(color = "text.primary", display = "flex", alignItems = "center"),
+        Icon("grain", sx = list(mr = 0.5), fontSize = "inherit"),
+        "Breadcrumb"
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Typography from '@mui/material/Typography';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import HomeIcon from '@mui/icons-material/Home';
+import WhatshotIcon from '@mui/icons-material/Whatshot';
+import GrainIcon from '@mui/icons-material/Grain';
+
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+
+export default function IconBreadcrumbs() {
+  return (
+    <div role="presentation" onClick={handleClick}>
+      <Breadcrumbs aria-label="breadcrumb">
+        <Link
+          underline="hover"
+          sx={{ display: 'flex', alignItems: 'center' }}
+          color="inherit"
+          href="/"
+        >
+          <HomeIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+          MUI
+        </Link>
+        <Link
+          underline="hover"
+          sx={{ display: 'flex', alignItems: 'center' }}
+          color="inherit"
+          href="/material-ui/getting-started/installation/"
+        >
+          <WhatshotIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+          Core
+        </Link>
+        <Typography
+          sx={{ color: 'text.primary', display: 'flex', alignItems: 'center' }}
+        >
+          <GrainIcon sx={{ mr: 0.5 }} fontSize="inherit" />
+          Breadcrumb
+        </Typography>
+      </Breadcrumbs>
+    </div>
+  );
+}
+```
+</details>
+
+## Collapsed breadcrumbs
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    role = "presentation",
+    onClick = handleClick,
+    Breadcrumbs(
+      maxItems = 2,
+      `aria-label` = "breadcrumb",
+      lapply(c("Home", "Catalog", "Accessories", "New Collection"), function(label) {
+        Link(underline = "hover", color = "inherit", href = "#", label)
+      }),
+      Typography(sx = list(color = "text.primary"), "Belts")
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Typography from '@mui/material/Typography';
+import Link from '@mui/material/Link';
+
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+
+export default function CollapsedBreadcrumbs() {
+  return (
+    <div role="presentation" onClick={handleClick}>
+      <Breadcrumbs maxItems={2} aria-label="breadcrumb">
+        <Link underline="hover" color="inherit" href="#">
+          Home
+        </Link>
+        <Link underline="hover" color="inherit" href="#">
+          Catalog
+        </Link>
+        <Link underline="hover" color="inherit" href="#">
+          Accessories
+        </Link>
+        <Link underline="hover" color="inherit" href="#">
+          New Collection
+        </Link>
+        <Typography sx={{ color: 'text.primary' }}>Belts</Typography>
+      </Breadcrumbs>
+    </div>
+  );
+}
+```
+</details>
+
+## Condensed with menu
+
+As an alternative, consider adding a [Menu](menu.html) component to display the condensed links in a dropdown list.
+`Menu.triggerId()` opens the menu next to the "more" button:
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Menu.triggerId(
+    triggerId = "with-menu-demo-breadcrumbs",
+    `aria-labelledby` = "with-menu-demo-breadcrumbs",
+    MenuItem("Breadcrumb 2"),
+    MenuItem("Breadcrumb 3"),
+    MenuItem("Breadcrumb 4")
+  ),
+  Breadcrumbs(
+    `aria-label` = "breadcrumbs",
+    Link(color = "primary", href = "#condensed-with-menu", "Breadcrumb 1"),
+    IconButton(id = "with-menu-demo-breadcrumbs", color = "primary", size = "small", Icon("more_horiz")),
+    Link(color = "primary", href = "#condensed-with-menu", "Breadcrumb 5"),
+    Link(color = "primary", href = "#condensed-with-menu", "Breadcrumb 6")
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Link from '@mui/material/Link';
+import Menu from '@mui/material/Menu';
+import MenuItem from '@mui/material/MenuItem';
+import IconButton from '@mui/material/IconButton';
+import MoreHorizIcon from '@mui/icons-material/MoreHoriz';
+
+export default function CondensedWithMenu() {
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+
+  const handleClick = (event) => {
+    if (event) {
+      setAnchorEl(event.currentTarget);
+    }
+  };
+
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  return (
+    <React.Fragment>
+      <Menu
+        anchorEl={anchorEl}
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="with-menu-demo-breadcrumbs"
+      >
+        <MenuItem onClick={handleClose}>Breadcrumb 2</MenuItem>
+        <MenuItem onClick={handleClose}>Breadcrumb 3</MenuItem>
+        <MenuItem onClick={handleClose}>Breadcrumb 4</MenuItem>
+      </Menu>
+      <Breadcrumbs aria-label="breadcrumbs">
+        <Link color="primary" href="#condensed-with-menu">
+          Breadcrumb 1
+        </Link>
+        <IconButton color="primary" size="small" onClick={handleClick}>
+          <MoreHorizIcon />
+        </IconButton>
+        <Link color="primary" href="#condensed-with-menu">
+          Breadcrumb 5
+        </Link>
+        <Link color="primary" href="#condensed-with-menu">
+          Breadcrumb 6
+        </Link>
+      </Breadcrumbs>
+    </React.Fragment>
+  );
+}
+```
+</details>
+
+## Customization
+
+Here is an example of customizing the component.
+You can learn more about this in the [overrides documentation page](https://mui.com/material-ui/customization/how-to-customize/).
+The `styled(Chip)` of the original demo becomes an R function returning a
+`Chip()` styled with `sx`:
+
+```{r}
+StyledBreadcrumb <- function(...) {
+  Chip(
+    sx = list(
+      backgroundColor = "grey.100",
+      height = 24,
+      color = "text.primary",
+      fontWeight = "fontWeightRegular",
+      "&:hover, &:focus" = list(backgroundColor = "#e5e5e5"), # emphasize(grey[100], 0.06)
+      "&:active" = list(boxShadow = 1, backgroundColor = "#d6d6d6") # emphasize(grey[100], 0.12)
+    ),
+    ...
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    role = "presentation",
+    onClick = handleClick,
+    Breadcrumbs(
+      `aria-label` = "breadcrumb",
+      StyledBreadcrumb(component = "a", href = "#", label = "Home", icon = Icon("home", fontSize = "small")),
+      StyledBreadcrumb(component = "a", href = "#", label = "Catalog"),
+      StyledBreadcrumb(label = "Accessories", deleteIcon = Icon("expand_more"), onDelete = handleClick)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import { emphasize, styled } from '@mui/material/styles';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import Chip from '@mui/material/Chip';
+import HomeIcon from '@mui/icons-material/Home';
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+
+const StyledBreadcrumb = styled(Chip)(({ theme }) => {
+  return {
+    backgroundColor: theme.palette.grey[100],
+    height: theme.spacing(3),
+    color: (theme.vars || theme).palette.text.primary,
+    fontWeight: theme.typography.fontWeightRegular,
+    '&:hover, &:focus': {
+      backgroundColor: emphasize(theme.palette.grey[100], 0.06),
+      ...theme.applyStyles('dark', {
+        backgroundColor: emphasize(theme.palette.grey[800], 0.06),
+      }),
+    },
+    '&:active': {
+      boxShadow: theme.shadows[1],
+      backgroundColor: emphasize(theme.palette.grey[100], 0.12),
+      ...theme.applyStyles('dark', {
+        backgroundColor: emphasize(theme.palette.grey[800], 0.12),
+      }),
+    },
+    ...theme.applyStyles('dark', {
+      backgroundColor: theme.palette.grey[800],
+    }),
+  };
+}); // TypeScript only: need a type cast here because https://github.com/Microsoft/TypeScript/issues/26591
+
+function handleClick(event) {
+  event.preventDefault();
+  console.info('You clicked a breadcrumb.');
+}
+
+export default function CustomizedBreadcrumbs() {
+  return (
+    <div role="presentation" onClick={handleClick}>
+      <Breadcrumbs aria-label="breadcrumb">
+        <StyledBreadcrumb
+          component="a"
+          href="#"
+          label="Home"
+          icon={<HomeIcon fontSize="small" />}
+        />
+        <StyledBreadcrumb component="a" href="#" label="Catalog" />
+        <StyledBreadcrumb
+          label="Accessories"
+          deleteIcon={<ExpandMoreIcon />}
+          onDelete={handleClick}
+        />
+      </Breadcrumbs>
+    </div>
+  );
+}
+```
+</details>
+
+## Integration with react-router
+
+With [reactRouter](https://felixluginbuhl.com/reactRouter/), the breadcrumbs of
+each route are built in R from its path. The functions of reactRouter are
+called with the `reactRouter::` prefix here, because reactRouter also exports a
+`Link()` function, which masks `muiMaterial::Link()` once reactRouter is
+attached.
+
+```{r}
+breadcrumbNameMap <- c(
+  "/inbox" = "Inbox",
+  "/inbox/important" = "Important",
+  "/trash" = "Trash",
+  "/spam" = "Spam",
+  "/drafts" = "Drafts"
+)
+
+routerBreadcrumbs <- function(path) {
+  segments <- strsplit(sub("^/", "", path), "/")[[1]]
+  parents <- vapply(seq_along(segments), function(i) paste0("/", paste(segments[seq_len(i)], collapse = "/")), "")
+  Box(
+    sx = list(display = "flex", flexDirection = "column", width = 360),
+    Breadcrumbs(
+      `aria-label` = "breadcrumb",
+      Link(underline = "hover", color = "inherit", href = "#/", "Home"),
+      lapply(seq_along(parents), function(i) {
+        if (i == length(parents)) {
+          Typography(sx = list(color = "text.primary"), breadcrumbNameMap[[parents[i]]])
+        } else {
+          Link(underline = "hover", color = "inherit", href = paste0("#", parents[i]), breadcrumbNameMap[[parents[i]]])
+        }
+      })
+    ),
+    Box(
+      sx = list(bgcolor = "background.paper", mt = 1),
+      component = "nav",
+      `aria-label` = "mailbox folders",
+      List(lapply(names(breadcrumbNameMap), function(to) {
+        ListItemButton(
+          component = "a",
+          href = paste0("#", to),
+          selected = identical(to, path),
+          sx = list(pl = if (grepl("/.+/", to)) 4 else 2),
+          ListItemText(primary = breadcrumbNameMap[[to]])
+        )
+      }))
+    )
+  )
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  reactRouter::RouterProvider(
+    router = reactRouter::createHashRouter(
+      lapply(names(breadcrumbNameMap), function(path) {
+        reactRouter::Route(path = path, element = routerBreadcrumbs(path))
+      }),
+      reactRouter::Route(path = "*", element = routerBreadcrumbs("/inbox"))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import PropTypes from 'prop-types';
+import Box from '@mui/material/Box';
+import List from '@mui/material/List';
+import Link from '@mui/material/Link';
+
+import ListItemButton from '@mui/material/ListItemButton';
+import Collapse from '@mui/material/Collapse';
+import ListItemText from '@mui/material/ListItemText';
+import Typography from '@mui/material/Typography';
+import ExpandLess from '@mui/icons-material/ExpandLess';
+import ExpandMore from '@mui/icons-material/ExpandMore';
+import Breadcrumbs from '@mui/material/Breadcrumbs';
+import {
+  Link as RouterLink,
+  Route,
+  Routes,
+  MemoryRouter,
+  useLocation,
+} from 'react-router';
+
+const breadcrumbNameMap = {
+  '/inbox': 'Inbox',
+  '/inbox/important': 'Important',
+  '/trash': 'Trash',
+  '/spam': 'Spam',
+  '/drafts': 'Drafts',
+};
+
+function ListItemLink(props) {
+  const { to, open, ...other } = props;
+  const primary = breadcrumbNameMap[to];
+
+  let icon = null;
+  if (open != null) {
+    icon = open ? <ExpandLess /> : <ExpandMore />;
+  }
+
+  return (
+    <li>
+      <ListItemButton component={RouterLink} to={to} {...other}>
+        <ListItemText primary={primary} />
+        {icon}
+      </ListItemButton>
+    </li>
+  );
+}
+
+ListItemLink.propTypes = {
+  open: PropTypes.bool,
+  to: PropTypes.string.isRequired,
+};
+
+function LinkRouter(props) {
+  return <Link {...props} component={RouterLink} />;
+}
+
+function Page() {
+  const location = useLocation();
+  const pathnames = location.pathname.split('/').filter((x) => x);
+
+  return (
+    <Breadcrumbs aria-label="breadcrumb">
+      <LinkRouter underline="hover" color="inherit" to="/">
+        Home
+      </LinkRouter>
+      {pathnames.map((value, index) => {
+        const last = index === pathnames.length - 1;
+        const to = `/${pathnames.slice(0, index + 1).join('/')}`;
+
+        return last ? (
+          <Typography key={to} sx={{ color: 'text.primary' }}>
+            {breadcrumbNameMap[to]}
+          </Typography>
+        ) : (
+          <LinkRouter underline="hover" color="inherit" to={to} key={to}>
+            {breadcrumbNameMap[to]}
+          </LinkRouter>
+        );
+      })}
+    </Breadcrumbs>
+  );
+}
+
+export default function RouterBreadcrumbs() {
+  const [open, setOpen] = React.useState(true);
+
+  const handleClick = () => {
+    setOpen((prevOpen) => !prevOpen);
+  };
+
+  return (
+    <MemoryRouter initialEntries={['/inbox']} initialIndex={0}>
+      <Box sx={{ display: 'flex', flexDirection: 'column', width: 360 }}>
+        <Routes>
+          <Route path="*" element={<Page />} />
+        </Routes>
+        <Box
+          sx={{ bgcolor: 'background.paper', mt: 1 }}
+          component="nav"
+          aria-label="mailbox folders"
+        >
+          <List>
+            <ListItemLink to="/inbox" open={open} onClick={handleClick} />
+            <Collapse component="li" in={open} timeout="auto" unmountOnExit>
+              <List disablePadding>
+                <ListItemLink sx={{ pl: 4 }} to="/inbox/important" />
+              </List>
+            </Collapse>
+            <ListItemLink to="/trash" />
+            <ListItemLink to="/spam" />
+          </List>
+        </Box>
+      </Box>
+    </MemoryRouter>
+  );
+}
+```
+</details>
+
+## Accessibility
+
+(WAI-ARIA: <https://www.w3.org/WAI/ARIA/apg/patterns/breadcrumb/>)
+
+Be sure to add a `aria-label` description on the `Breadcrumbs` component.
+
+The accessibility of this component relies on:
+
+- The set of links is structured using an ordered list (`<ol>` element).
+- To prevent screen reader announcement of the visual separators between links, they are hidden with `aria-hidden`.
+- A nav element labeled with `aria-label` identifies the structure as a breadcrumb trail and makes it a navigation landmark so that it is easy to locate.

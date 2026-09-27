@@ -12,75 +12,283 @@ authors:
 llm-docs: true
 
 navbar:
-  left:
-  - text: Home
-    href: index.html
-  - text: Get Started
-    menu:
-    - text: Getting Started
-      href: articles/getting-started.html
-    - text: AI-Assisted Development
-      href: articles/ai-assisted-development.html
-    - text: llms.txt
-      href: llms.txt
-  - text: Reference
-    href: reference/index.html
-  - text: Inputs
-    menu:
-    - text: Autocomplete
-      href: articles/autocomplete.html
-    - text: Button
-      href: articles/button.html
-    - text: Checkbox
-      href: articles/checkbox.html
-    - text: Floating Action Button
-      href: articles/floating-action-button.html
-    - text: Rating
-      href: articles/rating.html
-    - text: Select
-      href: articles/select.html
-    - text: Slider
-      href: articles/slider.html
-    - text: TextField
-      href: articles/textfield.html
-    - text: Switch
-      href: articles/switch.html
-    - text: Toggle Button Group
-      href: articles/toggle-button-group.html
-  - text: Data Display
-    menu:
-    - text: Avatar
-      href: articles/avatar.html
-    - text: Badge
-      href: articles/badge.html
-    - text: Chip
-      href: articles/chip.html
-    - text: Divider
-      href: articles/divider.html
-    - text: List
-      href: articles/list.html
-  - text: Dashboarding
-    menu:
-    - text: Basic dashboarding
-      href: articles/dashboard-basic.html
-    - text: Tabs
-      href: articles/tabs.html
-    - text: CSS conflicts with Bootstrap
-      href: articles/bootstrap.html
-    - text: Using a router
-      href: articles/routing.html
-  - text: News
-    href: news/index.html
+  structure:
+    left: [guides, reference, inputs, datadisplay, feedback, surfaces, navigation, layout, utils, news]
+    right: [linkedin, twitter, github, homepage]
+  components:
+    home:
+      text: Home
+      href: index.html
+    guides:
+      text: Guides
+      menu:
+      - text: Getting Started
+        href: articles/getting-started.html
+      - text: Shiny inputs and server updates
+        href: articles/shiny-inputs.html
+      - text: Overlays with .triggerId
+        href: articles/triggerid.html
+      - text: Theming
+        href: articles/theming.html
+      - text: Quarto and R Markdown
+        href: articles/quarto.html
+      - text: Custom components
+        href: articles/custom-components.html
+      - text: Examples gallery
+        href: articles/examples.html
+      - text: -------
+      - text: Dashboards
+      - text: Basic dashboarding
+        href: articles/dashboard-basic.html
+      - text: Using a router
+        href: articles/routing.html
+      - text: CSS conflicts with Bootstrap
+        href: articles/bootstrap.html
+      - text: -------
+      - text: AI-Assisted Development
+        href: articles/ai-assisted-development.html
+      - text: llms.txt
+        href: llms.txt
+    reference:
+      text: Reference
+      href: reference/index.html
+    inputs:
+      text: Inputs
+      menu:
+      - text: Autocomplete
+        href: articles/autocomplete.html
+      - text: Button
+        href: articles/button.html
+      - text: Button Group
+        href: articles/button-group.html
+      - text: Checkbox
+        href: articles/checkbox.html
+      - text: Floating Action Button
+        href: articles/floating-action-button.html
+      - text: Radio Group
+        href: articles/radio.html
+      - text: Rating
+        href: articles/rating.html
+      - text: Select
+        href: articles/select.html
+      - text: Slider
+        href: articles/slider.html
+      - text: Switch
+        href: articles/switch.html
+      - text: Text Field
+        href: articles/textfield.html
+      - text: Toggle Button Group
+        href: articles/toggle-button-group.html
+      - text: Transfer List
+        href: articles/transfer-list.html
+    datadisplay:
+      text: Data Display
+      menu:
+      - text: Avatar
+        href: articles/avatar.html
+      - text: Badge
+        href: articles/badge.html
+      - text: Chip
+        href: articles/chip.html
+      - text: Divider
+        href: articles/divider.html
+      - text: Icons
+        href: articles/icons.html
+      - text: List
+        href: articles/list.html
+      - text: Table
+        href: articles/table.html
+      - text: Tooltip
+        href: articles/tooltip.html
+      - text: Typography
+        href: articles/typography.html
+    feedback:
+      text: Feedback
+      menu:
+      - text: Alert
+        href: articles/alert.html
+      - text: Backdrop
+        href: articles/backdrop.html
+      - text: Dialog
+        href: articles/dialog.html
+      - text: Progress
+        href: articles/progress.html
+      - text: Skeleton
+        href: articles/skeleton.html
+      - text: Snackbar
+        href: articles/snackbar.html
+    surfaces:
+      text: Surfaces
+      menu:
+      - text: Accordion
+        href: articles/accordion.html
+      - text: App Bar
+        href: articles/app-bar.html
+      - text: Card
+        href: articles/card.html
+      - text: Paper
+        href: articles/paper.html
+    navigation:
+      text: Navigation
+      menu:
+      - text: Bottom Navigation
+        href: articles/bottom-navigation.html
+      - text: Breadcrumbs
+        href: articles/breadcrumbs.html
+      - text: Drawer
+        href: articles/drawer.html
+      - text: Link
+        href: articles/link.html
+      - text: Menu
+        href: articles/menu.html
+      - text: Pagination
+        href: articles/pagination.html
+      - text: Speed Dial
+        href: articles/speed-dial.html
+      - text: Stepper
+        href: articles/stepper.html
+      - text: Tabs
+        href: articles/tabs.html
+    layout:
+      text: Layout
+      menu:
+      - text: Box
+        href: articles/box.html
+      - text: Container
+        href: articles/container.html
+      - text: Grid
+        href: articles/grid.html
+      - text: Stack
+        href: articles/stack.html
+      - text: Image List
+        href: articles/image-list.html
+      - text: -------
+      - text: Lab
+      - text: Masonry
+        href: articles/masonry.html
+      - text: Timeline
+        href: articles/timeline.html
+    utils:
+      text: Utils
+      menu:
+      - text: Click-Away Listener
+        href: articles/click-away-listener.html
+      - text: CSS Baseline
+        href: articles/css-baseline.html
+      - text: Modal
+        href: articles/modal.html
+      - text: Popover
+        href: articles/popover.html
+      - text: Popper
+        href: articles/popper.html
+      - text: Textarea Autosize
+        href: articles/textarea-autosize.html
+      - text: Transitions
+        href: articles/transitions.html
+    news:
+      text: News
+      href: news/index.html
+    linkedin:
+      icon: fa-linkedin
+      href: https://www.linkedin.com/in/felixluginbuhl
+      aria-label: LinkedIn
+    twitter:
+      icon: fa-twitter
+      href: https://twitter.com/FelixLuginbuhl
+      aria-label: Twitter
+    github:
+      icon: fa-github
+      href: https://github.com/lgnbhl/muiMaterial
+      aria-label: GitHub
+    homepage:
+      icon: fa-home
+      href: http://felixluginbuhl.com
+      aria-label: Felix Luginbuhl's website
 
-  right:
-   - icon: fa-linkedin
-     href: https://www.linkedin.com/in/felixluginbuhl
-   - icon: fa-twitter
-     href: https://twitter.com/FelixLuginbuhl
-   - icon: fa-github
-     href: https://github.com/lgnbhl/muiMaterial
-   - icon: fa-home
-     href: http://felixluginbuhl.com
+articles:
+- title: Guides
+  navbar: ~
+  contents:
+  - getting-started
+  - shiny-inputs
+  - triggerid
+  - theming
+  - quarto
+  - custom-components
+  - examples
+  - dashboard-basic
+  - routing
+  - bootstrap
+  - ai-assisted-development
+- title: Inputs
+  contents:
+  - autocomplete
+  - button
+  - button-group
+  - checkbox
+  - floating-action-button
+  - radio
+  - rating
+  - select
+  - slider
+  - switch
+  - textfield
+  - toggle-button-group
+  - transfer-list
+- title: Data Display
+  contents:
+  - avatar
+  - badge
+  - chip
+  - divider
+  - icons
+  - list
+  - table
+  - tooltip
+  - typography
+- title: Feedback
+  contents:
+  - alert
+  - backdrop
+  - dialog
+  - progress
+  - skeleton
+  - snackbar
+- title: Surfaces
+  contents:
+  - accordion
+  - app-bar
+  - card
+  - paper
+- title: Navigation
+  contents:
+  - bottom-navigation
+  - breadcrumbs
+  - drawer
+  - link
+  - menu
+  - pagination
+  - speed-dial
+  - stepper
+  - tabs
+- title: Layout
+  contents:
+  - box
+  - container
+  - grid
+  - stack
+  - image-list
+  - masonry
+  - timeline
+- title: Utils
+  contents:
+  - click-away-listener
+  - css-baseline
+  - modal
+  - popover
+  - popper
+  - textarea-autosize
+  - transitions
 
 reference:
 - title: Page wrapper and theming
@@ -97,18 +305,22 @@ reference:
         `update*.shinyInput()` pairs.
   contents:
   - Autocomplete.shinyInput
+  - BottomNavigation.shinyInput
   - Button.shinyInput
   - Checkbox.shinyInput
   - Dialog.shinyInput
   - Drawer.shinyInput
   - Fab.shinyInput
+  - FilledInput.shinyInput
   - FormControlLabel.shinyInput
   - IconButton.shinyInput
   - Input.shinyInput
   - LoadingButton.shinyInput
+  - ListItemButton.shinyInput
   - Menu.shinyInput
   - MenuItem.shinyInput
   - Modal.shinyInput
+  - NativeSelect.shinyInput
   - OutlinedInput.shinyInput
   - Pagination.shinyInput
   - Radio.shinyInput

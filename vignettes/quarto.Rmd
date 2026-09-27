@@ -1,0 +1,125 @@
+---
+title: "Quarto and R Markdown"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Quarto and R Markdown}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+```
+
+muiMaterial components render in [Quarto](https://quarto.org/) documents and
+R Markdown HTML documents, without a Shiny server. Every page of this website
+is an R Markdown document: all the live demos are rendered this way.
+
+## Rendering components
+
+A code chunk that returns a muiMaterial component renders it in the document:
+
+````markdown
+```{r}
+library(muiMaterial)
+
+Stack(
+  direction = "row",
+  spacing = 2,
+  Button(variant = "contained", "Contained"),
+  Chip(label = "A chip", color = "primary"),
+  Rating(defaultValue = 3)
+)
+```
+````
+
+```{r, echo = FALSE}
+Stack(
+  direction = "row",
+  spacing = 2,
+  Button(variant = "contained", "Contained"),
+  Chip(label = "A chip", color = "primary"),
+  Rating(defaultValue = 3)
+)
+```
+
+Each chunk is its own React tree, so a `ThemeProvider()` only applies to the
+components of its chunk.
+
+## What works without a server
+
+In a document, everything runs in the browser:
+
+- **Uncontrolled components** keep their own state: `Rating(defaultValue = 3)`,
+  `Accordion()`, `Checkbox(defaultChecked = TRUE)`, `TextField()`, `Slider(defaultValue = 30)`, ...
+- **Tabs**: `TabContext.static()`, `TabList.static()` and `TabPanel()` (see [Tabs](tabs.html)).
+- **Overlays**: the `.triggerId()` wrappers open dialogs, drawers, menus and
+  popovers (see [Overlays with `.triggerId`](triggerid.html)).
+- **State in the URL**: [reactRouter](https://felixluginbuhl.com/reactRouter/)
+  routes hold the state of controlled components (see [Dialog](dialog.html) and
+  [Using a router](routing.html)).
+- **JavaScript callbacks** written with `JS()`.
+
+The `.shinyInput()` wrappers render too, but they only report their value to a
+Shiny server. For inputs that talk to R, use a Quarto document with
+[`server: shiny`](https://quarto.org/docs/interactive/shiny/) or a Shiny app.
+
+## `muiMaterialPage()` in documents
+
+`muiMaterialPage()` is not required in a document, but it is the simplest way
+to load the Google fonts:
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  Stack(direction = "row", spacing = 2, Icon("home"), Icon("favorite", color = "error"), Icon("star", color = "primary"))
+)
+```
+
+The fonts (`useFontRoboto`, `useMaterialIcons*`) are added to the document head,
+once even if several chunks request them.
+
+`muiMaterialPage()` also removes Bootstrap by default (`suppressBootstrap = TRUE`):
+
+- In **Quarto** and in **pkgdown** websites, the page theme is part of the page
+  template, so it is not affected.
+- In an **R Markdown `html_document`**, the Bootstrap theme is an HTML
+  dependency, so it is removed and the document loses its styling. Use
+  `muiMaterialPage(suppressBootstrap = FALSE, ...)` in R Markdown documents.
+
+## `CssBaseline()` in documents
+
+`CssBaseline()` sets global styles on the page `<body>` (margin, background,
+font). In a document, you may prefer `ScopedCssBaseline()`, which only applies
+them to its children (see [CSS Baseline](css-baseline.html)).
+
+## Quarto example
+
+````markdown
+---
+title: "My report"
+format: html
+---
+
+```{r}
+#| echo: false
+library(muiMaterial)
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  Card(
+    sx = list(maxWidth = 400),
+    CardHeader(avatar = Avatar(Icon("insights")), title = "Summary", subheader = "Monthly report"),
+    CardContent(Typography(variant = "body2", "All indicators are up this month.")),
+    CardActions(Button(id = "details-button", size = "small", "Details"))
+  ),
+  Dialog.triggerId(
+    triggerId = "details-button",
+    DialogTitle("Details"),
+    DialogContent(DialogContentText("Details rendered without a server."))
+  )
+)
+```
+````

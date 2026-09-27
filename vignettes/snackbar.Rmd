@@ -1,0 +1,968 @@
+---
+title: "Snackbar"
+format:
+  html:
+    minimal: true
+vignette: >
+  %\VignetteIndexEntry{Snackbar}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+<div class="alert alert-primary">This page is an adaptation of the related [MUI Material UI documentation page](https://mui.com/material-ui/react-snackbar/).</div>
+
+```{r setup, message = FALSE}
+library(muiMaterial)
+library(reactRouter)
+library(shiny)
+```
+
+# Snackbar
+
+Snackbars (also known as toasts) are used for brief notifications of processes that have been or will be performed.
+
+<div class="alert alert-secondary">
+**How the live demos on this page work.** As on the [Dialog](dialog.html)
+page, the open state is kept in the URL with
+[reactRouter](https://felixluginbuhl.com/reactRouter/): each snackbar is a
+route rendered with `open = TRUE`, a link opens it, and `onClose` navigates back
+to `#/`. In a Shiny app, you would rather open snackbars from the server; see
+[Snackbars in Shiny apps](#snackbars-in-shiny-apps).
+</div>
+
+```{r}
+# Close on auto-hide, Escape or the close button, but not on a click elsewhere
+closeSnackbar <- JS(
+  "(event, reason) => {
+    if (reason === 'clickaway') return;
+    window.location.hash = '/';
+  }"
+)
+```
+
+## Introduction
+
+The Snackbar component appears temporarily and floats above the UI to provide users with (non-critical) updates on an app's processes.
+The demo below, inspired by Google Keep, shows a basic Snackbar with a text element and two actions:
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Button(href = "#/simple-snackbar", "Open Snackbar"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "simple-snackbar",
+        element = Snackbar(
+          open = TRUE,
+          autoHideDuration = 6000,
+          onClose = closeSnackbar,
+          message = "Note archived",
+          action = tagList(
+            Button(color = "secondary", size = "small", href = "#/", "UNDO"),
+            IconButton(
+              size = "small",
+              `aria-label` = "close",
+              color = "inherit",
+              href = "#/",
+              Icon("close", fontSize = "small")
+            )
+          )
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
+export default function SimpleSnackbar() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <Button color="secondary" size="small" onClick={handleClose}>
+        UNDO
+      </Button>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
+
+  return (
+    <div>
+      <Button onClick={handleClick}>Open Snackbar</Button>
+      <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        message="Note archived"
+        action={action}
+      />
+    </div>
+  );
+}
+```
+</details>
+
+### Usage
+
+Snackbars differ from [Alerts](alert.html) in that Snackbars have a fixed position and a high z-index, so they're intended to break out of the document flow; Alerts, on the other hand, are usually part of the flow, except when they're [used as children of a Snackbar](#use-with-alerts).
+
+Snackbars also differ from [Dialogs](dialog.html) in that Snackbars are not intended to convey _critical_ information or block the user from interacting with the rest of the app; Dialogs, by contrast, require input from the user in order to be dismissed.
+
+## Basics
+
+### Position
+
+Use the `anchorOrigin` prop to control the Snackbar's position on the screen.
+
+```{r}
+positions <- list(
+  "top-center" = list(vertical = "top", horizontal = "center"),
+  "top-left" = list(vertical = "top", horizontal = "left"),
+  "top-right" = list(vertical = "top", horizontal = "right"),
+  "bottom-center" = list(vertical = "bottom", horizontal = "center"),
+  "bottom-left" = list(vertical = "bottom", horizontal = "left"),
+  "bottom-right" = list(vertical = "bottom", horizontal = "right")
+)
+positionButton <- function(position) {
+  Button(href = paste0("#/positioned-snackbar/", position), gsub("-", " ", position))
+}
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(width = 500, maxWidth = "100%"),
+    Box(sx = list(display = "flex", justifyContent = "center"), positionButton("top-center")),
+    Grid(
+      container = TRUE,
+      sx = list(justifyContent = "center"),
+      Grid(size = 6, positionButton("top-left")),
+      Grid(sx = list(textAlign = "right"), size = 6, positionButton("top-right")),
+      Grid(size = 6, positionButton("bottom-left")),
+      Grid(sx = list(textAlign = "right"), size = 6, positionButton("bottom-right"))
+    ),
+    Box(sx = list(display = "flex", justifyContent = "center"), positionButton("bottom-center")),
+    RouterProvider(
+      router = createHashRouter(
+        lapply(names(positions), function(position) {
+          Route(
+            path = paste0("positioned-snackbar/", position),
+            element = Snackbar(
+              anchorOrigin = positions[[position]],
+              open = TRUE,
+              onClose = closeSnackbar,
+              message = "I love snacks"
+            )
+          )
+        }),
+        Route(path = "*", element = NULL)
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Grid from '@mui/material/Grid';
+import Box from '@mui/material/Box';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+
+export default function PositionedSnackbar() {
+  const [state, setState] = React.useState({
+    open: false,
+    vertical: 'top',
+    horizontal: 'center',
+  });
+  const { vertical, horizontal, open } = state;
+
+  const handleClick = (newState) => () => {
+    setState({ ...newState, open: true });
+  };
+
+  const handleClose = () => {
+    setState({ ...state, open: false });
+  };
+
+  const buttons = (
+    <React.Fragment>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button onClick={handleClick({ vertical: 'top', horizontal: 'center' })}>
+          Top-Center
+        </Button>
+      </Box>
+      <Grid container sx={{ justifyContent: 'center' }}>
+        <Grid size={6}>
+          <Button onClick={handleClick({ vertical: 'top', horizontal: 'left' })}>
+            Top-Left
+          </Button>
+        </Grid>
+        <Grid sx={{ textAlign: 'right' }} size={6}>
+          <Button onClick={handleClick({ vertical: 'top', horizontal: 'right' })}>
+            Top-Right
+          </Button>
+        </Grid>
+        <Grid size={6}>
+          <Button onClick={handleClick({ vertical: 'bottom', horizontal: 'left' })}>
+            Bottom-Left
+          </Button>
+        </Grid>
+        <Grid sx={{ textAlign: 'right' }} size={6}>
+          <Button onClick={handleClick({ vertical: 'bottom', horizontal: 'right' })}>
+            Bottom-Right
+          </Button>
+        </Grid>
+      </Grid>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button onClick={handleClick({ vertical: 'bottom', horizontal: 'center' })}>
+          Bottom-Center
+        </Button>
+      </Box>
+    </React.Fragment>
+  );
+
+  return (
+    <Box sx={{ width: 500 }}>
+      {buttons}
+      <Snackbar
+        anchorOrigin={{ vertical, horizontal }}
+        open={open}
+        onClose={handleClose}
+        message="I love snacks"
+        key={vertical + horizontal}
+      />
+    </Box>
+  );
+}
+```
+</details>
+
+### Content
+
+Use the `SnackbarContent()` component to add text and actions to the Snackbar.
+
+```{r}
+action <- Button(color = "secondary", size = "small", "lorem ipsum dolorem")
+
+muiMaterialPage(
+  CssBaseline(),
+  Stack(
+    spacing = 2,
+    sx = list(maxWidth = 600),
+    SnackbarContent(message = "I love snacks.", action = action),
+    SnackbarContent(
+      message = "I love candy. I love cookies. I love cupcakes. I love cheesecake. I love chocolate."
+    ),
+    SnackbarContent(message = "I love candy. I love cookies. I love cupcakes.", action = action),
+    SnackbarContent(
+      message = "I love candy. I love cookies. I love cupcakes. I love cheesecake. I love chocolate.",
+      action = action
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import Button from '@mui/material/Button';
+import Stack from '@mui/material/Stack';
+import SnackbarContent from '@mui/material/SnackbarContent';
+
+const action = (
+  <Button color="secondary" size="small">
+    lorem ipsum dolorem
+  </Button>
+);
+
+export default function LongTextSnackbar() {
+  return (
+    <Stack spacing={2} sx={{ maxWidth: 600 }}>
+      <SnackbarContent message="I love snacks." action={action} />
+      <SnackbarContent
+        message={
+          'I love candy. I love cookies. I love cupcakes. \
+          I love cheesecake. I love chocolate.'
+        }
+      />
+      <SnackbarContent
+        message="I love candy. I love cookies. I love cupcakes."
+        action={action}
+      />
+      <SnackbarContent
+        message={
+          'I love candy. I love cookies. I love cupcakes. \
+          I love cheesecake. I love chocolate.'
+        }
+        action={action}
+      />
+    </Stack>
+  );
+}
+```
+</details>
+
+### Automatic dismiss
+
+Use the `autoHideDuration` prop to automatically trigger the Snackbar's `onClose` function after a set period of time (in milliseconds).
+
+Make sure to [provide sufficient time](https://www.w3.org/WAI/WCAG22/Understanding/timing-adjustable.html) for the user to process the information displayed on it.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(href = "#/autohide-snackbar", "Open Snackbar"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "autohide-snackbar",
+        element = Snackbar(
+          open = TRUE,
+          autoHideDuration = 5000,
+          onClose = closeSnackbar,
+          message = "This Snackbar will be dismissed in 5 seconds."
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+
+export default function AutohideSnackbar() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button onClick={handleClick}>Open Snackbar</Button>
+      <Snackbar
+        open={open}
+        autoHideDuration={5000}
+        onClose={handleClose}
+        message="This Snackbar will be dismissed in 5 seconds."
+      />
+    </div>
+  );
+}
+```
+</details>
+
+### Transitions
+
+Use `slots$transition` and `slotProps$transition` to change the transition of
+the Snackbar from [Grow](transitions.html#grow) (the default) to others such as
+[Slide](transitions.html#slide). A component is expected, so it is passed as a
+JavaScript reference with `JS()`.
+
+```{r}
+transitions <- list(
+  grow = list(slots = list(transition = JS("jsmodule['@mui/material'].Grow"))),
+  fade = list(slots = list(transition = JS("jsmodule['@mui/material'].Fade"))),
+  slide = list(
+    slots = list(transition = JS("jsmodule['@mui/material'].Slide")),
+    slotProps = list(transition = list(direction = "up"))
+  )
+)
+
+muiMaterialPage(
+  CssBaseline(),
+  Button(href = "#/transition-snackbar/grow", "Grow Transition"),
+  Button(href = "#/transition-snackbar/fade", "Fade Transition"),
+  Button(href = "#/transition-snackbar/slide", "Slide Transition"),
+  RouterProvider(
+    router = createHashRouter(
+      lapply(names(transitions), function(name) {
+        Route(
+          path = paste0("transition-snackbar/", name),
+          element = do.call(Snackbar, c(
+            list(open = TRUE, onClose = closeSnackbar, message = "I love snacks", autoHideDuration = 1200),
+            transitions[[name]]
+          ))
+        )
+      }),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Fade from '@mui/material/Fade';
+import Slide from '@mui/material/Slide';
+import Grow from '@mui/material/Grow';
+
+function SlideTransition(props) {
+  return <Slide {...props} direction="up" />;
+}
+
+function GrowTransition(props) {
+  return <Grow {...props} />;
+}
+
+export default function TransitionsSnackbar() {
+  const [state, setState] = React.useState({
+    open: false,
+    Transition: Fade,
+  });
+
+  const handleClick = (Transition) => () => {
+    setState({
+      open: true,
+      Transition,
+    });
+  };
+
+  const handleClose = () => {
+    setState({
+      ...state,
+      open: false,
+    });
+  };
+
+  return (
+    <div>
+      <Button onClick={handleClick(GrowTransition)}>Grow Transition</Button>
+      <Button onClick={handleClick(Fade)}>Fade Transition</Button>
+      <Button onClick={handleClick(SlideTransition)}>Slide Transition</Button>
+      <Snackbar
+        open={state.open}
+        onClose={handleClose}
+        slots={{ transition: state.Transition }}
+        message="I love snacks"
+        key={state.Transition.name}
+        autoHideDuration={1200}
+      />
+    </div>
+  );
+}
+```
+</details>
+
+#### Control Slide direction
+
+You can change the direction of the [Slide](transitions.html#slide) transition, as in the following example:
+
+```{r}
+# The snackbar is at the bottom left, so "Left" slides it in from the right side
+directions <- c(Up = "up", Left = "right", Right = "left", Down = "down")
+directionButton <- function(label) Button(href = paste0("#/direction-snackbar/", directions[[label]]), label)
+
+muiMaterialPage(
+  CssBaseline(),
+  Box(
+    sx = list(width = 300),
+    Box(sx = list(display = "flex", justifyContent = "center"), directionButton("Up")),
+    Grid(
+      container = TRUE,
+      sx = list(justifyContent = "center"),
+      Grid(size = 6, directionButton("Left")),
+      Grid(sx = list(textAlign = "right"), size = 6, directionButton("Right"))
+    ),
+    Box(sx = list(display = "flex", justifyContent = "center"), directionButton("Down")),
+    RouterProvider(
+      router = createHashRouter(
+        lapply(unname(directions), function(direction) {
+          Route(
+            path = paste0("direction-snackbar/", direction),
+            element = Snackbar(
+              open = TRUE,
+              onClose = closeSnackbar,
+              slots = list(transition = JS("jsmodule['@mui/material'].Slide")),
+              slotProps = list(transition = list(direction = direction)),
+              message = "I love snacks"
+            )
+          )
+        }),
+        Route(path = "*", element = NULL)
+      )
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Box from '@mui/material/Box';
+import Grid from '@mui/material/Grid';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Slide from '@mui/material/Slide';
+
+function TransitionLeft(props) {
+  return <Slide {...props} direction="left" />;
+}
+
+function TransitionUp(props) {
+  return <Slide {...props} direction="up" />;
+}
+
+function TransitionRight(props) {
+  return <Slide {...props} direction="right" />;
+}
+
+function TransitionDown(props) {
+  return <Slide {...props} direction="down" />;
+}
+
+export default function DirectionSnackbar() {
+  const [open, setOpen] = React.useState(false);
+  const [transition, setTransition] = React.useState(undefined);
+
+  const handleClick = (Transition) => () => {
+    setTransition(() => Transition);
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  return (
+    <Box sx={{ width: 300 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button onClick={handleClick(TransitionUp)}>Up</Button>
+      </Box>
+      <Grid container sx={{ justifyContent: 'center' }}>
+        <Grid size={6}>
+          <Button onClick={handleClick(TransitionRight)}>Left</Button>
+        </Grid>
+        <Grid sx={{ textAlign: 'right' }} size={6}>
+          <Button onClick={handleClick(TransitionLeft)}>Right</Button>
+        </Grid>
+      </Grid>
+      <Box sx={{ display: 'flex', justifyContent: 'center' }}>
+        <Button onClick={handleClick(TransitionDown)}>Down</Button>
+      </Box>
+      <Snackbar
+        open={open}
+        onClose={handleClose}
+        slots={{ transition }}
+        message="I love snacks"
+        key={transition ? transition.name : ''}
+      />
+    </Box>
+  );
+}
+```
+</details>
+
+## Customization
+
+### Preventing default click away event
+
+If you would like to prevent the default `onClickAway` behavior, you can set the event's `defaultMuiPrevented` property to `true`:
+
+```r
+Snackbar(
+  slotProps = list(
+    clickAwayListener = list(
+      # Prevents the default 'onClickAway' behavior
+      onClickAway = JS("(event) => { event.defaultMuiPrevented = true; }")
+    )
+  )
+)
+```
+
+### Use with Alerts
+
+Use an [Alert](alert.html) inside a Snackbar for messages that communicate a certain severity.
+
+```{r}
+muiMaterialPage(
+  CssBaseline(),
+  Button(href = "#/alert-snackbar", "Open Snackbar"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(
+        path = "alert-snackbar",
+        element = Snackbar(
+          open = TRUE,
+          autoHideDuration = 6000,
+          onClose = closeSnackbar,
+          Alert(
+            onClose = closeSnackbar,
+            severity = "success",
+            variant = "filled",
+            sx = list(width = "100%"),
+            "This is a success Alert inside a Snackbar!"
+          )
+        )
+      ),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import Alert from '@mui/material/Alert';
+
+export default function CustomizedSnackbars() {
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  return (
+    <div>
+      <Button onClick={handleClick}>Open Snackbar</Button>
+      <Snackbar open={open} autoHideDuration={6000} onClose={handleClose}>
+        <Alert
+          onClose={handleClose}
+          severity="success"
+          variant="filled"
+          sx={{ width: '100%' }}
+        >
+          This is a success Alert inside a Snackbar!
+        </Alert>
+      </Snackbar>
+    </div>
+  );
+}
+```
+</details>
+
+### Use with Floating Action Buttons
+
+If you're using a [Floating Action Button](floating-action-button.html) on mobile, Material Design recommends positioning snackbars directly above it, as shown in the demo below.
+The demo is rendered in a framed box whose `transform` keeps the fixed-position
+snackbar inside it:
+
+```{r}
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Box(
+    sx = list(
+      position = "relative", height = 300, maxWidth = 400, overflow = "hidden",
+      transform = "translateZ(0)", border = 1, borderColor = "divider", bgcolor = "background.paper"
+    ),
+    AppBar(
+      position = "static",
+      color = "primary",
+      Toolbar(
+        IconButton(edge = "start", sx = list(mr = 2), color = "inherit", `aria-label` = "menu", Icon("menu")),
+        Typography(variant = "h6", component = "div", sx = list(color = "inherit"), "App bar")
+      )
+    ),
+    Fab(color = "secondary", sx = list(position = "absolute", bottom = 16, right = 16), Icon("add")),
+    Snackbar(
+      open = TRUE,
+      message = "Archived",
+      action = Button(color = "inherit", size = "small", "Undo"),
+      sx = list(bottom = list(xs = 90, sm = 90))
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import AppBar from '@mui/material/AppBar';
+import CssBaseline from '@mui/material/CssBaseline';
+import GlobalStyles from '@mui/material/GlobalStyles';
+import Toolbar from '@mui/material/Toolbar';
+import IconButton from '@mui/material/IconButton';
+import MenuIcon from '@mui/icons-material/Menu';
+import Typography from '@mui/material/Typography';
+import Button from '@mui/material/Button';
+import Fab from '@mui/material/Fab';
+import AddIcon from '@mui/icons-material/Add';
+import Snackbar from '@mui/material/Snackbar';
+
+export default function FabIntegrationSnackbar() {
+  return (
+    <React.Fragment>
+      <CssBaseline />
+      <GlobalStyles
+        styles={(theme) => ({
+          body: { backgroundColor: theme.palette.background.paper },
+        })}
+      />
+      <div>
+        <AppBar position="static" color="primary">
+          <Toolbar>
+            <IconButton
+              edge="start"
+              sx={{ mr: 2 }}
+              color="inherit"
+              aria-label="menu"
+            >
+              <MenuIcon />
+            </IconButton>
+            <Typography
+              variant="h6"
+              component="div"
+              sx={{
+                color: 'inherit',
+              }}
+            >
+              App bar
+            </Typography>
+          </Toolbar>
+        </AppBar>
+        <Fab
+          color="secondary"
+          sx={(theme) => ({
+            position: 'absolute',
+            bottom: theme.spacing(2),
+            right: theme.spacing(2),
+          })}
+        >
+          <AddIcon />
+        </Fab>
+        <Snackbar
+          open
+          autoHideDuration={6000}
+          message="Archived"
+          action={
+            <Button color="inherit" size="small">
+              Undo
+            </Button>
+          }
+          sx={{ bottom: { xs: 90, sm: 0 } }}
+        />
+      </div>
+    </React.Fragment>
+  );
+}
+```
+</details>
+
+## Common examples
+
+### Consecutive Snackbars
+
+This demo shows how to display multiple Snackbars without stacking them. Each
+message is its own route, so showing message B while message A is open replaces
+it.
+
+```{r}
+consecutiveSnackbar <- function(message) {
+  Snackbar(
+    open = TRUE,
+    autoHideDuration = 6000,
+    onClose = closeSnackbar,
+    message = message,
+    action = tagList(
+      Button(color = "secondary", size = "small", href = "#/", "UNDO"),
+      IconButton(`aria-label` = "close", color = "inherit", sx = list(p = 0.5), href = "#/", Icon("close"))
+    )
+  )
+}
+
+muiMaterialPage(
+  useMaterialIconsFilled = TRUE,
+  CssBaseline(),
+  Button(href = "#/consecutive-snackbar/a", "Show message A"),
+  Button(href = "#/consecutive-snackbar/b", "Show message B"),
+  RouterProvider(
+    router = createHashRouter(
+      Route(path = "consecutive-snackbar/a", element = consecutiveSnackbar("Message A")),
+      Route(path = "consecutive-snackbar/b", element = consecutiveSnackbar("Message B")),
+      Route(path = "*", element = NULL)
+    )
+  )
+)
+```
+
+<details><summary>JS code</summary>
+```jsx
+import * as React from 'react';
+import Button from '@mui/material/Button';
+import Snackbar from '@mui/material/Snackbar';
+import IconButton from '@mui/material/IconButton';
+import CloseIcon from '@mui/icons-material/Close';
+
+export default function ConsecutiveSnackbars() {
+  const [snackPack, setSnackPack] = React.useState([]);
+  const [open, setOpen] = React.useState(false);
+  const [messageInfo, setMessageInfo] = React.useState(undefined);
+
+  React.useEffect(() => {
+    if (snackPack.length && !messageInfo) {
+      // Set a new snack when we don't have an active one
+      setMessageInfo({ ...snackPack[0] });
+      setSnackPack((prev) => prev.slice(1));
+      setOpen(true);
+    } else if (snackPack.length && messageInfo && open) {
+      // Close an active snack when a new one is added
+      setOpen(false);
+    }
+  }, [snackPack, messageInfo, open]);
+
+  const handleClick = (message) => () => {
+    setSnackPack((prev) => [...prev, { message, key: new Date().getTime() }]);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+    setOpen(false);
+  };
+
+  const handleExited = () => {
+    setMessageInfo(undefined);
+  };
+
+  return (
+    <div>
+      <Button onClick={handleClick('Message A')}>Show message A</Button>
+      <Button onClick={handleClick('Message B')}>Show message B</Button>
+      <Snackbar
+        key={messageInfo ? messageInfo.key : undefined}
+        open={open}
+        autoHideDuration={6000}
+        onClose={handleClose}
+        slotProps={{ transition: { onExited: handleExited } }}
+        message={messageInfo ? messageInfo.message : undefined}
+        action={
+          <React.Fragment>
+            <Button color="secondary" size="small" onClick={handleClose}>
+              UNDO
+            </Button>
+            <IconButton
+              aria-label="close"
+              color="inherit"
+              sx={{ p: 0.5 }}
+              onClick={handleClose}
+            >
+              <CloseIcon />
+            </IconButton>
+          </React.Fragment>
+        }
+      />
+    </div>
+  );
+}
+```
+</details>
+
+## Accessibility
+
+The user should be able to dismiss Snackbars by pressing <kbd class="key">Escape</kbd>. If there are multiple instances appearing at the same time and you want <kbd class="key">Escape</kbd> to dismiss only the oldest one that's currently open, call `event.preventDefault` in the `onClose` prop.
+
+## Anatomy
+
+The Snackbar component is composed of a root `<div>` that houses interior elements like the Snackbar Content and other optional components (such as buttons or decorators).
+
+```html
+<div role="presentation" class="MuiSnackbar-root">
+  <div class="MuiPaper-root MuiSnackbarContent-root" role="alert">
+    <div class="MuiSnackbarContent-message">
+      <!-- Snackbar content goes here -->
+    </div>
+  </div>
+</div>
+```
+
+## Snackbars in Shiny apps
+
+Snackbars often report the result of server work ("Saved", "Upload failed").
+With `Snackbar.shinyInput()`, the server opens the snackbar with
+`updateSnackbar.shinyInput()`, and can change the message at the same time. The
+wrapper does not manage `open`, so close it again from `onClose`:
+
+```{r eval=FALSE}
+library(shiny)
+library(muiMaterial)
+
+ui <- muiMaterialPage(
+  CssBaseline(),
+  Button.shinyInput("save", "Save", variant = "contained"),
+  Snackbar.shinyInput(
+    inputId = "snackbar",
+    open = FALSE,
+    autoHideDuration = 3000,
+    message = "",
+    onClose = triggerEvent("snackbar_close"),
+    anchorOrigin = list(vertical = "bottom", horizontal = "center")
+  )
+)
+
+server <- function(input, output, session) {
+  observeEvent(input$save, {
+    Sys.sleep(1) # some server work
+    updateSnackbar.shinyInput(
+      inputId = "snackbar",
+      open = TRUE,
+      message = paste("Saved at", format(Sys.time(), "%H:%M:%S"))
+    )
+  })
+  observeEvent(input$snackbar_close, {
+    updateSnackbar.shinyInput(inputId = "snackbar", open = FALSE)
+  })
+}
+
+shinyApp(ui, server)
+```
+
+Run the bundled version with `muiMaterialExample("Snackbar")`.

@@ -1,3 +1,33 @@
+# muiMaterial (development version)
+
+## Bug fixes
+
+- `muiMaterialPage()`: the Google Fonts links requested with `useFontRoboto`
+  and `useMaterialIcons*` are now HTML dependencies instead of `tags$head()`
+  children. knitr drops `tags$head()` content, so the fonts (and therefore
+  `Icon()`) were missing from R Markdown and Quarto documents and from the
+  pkgdown website; they only worked in Shiny apps. The links are now also
+  de-duplicated when several pages request the same font.
+
+## Documentation
+
+- 45 new articles. 39 component pages are adapted from the MUI Material UI
+  documentation (v9.1.2): same sections, live demos in R, and the original
+  React code. Overlays (Dialog, Drawer, Snackbar, ...) and other stateful demos
+  keep their state in the URL with reactRouter, so they run in the static
+  website. New guides: "Shiny inputs and server updates", "Overlays with
+  .triggerId", "Theming", "Quarto and R Markdown", "Custom components" and
+  "Examples gallery".
+- the website navbar follows the MUI categories (Inputs, Data Display,
+  Feedback, Surfaces, Navigation, Layout, Utils).
+- examples for the help pages of the most used components and of the
+  `.triggerId()` wrappers that had none.
+- `BottomNavigation.shinyInput()`, `FilledInput.shinyInput()`,
+  `ListItemButton.shinyInput()` and `NativeSelect.shinyInput()` are listed in
+  the reference index.
+- the `CustomComponentShinyInput` and `CustomComponentShinyInputStyled`
+  examples no longer use an undefined `defaultValue` as default `value`.
+
 # muiMaterial 0.2.3
 
 ## New features
