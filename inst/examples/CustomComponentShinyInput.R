@@ -17,11 +17,11 @@ CustomComponents <- tags$script(HTML(
 })();"
 ))
 
-UpperCaseTextField <- function(inputId, ..., value = defaultValue) {
+UpperCaseTextField <- function(inputId, ..., value = "") {
   shiny.react::reactElement(
     module = "CustomComponents",
     name = "UpperCaseTextField",
-    props = shiny.react::asProps(inputId = inputId, ..., value = ""),
+    props = shiny.react::asProps(inputId = inputId, ..., value = value),
     deps = muiMaterial::muiMaterialDependency()
   )
 }

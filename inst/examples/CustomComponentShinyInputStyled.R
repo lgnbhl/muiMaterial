@@ -27,7 +27,7 @@ CustomComponents <- tags$script(HTML(
 })();"
 ))
 
-SliderCustom <- function(inputId, ..., value = defaultValue) {
+SliderCustom <- function(inputId, ..., value = 0) {
   shiny.react::reactElement(
     module = "CustomComponents",
     name = "SliderCustom",
