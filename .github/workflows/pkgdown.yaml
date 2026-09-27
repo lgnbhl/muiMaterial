@@ -24,7 +24,7 @@ jobs:
     env:
       GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
     steps:
-      - uses: actions/checkout@v7
+      - uses: actions/checkout@v7.0.1
 
       - uses: r-lib/actions/setup-pandoc@v2.12.1
 
@@ -52,7 +52,7 @@ jobs:
       # is scoped to this repo only and cannot write to another repo.
       - name: Check out the site repository
         if: github.event_name != 'pull_request'
-        uses: actions/checkout@v7
+        uses: actions/checkout@v7.0.1
         with:
           repository: lgnbhl/lgnbhl.github.io
           ssh-key: ${{ secrets.DEPLOY_PAT }}

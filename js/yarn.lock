@@ -1411,7 +1411,7 @@
   resolved "https://registry.yarnpkg.com/@standard-schema/spec/-/spec-1.1.0.tgz#a79b55dbaf8604812f52d140b2c9ab41bc150bb8"
   integrity sha512-l2aFy5jALhniG5HgqrD6jXLi/rUWrKvqN/qJx6yoJsgKhblVd+iqqU4RCXavm/jPityDo5TCvKMnpjKnOriy0w==
 
-"@testing-library/dom@^10.4.1":
+"@testing-library/dom@10.4.1":
   version "10.4.1"
   resolved "https://registry.yarnpkg.com/@testing-library/dom/-/dom-10.4.1.tgz#d444f8a889e9a46e9a3b4f3b88e0fcb3efb6cf95"
   integrity sha512-o4PXJQidqJl82ckFaXUeoAW+XysPLauYI43Abki5hABd853iMhitooc6znOnczgbTYmEP6U6/y1ZyKAIsvMKGg==
@@ -1425,7 +1425,7 @@
     picocolors "1.1.1"
     pretty-format "^27.0.2"
 
-"@testing-library/react@^16.3.2":
+"@testing-library/react@16.3.2":
   version "16.3.2"
   resolved "https://registry.yarnpkg.com/@testing-library/react/-/react-16.3.2.tgz#672883b7acb8e775fc0492d9e9d25e06e89786d0"
   integrity sha512-XU5/SytQM+ykqMnAnvB2umaJNIOsLF3PVv//1Ew4CTcpz0/BRyy/af40qqrt7SjKpDdT1saBMc42CUok5gaw+g==
@@ -2307,7 +2307,7 @@ js-tokens@^10.0.0:
   resolved "https://registry.yarnpkg.com/js-tokens/-/js-tokens-4.0.0.tgz#19203fb59991df98e3a287050d4647cdeaf32499"
   integrity sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==
 
-jsdom@^29.1.1:
+jsdom@29.1.1:
   version "29.1.1"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-29.1.1.tgz#5b9704906f3cd510c34aa941ae2f8f7f8179df01"
   integrity sha512-ECi4Fi2f7BdJtUKTflYRTiaMxIB0O6zfR1fX0GXpUrf6flp8QIYn1UT20YQqdSOfk2dfkCwS8LAFoJDEppNK5Q==
@@ -3095,7 +3095,7 @@ update-browserslist-db@^1.2.0:
   optionalDependencies:
     fsevents "~2.3.3"
 
-vitest@^4.1.9:
+vitest@4.1.9:
   version "4.1.9"
   resolved "https://registry.yarnpkg.com/vitest/-/vitest-4.1.9.tgz#98f22fbd70e2a18c4a92bb20624bc92e5dfac5f3"
   integrity sha512-nE3/LEyc0z87uHYLZebqCUOaJr2hdtuPp7BQ4BosVFnfltxgAvMG08NyrSGlPpOUWvR27c5flSmYFTNr78L9GQ==
