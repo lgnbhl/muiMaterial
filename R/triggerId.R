@@ -49,6 +49,11 @@ Drawer.triggerId <- trigger("MuiDrawerTriggerId")
 #'   and `onClose` are composed with (called after) the wrapper's own
 #'   handlers rather than replacing them.
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
+#' @examples
+#' htmltools::tagList(
+#'   Button(id = "open-menu", "Dashboard"),
+#'   Menu.triggerId("open-menu", MenuItem("Profile"), MenuItem("Logout"))
+#' )
 #' @export
 Menu.triggerId <- trigger("MuiMenuTriggerId")
 
@@ -68,6 +73,14 @@ Menu.triggerId <- trigger("MuiMenuTriggerId")
 #'   prop is owned by the wrapper; caller-supplied \code{onClose}/\code{onOpen}
 #'   are called after the wrapper updates its own state.
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
+#' @examples
+#' htmltools::tagList(
+#'   Button(id = "open-swipeable", "Open"),
+#'   SwipeableDrawer.triggerId(
+#'     "open-swipeable", anchor = "bottom", width = "auto",
+#'     Box(sx = list(p = 2), "Content")
+#'   )
+#' )
 #' @export
 SwipeableDrawer.triggerId <- trigger("MuiSwipeableDrawerTriggerId")
 
@@ -105,6 +118,18 @@ Dialog.triggerId <- trigger("MuiDialogTriggerId")
 #' @param triggerId HTML id of an existing DOM element that acts as the trigger to open the Modal.
 #' @param ... Named arguments forwarded as React props, plus children to render inside the component.
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
+#' @examples
+#' htmltools::tagList(
+#'   Button(id = "open-modal", "Open modal"),
+#'   Modal.triggerId(
+#'     "open-modal",
+#'     Box(
+#'       sx = list(position = "absolute", top = "50%", left = "50%",
+#'         transform = "translate(-50%, -50%)", bgcolor = "background.paper", p = 4),
+#'       "Modal content"
+#'     )
+#'   )
+#' )
 #' @export
 Modal.triggerId <- trigger("MuiModalTriggerId")
 
@@ -116,5 +141,11 @@ Modal.triggerId <- trigger("MuiModalTriggerId")
 #' @param triggerId HTML id of an existing DOM element that acts as the anchor/trigger for the Popover.
 #' @param ... Named arguments forwarded as React props, plus children to render inside the component.
 #' @return Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
+#' @examples
+#' htmltools::tagList(
+#'   Button(id = "open-popover", "Open popover"),
+#'   Popover.triggerId("open-popover", anchorOrigin = list(vertical = "bottom", horizontal = "left"),
+#'     Typography(sx = list(p = 2), "The content of the Popover."))
+#' )
 #' @export
 Popover.triggerId <- trigger("MuiPopoverTriggerId")

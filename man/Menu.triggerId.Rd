@@ -25,3 +25,9 @@ Custom Menu bound to a DOM element by id. See 'js/src/MuiMenuTriggerId.jsx'.
 Pass `closeOnItemClick = FALSE` to disable auto-close on click (useful when the
 menu contains interactive children like checkboxes).
 }
+\examples{
+htmltools::tagList(
+  Button(id = "open-menu", "Dashboard"),
+  Menu.triggerId("open-menu", MenuItem("Profile"), MenuItem("Logout"))
+)
+}

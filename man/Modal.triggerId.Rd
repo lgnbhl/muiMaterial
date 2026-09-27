@@ -18,3 +18,16 @@ Object with `shiny.tag` class suitable for use in the UI of a Shiny app.
 Custom Modal bound to a DOM element by id. See 'js/src/MuiModalTriggerId.jsx'.
 Open/close state is managed entirely client-side.
 }
+\examples{
+htmltools::tagList(
+  Button(id = "open-modal", "Open modal"),
+  Modal.triggerId(
+    "open-modal",
+    Box(
+      sx = list(position = "absolute", top = "50\%", left = "50\%",
+        transform = "translate(-50\%, -50\%)", bgcolor = "background.paper", p = 4),
+      "Modal content"
+    )
+  )
+)
+}

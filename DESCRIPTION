@@ -48,6 +48,7 @@ Collate:
     'components.R'
     'docs-templates.R'
     'documentation.R'
+    'examples.R'
     'inputs.R'
     'muiMaterial-package.R'
     'muiMaterialDependency.R'
