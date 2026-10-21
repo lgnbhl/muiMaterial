@@ -12,6 +12,7 @@ dev/*
 # Keep the MUI scraper that regenerates R/components.R, R/documentation.R and
 # the per-component tests (excluded from the package build via .Rbuildignore).
 !dev/generate-components-docs-tests.R
+!dev/logo/
 data-raw
 inst/doc
 /.quarto/
