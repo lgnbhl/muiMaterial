@@ -46,6 +46,11 @@ h1, h2, h3, h4 { font-weight: 600; letter-spacing: -0.02em; color: var(--site-in
 main h1 { letter-spacing: -0.03em; }
 main pre, main div.sourceCode { background: #1C1917; color: #E8E2DC; border: 0; }
 [data-bs-theme="dark"] main :is(pre, div.sourceCode) { background: #26221E; }
+/* Function links in code: pkgdown underlines them in the body colour, which
+   is invisible on the dark blocks in light mode and loud in dark mode. Same
+   in both: no line, one on hover. */
+main pre code a:any-link { text-decoration: none; }
+main pre code a:any-link:hover { text-decoration: underline; text-decoration-color: rgba(232, 226, 220, 0.5); }
 footer { border-top: 1px solid var(--site-line); }
 
 /* --- small touches ---------------------------------------------------------- */
@@ -81,6 +86,11 @@ main :is(p, li, td):not(.buttons) > a:not(.anchor):not(:has(img)):hover {
 /* The hex logo lifts like a sticker of the felixluginbuhl.com honeycomb.
    Scale only: a turned hexagon reads as lopsided. */
 .page-header img.logo { transition: transform 0.18s ease; }
+/* pkgdown sizes the header for an 88px logo; the hex is 120px wide, so
+   ~139px tall, and would hang over the first block of the page. */
+@media (min-width: 576px) {
+  .page-header { min-height: 140px; }
+}
 .page-header img.logo:hover { transform: translateY(-5px) scale(1.18); }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -187,6 +197,26 @@ main table th { white-space: nowrap; }
 .callout-tip { border-left-color: var(--site-primary); background: rgba(var(--site-primary-rgb), 0.08); }
 .callout-warning { border-left-color: var(--site-amber); background: var(--site-amber-soft); }
 .callout-note { font-size: 0.95em; }
+
+/* The "adaptation of the MUI docs" notice of the component articles is a
+   Bootstrap .alert-primary: give it the look of .callout-tip instead of
+   Bootstrap's blue box. */
+main .alert-primary {
+  padding: 0.9rem 1.1rem;
+  border: 1px solid var(--site-line);
+  border-left: 4px solid var(--site-primary);
+  border-radius: 10px;
+  background: rgba(var(--site-primary-rgb), 0.08);
+  color: var(--bs-body-color);
+}
+main .alert-primary a {
+  color: var(--site-primary);
+  font-weight: inherit;
+  text-decoration: none;
+  background: linear-gradient(rgba(var(--site-primary-rgb), 0.16), rgba(var(--site-primary-rgb), 0.16))
+    0 100% / 100% 2px no-repeat;
+}
+main .alert-primary a:hover { background-size: 100% 100%; }
 
 /* --- home page link buttons -------------------------------------------- */
 /* README.md: <p class="buttons"><a>...</a></p>. GitHub drops the class and

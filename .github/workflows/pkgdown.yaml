@@ -2,9 +2,9 @@
 # Builds the pkgdown site and deploys it into the muiMaterial/ subfolder of the
 # lgnbhl/lgnbhl.github.io user site, served at https://felixluginbuhl.com/muiMaterial/
 # (= https://lgnbhl.github.io/muiMaterial/).
+# Published only on a release (or run by hand), so the site matches the CRAN
+# version; pull requests only check that the site builds.
 on:
-  push:
-    branches: [main]
   pull_request:
   release:
     types: [published]
